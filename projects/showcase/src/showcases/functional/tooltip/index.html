@@ -1,0 +1,57 @@
+<!-- Description -->
+<h5> Basic Tooltip Element </h5>
+Displays a tooltip HTML component
+
+<!-- Examples -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Examples </div>
+  <div class="p-3">
+
+    <ng-container *ngFor="let position of attributes.iquiTooltipPosition">
+      <br *ngIf="position.split(' ').length === 1" />
+      <iqui-button class="m-1" theme="light"
+          [iquiTooltip]="'Tooltip'" [iquiTooltipPosition]="position">
+        Tooltip "{{position}}"
+      </iqui-button>
+    </ng-container>
+
+  </div>
+</div>
+
+<!-- Basic usage -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Usage </div>
+  <pre class="p-3">
+    <code>
+      
+      &lt;div
+        [iquiTooltip="Tooltip content"]
+        [iquiTooltipPosition="{{attributes.iquiTooltipPosition.join('|')}}"]
+        [iquiTooltipShowOnFocus="true|false"]
+        [iquiTooltipShowOnHover="true|false"]
+      &gt;
+        Host component content
+      &lt;/div&gt;
+
+    </code>
+  </pre>
+</div>
+
+<!-- Playground -->
+<div class="card mb-3">
+  <div class="card-header"> Playground </div>
+  <iqui-showcase-playground [name]="'div'" [attributes]="attributes" [content]="content">
+    <!-- Render styled button -->
+    <ng-container *iquiShowcasePlayground="let custom">
+      <div class="card-footer">
+        <iqui-button class="m-2" theme="primary"
+          [iquiTooltip]="custom.attributes.iquiTooltip"
+          [iquiTooltipPosition]="custom.attributes.iquiTooltipPosition"
+          [iquiTooltipShowOnFocus]="custom.attributes.iquiTooltipShowOnFocus"
+          [iquiTooltipShowOnHover]="custom.attributes.iquiTooltipShowOnHover">
+          {{custom.content}}
+        </iqui-button>
+      </div>
+    </ng-container>
+  </iqui-showcase-playground>
+</div>

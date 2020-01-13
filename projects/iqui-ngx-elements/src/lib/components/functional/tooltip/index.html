@@ -1,0 +1,13 @@
+<!-- Tooltip -->
+<div [class]="composedClassValue">
+  <!-- <div class="arrow"></div> -->
+  <div class="tooltip-inner">
+
+    <!-- Show content if component created directly as <iqui-tooltip /> -->
+    <ng-content></ng-content>    
+
+    <!-- Show content if component created via [iquiTooltip] directive -->
+    {{content}}
+
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<!-- Description -->
+<h5> Basic Button Element </h5>
+Displays a button-styled button or anchor HTML element
+
+<!-- Examples -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Examples </div>
+  <div class="row p-3">
+    <span class="p-2" *ngFor="let theme of attributes.theme">
+      <iqui-button [disabled]="false" [size]="'sm'" [theme]="theme">
+        <span> Button <span *ngIf="theme">"{{theme}}"</span> </span>
+      </iqui-button>
+    </span>
+  </div>
+</div>
+
+<!-- Basic usage -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Usage </div>
+  <pre class="p-3">
+    <code>
+      
+      &lt;iqui-button
+        [disabled="false"]
+        [ngClass="{{'{}'}}"]
+        [class=""]
+        [size="{{attributes.size.slice(0, -1).join('|')}}"]
+        [theme="{{attributes.theme.slice(0, -1).join('|')}}"]
+        [href="https://example.com"]
+        [target="{{attributes.target.join('|')}}"]
+      &gt;
+        Button content
+      &lt;/iqui-button&gt;
+
+    </code>
+  </pre>
+</div>
+
+<!-- Playground -->
+<div class="card mb-3">
+  <div class="card-header"> Playground </div>
+  <iqui-showcase-playground [name]="'iqui-button'" [attributes]="attributes" [content]="content">
+    <!-- Render styled button -->
+    <ng-container *iquiShowcasePlayground="let custom">
+      <div class="card-footer">
+        <iqui-button
+          [disabled]="custom.attributes.disabled"
+          [ngClass] ="custom.attributes.ngClass"
+          [class]   ="custom.attributes.class"
+          [href]    ="custom.attributes.href"
+          [target]  ="custom.attributes.target"
+          [size]    ="custom.attributes.size"
+          [theme]   ="custom.attributes.theme">
+          {{ custom.content }}
+        </iqui-button>
+      </div>
+    </ng-container>
+  </iqui-showcase-playground>
+</div>

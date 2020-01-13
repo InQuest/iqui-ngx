@@ -1,0 +1,10 @@
+// Bootstrap style imports
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/startbootstrap-sb-admin/scss/sb-admin";
+// Import angular CDK structural styling
+@import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
+
+// Global styling
+* {
+  font-family: monospace;
+}

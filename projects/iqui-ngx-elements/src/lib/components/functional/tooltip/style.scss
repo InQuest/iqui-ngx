@@ -1,0 +1,16 @@
+// General styling
+:host {
+  display: block;
+  pointer-events: none;
+
+  .tooltip {
+    position: unset;
+    pointer-events: none;
+    opacity: 0;
+
+    &.tooltip-visible {
+      pointer-events: unset;
+      opacity: 1;
+    }
+  } 
+}

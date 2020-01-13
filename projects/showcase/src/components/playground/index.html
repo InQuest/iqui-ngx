@@ -1,0 +1,44 @@
+<!-- Usage -->
+<div class="p-3">
+  &lt;{{name}} <br/>
+
+  <!-- Attributes -->
+  <span class="attribute" *ngFor="let key of attributeKeys">
+    &nbsp;&nbsp; {{key.padStart(32, '&nbsp;')}}="
+      <span class="edit">
+
+        <!-- Select enum value -->
+        <span *ngIf="isAttributeArray(key)">
+          <select [value]="attributeValues[key]" (change)="selectAttributeValue(key, $event)">
+            <option *ngFor="let value of attributes[key]" [value]="value"> {{value}} </option>
+          </select>
+        </span>
+
+        <!-- String editor -->
+        <span *ngIf="!isAttributeArray(key) && getAttributeType(key) === 'string'">
+          <input type="text" [value]="attributeValues[key]" (change)="attributeValues[key] = $event.target.value" />
+        </span>
+
+        <!-- Object editor -->
+        <span *ngIf="!isAttributeArray(key) && getAttributeType(key) === 'object'"> {{'{'}} ... {{'}'}} </span>
+
+      </span>
+    "
+    <br/>
+  </span>
+
+  &gt; <br />
+
+  <!-- Content -->
+  &nbsp;&nbsp;
+  <span class="attribute">
+    <span class="edit">
+      <textarea class="content" [value]="contentValue" (change)="contentValue = $event.target.value"></textarea>
+    </span>
+  </span> <br />
+
+  &lt;/{{name}}&gt;
+</div>
+
+<!-- Live example -->
+<ng-container *ngTemplateOutlet="template, context: { $implicit: { attributes: attributeValues, content: contentValue } }"></ng-container>

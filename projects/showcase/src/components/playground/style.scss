@@ -1,0 +1,29 @@
+:host {
+  font-family: monospace;
+
+  .attribute {
+    display: block;
+    margin-top: 2px;
+    .edit {
+      display: inline;
+
+      select {
+        width: 120px;
+        font-size: 11px;
+      }
+      input {
+        width: 120px;
+        font-size: 11px;
+      }
+      textarea.content {
+        width: 420px;
+        min-width: 420px;
+        max-width: 420px;    
+        height: 120px;
+        min-height: 120px;
+        font-size: 11px;    
+      }
+
+    }
+  }
+}
