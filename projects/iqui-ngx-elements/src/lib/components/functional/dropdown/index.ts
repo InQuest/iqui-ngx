@@ -1,54 +1,93 @@
-// Tooltip component
+// Dropdown component
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, Directive, OnInit, OnChanges, OnDestroy, Input, ElementRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Directive, OnInit, AfterViewInit, OnChanges, OnDestroy, Input, ElementRef, ComponentRef, TemplateRef, ChangeDetectorRef, ContentChild } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
+import { Direct } from 'protractor/built/driverProviders';
 
 // Define and export types
-export type TooltipRelativePositioning = 'auto' | RelativePositioning;
+export type DropdownRelativePositioning = 'auto' | RelativePositioning;
 
 // Export directive:
-// Adds a tooltip to a HTML element or Angular component
+// Adds a dropdown to a HTML element or Angular component
 //
 // Usage:
 //
 //  <anything
-//      iquiTooltip             = "Tooltip content"
-//    [ iquiTooltipPosition     = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
-//    [ iquiTooltipShowOnFocus  = "true|false" ]
-//    [ iquiTooltipShowOnHover  = "true|false" ]
+//      iquiDropdown            = "Dropdown content"
+//    [ iquiDropdownPosition    = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
+//    [ iquiDropdownShowOnFocus = "true|false" ]
+//    [ iquiDropdownShowOnHover = "true|false" ]
+//
+//    <ng-container *iqDropdownHeader>
+//     Dropdown header
+//    </ng-container>
+//    <ng-container *iqDropdownBody>
+//     Dropdown content
+//    </ng-container>
+//    <ng-container *iqDropdownFooter>
+//     Dropdown footer
+//    </ng-container>
+//
 //    Host component content
+//
 //  </anything>
 //
 @Directive({
-  selector: '[iquiTooltip]',
+  selector: '[iquiDropdownHeader]'
 })
-export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
-
-  // Content
-  @Input()
-  public iquiTooltip: string;
+export class DropdownHeaderDirective  {
+  constructor (public template: TemplateRef<any>) {}
+}
+@Directive({
+  selector: '[iquiDropdownBody]'
+})
+export class DropdownBodyDirective  {
+  constructor (public template: TemplateRef<any>) {}
+}
+@Directive({
+  selector: '[iquiDropdownFooter]'
+})
+export class DropdownFooterDirective  {
+  constructor (public template: TemplateRef<any>) {}
+}
+@Directive({
+  selector: '[iquiDropdown]',
+})
+export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   // Positioning
   @Input()
-  public iquiTooltipPosition: TooltipRelativePositioning = 'auto';
+  public iquiDropdownPosition: DropdownRelativePositioning = 'auto';
 
   // Show on focus
   @Input()
-  public iquiTooltipShowOnFocus = true;
+  public iquiDropdownShowOnFocus = true;
 
   // Show on hover
   @Input()
-  public iquiTooltipShowOnHover = true;
+  public iquiDropdownShowOnHover = false;
+
+  // Content header
+  @ContentChild(DropdownHeaderDirective, { static: false })
+  public header: DropdownHeaderDirective;
+
+  // Content body
+  @ContentChild(DropdownBodyDirective, { static: false })
+  public body: DropdownBodyDirective;
+
+  // Content footer
+  @ContentChild(DropdownFooterDirective, { static: false })
+  public footer: DropdownFooterDirective;
 
   // Holds overlay element reference
   private overlayRef: OverlayRef;
   // Holds component reference
-  private componentRef: ComponentRef<TooltipComponent>;
+  private componentRef: ComponentRef<DropdownComponent>;
   // Holds references to registered event's event listeners
   private eventListeners: Record<string, EventListenerOrEventListenerObject> = {};
 
@@ -62,13 +101,10 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     // Inject
     this.overlayRef = this.overlay.create();
-    this.componentRef = this.overlayRef.attach(new ComponentPortal(TooltipComponent));
+    this.componentRef = this.overlayRef.attach(new ComponentPortal(DropdownComponent));
 
     // Prevent from blocking clicks on elements behind it while hidden
     this.overlayRef.overlayElement.style.pointerEvents = 'none';
-
-    // Set properties
-    this.ngOnChanges();
 
     // Manage visibility (on focus)
     this.focusMonitor.monitor(this.element, true).subscribe((origin) => {
@@ -83,14 +119,21 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     }));
   }
 
+  public ngAfterViewInit () {
+    // Set properties
+    this.ngOnChanges();
+  }
+
   public ngOnChanges () {
 
     // Update properties
     if (this.componentRef) {
-      this.componentRef.instance.content = this.iquiTooltip;
-      this.componentRef.instance.position = this.iquiTooltipPosition;
-      this.componentRef.instance.showOnFocus = this.iquiTooltipShowOnFocus;
-      this.componentRef.instance.showOnHover = this.iquiTooltipShowOnHover;
+      this.componentRef.instance.header = this.header;
+      this.componentRef.instance.body = this.body;
+      this.componentRef.instance.footer = this.footer;
+      this.componentRef.instance.position = this.iquiDropdownPosition;
+      this.componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
+      this.componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
       this.componentRef.instance.rerenderComponent();
     }
 
@@ -108,11 +151,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         .withPositions([
           // Selected, preferred position
           // tslint:disable-next-line: max-line-length
-          ...(this.iquiTooltipPosition !== 'auto' ? [AngularCdkRelativePositioningDefinitions[this.iquiTooltipPosition]] : []),
+          ...(this.iquiDropdownPosition !== 'auto' ? [AngularCdkRelativePositioningDefinitions[this.iquiDropdownPosition]] : []),
           // Remaining positions in preference order
           ...(
             RelativePositioningPriority
-              .filter(key => (key !== this.iquiTooltipPosition))
+              .filter(key => (key !== this.iquiDropdownPosition))
               .map(key => AngularCdkRelativePositioningDefinitions[key])
           )
         ]);
@@ -144,34 +187,43 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 }
 
 // Export component:
-// Renders a tooltip
+// Renders a dropdown
 //
 // Usage:
 //
-//  <iqui-tooltip
+//  <iqui-dropdown
+//    [ header      = "..." ]
 //    [ content     = "..." ]
+//    [ footer      = "..." ]
 //    [ position    = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
 //    [ visible     = "true|false" ]
 //    [ showOnFocus = "true|false" ]
 //    [ showOnHover = "true|false" ]
 //  >
-//    Tooltip content
-//  </iqui-tooltip>
+//
+//    <iq-dropdown-header>
+//      Header content
+//    </iq-dropdown-header>
+//    <iq-dropdown-body>
+//      Body content
+//    </iq-dropdown-body>
+//    <iq-dropdown-footer>
+//      Footer content
+//    </iq-dropdown-footer>
+//
+//    Dropdown content
+//  </iqui-dropdown>
 //
 @Component({
-  selector: 'iqui-tooltip',
+  selector: 'iqui-dropdown',
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-class TooltipComponent {
-
-  // Content
-  @Input()
-  public content: string;
+class DropdownComponent {
 
   // Positioning
   @Input()
-  public position: TooltipRelativePositioning = 'auto';
+  public position: DropdownRelativePositioning = 'auto';
 
   // Visibility
   @Input()
@@ -192,8 +244,14 @@ class TooltipComponent {
   // Holds hover status, set by parent component
   public hovered = false;
 
-  constructor (private changeDetector: ChangeDetectorRef) {}
+  // Header content, set by parent component
+  public header: any;
+  // Body content, set by parent component
+  public body: any;
+  // Footer content, set by parent component
+  public footer: any;
 
+  constructor (private changeDetector: ChangeDetectorRef) {}
 
   /**
    * Forces a component to rerender, after a property has updated
@@ -210,21 +268,21 @@ class TooltipComponent {
     const position = this.position.split(' ');
     // Compose classes
     return [
-      // Mark as tooltip (.tooltip)
-      'tooltip',
-      // Mark if visible (.tooltip-visible/.tooltip-hidden)
-      (this.visible || (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'tooltip-visible' : 'tooltip-hidden'),
-      (this.showOnFocus && this.focused ? 'tooltip-visible-focus' : null),
-      (this.showOnHover && this.hovered ? 'tooltip-visible-hover' : null),
-      // Choose positioning (.bs-tooltip-[position])
-      (this.position !== 'auto' ? `bs-tooltip-${this.position.split(' ')[0]}` : null),
-      // Choose precise positioning (.bs-tooltip-[position]-[alignment])
-      (this.position !== 'auto' ? `bs-tooltip-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null)
+      // Mark as dropdown (.dropdown)
+      'dropdown',
+      // Mark if visible (.dropdown-visible/.dropdown-hidden)
+      (this.visible || (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden'),
+      (this.showOnFocus && this.focused ? 'dropdown-visible-focus' : null),
+      (this.showOnHover && this.hovered ? 'dropdown-visible-hover' : null),
+      // Choose positioning (.bs-dropdown-[position])
+      (this.position !== 'auto' ? `bs-dropdown-${this.position.split(' ')[0]}` : null),
+      // Choose precise positioning (.bs-dropdown-[position]-[alignment])
+      (this.position !== 'auto' ? `bs-dropdown-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null)
     ].join(' ');
   }
 
 }
 // Export entry components
-export const TooltipDirectiveEntryComponents = [
-  TooltipComponent
+export const DropdownDirectiveEntryComponents = [
+  DropdownComponent
 ];

@@ -1,0 +1,87 @@
+<!-- Description -->
+<h5> Basic Dropdown Element </h5>
+Displays a dropdown HTML component
+
+<!-- Examples -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Examples </div>
+  <div class="p-3">
+
+    <ng-container *ngFor="let position of attributes.iquiDropdownPosition">
+      <br *ngIf="position.split(' ').length === 1" />
+      <iqui-button class="m-1" theme="light"
+          iquiDropdown [iquiDropdownPosition]="position">
+
+        <ng-container *iquiDropdownHeader>
+          <div class="card p-1"><pre> Header content </pre></div>
+        </ng-container>
+        <ng-container *iquiDropdownBody>
+          <div class="card p-1"><pre> Body content </pre></div>
+        </ng-container>
+        <ng-container *iquiDropdownFooter>
+          <div class="card p-1"><pre> Footer content </pre></div>
+        </ng-container>
+
+        Dropdown "{{position}}"
+
+      </iqui-button>
+    </ng-container>
+
+  </div>
+</div>
+
+<!-- Basic usage -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Usage </div>
+  <pre class="p-3">
+    <code>
+      
+      &lt;anything
+        iquiDropdown
+        [iquiDropdownPosition="{{attributes.iquiDropdownPosition.join('|')}}"]
+        [iquiDropdownShowOnFocus="true|false"]
+        [iquiDropdownShowOnHover="true|false"]
+      &gt;
+        Host component content
+      &lt;/anything&gt;
+
+    </code>
+  </pre>
+</div>
+
+<!-- Playground -->
+<div class="card mb-3">
+  <div class="card-header"> Playground </div>
+  <iqui-showcase-playground [name]="'anything'" [attributes]="attributes" [templates]="templates" [content]="content">
+    <!-- Render styled button -->
+    <ng-container *iquiShowcasePlayground="let custom">
+      <div class="card-footer">
+        <iqui-button class="m-2" theme="primary"
+          iquiDropdown
+          [iquiDropdownPosition]="custom.attributes.iquiDropdownPosition"
+          [iquiDropdownShowOnFocus]="custom.attributes.iquiDropdownShowOnFocus"
+          [iquiDropdownShowOnHover]="custom.attributes.iquiDropdownShowOnHover">
+          
+          <ng-container *iquiDropdownHeader>
+            <div *ngIf="custom.templates.iquiDropdownHeader" class="card p-1">
+              <pre>{{custom.templates.iquiDropdownHeader}}</pre>
+            </div>
+          </ng-container>
+          <ng-container *iquiDropdownBody>
+            <div *ngIf="custom.templates.iquiDropdownBody" class="card p-1">
+              <pre>{{custom.templates.iquiDropdownBody}}</pre>
+            </div>
+          </ng-container>
+          <ng-container *iquiDropdownFooter>
+            <div *ngIf="custom.templates.iquiDropdownFooter" class="card p-1">
+              <pre>{{custom.templates.iquiDropdownFooter}}</pre>
+            </div>
+          </ng-container>
+          
+          {{custom.content}}
+
+        </iqui-button>
+      </div>
+    </ng-container>
+  </iqui-showcase-playground>
+</div>

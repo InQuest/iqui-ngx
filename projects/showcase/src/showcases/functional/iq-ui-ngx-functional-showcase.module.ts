@@ -9,10 +9,12 @@ import { FunctionalModule } from '../../../../iqui-ngx-elements/src/lib/componen
 
 // Import showcase components
 import { TooltipShowcaseComponent } from './tooltip';
+import { DropdownShowcaseComponent } from './dropdown';
 
 // Compose components
 const components = [
-  TooltipShowcaseComponent
+  TooltipShowcaseComponent,
+  DropdownShowcaseComponent
 ];
 
 // IQ UI NGX Elements' Functional elements module

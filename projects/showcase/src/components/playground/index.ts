@@ -18,7 +18,10 @@ export class PlaygroundComponent implements OnInit {
   public name: string = null;
 
   @Input()
-  public attributes: object = null;
+  public attributes: object = {};
+
+  @Input()
+  public templates: object = {};
 
   @Input()
   public content: string = null;
@@ -28,6 +31,8 @@ export class PlaygroundComponent implements OnInit {
 
   public get attributeKeys () { return Object.keys(this.attributes); }
   public attributeValues = {};
+  public get templateKeys () { return Object.keys(this.templates); }
+  public templateValues = {};
   public contentValue = null;
 
   public ngOnInit () {
@@ -35,6 +40,10 @@ export class PlaygroundComponent implements OnInit {
     this.attributeValues = this.attributeKeys.reduce((attributeValues, key) => {
       attributeValues[key] = JSON.parse(JSON.stringify(this.attributes[key] instanceof Array ? this.attributes[key][0] : this.attributes[key]));
       return attributeValues;
+    }, {});
+    this.templateValues = this.templateKeys.reduce((templateValues, key) => {
+      templateValues[key] = this.templates[key];
+      return templateValues;
     }, {});
     this.contentValue = this.content;
   }

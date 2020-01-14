@@ -4,35 +4,52 @@
 
   <!-- Attributes -->
   <span class="attribute" *ngFor="let key of attributeKeys">
-    &nbsp;&nbsp; {{key.padStart(32, '&nbsp;')}}="
+    &nbsp;&nbsp; {{((attributes[key] !== null ? '[' : '') + key + (attributes[key] !== null ? ']' : '')).padStart(32, '&nbsp;')}}
       <span class="edit">
 
+        <!-- Not editable -->
+        <span *ngIf="attributes[key] === null"></span>
+
         <!-- Select enum value -->
-        <span *ngIf="isAttributeArray(key)">
-          <select [value]="attributeValues[key]" (change)="selectAttributeValue(key, $event)">
-            <option *ngFor="let value of attributes[key]" [value]="value"> {{value}} </option>
-          </select>
+        <span *ngIf="attributes[key] !== null && isAttributeArray(key)">
+          = "{{getAttributeType(key) === 'string' ? '\'' : ' '}}<select [value]="attributeValues[key]" (change)="selectAttributeValue(key, $event)">
+                <option *ngFor="let value of attributes[key]" [value]="value"> {{value}} </option>
+              </select>{{getAttributeType(key) === 'string' ? '\'' : ' '}}"
         </span>
 
         <!-- String editor -->
-        <span *ngIf="!isAttributeArray(key) && getAttributeType(key) === 'string'">
-          <input type="text" [value]="attributeValues[key]" (change)="attributeValues[key] = $event.target.value" />
+        <span *ngIf="attributes[key] !== null && !isAttributeArray(key) && getAttributeType(key) === 'string'">
+          = "'<input type="text" [value]="attributeValues[key]" (change)="attributeValues[key] = $event.target.value" />'"
         </span>
 
         <!-- Object editor -->
-        <span *ngIf="!isAttributeArray(key) && getAttributeType(key) === 'object'"> {{'{'}} ... {{'}'}} </span>
+        <span *ngIf="attributes[key] !== null && !isAttributeArray(key) && getAttributeType(key) === 'object'">
+          = " {{'{'}} ... {{'}'}} "
+        </span>
 
       </span>
-    "
+    
     <br/>
   </span>
 
   &gt; <br />
 
+  <!-- Templates -->
+  <span class="attribute" *ngFor="let key of templateKeys">
+    &nbsp;&nbsp;
+    &lt;ng-container *{{key}}&gt; <br />
+    <span class="edit">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <textarea class="template" [value]="templateValues[key]" (change)="templateValues[key] = $event.target.value"></textarea>
+    </span> <br />
+    &nbsp;&nbsp;
+    &lt;/ng-container&gt;
+  </span> <br />
+
   <!-- Content -->
-  &nbsp;&nbsp;
   <span class="attribute">
     <span class="edit">
+      &nbsp;&nbsp;
       <textarea class="content" [value]="contentValue" (change)="contentValue = $event.target.value"></textarea>
     </span>
   </span> <br />
@@ -41,4 +58,4 @@
 </div>
 
 <!-- Live example -->
-<ng-container *ngTemplateOutlet="template, context: { $implicit: { attributes: attributeValues, content: contentValue } }"></ng-container>
+<ng-container *ngTemplateOutlet="template, context: { $implicit: { attributes: attributeValues, templates: templateValues, content: contentValue } }"></ng-container>

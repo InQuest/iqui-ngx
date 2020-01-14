@@ -10,13 +10,19 @@ export type BootstrapButtonThemeColors = BootstrapThemeColors | 'link';
 export type BootstrapButtonThemeSizes = BootstrapThemeSizes;
 
 // Export component:
+// Renders a button
+//
 // Usage:
 //
 //  <iqui-button
-//    [disabled]
-//    [ngClass] [class]
-//    [size] [theme]>
-//    [href] [target]
+//    [ disabled  = "true|false" ]
+//    [ ngClass   = "{...}" ]
+//    [ class     = "..." ]
+//    [ size      = "sm|lg" ]
+//    [ theme     = "primary|secondary|success|warning|danger|info|light|dark|link" ]
+//    [ href      = "https://example.com" ]
+//    [ target    = "_blank|_self" ]
+//  >
 //    Button content
 //  </iqui-button>
 //
@@ -38,12 +44,12 @@ export class ButtonComponent {
   @Input()
   public class: string = null;
   /**
-   * Bootstrap theme color to be used by the button component
+   * Bootstrap theme color to be used by the component
    */
   @Input()
   public theme: BootstrapButtonThemeColors = 'secondary';
   /**
-   * Bootstrap theme size to be used by the button component
+   * Bootstrap theme size to be used by the component
    */
   @Input()
   public size: BootstrapButtonThemeSizes = null;
@@ -72,9 +78,9 @@ export class ButtonComponent {
     return [
       // Mark as button (.btn)
       'btn',
-      // Mark button size (.btn-sm)
+      // Mark size (.btn-sm)
       (this.size ? 'btn-' + this.size : null),
-      // Mark button theme color (.btn-primary, .btn-link, etc ...)
+      // Mark theme color (.btn-primary, .btn-link, etc ...)
       ('btn-' + (this.theme || (!this.href ? 'secondary' : 'link'))),
       // Mark as disabled, if disabled (.disabled)
       (this.disabled ? 'disabled' : null),

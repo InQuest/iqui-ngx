@@ -2,12 +2,12 @@
   display: block;
   pointer-events: none;
 
-  .tooltip {
+  .dropdown {
     position: unset;
     pointer-events: none;
     opacity: 0;
 
-    &.tooltip-visible {
+    &.dropdown-visible {
       pointer-events: unset;
       opacity: 1;
     }

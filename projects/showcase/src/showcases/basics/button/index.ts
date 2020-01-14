@@ -20,7 +20,7 @@ export class ButtonShowcaseComponent {
     size:     ['sm', 'lg', ''],
     theme:    ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link', ''],
     href:     'https://example.com',
-    target:   ['_blank', '_self']
+    target:   ['_blank', '_self', '']
   };
 
   // Playground content
