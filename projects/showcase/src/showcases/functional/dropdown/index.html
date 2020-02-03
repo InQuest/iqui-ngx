@@ -41,8 +41,11 @@ Displays a dropdown HTML component
         [iquiDropdownPosition="{{attributes.iquiDropdownPosition.join('|')}}"]
         [iquiDropdownShowOnFocus="true|false"]
         [iquiDropdownShowOnHover="true|false"]
+        [iquiDropdownStayInViewport="true|false"]
       &gt;
-        Host component content
+        &lt;ng-container *iquiDropdownHeader&gt; Optional header content  &lt;/ng-container&gt;
+        &lt;ng-container *iquiDropdownBody&gt;   Optional body content    &lt;/ng-container&gt;
+        &lt;ng-container *iquiDropdownFooter&gt; Optional footer content  &lt;/ng-container&gt;
       &lt;/anything&gt;
 
     </code>
@@ -60,21 +63,22 @@ Displays a dropdown HTML component
           iquiDropdown
           [iquiDropdownPosition]="custom.attributes.iquiDropdownPosition"
           [iquiDropdownShowOnFocus]="custom.attributes.iquiDropdownShowOnFocus"
-          [iquiDropdownShowOnHover]="custom.attributes.iquiDropdownShowOnHover">
+          [iquiDropdownShowOnHover]="custom.attributes.iquiDropdownShowOnHover"
+          [iquiDropdownStayInViewport]="custom.attributes.iquiDropdownStayInViewport">
           
           <ng-container *iquiDropdownHeader>
             <div *ngIf="custom.templates.iquiDropdownHeader" class="card p-1">
-              <pre>{{custom.templates.iquiDropdownHeader}}</pre>
+              <pre class="mb-0">{{custom.templates.iquiDropdownHeader}}</pre>
             </div>
           </ng-container>
           <ng-container *iquiDropdownBody>
             <div *ngIf="custom.templates.iquiDropdownBody" class="card p-1">
-              <pre>{{custom.templates.iquiDropdownBody}}</pre>
+              <pre class="mb-0">{{custom.templates.iquiDropdownBody}}</pre>
             </div>
           </ng-container>
           <ng-container *iquiDropdownFooter>
             <div *ngIf="custom.templates.iquiDropdownFooter" class="card p-1">
-              <pre>{{custom.templates.iquiDropdownFooter}}</pre>
+              <pre class="mb-0">{{custom.templates.iquiDropdownFooter}}</pre>
             </div>
           </ng-container>
           

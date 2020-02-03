@@ -8,7 +8,7 @@
     opacity: 0;
 
     &.tooltip-visible {
-      pointer-events: unset;
+      pointer-events: all;
       opacity: 1;
     }
   } 

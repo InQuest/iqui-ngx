@@ -45,6 +45,10 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
   @Input()
   public iquiTooltipShowOnHover = true;
 
+  // Stays in viewport
+  @Input()
+  public iquiTooltipStayInViewport = true;
+
   // Holds overlay element reference
   private overlayRef: OverlayRef;
   // Holds component reference
@@ -54,7 +58,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor (
     private element: ElementRef,
-    private focusMonitor: FocusMonitor,
+    private componentFocusMonitor: FocusMonitor,
+    private dropdownFocusMonitor: FocusMonitor,
     private overlay: Overlay
   ) { }
 
@@ -71,8 +76,18 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     this.ngOnChanges();
 
     // Manage visibility (on focus)
-    this.focusMonitor.monitor(this.element, true).subscribe((origin) => {
-      this.componentRef.instance.focused = !!origin;
+    let timeout = null;
+    this.componentFocusMonitor.monitor(this.element, true).subscribe((origin) => {
+      if (timeout) { clearTimeout(timeout); }
+      timeout = setTimeout(() => {
+        this.componentRef.instance.focused = !!origin;
+      });
+    });
+    this.dropdownFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
+      if (timeout) { clearTimeout(timeout); }
+      timeout = setTimeout(() => {
+        this.componentRef.instance.focused = !!origin;
+      });
     });
     // Manage visibility (on hover)
     this.element.nativeElement.addEventListener('mouseenter', (this.eventListeners.mouseenter = () => {
@@ -104,7 +119,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
       // Update strategy
       const positionStrategy = this.overlay.position().flexibleConnectedTo(this.element)
-        .withPush(true)
+        .withPush(this.iquiTooltipStayInViewport)
         .withPositions([
           // Selected, preferred position
           // tslint:disable-next-line: max-line-length
@@ -133,7 +148,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
   public ngOnDestroy () {
     // Stop managing visibility (on focus)
-    this.focusMonitor.stopMonitoring(this.element);
+    this.componentFocusMonitor.stopMonitoring(this.element);
+    this.dropdownFocusMonitor.stopMonitoring(this.componentRef.instance.element);
     // Stop managing visibility (on hover)
     this.element.nativeElement.removeEventListener('mouseenter', this.eventListeners.mouseenter);
     this.element.nativeElement.removeEventListener('mouseleave', this.eventListeners.mouseleave);
@@ -192,7 +208,7 @@ class TooltipComponent {
   // Holds hover status, set by parent component
   public hovered = false;
 
-  constructor (private changeDetector: ChangeDetectorRef) {}
+  constructor (public element: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
 
   /**

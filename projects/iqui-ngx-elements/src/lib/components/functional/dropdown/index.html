@@ -1,17 +1,18 @@
 <!-- Dropdown -->
 <div [class]="composedClassValue">
   <!-- <div class="arrow"></div> -->
-  <div class="dropdown-inner">
+  <div class="dropdown-inner" tabindex="-1">
 
-    <!-- Show content if component created directly as <iqui-dropdown /> -->
-    <ng-content select="iqui-dropdown-header"></ng-content> 
-    <ng-content select="iqui-dropdown-body"></ng-content> 
-    <ng-content select="iqui-dropdown-footer"></ng-content> 
-
-    <!-- Show content if component created via [iquiDropdown] directive -->
-    <ng-container *ngTemplateOutlet="header?.template"></ng-container>
-    <ng-container *ngTemplateOutlet="body?.template"></ng-container>
-    <ng-container *ngTemplateOutlet="footer?.template"></ng-container>
+    <!-- Show content -->
+    <div class="dropdown-inner-header">
+      <ng-container *ngTemplateOutlet="header?.template"></ng-container>
+    </div>
+    <div class="dropdown-inner-body">
+      <ng-container *ngTemplateOutlet="body?.template"></ng-container>
+    </div>
+    <div class="dropdown-inner-footer">
+      <ng-container *ngTemplateOutlet="footer?.template"></ng-container>
+    </div>
 
   </div>
 </div>

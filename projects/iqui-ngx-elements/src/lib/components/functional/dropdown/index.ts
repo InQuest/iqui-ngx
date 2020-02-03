@@ -72,6 +72,10 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   @Input()
   public iquiDropdownShowOnHover = false;
 
+  // Stays in viewport
+  @Input()
+  public iquiDropdownStayInViewport = false;
+
   // Content header
   @ContentChild(DropdownHeaderDirective, { static: false })
   public header: DropdownHeaderDirective;
@@ -93,7 +97,8 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
   constructor (
     private element: ElementRef,
-    private focusMonitor: FocusMonitor,
+    private componentFocusMonitor: FocusMonitor,
+    private dropdownFocusMonitor: FocusMonitor,
     private overlay: Overlay
   ) { }
 
@@ -103,12 +108,23 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     this.overlayRef = this.overlay.create();
     this.componentRef = this.overlayRef.attach(new ComponentPortal(DropdownComponent));
 
+
     // Prevent from blocking clicks on elements behind it while hidden
     this.overlayRef.overlayElement.style.pointerEvents = 'none';
 
     // Manage visibility (on focus)
-    this.focusMonitor.monitor(this.element, true).subscribe((origin) => {
-      this.componentRef.instance.focused = !!origin;
+    let timeout = null;
+    this.componentFocusMonitor.monitor(this.element, true).subscribe((origin) => {
+      if (timeout) { clearTimeout(timeout); }
+      timeout = setTimeout(() => {
+        this.componentRef.instance.focused = !!origin;
+      });
+    });
+    this.dropdownFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
+      if (timeout) { clearTimeout(timeout); }
+      timeout = setTimeout(() => {
+        this.componentRef.instance.focused = !!origin;
+      });
     });
     // Manage visibility (on hover)
     this.element.nativeElement.addEventListener('mouseenter', (this.eventListeners.mouseenter = () => {
@@ -147,7 +163,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
       // Update strategy
       const positionStrategy = this.overlay.position().flexibleConnectedTo(this.element)
-        .withPush(true)
+        .withPush(this.iquiDropdownStayInViewport)
         .withPositions([
           // Selected, preferred position
           // tslint:disable-next-line: max-line-length
@@ -176,7 +192,8 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public ngOnDestroy () {
     // Stop managing visibility (on focus)
-    this.focusMonitor.stopMonitoring(this.element);
+    this.componentFocusMonitor.stopMonitoring(this.element);
+    this.dropdownFocusMonitor.stopMonitoring(this.componentRef.instance.element);
     // Stop managing visibility (on hover)
     this.element.nativeElement.removeEventListener('mouseenter', this.eventListeners.mouseenter);
     this.element.nativeElement.removeEventListener('mouseleave', this.eventListeners.mouseleave);
@@ -251,7 +268,7 @@ class DropdownComponent {
   // Footer content, set by parent component
   public footer: any;
 
-  constructor (private changeDetector: ChangeDetectorRef) {}
+  constructor (public element: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
   /**
    * Forces a component to rerender, after a property has updated
@@ -270,6 +287,10 @@ class DropdownComponent {
     return [
       // Mark as dropdown (.dropdown)
       'dropdown',
+      // Mark if has header/body/content
+      (this.header && this.header.template ? 'dropdown-has-header' : ''),
+      (this.body && this.body.template ? 'dropdown-has-body' : ''),
+      (this.footer && this.footer.template ? 'dropdown-has-footer' : ''),
       // Mark if visible (.dropdown-visible/.dropdown-hidden)
       (this.visible || (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden'),
       (this.showOnFocus && this.focused ? 'dropdown-visible-focus' : null),

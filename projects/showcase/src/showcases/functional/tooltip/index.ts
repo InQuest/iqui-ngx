@@ -14,16 +14,17 @@ export class TooltipShowcaseComponent {
 
   // Playground attribute values
   public attributes = {
-    iquiTooltip:            'Tooltip content',
-    iquiTooltipPosition:    [
-                              'auto',
-                              'bottom', 'bottom center', 'bottom left', 'bottom right',
-                              'right', 'right center', 'right top', 'right bottom',
-                              'left', 'left center', 'left top', 'left bottom',
-                              'top', 'top center', 'top left', 'top right'
-                            ],
-    iquiTooltipShowOnFocus: [true, false],
-    iquiTooltipShowOnHover: [true, false]
+    iquiTooltip:                'Tooltip content',
+    iquiTooltipPosition:        [
+                                  'auto',
+                                  'bottom', 'bottom center', 'bottom left', 'bottom right',
+                                  'right', 'right center', 'right top', 'right bottom',
+                                  'left', 'left center', 'left top', 'left bottom',
+                                  'top', 'top center', 'top left', 'top right'
+                                ],
+    iquiTooltipShowOnFocus:     [true, false],
+    iquiTooltipShowOnHover:     [true, false],
+    iquiTooltipStayInViewport:  [true, false]
   };
 
   // Playground content

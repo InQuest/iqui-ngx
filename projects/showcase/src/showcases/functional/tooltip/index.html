@@ -29,6 +29,7 @@ Displays a tooltip HTML component
         [iquiTooltipPosition="{{attributes.iquiTooltipPosition.join('|')}}"]
         [iquiTooltipShowOnFocus="true|false"]
         [iquiTooltipShowOnHover="true|false"]
+        [iquiTooltipStayInViewport="true|false"]
       &gt;
         Host component content
       &lt;/anything&gt;
@@ -48,7 +49,8 @@ Displays a tooltip HTML component
           [iquiTooltip]="custom.attributes.iquiTooltip"
           [iquiTooltipPosition]="custom.attributes.iquiTooltipPosition"
           [iquiTooltipShowOnFocus]="custom.attributes.iquiTooltipShowOnFocus"
-          [iquiTooltipShowOnHover]="custom.attributes.iquiTooltipShowOnHover">
+          [iquiTooltipShowOnHover]="custom.attributes.iquiTooltipShowOnHover"
+          [iquiTooltipStayInViewport]="custom.attributes.iquiTooltipStayInViewport">
           {{custom.content}}
         </iqui-button>
       </div>

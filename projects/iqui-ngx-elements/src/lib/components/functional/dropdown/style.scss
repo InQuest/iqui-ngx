@@ -8,8 +8,25 @@
     opacity: 0;
 
     &.dropdown-visible {
-      pointer-events: unset;
+      pointer-events: all;
       opacity: 1;
+    }
+
+    & > .dropdown-inner {
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+
+      & > .dropdown-inner-header {
+        flex: 0;
+      }
+      & > .dropdown-inner-body {
+        flex: 1;
+        overflow-y: auto;
+      }
+      & > .dropdown-inner-footer {
+        flex: 0;
+      }
     }
   } 
 }
