@@ -5,7 +5,11 @@ import { NgModule } from '@angular/core';
 import { FunctionalModule } from './components/functional/iq-ui-ngx-functional.module';
 import { BasicsModule } from './components/basics/iq-ui-ngx-basics.module';
 
-// IQ UI NGX Elements' ROOT module
+
+/**
+ * IQ UI NGX Elements' module
+ * InQuest NGX reusable Elements based of Angular material CDK and Bootstrap
+ */
 @NgModule({
   imports: [
     // Import individual modules

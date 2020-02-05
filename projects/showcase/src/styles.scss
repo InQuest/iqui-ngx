@@ -8,3 +8,9 @@
 * {
   font-family: monospace;
 }
+
+// Drop-down button down arrow styling
+iqui-dropdown-button iqui-button .iqui-button-content::after {
+  content: '▾';
+  padding-left: 8px;
+}

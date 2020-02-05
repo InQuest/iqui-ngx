@@ -6,26 +6,33 @@ import { Component, Input } from '@angular/core';
 import { BootstrapThemeColors, BootstrapThemeSizes } from '../../../types';
 
 // Define and export types
+/*
+ * Button's bootstrap theme colors
+ */
 export type BootstrapButtonThemeColors = BootstrapThemeColors | 'link';
+/*
+ * Button's bootstrap theme size
+ */
 export type BootstrapButtonThemeSizes = BootstrapThemeSizes;
 
-// Export component:
-// Renders a button
-//
-// Usage:
-//
-//  <iqui-button
-//    [ disabled  = "true|false" ]
-//    [ ngClass   = "{...}" ]
-//    [ class     = "..." ]
-//    [ size      = "sm|lg" ]
-//    [ theme     = "primary|secondary|success|warning|danger|info|light|dark|link" ]
-//    [ href      = "https://example.com" ]
-//    [ target    = "_blank|_self" ]
-//  >
-//    Button content
-//  </iqui-button>
-//
+/**
+ * Button, renders a button (or link) control
+ *
+ * Usage:
+ *
+ *  <iqui-button\
+ *    [ disabled  = "true|false" ]\
+ *    [ ngClass   = "{...}" ]\
+ *    [ class     = "..." ]\
+ *    [ size      = "sm|lg" ]\
+ *    [ theme     = "primary|secondary|success|warning|danger|info|light|dark|link" ]\
+ *    [ href      = "https://example.com" ]\
+ *    [ target    = "_blank|_self" ]\
+ *  >\
+ *    Button content\
+ *  </iqui-button>
+ *
+ */
 @Component({
   selector:     'iqui-button',
   templateUrl:  `./index.html`,
@@ -33,6 +40,11 @@ export type BootstrapButtonThemeSizes = BootstrapThemeSizes;
 })
 export class ButtonComponent {
 
+  /**
+   * [disabled] binding
+   */
+  @Input()
+  public disabled = false;
   /**
    * [ngClass] binding
    */
@@ -53,28 +65,21 @@ export class ButtonComponent {
    */
   @Input()
   public size: BootstrapButtonThemeSizes = null;
-
   /**
-   * Anchor Hyperlink URL
+   * Anchor Hyperlink URL (if set, will style as a link by default)
    */
   @Input()
   public href: string = null;
   /**
-   * Anchor Hyperlink URL target
+   * Anchor Hyperlink URL target (only makes sense to use along side [href])
    */
   @Input()
   public target: '_self' | '_blank' = '_self';
 
   /**
-   * Disabled state
-   */
-  @Input()
-  public disabled = false;
-
-  /**
    * Composes class value based on property values
    */
-  private get composedClassValue () {
+  protected get composedClassValue () {
     return [
       // Mark as button (.btn)
       'btn',

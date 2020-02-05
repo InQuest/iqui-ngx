@@ -8,10 +8,12 @@ import { BasicsModule } from '../../../../iqui-ngx-elements/src/lib/components/b
 
 // Import showcase components
 import { ButtonShowcaseComponent } from './button';
+import { DropdownButtonShowcaseComponent } from './dropdown-button';
 
 // Compose components
 const components = [
-  ButtonShowcaseComponent
+  ButtonShowcaseComponent,
+  DropdownButtonShowcaseComponent
 ];
 
 // IQ UI NGX Elements' Basic elements module

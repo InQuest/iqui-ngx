@@ -11,41 +11,50 @@ import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePos
 // Define and export types
 export type TooltipRelativePositioning = 'auto' | RelativePositioning;
 
-// Export directive:
-// Adds a tooltip to a HTML element or Angular component
-//
-// Usage:
-//
-//  <anything
-//      iquiTooltip             = "Tooltip content"
-//    [ iquiTooltipPosition     = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
-//    [ iquiTooltipShowOnFocus  = "true|false" ]
-//    [ iquiTooltipShowOnHover  = "true|false" ]
-//    Host component content
-//  </anything>
-//
+/**
+ * Tooltip directive, adds a tooltip to an HTML element or Angular component
+ *
+ * Usage:
+ *
+ *  <anything \
+ *    [ iquiTooltip ]             = "'Tooltip content'"\
+ *    [ iquiTooltipPosition       = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|
+ *                                   left|left center|left top|left bottom|top|top center|top left|top right ]\
+ *    [ iquiTooltipShowOnFocus    = "true|false" ]\
+ *    [ iquiTooltipShowOnHover    = "true|false" ]\
+ *    [ iquiTooltipStayInViewport = "true|false" ]>\
+ *    Host component content\
+ *  </anything>
+ *
+ */
 @Directive({
   selector: '[iquiTooltip]',
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
-  // Content
+  /**
+   * Tooltip text content
+   */
   @Input()
   public iquiTooltip: string;
-
-  // Positioning
+  /**
+   * Tooltip preferred position
+   */
   @Input()
   public iquiTooltipPosition: TooltipRelativePositioning = 'auto';
-
-  // Show on focus
+  /**
+   * If tooltip should be displayed when parent control is focused
+   */
   @Input()
   public iquiTooltipShowOnFocus = true;
-
-  // Show on hover
+  /**
+   * If tooltip should be displayed when parent control is hovered over
+   */
   @Input()
   public iquiTooltipShowOnHover = true;
-
-  // Stays in viewport
+  /**
+   * If tooltip should detach from the parent control if necessary and stay inside the viewport
+   */
   @Input()
   public iquiTooltipStayInViewport = true;
 
@@ -59,7 +68,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
   constructor (
     private element: ElementRef,
     private componentFocusMonitor: FocusMonitor,
-    private dropdownFocusMonitor: FocusMonitor,
+    private tooltipFocusMonitor: FocusMonitor,
     private overlay: Overlay
   ) { }
 
@@ -75,7 +84,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     // Set properties
     this.ngOnChanges();
 
-    // Manage visibility (on focus)
+    // Manage visibility (on focus of parent or tooltip)
+    // tslint:disable-next-line: max-line-length
+    // (Updates tooltip visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the tooltip)
     let timeout = null;
     this.componentFocusMonitor.monitor(this.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
@@ -83,7 +94,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         this.componentRef.instance.focused = !!origin;
       });
     });
-    this.dropdownFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
+    this.tooltipFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
         this.componentRef.instance.focused = !!origin;
@@ -106,7 +117,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
       this.componentRef.instance.position = this.iquiTooltipPosition;
       this.componentRef.instance.showOnFocus = this.iquiTooltipShowOnFocus;
       this.componentRef.instance.showOnHover = this.iquiTooltipShowOnHover;
-      this.componentRef.instance.rerenderComponent();
+      this.componentRef.instance.updateIfChangesDetected();
     }
 
     // Update overlay scroll strategy
@@ -149,7 +160,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
   public ngOnDestroy () {
     // Stop managing visibility (on focus)
     this.componentFocusMonitor.stopMonitoring(this.element);
-    this.dropdownFocusMonitor.stopMonitoring(this.componentRef.instance.element);
+    this.tooltipFocusMonitor.stopMonitoring(this.componentRef.instance.element);
     // Stop managing visibility (on hover)
     this.element.nativeElement.removeEventListener('mouseenter', this.eventListeners.mouseenter);
     this.element.nativeElement.removeEventListener('mouseleave', this.eventListeners.mouseleave);
@@ -159,21 +170,14 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
 }
 
-// Export component:
-// Renders a tooltip
-//
-// Usage:
-//
-//  <iqui-tooltip
-//    [ content     = "..." ]
-//    [ position    = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
-//    [ visible     = "true|false" ]
-//    [ showOnFocus = "true|false" ]
-//    [ showOnHover = "true|false" ]
-//  >
-//    Tooltip content
-//  </iqui-tooltip>
-//
+/**
+ * Renders a tooltip (not to be used directly; should be instantiated/managed by the orchestrating [iquiTooltip] directive)
+ *
+ * Usage:
+ *
+ *  <iqui-tooltip></iqui-tooltip>
+ *
+ */
 @Component({
   selector: 'iqui-tooltip',
   templateUrl:  `./index.html`,
@@ -181,47 +185,55 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 })
 class TooltipComponent {
 
-  // Content
-  @Input()
+  /**
+   * Tooltip text content
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public content: string;
-
-  // Positioning
-  @Input()
+  /**
+   * Tooltip preferred position
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public position: TooltipRelativePositioning = 'auto';
-
-  // Visibility
-  @Input()
-  public visible = false;
-
-  // Show on focus
-  @Input()
+  /**
+   * If tooltip should be displayed when parent control is focused
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public showOnFocus = true;
-
-  // Show on hover
-  @Input()
+  /**
+   * If tooltip should be displayed when parent control is hovered over
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public showOnHover = true;
-
-  // Reference to parent component
+  /**
+   * Reference to parent element
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public parent: ElementRef;
-  // Holds focus status, set by parent component
+  /**
+   * Focused status
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public focused = false;
-  // Holds hover status, set by parent component
+  /**
+   * Hovered status
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
   public hovered = false;
 
   constructor (public element: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
-
   /**
-   * Forces a component to rerender, after a property has updated
+   * Forces a component to (re)render if any of it's properties have changed
    */
-  public rerenderComponent () {
+  public updateIfChangesDetected () {
     this.changeDetector.detectChanges();
   }
 
   /**
    * Composes class value based on property values
    */
-  public get composedClassValue () {
+  protected get composedClassValue () {
     // Ready values
     const position = this.position.split(' ');
     // Compose classes
@@ -229,7 +241,7 @@ class TooltipComponent {
       // Mark as tooltip (.tooltip)
       'tooltip',
       // Mark if visible (.tooltip-visible/.tooltip-hidden)
-      (this.visible || (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'tooltip-visible' : 'tooltip-hidden'),
+      ( (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'tooltip-visible' : 'tooltip-hidden'),
       (this.showOnFocus && this.focused ? 'tooltip-visible-focus' : null),
       (this.showOnHover && this.hovered ? 'tooltip-visible-hover' : null),
       // Choose positioning (.bs-tooltip-[position])
@@ -240,7 +252,10 @@ class TooltipComponent {
   }
 
 }
-// Export entry components
+
+/**
+ * Entry components requiring registration to the parent module
+ */
 export const TooltipDirectiveEntryComponents = [
   TooltipComponent
 ];

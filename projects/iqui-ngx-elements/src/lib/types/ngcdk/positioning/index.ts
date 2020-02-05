@@ -8,7 +8,9 @@ export type RelativePositioning = 'top'     | 'top center'    | 'top left'    | 
                                 | 'bottom'  | 'bottom center' | 'bottom left' | 'bottom right'
                                 | 'left'    | 'left center'   | 'left top'    | 'left bottom';
 
-// Define positioning priority
+/*
+ * Angular CDK positioning priority
+ */
 export const RelativePositioningPriority: Array<RelativePositioning> = [
   'bottom', 'bottom center', 'bottom left', 'bottom right',
   'right', 'right center', 'right top', 'right bottom',
@@ -16,7 +18,9 @@ export const RelativePositioningPriority: Array<RelativePositioning> = [
   'top', 'top center', 'top left', 'top right'
 ];
 
-// Define positioning as Angular CDK position pairs
+/*
+ * Preferred Angular CDK positions type
+ */
 export const AngularCdkRelativePositioningDefinitions: Record<RelativePositioning, any> = {
   ['top']: {
     originX : 'center',

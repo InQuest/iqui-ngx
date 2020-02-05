@@ -2,89 +2,117 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, Directive, OnInit, AfterViewInit, OnChanges, OnDestroy, Input, ElementRef, ComponentRef, TemplateRef, ChangeDetectorRef, ContentChild } from '@angular/core';
+import { Component, Directive, OnInit, AfterViewInit, OnChanges, OnDestroy,
+         Input, ContentChild, ElementRef, ComponentRef, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
-import { Direct } from 'protractor/built/driverProviders';
 
 // Define and export types
+/*
+ * Dropdown preferred positions type
+ */
 export type DropdownRelativePositioning = 'auto' | RelativePositioning;
 
-// Export directive:
-// Adds a dropdown to a HTML element or Angular component
-//
-// Usage:
-//
-//  <anything
-//      iquiDropdown            = "Dropdown content"
-//    [ iquiDropdownPosition    = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
-//    [ iquiDropdownShowOnFocus = "true|false" ]
-//    [ iquiDropdownShowOnHover = "true|false" ]
-//
-//    <ng-container *iqDropdownHeader>
-//     Dropdown header
-//    </ng-container>
-//    <ng-container *iqDropdownBody>
-//     Dropdown content
-//    </ng-container>
-//    <ng-container *iqDropdownFooter>
-//     Dropdown footer
-//    </ng-container>
-//
-//    Host component content
-//
-//  </anything>
-//
+// Global constants
+// How soon after a focus event is a programmatic toggle of drop-down visibility allowed (in [ms])
+const PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT = 200;
+
+/**
+ * Drop-down header directive, marks content as drop-down header content
+ */
 @Directive({
   selector: '[iquiDropdownHeader]'
 })
 export class DropdownHeaderDirective  {
   constructor (public template: TemplateRef<any>) {}
 }
+/**
+ * Drop-down body directive, marks content as drop-down body content
+ */
 @Directive({
   selector: '[iquiDropdownBody]'
 })
 export class DropdownBodyDirective  {
   constructor (public template: TemplateRef<any>) {}
 }
+/**
+ * Drop-down footer directive, marks content as drop-down footer content
+ */
 @Directive({
   selector: '[iquiDropdownFooter]'
 })
 export class DropdownFooterDirective  {
   constructor (public template: TemplateRef<any>) {}
 }
+
+/**
+ * Drop-down directive, adds a dropdown to an HTML element or Angular component
+ *
+ * Usage:
+ *
+ *  <anything\
+ *    [ iquiDropdown ]              = "'Drop-down content'"\
+ *    [ iquiDropdownPosition        = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|
+ *                                     left|left center|left top|left bottom|top|top center|top left|top right ]\
+ *    [ iquiDropdownShowOnFocus     = "true|false" ]\
+ *    [ iquiDropdownShowOnHover     = "true|false" ]\
+ *    [ iquiDropdownStayInViewport  = "true|false" ]\
+ *    \
+ *    <ng-container *iqDropdownHeader>\
+ *     Dropdown header\
+ *    </ng-container>\
+ *    <ng-container *iqDropdownBody>\
+ *     Dropdown content\
+ *    </ng-container>\
+ *    <ng-container *iqDropdownFooter>\
+ *     Dropdown footer\
+ *    </ng-container>\
+ *    \
+ *    Host component content\
+ *    \
+ *  </anything>
+ *
+ */
 @Directive({
   selector: '[iquiDropdown]',
 })
 export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-  // Positioning
+  /**
+   * Drop-down preferred position
+   */
   @Input()
   public iquiDropdownPosition: DropdownRelativePositioning = 'auto';
-
-  // Show on focus
+  /**
+   * If drop-down should be displayed when parent control is focused
+   */
   @Input()
   public iquiDropdownShowOnFocus = true;
-
-  // Show on hover
+  /**
+   * If drop-down should be displayed when parent control is hovered over
+   */
   @Input()
   public iquiDropdownShowOnHover = false;
-
-  // Stays in viewport
+  /**
+   * If drop-down should detach from the parent control if necessary and stay inside the viewport
+   */
   @Input()
   public iquiDropdownStayInViewport = false;
-
-  // Content header
+  /**
+   * Content child element implementing a *iquiDropdownHeader directive and containing the drop-down header content
+   */
   @ContentChild(DropdownHeaderDirective, { static: false })
   public header: DropdownHeaderDirective;
-
-  // Content body
+  /**
+   * Content child element implementing a *iquiDropdownBody directive and containing the drop-down body content
+   */
   @ContentChild(DropdownBodyDirective, { static: false })
   public body: DropdownBodyDirective;
-
-  // Content footer
+  /**
+   * Content child element implementing a *iquiDropdownFooter directive and containing the drop-down footer content
+   */
   @ContentChild(DropdownFooterDirective, { static: false })
   public footer: DropdownFooterDirective;
 
@@ -94,6 +122,12 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   private componentRef: ComponentRef<DropdownComponent>;
   // Holds references to registered event's event listeners
   private eventListeners: Record<string, EventListenerOrEventListenerObject> = {};
+
+  /**
+   * Toggles focused drop-down's visibility
+   * @param visible (Optional) Explicitly set visibility status
+   */
+  public toggle: (visible?: boolean) => void;
 
   constructor (
     private element: ElementRef,
@@ -108,24 +142,38 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     this.overlayRef = this.overlay.create();
     this.componentRef = this.overlayRef.attach(new ComponentPortal(DropdownComponent));
 
-
     // Prevent from blocking clicks on elements behind it while hidden
     this.overlayRef.overlayElement.style.pointerEvents = 'none';
 
-    // Manage visibility (on focus)
-    let timeout = null;
+    // Manage visibility (on focus of parent or drop-down, pr programmatic .toggle() call)
+    // tslint:disable-next-line: max-line-length
+    // (Updates drop-down visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the drop-down)
+    let timeout = null,
+        isFocused = false;
     this.componentFocusMonitor.monitor(this.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
+        // Update drop-down focus (visibility)
         this.componentRef.instance.focused = !!origin;
+        // Allow toggle on click after a while
+        isFocused = false;
+        timeout = setTimeout(() => { isFocused = !!origin; }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
       });
     });
     this.dropdownFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
+        // Update drop-down focus (visibility)
         this.componentRef.instance.focused = !!origin;
       });
     });
+    this.toggle = (visible: boolean = null) => {
+      if (isFocused) {
+        // Toggle drop-down focus (visibility)
+        this.componentRef.instance.focused = (visible !== null ? visible : !this.componentRef.instance.focused);
+        this.componentRef.instance.updateIfChangesDetected();
+      }
+    };
     // Manage visibility (on hover)
     this.element.nativeElement.addEventListener('mouseenter', (this.eventListeners.mouseenter = () => {
       this.componentRef.instance.hovered = true;
@@ -150,7 +198,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
       this.componentRef.instance.position = this.iquiDropdownPosition;
       this.componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
       this.componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
-      this.componentRef.instance.rerenderComponent();
+      this.componentRef.instance.updateIfChangesDetected();
     }
 
     // Update overlay scroll strategy
@@ -203,34 +251,14 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
 }
 
-// Export component:
-// Renders a dropdown
-//
-// Usage:
-//
-//  <iqui-dropdown
-//    [ header      = "..." ]
-//    [ content     = "..." ]
-//    [ footer      = "..." ]
-//    [ position    = "auto|bottom|bottom center|bottom left|bottom right|right|right center|right top|right bottom|left|left center|left top|left bottom|top|top center|top left|top right ]
-//    [ visible     = "true|false" ]
-//    [ showOnFocus = "true|false" ]
-//    [ showOnHover = "true|false" ]
-//  >
-//
-//    <iq-dropdown-header>
-//      Header content
-//    </iq-dropdown-header>
-//    <iq-dropdown-body>
-//      Body content
-//    </iq-dropdown-body>
-//    <iq-dropdown-footer>
-//      Footer content
-//    </iq-dropdown-footer>
-//
-//    Dropdown content
-//  </iqui-dropdown>
-//
+/**
+ * Renders a drop-down (not to be used directly; should be instantiated/managed by the orchestrating [iquiTooltip] directive)
+ *
+ * Usage:
+ *
+ *  <iqui-dropdown</iqui-dropdown>
+ *
+ */
 @Component({
   selector: 'iqui-dropdown',
   templateUrl:  `./index.html`,
@@ -238,49 +266,65 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 })
 class DropdownComponent {
 
-  // Positioning
-  @Input()
+  /**
+   * Drop-down preferred position
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public position: DropdownRelativePositioning = 'auto';
-
-  // Visibility
-  @Input()
-  public visible = false;
-
-  // Show on focus
-  @Input()
+  /**
+   * If drop-down should be displayed when parent control is focused
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public showOnFocus = true;
-
-  // Show on hover
-  @Input()
+  /**
+   * If drop-down should be displayed when parent control is hovered over
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public showOnHover = true;
-
-  // Reference to parent component
+  /**
+   * Reference to parent element
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public parent: ElementRef;
-  // Holds focus status, set by parent component
+  /**
+   * Focused status
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public focused = false;
-  // Holds hover status, set by parent component
+  /**
+   * Hovered status
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public hovered = false;
-
-  // Header content, set by parent component
+  /**
+   * Content child element implementing a *iquiDropdownHeader directive and containing the drop-down header content
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public header: any;
-  // Body content, set by parent component
+  /**
+   * Content child element implementing a *iquiDropdownBody directive and containing the drop-down body content
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public body: any;
-  // Footer content, set by parent component
+  /**
+   * Content child element implementing a *iquiDropdownFooter directive and containing the drop-down footer content
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
   public footer: any;
 
   constructor (public element: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
   /**
-   * Forces a component to rerender, after a property has updated
+   * Forces a component to (re)render if any of it's properties have changed
    */
-  public rerenderComponent () {
+  public updateIfChangesDetected () {
     this.changeDetector.detectChanges();
   }
 
   /**
    * Composes class value based on property values
    */
-  public get composedClassValue () {
+  protected get composedClassValue () {
     // Ready values
     const position = this.position.split(' ');
     // Compose classes
@@ -292,7 +336,7 @@ class DropdownComponent {
       (this.body && this.body.template ? 'dropdown-has-body' : ''),
       (this.footer && this.footer.template ? 'dropdown-has-footer' : ''),
       // Mark if visible (.dropdown-visible/.dropdown-hidden)
-      (this.visible || (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden'),
+      ((this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden'),
       (this.showOnFocus && this.focused ? 'dropdown-visible-focus' : null),
       (this.showOnHover && this.hovered ? 'dropdown-visible-hover' : null),
       // Choose positioning (.bs-dropdown-[position])
@@ -302,8 +346,22 @@ class DropdownComponent {
     ].join(' ');
   }
 
+  /**
+   * Close drop-down function factory
+   */
+  protected createClose () {
+    return () => {
+      // Close dropdown
+      this.focused = false;
+    };
+  }
+
+
 }
-// Export entry components
+
+/**
+ * Entry components requiring registration to the parent module
+ */
 export const DropdownDirectiveEntryComponents = [
   DropdownComponent
 ];

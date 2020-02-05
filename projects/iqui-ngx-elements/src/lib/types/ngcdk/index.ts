@@ -3,5 +3,4 @@
 // ----------------------------------------------------------------------------
 
 // (Re)Export bootstrap theme ENUMs and Types
-
 export * from './positioning';

@@ -1,17 +1,17 @@
 <!-- Dropdown -->
 <div [class]="composedClassValue">
   <!-- <div class="arrow"></div> -->
-  <div class="dropdown-inner" tabindex="-1">
+  <div class="dropdown-menu" tabindex="-1">
 
     <!-- Show content -->
-    <div class="dropdown-inner-header">
-      <ng-container *ngTemplateOutlet="header?.template"></ng-container>
+    <div class="dropdown-header-container">
+      <ng-container *ngTemplateOutlet="header?.template, context: { $implicit: createClose() }"></ng-container>
     </div>
-    <div class="dropdown-inner-body">
-      <ng-container *ngTemplateOutlet="body?.template"></ng-container>
+    <div class="dropdown-body-container">
+      <ng-container *ngTemplateOutlet="body?.template, context: { $implicit: createClose() }"></ng-container>
     </div>
-    <div class="dropdown-inner-footer">
-      <ng-container *ngTemplateOutlet="footer?.template"></ng-container>
+    <div class="dropdown-footer-container">
+      <ng-container *ngTemplateOutlet="footer?.template, context: { $implicit: createClose() }"></ng-container>
     </div>
 
   </div>

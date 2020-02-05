@@ -12,19 +12,26 @@
       opacity: 1;
     }
 
-    & > .dropdown-inner {
+    & > .dropdown-menu {
+      // Reset default bootstrap drop-down positioning
+      position: relative;
+      top: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+
       display: flex;
       flex-direction: column;
-      max-height: 90vh;
+      max-height: 100vh;
 
-      & > .dropdown-inner-header {
+      & > .dropdown-header-container {
         flex: 0;
       }
-      & > .dropdown-inner-body {
+      & > .dropdown-body-container {
         flex: 1;
         overflow-y: auto;
       }
-      & > .dropdown-inner-footer {
+      & > .dropdown-footer-container {
         flex: 0;
       }
     }

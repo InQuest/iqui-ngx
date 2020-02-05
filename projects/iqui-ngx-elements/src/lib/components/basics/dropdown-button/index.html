@@ -1,0 +1,27 @@
+<!-- Button -->
+<iqui-button [disabled]="disabled"
+             [ngClass]="ngClass" [class]="class"
+             [theme]="theme" [size]="size"
+             #dropdown
+             iquiDropdown
+             [iquiDropdownPosition]="position"
+             [iquiDropdownShowOnFocus]="showOnFocus"
+             [iquiDropdownShowOnHover]="showOnHover"
+             [iquiDropdownStayInViewport]="stayInViewport"
+             (click)="onButtonClicked()">
+
+  <!-- Button content -->
+  <ng-content></ng-content>
+
+  <!-- Dropdown content -->
+  <ng-container *iquiDropdownHeader="let close">
+    <ng-container *ngTemplateOutlet="header?.template, context: { $implicit: close }"></ng-container>
+  </ng-container>
+  <ng-container *iquiDropdownBody="let close">
+    <ng-container *ngTemplateOutlet="body?.template, context: { $implicit: close }"></ng-container>
+  </ng-container>
+  <ng-container *iquiDropdownFooter="let close">
+    <ng-container *ngTemplateOutlet="footer?.template, context: { $implicit: close }"></ng-container>
+  </ng-container>
+
+</iqui-button>

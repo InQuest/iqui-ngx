@@ -4,12 +4,16 @@
 <!-- Button -->
 <button *ngIf="!href" [attr.disabled]="disabled || null"
         [ngClass]="ngClass" [class]="composedClassValue">
-  <ng-container *ngTemplateOutlet="content"></ng-container>
+  <span class="iqui-button-content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </span>
 </button>
 
 <!-- Anchor -->
 <a *ngIf="!!href" [attr.disabled]="disabled || null"
    [ngClass]="ngClass" [class]="composedClassValue"
    [href]="href" [target]="target">
-   <ng-container *ngTemplateOutlet="content"></ng-container>
+  <span class="iqui-button-content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </span>
 </a>

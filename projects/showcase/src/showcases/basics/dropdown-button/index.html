@@ -1,19 +1,16 @@
 <!-- Description -->
-<h5> Basic Dropdown Element </h5>
-Displays a dropdown HTML component
+<h5> Basic Drop-down Button Element </h5>
+Displays a button-styled drop-down
 
 <!-- Examples -->
 <div class="card mt-3 mb-3">
   <div class="card-header"> Examples </div>
-  <div class="p-3">
-
-    <ng-container *ngFor="let position of attributes.iquiDropdownPosition">
-      <br *ngIf="position.split(' ').length === 1" />
-      <iqui-button class="m-1" theme="light"
-          iquiDropdown [iquiDropdownPosition]="position">
-
+  <div class="row p-3">
+    <span class="p-2" *ngFor="let theme of attributes.theme">
+      <iqui-dropdown-button [disabled]="false" [size]="'sm'" [theme]="theme" [position]="'bottom right'">
+        <span> Drop-down Button <span *ngIf="theme">"{{theme}}"</span> </span>
         <ng-container *iquiDropdownHeader="let close">
-          <span class="dropdown-header">Header content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
+          <span class="dropdown-header">HEADER <a href="javascript:void(0)" (click)="close()">[X]</a></span>
           <div class="dropdown-divider"></div>
         </ng-container>
         <ng-container *iquiDropdownBody="let close">
@@ -23,14 +20,10 @@ Displays a dropdown HTML component
         </ng-container>
         <ng-container *iquiDropdownFooter="let close">
           <div class="dropdown-divider"></div>
-          <span class="dropdown-header">Footer content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
+          <span class="dropdown-header">FOOTER <a href="javascript:void(0)" (click)="close()">[X]</a></span>
         </ng-container>
-
-        Dropdown "{{position}}"
-
-      </iqui-button>
-    </ng-container>
-
+      </iqui-dropdown-button>
+    </span>
   </div>
 </div>
 
@@ -40,13 +33,21 @@ Displays a dropdown HTML component
   <pre class="p-3">
     <code>
       
-      &lt;anything
-        iquiDropdown
-        [iquiDropdownPosition="{{attributes.iquiDropdownPosition.join('|')}}"]
-        [iquiDropdownShowOnFocus="true|false"]
-        [iquiDropdownShowOnHover="true|false"]
-        [iquiDropdownStayInViewport="true|false"]
+      &lt;iqui-dropdown-button
+        [disabled="false"]
+        [ngClass="{{'{}'}}"]
+        [class=""]
+        [size="{{attributes.size.slice(0, -1).join('|')}}"]
+        [theme="{{attributes.theme.slice(0, -1).join('|')}}"]
+        [position="{{attributes.position.slice(0, -1).join('|')}}"]
+        [showOnFocus="{{attributes.showOnFocus.slice(0, -1).join('|')}}"]
+        [showOnHover="{{attributes.showOnHover.slice(0, -1).join('|')}}"]
+        [stayInViewport="{{attributes.stayInViewport.slice(0, -1).join('|')}}"]
+        [toggleOnButtonClick="{{attributes.toggleOnButtonClick.slice(0, -1).join('|')}}"]
       &gt;
+
+        Drop-down Button content
+
         &lt;ng-container *iquiDropdownHeader="let close"&gt;
           &lt;!-- Using bootstrap's drop-down classes to style inside drop-down --&gt;
           &lt;span class="dropdown-header"&gt;
@@ -69,7 +70,8 @@ Displays a dropdown HTML component
             &lt;a (click)="close()"&gt; [X] &lt;a&gt;
           &lt;span&gt;
         &lt;/ng-container&gt;
-      &lt;/anything&gt;
+
+      &lt;/iqui-dropdown-button&gt;
 
     </code>
   </pre>
@@ -78,45 +80,50 @@ Displays a dropdown HTML component
 <!-- Playground -->
 <div class="card mb-3">
   <div class="card-header"> Playground </div>
-  <iqui-showcase-playground [name]="'anything'" [attributes]="attributes" [templates]="templates" [content]="content">
-    <!-- Render styled button -->
+  <iqui-showcase-playground [name]="'iqui-dropdown-button'" [attributes]="attributes" [templates]="templates" [content]="content">
+    <!-- Render styled drop-down button -->
     <ng-container *iquiShowcasePlayground="let custom">
       <div class="card-footer">
-        <iqui-button class="m-2" theme="primary"
-          iquiDropdown
-          [iquiDropdownPosition]="custom.attributes.iquiDropdownPosition"
-          [iquiDropdownShowOnFocus]="custom.attributes.iquiDropdownShowOnFocus"
-          [iquiDropdownShowOnHover]="custom.attributes.iquiDropdownShowOnHover"
-          [iquiDropdownStayInViewport]="custom.attributes.iquiDropdownStayInViewport">
+        <iqui-dropdown-button
+          [disabled]="custom.attributes.disabled"
+          [ngClass] ="custom.attributes.ngClass"
+          [class]="custom.attributes.class"
+          [size]="custom.attributes.size"
+          [theme]="custom.attributes.theme"
+          [position]="custom.attributes.position"
+          [showOnFocus]="custom.attributes.showOnFocus"
+          [showOnHover]="custom.attributes.showOnHover"
+          [stayInViewport]="custom.attributes.stayInViewport"
+          [toggleOnButtonClick]="custom.attributes.toggleOnButtonClick">
 
-          {{custom.content}}
-          
+          {{ custom.content }}
+
           <ng-container *iquiDropdownHeader="let close">
-            <div *ngIf="custom.templates.iquiDropdownHeader" class="p-1">
+            <ng-container *ngIf="custom.templates.iquiDropdownHeader">
               <span class="dropdown-header">
                 {{custom.templates.iquiDropdownHeader}}
                 <a href="javascript:void(0)" (click)="close()">[X]</a>
               </span>
               <div class="dropdown-divider"></div>
-            </div>
+            </ng-container>
           </ng-container>
           <ng-container *iquiDropdownBody="let close">
-            <div *ngIf="custom.templates.iquiDropdownBody" class="p-1">
+            <ng-container *ngIf="custom.templates.iquiDropdownBody">
               <span class="dropdown-item"
                     *ngFor="let line of custom.templates.iquiDropdownBody.split('\n')">{{line}}</span>
-            </div>
+            </ng-container>
           </ng-container>
           <ng-container *iquiDropdownFooter="let close">
-            <div *ngIf="custom.templates.iquiDropdownFooter" class="p-1">
+            <ng-container *ngIf="custom.templates.iquiDropdownFooter">
               <div class="dropdown-divider"></div>
               <span class="dropdown-header">
                 {{custom.templates.iquiDropdownFooter}}
                 <a href="javascript:void(0)" (click)="close()">[X]</a>
               </span>
-            </div>
+            </ng-container>
           </ng-container>
-          
-       </iqui-button>
+
+        </iqui-dropdown-button>
       </div>
     </ng-container>
   </iqui-showcase-playground>

@@ -19,7 +19,11 @@ const entryComponents = [
   ...DropdownDirectiveEntryComponents
 ];
 
-// IQ UI NGX Elements' Functional elements module
+
+/**
+ * IQ UI NGX Elements' Functional elements module
+ * Implements functional directives that augment behavior of their parent element or component
+ */
 @NgModule({
   imports:          [ CommonModule, OverlayModule ],
   declarations:     [ ...components ],
