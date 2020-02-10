@@ -1,0 +1,180 @@
+<!-- Description -->
+<h5> 3rd Party HighlightJS Directive </h5>
+Highlights language syntax using 3rd party <a href="https://highlightjs.org/" target="_blank">highlight.js</a> library.
+
+<!-- Examples -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Examples </div>
+  <div class="p-3">
+
+    <!-- HTML example -->
+    <div class="card">
+      <div class="card-header"> HTML syntax </div>
+      <div class="p-2">
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea ngNonBindable>
+            <!-- Comment -->
+            <div class="my-class">
+              <span>Hello world!</span>
+            </div>
+          </textarea>
+        </iqui-highlightjs>
+      </div>
+    </div>
+
+    <!-- CSS example -->
+    <div class="card mt-2">
+      <div class="card-header"> CSS syntax </div>
+      <div class="p-2">
+        <iqui-highlightjs [languages]="['css']">
+          <textarea ngNonBindable>
+            /* Comment */
+            .my-class {
+              display: block;
+              width: 100%;
+              color: #ABC;          
+            }
+          </textarea>
+        </iqui-highlightjs>
+      </div>
+    </div>
+
+    <!-- JS example -->
+    <div class="card mt-2">
+      <div class="card-header"> Javascript syntax </div>
+      <div class="p-2">
+        <iqui-highlightjs [languages]="['javascript']">
+          <textarea ngNonBindable>
+            // Comment
+            (function (message) {
+              alert(message);
+            })('Hello world!');
+          </textarea>
+        </iqui-highlightjs>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Basic usage -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Usage </div>
+  <div class="p-3">
+
+    <div class="card">
+      <div class="card-header"> Initialization </div>
+      <div class="p-2">
+
+        <iqui-highlightjs [languages]="['javascript']">
+          <textarea>
+            // Import HighlightJsComponent class
+            import { HighlightJsComponent } from 'iqui-ngx-elements/src/lib/components/3rdparty/highlight-js';
+
+            // Register highlight.js languages
+            import { default as javascript } from 'highlight.js/lib/languages/javascript';
+            HighlightJsComponent.registerLanguage('javascript', javascript);
+            import { default as xml } from 'highlight.js/lib/languages/xml';
+            HighlightJsComponent.registerLanguage('xml', xml);
+            import { default as css } from 'highlight.js/lib/languages/css';
+            HighlightJsComponent.registerLanguage('css', css);
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-header"> Usage with syntax via attribute </div>
+      <div class="p-2">
+
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
+            <iqui-highlightjs
+              [syntax]      ="'{{content}}'"
+              [languages]   ="['{{attributes.languages.slice(0, -1).join('|')}}']"
+              [filter]      ="..."
+              [highlight]   ="{{attributes.highlight.join('|')}}"
+              [wrap]        ="{{attributes.wrap.join('|')}}"
+              [trim]        ="{{attributes.trim.join('|')}}"
+              [lineNumbers] ="{{attributes.lineNumbers.join('|')}}"          
+            ></iqui-highlightjs>
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-header"> Usage with inlined syntax </div>
+      <div class="p-2">
+    
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
+            <iqui-highlightjs
+              [languages]   ="'['{{attributes.languages.slice(0, -1).join('|')}}']'"
+              [filter]      ="..."
+              [highlight]   ="{{attributes.highlight.join('|')}}"
+              [wrap]        ="{{attributes.wrap.join('|')}}"
+              [trim]        ="{{attributes.trim.join('|')}}"
+              [lineNumbers] ="{{attributes.lineNumbers.join('|')}}"          
+            >
+              &lt;textarea&gt;
+                {{content}}
+              &lt;/textarea&gt;
+            </iqui-highlightjs>
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-header"> Usage with un-interpolated inlined syntax </div>
+      <div class="p-2">
+    
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
+            <iqui-highlightjs
+              [languages]   ="['{{attributes.languages.slice(0, -1).join('|')}}']"
+              [filter]      ="..."
+              [highlight]   ="{{attributes.highlight.join('|')}}"
+              [wrap]        ="{{attributes.wrap.join('|')}}"
+              [trim]        ="{{attributes.trim.join('|')}}"
+              [lineNumbers] ="{{attributes.lineNumbers.join('|')}}"          
+            >
+              &lt;textarea ngNonBindable&gt;
+                {{content + ' <!-- but with \{\{ \'NG syntax left un-interpolated!\' \}\}'}} -->
+              &lt;/textarea&gt;
+            </iqui-highlightjs>
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>  
+    </div>
+
+  </div>
+</div>
+
+<!-- Playground -->
+<div class="card mb-3">
+  <div class="card-header"> Playground </div>
+  <iqui-showcase-playground [name]="'iqui-highlightjs'" [attributes]="attributes" [content]="content">
+    <!-- Render styled button -->
+    <ng-container *iquiShowcasePlayground="let custom">
+      <div class="card-footer">
+        
+        <iqui-highlightjs
+          [syntax]="custom.content"
+          [languages]="[custom.attributes.languages]"
+          [filter]="custom.attributes.filter"
+          [highlight]="custom.attributes.highlight"
+          [wrap]="custom.attributes.wrap"
+          [trim]="custom.attributes.trim"
+          [lineNumbers]="custom.attributes.lineNumbers"          
+        ></iqui-highlightjs>
+
+      </div>
+    </ng-container>
+  </iqui-showcase-playground>
+</div>

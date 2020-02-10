@@ -5,7 +5,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import components
 import { TooltipDirective, TooltipDirectiveEntryComponents } from './tooltip';
-import { DropdownDirective, DropdownDirectiveEntryComponents, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from './dropdown';
+import { DropdownDirective, DropdownDirectiveEntryComponents,
+         DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from './dropdown';
 
 // Compose components
 const components = [

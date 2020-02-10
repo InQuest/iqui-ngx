@@ -10,5 +10,11 @@
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
 
-  "cSpell.words": [ "iqui", "dropdown" ]
+  "cSpell.words": [
+    "dropdown",
+    "highlightjs",
+    "hljs",
+    "iqui",
+    "nbsp"
+  ]
 }

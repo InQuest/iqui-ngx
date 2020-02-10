@@ -17,23 +17,25 @@ Displays a button-styled button or anchor HTML element
 <!-- Basic usage -->
 <div class="card mt-3 mb-3">
   <div class="card-header"> Usage </div>
-  <pre class="p-3">
-    <code>
-      
-      &lt;iqui-button
-        [disabled="false"]
-        [ngClass="{{'{}'}}"]
-        [class=""]
-        [size="{{attributes.size.slice(0, -1).join('|')}}"]
-        [theme="{{attributes.theme.slice(0, -1).join('|')}}"]
-        [href="https://example.com"]
-        [target="{{attributes.target.slice(0, -1).join('|')}}"]
-      &gt;
-        Button content
-      &lt;/iqui-button&gt;
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['xml']">
+      <textarea>
 
-    </code>
-  </pre>
+        <iqui-button
+          [disabled]  ="{{attributes.disabled.join('|')}}"
+          [class]     ="..."
+          [ngClass]   ="{{'{...}'}}"
+          [size]      ="'{{attributes.size.slice(0, -1).join('|')}}'"
+          [theme]     ="'{{attributes.theme.slice(0, -1).join('|')}}'"
+          [href]      ="'{{attributes.href}}'"
+          [target]    ="'{{attributes.target.slice(0, -1).join('|')}}'"
+        >
+          Button content
+        </iqui-button>
+
+      </textarea>
+    </iqui-highlightjs>
+  </div>
 </div>
 
 <!-- Playground -->
@@ -45,8 +47,8 @@ Displays a button-styled button or anchor HTML element
       <div class="card-footer">
         <iqui-button
           [disabled]="custom.attributes.disabled"
-          [ngClass] ="custom.attributes.ngClass"
           [class]   ="custom.attributes.class"
+          [ngClass] ="custom.attributes.ngClass"
           [href]    ="custom.attributes.href"
           [target]  ="custom.attributes.target"
           [size]    ="custom.attributes.size"

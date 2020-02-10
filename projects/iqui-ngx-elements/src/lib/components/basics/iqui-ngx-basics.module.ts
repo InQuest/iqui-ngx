@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import dependency modules
-import { FunctionalModule } from '../functional/iq-ui-ngx-functional.module';
+import { FunctionalModule } from '../functional/iqui-ngx-functional.module';
 
 // Import components
 import { ButtonComponent } from './button';

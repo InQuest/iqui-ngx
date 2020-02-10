@@ -1,5 +1,5 @@
 <!-- Description -->
-<h5> Basic Tooltip Element </h5>
+<h5> Basic Tooltip Directive </h5>
 Displays a tooltip HTML component
 
 <!-- Examples -->
@@ -21,21 +21,23 @@ Displays a tooltip HTML component
 <!-- Basic usage -->
 <div class="card mt-3 mb-3">
   <div class="card-header"> Usage </div>
-  <pre class="p-3">
-    <code>
-      
-      &lt;anything
-        [iquiTooltip="Tooltip content"]
-        [iquiTooltipPosition="{{attributes.iquiTooltipPosition.join('|')}}"]
-        [iquiTooltipShowOnFocus="true|false"]
-        [iquiTooltipShowOnHover="true|false"]
-        [iquiTooltipStayInViewport="true|false"]
-      &gt;
-        Host component content
-      &lt;/anything&gt;
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['xml']">
+      <textarea>
+        
+        <anything
+          [iquiTooltip]             ="'{{attributes.iquiTooltip}}'"
+          [iquiTooltipPosition]     ="'{{attributes.iquiTooltipPosition.join('|')}}'"
+          [iquiTooltipShowOnFocus   ="{{attributes.iquiTooltipShowOnFocus.join('|')}}"
+          [iquiTooltipShowOnHover   ="{{attributes.iquiTooltipShowOnHover.join('|')}}"
+          [iquiTooltipStayInViewport="{{attributes.iquiTooltipStayInViewport.join('|')}}"
+        >
+          {{content}}
+        </anything>
 
-    </code>
-  </pre>
+      </textarea>
+    </iqui-highlightjs>
+  </div>
 </div>
 
 <!-- Playground -->

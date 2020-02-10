@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 
 // Import modules
 import { PlaygroundModule } from '../../components/playground.module';
-import { BasicsModule } from '../../../../iqui-ngx-elements/src/lib/components/basics/iq-ui-ngx-basics.module';
-import { FunctionalModule } from '../../../../iqui-ngx-elements/src/lib/components/functional/iq-ui-ngx-functional.module';
+import { ThirdPartyModule } from '../../../../iqui-ngx-elements/src/lib/components/3rdparty/iqui-ngx-3rdparty.module';
+import { BasicsModule } from '../../../../iqui-ngx-elements/src/lib/components/basics/iqui-ngx-basics.module';
+import { FunctionalModule } from '../../../../iqui-ngx-elements/src/lib/components/functional/iqui-ngx-functional.module';
 
 // Import showcase components
 import { TooltipShowcaseComponent } from './tooltip';
@@ -19,7 +20,7 @@ const components = [
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
-  imports:      [ CommonModule, PlaygroundModule, BasicsModule, FunctionalModule ],
+  imports:      [ CommonModule, PlaygroundModule, ThirdPartyModule, BasicsModule, FunctionalModule ],
   declarations: [ ...components ],
   exports:      [ ...components ]
 })

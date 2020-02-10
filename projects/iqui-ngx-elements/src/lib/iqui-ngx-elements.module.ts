@@ -2,9 +2,9 @@
 import { NgModule } from '@angular/core';
 
 // Import modules
-import { FunctionalModule } from './components/functional/iq-ui-ngx-functional.module';
-import { BasicsModule } from './components/basics/iq-ui-ngx-basics.module';
-
+import { FunctionalModule } from './components/functional/iqui-ngx-functional.module';
+import { BasicsModule } from './components/basics/iqui-ngx-basics.module';
+import { ThirdPartyModule } from './components/3rdparty/iqui-ngx-3rdparty.module';
 
 /**
  * IQ UI NGX Elements' module
@@ -14,13 +14,15 @@ import { BasicsModule } from './components/basics/iq-ui-ngx-basics.module';
   imports: [
     // Import individual modules
     FunctionalModule,
-    BasicsModule
+    BasicsModule,
+    ThirdPartyModule
   ],
   declarations: [],
   exports: [
     // (Re)export individual modules, making them included into any app the root module is included in
     FunctionalModule,
-    BasicsModule
+    BasicsModule,
+    ThirdPartyModule
   ]
 })
 export class IqUiNgxElementsModule { }

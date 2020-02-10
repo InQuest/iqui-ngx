@@ -1,0 +1,9 @@
+<!-- Get syntax content if passed as component body -->
+<div #syntax style="display: none">
+  <ng-content></ng-content>
+</div>
+
+<!-- Output highlighted syntax -->
+<pre>
+  <code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="highlightedSyntaxHTML"></code>
+</pre>

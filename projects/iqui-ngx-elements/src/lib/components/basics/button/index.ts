@@ -22,8 +22,8 @@ export type BootstrapButtonThemeSizes = BootstrapThemeSizes;
  *
  *  <iqui-button\
  *    [ disabled  = "true|false" ]\
- *    [ ngClass   = "{...}" ]\
  *    [ class     = "..." ]\
+ *    [ ngClass   = "{...}" ]\
  *    [ size      = "sm|lg" ]\
  *    [ theme     = "primary|secondary|success|warning|danger|info|light|dark|link" ]\
  *    [ href      = "https://example.com" ]\
@@ -46,15 +46,15 @@ export class ButtonComponent {
   @Input()
   public disabled = false;
   /**
-   * [ngClass] binding
-   */
-  @Input()
-  public ngClass: any;
-  /**
    * [class] binding
    */
   @Input()
   public class: string = null;
+  /**
+   * [ngClass] binding
+   */
+  @Input()
+  public ngClass: any;
   /**
    * Bootstrap theme color to be used by the component
    */

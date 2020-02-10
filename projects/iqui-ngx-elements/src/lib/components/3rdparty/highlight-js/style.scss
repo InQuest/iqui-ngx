@@ -1,0 +1,57 @@
+:host {
+  & > pre {
+    margin-bottom: unset;
+    
+    & > code {
+    
+      &.wrapped {
+        white-space: pre-wrap;
+      }
+      
+      &::ng-deep {
+
+        & > ul {
+          list-style: none;
+          margin-bottom: 0;
+          padding-inline-start: unset;
+
+          & > li {
+            position: relative;
+            & > .hljs-line-num {
+              position: absolute;
+              display: inline-block;
+              text-align: left;
+              color: gray;
+            }
+          }
+
+          // Numbers column width dependent on line count
+          &.hljs-count-log-0,
+          &.hljs-count-log-1,
+          &.hljs-count-log-2,
+          &.hljs-count-log-3,
+          &.hljs-count-log-4 {
+            padding-left: 40px;
+            & > li > .hljs-line-num {
+              width: 40px;
+              left: -40px;
+            }
+          }
+          &.hljs-count-log-5,
+          &.hljs-count-log-6,
+          &.hljs-count-log-7,
+          &.hljs-count-log-8 {
+            padding-left: 80px;
+            & > li > .hljs-line-num {
+              width: 80px;
+              left: -80px;
+            }
+          }
+
+        }
+
+      }
+
+    }
+  }
+}
