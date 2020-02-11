@@ -183,7 +183,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-class TooltipComponent {
+export class TooltipComponent {
 
   /**
    * Tooltip text content
@@ -252,10 +252,3 @@ class TooltipComponent {
   }
 
 }
-
-/**
- * Entry components requiring registration to the parent module
- */
-export const TooltipDirectiveEntryComponents = [
-  TooltipComponent
-];

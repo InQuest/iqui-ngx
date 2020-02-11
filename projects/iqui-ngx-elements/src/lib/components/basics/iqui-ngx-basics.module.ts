@@ -17,8 +17,6 @@ const components = [
 ];
 
 // Compose dynamic components
-const entryComponents = [];
-
 const additionalExportingComponents = [
   ...DropdownButtonAdditionalExportingComponents
 ];
@@ -30,7 +28,6 @@ const additionalExportingComponents = [
 @NgModule({
   imports:          [ CommonModule, OverlayModule, FunctionalModule ],
   declarations:     [ ...components ],
-  entryComponents:  [ ...entryComponents ],
   exports:          [ ...components, ...additionalExportingComponents ]
 })
 export class BasicsModule { }

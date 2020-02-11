@@ -4,22 +4,15 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import components
-import { TooltipDirective, TooltipDirectiveEntryComponents } from './tooltip';
-import { DropdownDirective, DropdownDirectiveEntryComponents,
+import { TooltipDirective, TooltipComponent } from './tooltip';
+import { DropdownDirective, DropdownComponent,
          DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from './dropdown';
 
 // Compose components
 const components = [
-  TooltipDirective, ...TooltipDirectiveEntryComponents,
-  DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective, ...DropdownDirectiveEntryComponents
+  TooltipDirective, TooltipComponent,
+  DropdownDirective, DropdownComponent, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective
 ];
-
-// Compose dynamic components
-const entryComponents = [
-  ...TooltipDirectiveEntryComponents,
-  ...DropdownDirectiveEntryComponents
-];
-
 
 /**
  * IQ UI NGX Elements' Functional elements module
@@ -28,7 +21,6 @@ const entryComponents = [
 @NgModule({
   imports:          [ CommonModule, OverlayModule ],
   declarations:     [ ...components ],
-  entryComponents:  [ ...entryComponents ],
   exports:          [ ...components ]
 })
 export class FunctionalModule { }

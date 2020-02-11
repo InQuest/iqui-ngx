@@ -264,7 +264,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-class DropdownComponent {
+export class DropdownComponent {
 
   /**
    * Drop-down preferred position
@@ -357,10 +357,3 @@ class DropdownComponent {
   }
 
 }
-
-/**
- * Entry components requiring registration to the parent module
- */
-export const DropdownDirectiveEntryComponents = [
-  DropdownComponent
-];

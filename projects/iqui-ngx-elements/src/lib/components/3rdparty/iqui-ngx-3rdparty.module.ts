@@ -10,9 +10,6 @@ const components = [
   HighlightJsComponent
 ];
 
-// Compose dynamic components
-const entryComponents = [];
-
 /**
  * IQ UI NGX Elements' 3rd party wrappers module
  * Implements wrappers around useful 3rd party modules
@@ -20,7 +17,6 @@ const entryComponents = [];
 @NgModule({
   imports:          [ CommonModule ],
   declarations:     [ ...components ],
-  entryComponents:  [ ...entryComponents ],
   exports:          [ ...components ]
 })
 export class ThirdPartyModule { }
