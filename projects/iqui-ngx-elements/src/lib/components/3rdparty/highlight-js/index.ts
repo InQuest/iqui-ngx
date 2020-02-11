@@ -6,8 +6,20 @@
 import { Component,  OnChanges, AfterViewInit, Input, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
+// Import module registration service instance
+import { register } from '../register';
+
 /**
- * Highlight.js wrapper, displays colored syntax
+ * Registers additional highligh.js (https://highlightjs.org/) language syntaxes
+ * @param languageName Name by which the language will be referenced
+ * @param language Language syntax definition (from "highlight.js/lib/languages/")
+ */
+export function highlightJsRegisterLanguage (languageName: string, language: any) {
+  HighlightJsComponent.registerLanguage(languageName, language);
+}
+
+/**
+ * Highlight.js (https://highlightjs.org/) wrapper, displays colored syntax
  *
  * Usage:
  *
@@ -167,10 +179,18 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
       // Trim lines
       syntax = syntax
         .split('\n')
+        .reduce((aggregate: any, line: string, i: number, arr: string[]) => {
+          // Use remaining (after empty rows) array as response
+          if (line.match(/\S/)) { return arr.splice(i); }
+        }, null)
+        .reverse()
+        .reduce((aggregate: any, line: string, i: number, arr: string[]) => {
+          // Use remaining (after empty rows) array as response
+          if (line.match(/\S/)) { return arr.splice(i); }
+        }, null)
+        .reverse()
         .reduce((lines: string[], line: string) => {
-          if (line.match(/\S/)) {
-            lines.push(line.substr(minStartTrim));
-          }
+          lines.push(line.substr(minStartTrim));
           return lines;
         }, [])
         .join('\n');
@@ -227,3 +247,6 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   }
 
 }
+
+// Register declarations to module
+register.registerDeclarationAndExport(HighlightJsComponent);

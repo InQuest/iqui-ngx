@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FunctionalShowcaseModule } from '../showcases/functional/iqui-ngx-functional-showcase.module';
-import { BasicsShowcaseModule } from '../showcases/basics/iqui-ngx-basics-showcase.module';
-import { ThirdPartyShowcaseModule } from '../showcases/3rdparty/iqui-ngx-3rdparty-showcase-module';
+import { ThirdPartyShowcaseModule } from '../showcases/3rdparty';
+import { FunctionalShowcaseModule } from '../showcases/functional';
+import { BasicsShowcaseModule } from '../showcases/basics';
 
 import { AppComponent } from './app.component';
 

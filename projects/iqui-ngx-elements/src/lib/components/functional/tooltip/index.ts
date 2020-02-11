@@ -8,6 +8,9 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
 
+// Import module registration service instance
+import { register } from '../register';
+
 // Define and export types
 export type TooltipRelativePositioning = 'auto' | RelativePositioning;
 
@@ -252,3 +255,7 @@ export class TooltipComponent {
   }
 
 }
+
+// Register declarations to module
+register.registerDeclarationAndExport(TooltipDirective);
+register.registerDeclaration(TooltipComponent);

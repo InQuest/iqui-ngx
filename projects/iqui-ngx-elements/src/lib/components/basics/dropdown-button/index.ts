@@ -7,6 +7,9 @@ import { BootstrapButtonThemeColors, BootstrapButtonThemeSizes } from '../button
 import { DropdownRelativePositioning,
          DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../../functional/dropdown';
 
+// Import module registration service instance
+import { register } from '../register';
+
 /**
  * Drop-down button, renders a button (or link) control with a drop-down
  *
@@ -129,9 +132,6 @@ export class DropdownButtonComponent {
 
 }
 
-/**
- * Additional components requiring exporting by the parent module
- */
-export const additionalExportingComponents = [
-  DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective
-];
+// Register declarations to module
+register.registerDeclarationAndExport(DropdownButtonComponent);
+register.registerExport(DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective);

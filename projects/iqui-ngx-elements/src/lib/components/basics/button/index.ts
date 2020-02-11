@@ -5,6 +5,9 @@
 import { Component, Input } from '@angular/core';
 import { BootstrapThemeColors, BootstrapThemeSizes } from '../../../types';
 
+// Import module registration service instance
+import { register } from '../register';
+
 // Define and export types
 /*
  * Button's bootstrap theme colors
@@ -95,3 +98,6 @@ export class ButtonComponent {
   }
 
 }
+
+// Register declarations to module
+register.registerDeclarationAndExport(ButtonComponent);

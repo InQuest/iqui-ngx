@@ -2,9 +2,9 @@
 import { NgModule } from '@angular/core';
 
 // Import modules
-import { FunctionalModule } from './components/functional/iqui-ngx-functional.module';
-import { BasicsModule } from './components/basics/iqui-ngx-basics.module';
-import { ThirdPartyModule } from './components/3rdparty/iqui-ngx-3rdparty.module';
+import { FunctionalModule } from './components/functional';
+import { BasicsModule } from './components/basics/';
+import { ThirdPartyModule } from './components/3rdparty';
 
 /**
  * IQ UI NGX Elements' module

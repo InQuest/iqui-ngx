@@ -2,13 +2,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Import components
-import { HighlightJsComponent } from './highlight-js';
+// Import module registration service instance
+import { register } from './register';
 
-// Compose components
-const components = [
-  HighlightJsComponent
-];
+// Import components
+import './highlight-js';
 
 /**
  * IQ UI NGX Elements' 3rd party wrappers module
@@ -16,7 +14,7 @@ const components = [
  */
 @NgModule({
   imports:          [ CommonModule ],
-  declarations:     [ ...components ],
-  exports:          [ ...components ]
+  declarations:     [ ...register.declarations ],
+  exports:          [ ...register.exports ]
 })
 export class ThirdPartyModule { }

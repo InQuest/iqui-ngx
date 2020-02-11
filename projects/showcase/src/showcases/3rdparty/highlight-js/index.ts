@@ -3,15 +3,18 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { HighlightJsComponent } from '../../../../../iqui-ngx-elements/src/lib/components/3rdparty/highlight-js';
+import { highlightJsRegisterLanguage } from '../../../../../iqui-ngx-elements/src';
+
+// Import module registration service instance
+import { register } from '../register';
 
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
-HighlightJsComponent.registerLanguage('javascript', javascript);
+highlightJsRegisterLanguage('javascript', javascript);
 import { default as xml } from 'highlight.js/lib/languages/xml';
-HighlightJsComponent.registerLanguage('xml', xml);
+highlightJsRegisterLanguage('xml', xml);
 import { default as css } from 'highlight.js/lib/languages/css';
-HighlightJsComponent.registerLanguage('css', css);
+highlightJsRegisterLanguage('css', css);
 
 // Showcase component
 @Component({
@@ -35,3 +38,6 @@ export class HighlightJsShowcaseComponent {
   public content = '<div> Hello world! </div>';
 
 }
+
+// Register declarations to module
+register.registerDeclarationAndExport(HighlightJsShowcaseComponent);

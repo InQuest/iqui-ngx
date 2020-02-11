@@ -69,15 +69,15 @@ Highlights language syntax using 3rd party <a href="https://highlightjs.org/" ta
         <iqui-highlightjs [languages]="['javascript']">
           <textarea>
             // Import HighlightJsComponent class
-            import { HighlightJsComponent } from 'iqui-ngx-elements/src/lib/components/3rdparty/highlight-js';
+            import { highlightJsRegisterLanguage } from 'iqui-ngx-elements';
 
             // Register highlight.js languages
             import { default as javascript } from 'highlight.js/lib/languages/javascript';
-            HighlightJsComponent.registerLanguage('javascript', javascript);
+            highlightJsRegisterLanguage('javascript', javascript);
             import { default as xml } from 'highlight.js/lib/languages/xml';
-            HighlightJsComponent.registerLanguage('xml', xml);
+            highlightJsRegisterLanguage('xml', xml);
             import { default as css } from 'highlight.js/lib/languages/css';
-            HighlightJsComponent.registerLanguage('css', css);
+            highlightJsRegisterLanguage('css', css);
           </textarea>
         </iqui-highlightjs>
 
