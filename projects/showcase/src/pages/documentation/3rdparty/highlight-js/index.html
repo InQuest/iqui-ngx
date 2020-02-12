@@ -63,15 +63,36 @@ Highlights language syntax using 3rd party <a href="https://highlightjs.org/" ta
   <div class="p-3">
 
     <div class="card">
+      <div class="card-header"> Styling </div>
+      <div class="p-2">
+
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
+            <!-- Import a highlight.js (https://highlightjs.org/static/demo/) theme directly into HTML -->
+            <link rel="stylesheet" href="~/node_modules/highlight.js/styles/default.css"/>
+          </textarea>
+        </iqui-highlightjs>
+
+        <iqui-highlightjs [languages]="['scss']">
+          <textarea>
+            /* ... or Import a highlight.js (https://highlightjs.org/static/demo/) theme by importing it into your other styling */
+            @import '~/node_modules/node_modules/highlight.js/styles/default.css';
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+    <div class="card mt-2">
       <div class="card-header"> Initialization </div>
       <div class="p-2">
 
         <iqui-highlightjs [languages]="['javascript']">
           <textarea>
-            // Import HighlightJsComponent class
+            // Import highlight.js languages registration provider
             import { highlightJsRegisterLanguage } from 'iqui-ngx-elements';
 
-            // Register highlight.js languages
+            // Register highlight.js (https://highlightjs.org/static/demo/) language syntaxes
             import { default as javascript } from 'highlight.js/lib/languages/javascript';
             highlightJsRegisterLanguage('javascript', javascript);
             import { default as xml } from 'highlight.js/lib/languages/xml';

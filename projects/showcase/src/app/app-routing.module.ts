@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TooltipShowcaseComponent } from '../showcases/functional/tooltip';
-import { DropdownShowcaseComponent } from '../showcases/functional/dropdown';
-import { ButtonShowcaseComponent } from '../showcases/basics/button';
-import { DropdownButtonShowcaseComponent } from '../showcases/basics/dropdown-button';
-import { HighlightJsShowcaseComponent } from '../showcases/3rdparty/highlight-js';
+import { GettingStartedPageComponent } from '../pages/howto/getting-started/component';
+import { TooltipShowcaseComponent } from '../pages/documentation/functional/tooltip';
+import { DropdownShowcaseComponent } from '../pages/documentation/functional/dropdown';
+import { ButtonShowcaseComponent } from '../pages/documentation/basics/button';
+import { DropdownButtonShowcaseComponent } from '../pages/documentation/basics/dropdown-button';
+import { HighlightJsShowcaseComponent } from '../pages/documentation/3rdparty/highlight-js';
 
 const routes: Routes = [
+  // Frontpage
+  { path: '',                         component: GettingStartedPageComponent },
   // Functional directives and components
   { path: 'functional/tooltip',       component: TooltipShowcaseComponent },
   { path: 'functional/dropdown',      component: DropdownShowcaseComponent },
@@ -17,7 +20,7 @@ const routes: Routes = [
   // 4rd party wrappers
   { path: '3rdparty/highlight-js',    component: HighlightJsShowcaseComponent },
   // Default
-  { path: '**',                       redirectTo: '/basics/button' },
+  { path: '**',                       redirectTo: '/' },
 ];
 
 @NgModule({

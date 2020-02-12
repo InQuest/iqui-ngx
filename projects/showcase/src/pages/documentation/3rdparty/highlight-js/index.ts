@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { highlightJsRegisterLanguage } from '../../../../../iqui-ngx-elements/src';
+import { highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
 
 // Import module registration service instance
 import { register } from '../register';
@@ -15,6 +15,8 @@ import { default as xml } from 'highlight.js/lib/languages/xml';
 highlightJsRegisterLanguage('xml', xml);
 import { default as css } from 'highlight.js/lib/languages/css';
 highlightJsRegisterLanguage('css', css);
+import { default as scss } from 'highlight.js/lib/languages/scss';
+highlightJsRegisterLanguage('scss', scss);
 
 // Showcase component
 @Component({

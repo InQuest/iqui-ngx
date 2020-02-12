@@ -4,9 +4,9 @@ IQUI Elements styling is based on [Bootstrap](https://getbootstrap.com/) but has
 As a consequence, any project importing and using the IQUI Elements Library, needs to also include the following SCSS files:
 ```scss
 // Bootstrap style imports
-@import "~/bootstrap/scss/bootstrap";
+@import "~/node_modules/bootstrap/scss/bootstrap";
 // Import angular CDK structural styling
-@import '~/@angular/cdk/overlay-prebuilt.css';
+@import '~/node_modules/@angular/cdk/overlay-prebuilt.css';
 ```
 
 ## Development server

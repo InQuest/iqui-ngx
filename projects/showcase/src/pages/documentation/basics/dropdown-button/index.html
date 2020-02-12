@@ -30,53 +30,83 @@ Displays a button-styled drop-down
 <!-- Basic usage -->
 <div class="card mt-3 mb-3">
   <div class="card-header"> Usage </div>
-  <iqui-highlightjs [languages]="['xml']">
-    <textarea>
+  <div class="p-3">
 
-      <iqui-dropdown-button
-        [disabled]            ="{{attributes.disabled.join('|')}}"
-        [class]               ="..."
-        [ngClass]             ="{{'{...}'}}"
-        [size]                ="'{{attributes.size.slice(0, -1).join('|')}}'"
-        [theme]               ="'{{attributes.theme.slice(0, -1).join('|')}}'"
-        [position]            ="'{{attributes.position.slice(0, -1).join('|')}}'"
-        [showOnFocus]         ="{{attributes.showOnFocus.join('|')}}"
-        [showOnHover]         ="{{attributes.showOnHover.join('|')}}"
-        [stayInViewport]      ="{{attributes.stayInViewport.join('|')}}"
-        [toggleOnButtonClick] ="{{attributes.toggleOnButtonClick.join('|')}}"
-      >
+    <div class="card">
+      <div class="card-header"> Styling </div>
+      <div class="p-2">
 
-        {{ content }}
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
+            <style>
+              /* Drop-down button down arrow styling */
+              iqui-dropdown-button iqui-button .iqui-button-content::after {
+                content: '▾';
+                padding-left: 8px;
+              }
+            </style>
+          </textarea>
+        </iqui-highlightjs>
 
-        <ng-container *iquiDropdownHeader="let close">
-          <!-- Using bootstrap's drop-down classes to style inside drop-down -->
-          <span class="dropdown-header">
-            {{templates.iquiDropdownHeader}}
-            <a (click)="close()"> [X] </a>
-          </span>
-          <div class="dropdown-divider"></div>
-        </ng-container>
+      </div>
+    </div>
 
-        <ng-container *iquiDropdownBody="let close">
-          <!-- Using bootstrap's drop-down classes to style inside drop-down -->
-          <span class="dropdown-item"> Optional body item #1 </span>
-          <span class="dropdown-item"> Optional body item #2 </span>
-          <span class="dropdown-item"> Optional body item #3 </span>
-        </ng-container>
+    <div class="card mt-2">
+      <div class="card-header"> Usage </div>
+      <div class="p-2">
 
-        <ng-container *iquiDropdownFooter="let close">
-          <!-- Using bootstrap's drop-down classes to style inside drop-down -->
-          <div class="dropdown-divider"></div>
-          <span class="dropdown-header">
-            {{templates.iquiDropdownFooter}}
-            <a (click)="close()"> [X] </a>
-          </span>
-        </ng-container>
+        <iqui-highlightjs [languages]="['xml']">
+          <textarea>
 
-      </iqui-dropdown-button>
+            <iqui-dropdown-button
+              [disabled]            ="{{attributes.disabled.join('|')}}"
+              [class]               ="..."
+              [ngClass]             ="{{'{...}'}}"
+              [size]                ="'{{attributes.size.slice(0, -1).join('|')}}'"
+              [theme]               ="'{{attributes.theme.slice(0, -1).join('|')}}'"
+              [position]            ="'{{attributes.position.slice(0, -1).join('|')}}'"
+              [showOnFocus]         ="{{attributes.showOnFocus.join('|')}}"
+              [showOnHover]         ="{{attributes.showOnHover.join('|')}}"
+              [stayInViewport]      ="{{attributes.stayInViewport.join('|')}}"
+              [toggleOnButtonClick] ="{{attributes.toggleOnButtonClick.join('|')}}"
+            >
 
-    </textarea>
-  </iqui-highlightjs>
+              {{ content }}
+
+              <ng-container *iquiDropdownHeader="let close">
+                <!-- Using bootstrap's drop-down classes to style inside drop-down -->
+                <span class="dropdown-header">
+                  {{templates.iquiDropdownHeader}}
+                  <a (click)="close()"> [X] </a>
+                </span>
+                <div class="dropdown-divider"></div>
+              </ng-container>
+
+              <ng-container *iquiDropdownBody="let close">
+                <!-- Using bootstrap's drop-down classes to style inside drop-down -->
+                <span class="dropdown-item"> Optional body item #1 </span>
+                <span class="dropdown-item"> Optional body item #2 </span>
+                <span class="dropdown-item"> Optional body item #3 </span>
+              </ng-container>
+
+              <ng-container *iquiDropdownFooter="let close">
+                <!-- Using bootstrap's drop-down classes to style inside drop-down -->
+                <div class="dropdown-divider"></div>
+                <span class="dropdown-header">
+                  {{templates.iquiDropdownFooter}}
+                  <a (click)="close()"> [X] </a>
+                </span>
+              </ng-container>
+
+            </iqui-dropdown-button>
+
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!-- Playground -->

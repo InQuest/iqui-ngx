@@ -26,7 +26,7 @@ export class PlaygroundComponent implements OnInit {
   @Input()
   public content: string = null;
 
-  @ContentChild(PlaygroundShowcaseDirective, { read: TemplateRef, static: false })
+  @ContentChild(PlaygroundShowcaseDirective, { read: TemplateRef })
   public template: TemplateRef<PlaygroundShowcaseDirective>;
 
   public get attributeKeys () { return Object.keys(this.attributes); }
@@ -38,6 +38,7 @@ export class PlaygroundComponent implements OnInit {
   public ngOnInit () {
     // Initialize values
     this.attributeValues = this.attributeKeys.reduce((attributeValues, key) => {
+      // tslint:disable-next-line: max-line-length
       attributeValues[key] = JSON.parse(JSON.stringify(this.attributes[key] instanceof Array ? this.attributes[key][0] : this.attributes[key]));
       return attributeValues;
     }, {});

@@ -1,7 +1,6 @@
 // Import dependencies
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import dependency modules
 import { FunctionalModule } from '../functional';
@@ -18,7 +17,7 @@ import './dropdown-button';
  * Implements components that are basic building blocks of any application or more-complex component
  */
 @NgModule({
-  imports:          [ CommonModule, OverlayModule, FunctionalModule ],
+  imports:          [ CommonModule, FunctionalModule ],
   declarations:     [ ...register.declarations ],
   exports:          [ ...register.exports ]
 })

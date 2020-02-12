@@ -106,17 +106,17 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   /**
    * Content child element implementing a *iquiDropdownHeader directive and containing the drop-down header content
    */
-  @ContentChild(DropdownHeaderDirective, { static: false })
+  @ContentChild(DropdownHeaderDirective)
   public header: DropdownHeaderDirective;
   /**
    * Content child element implementing a *iquiDropdownBody directive and containing the drop-down body content
    */
-  @ContentChild(DropdownBodyDirective, { static: false })
+  @ContentChild(DropdownBodyDirective)
   public body: DropdownBodyDirective;
   /**
    * Content child element implementing a *iquiDropdownFooter directive and containing the drop-down footer content
    */
-  @ContentChild(DropdownFooterDirective, { static: false })
+  @ContentChild(DropdownFooterDirective)
   public footer: DropdownFooterDirective;
 
   // Holds overlay element reference

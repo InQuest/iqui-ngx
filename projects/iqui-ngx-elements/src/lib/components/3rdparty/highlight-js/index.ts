@@ -118,7 +118,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   public lineNumbers = true;
 
   // Reference to passed-through content container element
-  @ViewChild('syntax', { read: ElementRef, static: false })
+  @ViewChild('syntax', { read: ElementRef })
   protected syntaxEl: ElementRef;
   // Syntax extracted from the passed-through content container element
   protected syntaxElInnerHTML: string;

@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
-import { ThirdPartyShowcaseModule } from '../showcases/3rdparty';
-import { FunctionalShowcaseModule } from '../showcases/functional';
-import { BasicsShowcaseModule } from '../showcases/basics';
+import { GettingStartedPageModule } from '../pages/howto/getting-started';
+import { ThirdPartyShowcaseModule } from '../pages/documentation/3rdparty';
+import { FunctionalShowcaseModule } from '../pages/documentation/functional';
+import { BasicsShowcaseModule } from '../pages/documentation/basics';
 
 import { AppComponent } from './app.component';
 
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
     CommonModule,
     AppRoutingModule,
     // Showcase modules
+    GettingStartedPageModule,
     FunctionalShowcaseModule,
     BasicsShowcaseModule,
     ThirdPartyShowcaseModule

@@ -9,38 +9,74 @@
   <!-- Sidebar navigation -->
   <ul class="sidebar navbar-nav">
 
+    <!-- How to -->
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="'/functional/tooltip'">
-        <span>Functional directives</span>
-      </a>
-    </li>
-    <li class="nav-item pl-3">
-      <a class="nav-link" [routerLink]="'/functional/tooltip'"> [iqui-tooltip] </a>
-    </li>
-    <li class="nav-item pl-3">
-      <a class="nav-link" [routerLink]="'/functional/dropdown'"> [iqui-dropdown] </a>
+      <h5 class="nav-link disabled">How to</h5>
+      <ul class="ml-0 pl-2">
+        <li>
+          <ul class="ml-0 pl-2">
+
+            <!--Getting started -->
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/'">Getting started</a>
+            </li>
+
+          </ul>
+        </li>
+      </ul>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="'/basics/button'">
-        <span>Basic controls</span>
-      </a>
-    </li>
-    <li class="nav-item pl-3">
-      <a class="nav-link" [routerLink]="'/basics/button'"> &lt;iqui-button /&gt; </a>
-    </li>
-    <li class="nav-item pl-3">
-      <a class="nav-link" [routerLink]="'/basics/dropdown-button'"> &lt;iqui-dropdown-button /&gt; </a>
-    </li>
 
+    <!-- Documentation -->
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="'/3rdparty/highlight-js'">
-        <span>3rd party wrappers</span>
-      </a>
+      <h5 class="nav-link disabled">Documentation</h5>
+      <ul class="ml-0 pl-2">
+
+        <!-- Functional directives -->
+        <li class="nav-item">
+          <h6 class="nav-link disabled">Functional directives</h6>
+        </li>
+        <li>
+          <ul class="ml-0 pl-2">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/functional/tooltip'"> [iqui-tooltip] </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/functional/dropdown'"> [iqui-dropdown] </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Basic controls -->
+        <li class="nav-item">
+          <h6 class="nav-link disabled">Basic controls</h6>
+        </li>
+        <li>
+          <ul class="ml-0 pl-2">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/basics/button'"> &lt;iqui-button /&gt; </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/basics/dropdown-button'"> &lt;iqui-dropdown-button /&gt; </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- 3rd party wrappers -->
+        <li class="nav-item">
+          <h6 class="nav-link disabled">3rd party wrappers</h6>
+        </li>
+        <li>
+          <ul class="ml-0 pl-2">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/3rdparty/highlight-js'"> &lt;iqui-highlightjs /&gt; </a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
     </li>
-    <li class="nav-item pl-3">
-      <a class="nav-link" [routerLink]="'/3rdparty/highlight-js'"> &lt;iqui-highlightjs /&gt; </a>
-    </li>
+    
   </ul>
 
   <!-- Page content -->
