@@ -5,9 +5,6 @@
 import { Component } from '@angular/core';
 import { highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
 
-// Import module registration service instance
-import { register } from '../register';
-
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
 highlightJsRegisterLanguage('javascript', javascript);
@@ -40,6 +37,3 @@ export class HighlightJsShowcaseComponent {
   public content = '<div> Hello world! </div>';
 
 }
-
-// Register declarations to module
-register.registerDeclarationAndExport(HighlightJsShowcaseComponent);

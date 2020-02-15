@@ -2,19 +2,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Import module registration service instance
-import { register } from './register';
-
-// Import components
-import './highlight-js';
+// Import components and (re)export components
+import { HighlightJsComponent, highlightJsRegisterLanguage } from './highlight-js';
+export { HighlightJsComponent, highlightJsRegisterLanguage };
 
 /**
  * IQ UI NGX Elements' 3rd party wrappers module
  * Implements wrappers around useful 3rd party modules
  */
 @NgModule({
-  imports:          [ CommonModule ],
-  declarations:     [ ...register.declarations ],
-  exports:          [ ...register.exports ]
+  imports: [
+    CommonModule
+  ],
+  declarations: [
+    HighlightJsComponent
+  ],
+  exports: [
+    HighlightJsComponent
+  ]
 })
 export class ThirdPartyModule { }

@@ -6,9 +6,6 @@
 import { Component,  OnChanges, AfterViewInit, Input, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
-// Import module registration service instance
-import { register } from '../register';
-
 /**
  * Registers additional highligh.js (https://highlightjs.org/) language syntaxes
  * @param languageName Name by which the language will be referenced
@@ -119,12 +116,13 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
   // Reference to passed-through content container element
   @ViewChild('syntax', { read: ElementRef })
-  protected syntaxEl: ElementRef;
+  private syntaxEl: ElementRef;
   // Syntax extracted from the passed-through content container element
-  protected syntaxElInnerHTML: string;
+  private syntaxElInnerHTML: string;
 
   // Rendered, highlighted syntax HTML
-  protected highlightedSyntaxHTML = '';
+  private highlightedSyntax = '';
+  public get _highlightedSyntax () { return this.highlightedSyntax; }
 
   constructor (private cd: ChangeDetectorRef) {}
 
@@ -163,7 +161,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   /**
    * (Re)Renders given syntax as HTML and displays it
    */
-  protected renderHighlightedSyntax () {
+  private renderHighlightedSyntax () {
 
     // Set initial syntax from [syntax] attribute
     let syntax = this.syntax || this.syntaxElInnerHTML;
@@ -232,7 +230,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
     // Set syntax with added line numbers
     const orderOfMagnitude = Math.ceil(Math.log10(highlightedSyntaxLines.length));
-    this.highlightedSyntaxHTML = `<ul class="${ this.lineNumbers ? `hljs-count-log-${orderOfMagnitude}` : '' }">${numberedSyntax}</ul>`;
+    this.highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${orderOfMagnitude}` : '' }">${numberedSyntax}</ul>`;
 
   }
 
@@ -241,12 +239,9 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
    * @param line A line of already highlighted syntax
    * @param lineNumber (Optional) Line number to render left of thr syntax line
    */
-  protected renderLine (line, lineNumber = null) {
+  private renderLine (line, lineNumber = null) {
     // tslint:disable-next-line: max-line-length
     return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
   }
 
 }
-
-// Register declarations to module
-register.registerDeclarationAndExport(HighlightJsComponent);

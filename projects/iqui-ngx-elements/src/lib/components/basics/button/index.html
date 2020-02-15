@@ -3,7 +3,7 @@
 
 <!-- Button -->
 <button *ngIf="!href" [attr.disabled]="disabled || null"
-        [ngClass]="ngClass" [class]="composedClassValue">
+        [ngClass]="ngClass" [class]="_composedClassValue">
   <span class="iqui-button-content">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </span>
@@ -11,7 +11,7 @@
 
 <!-- Anchor -->
 <a *ngIf="!!href" [attr.disabled]="disabled || null"
-   [ngClass]="ngClass" [class]="composedClassValue"
+   [ngClass]="ngClass" [class]="_composedClassValue"
    [href]="href" [target]="target">
   <span class="iqui-button-content">
     <ng-container *ngTemplateOutlet="content"></ng-container>

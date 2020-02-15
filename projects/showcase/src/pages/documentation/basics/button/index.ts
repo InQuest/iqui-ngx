@@ -4,9 +4,6 @@
 // Import dependencies
 import { Component } from '@angular/core';
 
-// Import module registration service instance
-import { register } from '../register';
-
 // Showcase component
 @Component({
   selector:     'iqui-button-showcase',
@@ -30,6 +27,3 @@ export class ButtonShowcaseComponent {
   public content = 'Button content';
 
 }
-
-// Register declarations to module
-register.registerDeclarationAndExport(ButtonShowcaseComponent);

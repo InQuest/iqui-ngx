@@ -5,9 +5,6 @@
 import { Component } from '@angular/core';
 import { highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
 
-// Import module registration service instance
-import { register } from '../register';
-
 // Register highlight.js languages
 import { default as scss } from 'highlight.js/lib/languages/scss';
 highlightJsRegisterLanguage('scss', scss);
@@ -21,6 +18,3 @@ highlightJsRegisterLanguage('javascript', javascript);
   styleUrls:    [`./style.scss`]
 })
 export class GettingStartedPageComponent {}
-
-// Register declarations to module
-register.registerDeclarationAndExport(GettingStartedPageComponent);

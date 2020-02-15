@@ -1,10 +1,15 @@
 // Import dependencies
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
-// Import modules
+// Import and (re)export modules
 import { FunctionalModule } from './components/functional';
+export * from './components/functional';
 import { BasicsModule } from './components/basics/';
+export * from './components/basics';
 import { ThirdPartyModule } from './components/3rdparty';
+export * from './components/3rdparty';
 
 /**
  * IQ UI NGX Elements' module
@@ -12,6 +17,9 @@ import { ThirdPartyModule } from './components/3rdparty';
  */
 @NgModule({
   imports: [
+    // Import angular dependencies
+    CommonModule,
+    BrowserModule,
     // Import individual modules
     FunctionalModule,
     BasicsModule,

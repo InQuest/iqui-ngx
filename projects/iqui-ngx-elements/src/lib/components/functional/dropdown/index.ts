@@ -9,9 +9,6 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
 
-// Import module registration service instance
-import { register } from '../register';
-
 // Define and export types
 /*
  * Dropdown preferred positions type
@@ -327,7 +324,7 @@ export class DropdownComponent {
   /**
    * Composes class value based on property values
    */
-  protected get composedClassValue () {
+  public get _composedClassValue () {
     // Ready values
     const position = this.position.split(' ');
     // Compose classes
@@ -352,7 +349,7 @@ export class DropdownComponent {
   /**
    * Close drop-down function factory
    */
-  protected createClose () {
+  public _createClose () {
     return () => {
       // Close dropdown
       this.focused = false;
@@ -360,7 +357,3 @@ export class DropdownComponent {
   }
 
 }
-
-// Register declarations to module
-register.registerDeclarationAndExport(DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective);
-register.registerDeclaration(DropdownComponent);

@@ -7,21 +7,24 @@ import { CommonModule } from '@angular/common';
 
 // Import modules
 import { PlaygroundModule } from '../../../components/playground.module';
-import { ThirdPartyModule } from '../../../../../iqui-ngx-elements/src/lib/components/3rdparty';
-import { BasicsModule } from '../../../../../iqui-ngx-elements/src/lib/components/basics';
-import { FunctionalModule } from '../../../../../iqui-ngx-elements/src/lib/components/functional';
-
-// Import module registration service instance
-import { register } from './register';
+import { FunctionalModule, BasicsModule, ThirdPartyModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
-import './tooltip';
-import './dropdown';
+import { TooltipShowcaseComponent } from './tooltip';
+import { DropdownShowcaseComponent } from './dropdown';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
-  imports:      [ CommonModule, PlaygroundModule, ThirdPartyModule, BasicsModule, FunctionalModule ],
-  declarations: [ ...register.declarations ],
-  exports:      [ ...register.exports ]
+  imports: [
+    CommonModule, PlaygroundModule, ThirdPartyModule, BasicsModule, FunctionalModule
+  ],
+  declarations: [
+    TooltipShowcaseComponent,
+    DropdownShowcaseComponent
+  ],
+  exports: [
+    TooltipShowcaseComponent,
+    DropdownShowcaseComponent
+  ]
 })
 export class FunctionalShowcaseModule { }

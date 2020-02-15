@@ -6,16 +6,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { ThirdPartyModule } from '../../../../../iqui-ngx-elements/src/lib/components/3rdparty';
+import { ThirdPartyModule } from '../../../../../iqui-ngx-elements/src';
 
-
-// Import module registration service instance
-import { register } from './register';
+// Import page component
+import { GettingStartedPageComponent } from './component';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
-  imports:      [ CommonModule, ThirdPartyModule ],
-  declarations: [ ...register.declarations ],
-  exports:      [ ...register.exports ]
+  imports: [
+    CommonModule, ThirdPartyModule
+  ],
+  declarations: [
+    GettingStartedPageComponent
+  ],
+  exports: [
+    GettingStartedPageComponent
+  ]
 })
 export class GettingStartedPageModule { }
