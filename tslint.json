@@ -59,6 +59,13 @@
       true,
       "single"
     ],
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore"
+      ]
+    },
     "trailing-comma": false,
     "component-class-suffix": false,
     "contextual-lifecycle": true,

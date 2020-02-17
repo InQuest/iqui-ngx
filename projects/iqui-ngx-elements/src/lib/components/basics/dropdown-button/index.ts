@@ -116,14 +116,14 @@ export class DropdownButtonComponent {
 
   // Reference to dropdown directive in template
   @ViewChild('dropdown', { read: DropdownDirective, static: true })
-  private dropdownRef: DropdownDirective;
+  private _dropdownRef: DropdownDirective;
 
   /**
    * Toggle (if required) drop-down on button clicked
    */
-  public onButtonClicked () {
+  public _onButtonClicked () {
     if (this.toggleOnButtonClick) {
-      this.dropdownRef.toggle();
+      this._dropdownRef.toggle();
     }
   }
 

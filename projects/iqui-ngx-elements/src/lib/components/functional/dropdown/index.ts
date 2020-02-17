@@ -117,11 +117,11 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   public footer: DropdownFooterDirective;
 
   // Holds overlay element reference
-  private overlayRef: OverlayRef;
+  private _overlayRef: OverlayRef;
   // Holds component reference
-  private componentRef: ComponentRef<DropdownComponent>;
+  private _componentRef: ComponentRef<DropdownComponent>;
   // Holds references to registered event's event listeners
-  private eventListeners: Record<string, EventListenerOrEventListenerObject> = {};
+  private _eventListeners: Record<string, EventListenerOrEventListenerObject> = {};
 
   /**
    * Toggles focused drop-down's visibility
@@ -130,56 +130,56 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   public toggle: (visible?: boolean) => void;
 
   constructor (
-    private element: ElementRef,
-    private componentFocusMonitor: FocusMonitor,
-    private dropdownFocusMonitor: FocusMonitor,
-    private overlay: Overlay
+    private _element: ElementRef,
+    private _componentFocusMonitor: FocusMonitor,
+    private _dropdownFocusMonitor: FocusMonitor,
+    private _overlay: Overlay
   ) { }
 
   public ngOnInit () {
 
     // Inject
-    this.overlayRef = this.overlay.create();
-    this.componentRef = this.overlayRef.attach(new ComponentPortal(DropdownComponent));
+    this._overlayRef = this._overlay.create();
+    this._componentRef = this._overlayRef.attach(new ComponentPortal(DropdownComponent));
 
     // Prevent from blocking clicks on elements behind it while hidden
-    this.overlayRef.overlayElement.style.pointerEvents = 'none';
+    this._overlayRef.overlayElement.style.pointerEvents = 'none';
 
     // Manage visibility (on focus of parent or drop-down, pr programmatic .toggle() call)
     // tslint:disable-next-line: max-line-length
     // (Updates drop-down visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the drop-down)
     let timeout = null,
         isFocused = false;
-    this.componentFocusMonitor.monitor(this.element, true).subscribe((origin) => {
+    this._componentFocusMonitor.monitor(this._element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
-        this.componentRef.instance.focused = !!origin;
+        this._componentRef.instance.focused = !!origin;
         // Allow toggle on click after a while
         isFocused = false;
         timeout = setTimeout(() => { isFocused = !!origin; }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
       });
     });
-    this.dropdownFocusMonitor.monitor(this.componentRef.instance.element, true).subscribe((origin) => {
+    this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
-        this.componentRef.instance.focused = !!origin;
+        this._componentRef.instance.focused = !!origin;
       });
     });
     this.toggle = (visible: boolean = null) => {
       if (isFocused) {
         // Toggle drop-down focus (visibility)
-        this.componentRef.instance.focused = (visible !== null ? visible : !this.componentRef.instance.focused);
-        this.componentRef.instance.updateIfChangesDetected();
+        this._componentRef.instance.focused = (visible !== null ? visible : !this._componentRef.instance.focused);
+        this._componentRef.instance.updateIfChangesDetected();
       }
     };
     // Manage visibility (on hover)
-    this.element.nativeElement.addEventListener('mouseenter', (this.eventListeners.mouseenter = () => {
-      this.componentRef.instance.hovered = true;
+    this._element.nativeElement.addEventListener('mouseenter', (this._eventListeners.mouseenter = () => {
+      this._componentRef.instance.hovered = true;
     }));
-    this.element.nativeElement.addEventListener('mouseleave', (this.eventListeners.mouseleave = () => {
-      this.componentRef.instance.hovered = false;
+    this._element.nativeElement.addEventListener('mouseleave', (this._eventListeners.mouseleave = () => {
+      this._componentRef.instance.hovered = false;
     }));
   }
 
@@ -191,26 +191,26 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   public ngOnChanges () {
 
     // Update properties
-    if (this.componentRef) {
-      this.componentRef.instance.header = this.header;
-      this.componentRef.instance.body = this.body;
-      this.componentRef.instance.footer = this.footer;
-      this.componentRef.instance.position = this.iquiDropdownPosition;
-      this.componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
-      this.componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
-      this.componentRef.instance.updateIfChangesDetected();
+    if (this._componentRef) {
+      this._componentRef.instance.header = this.header;
+      this._componentRef.instance.body = this.body;
+      this._componentRef.instance.footer = this.footer;
+      this._componentRef.instance.position = this.iquiDropdownPosition;
+      this._componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
+      this._componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
+      this._componentRef.instance.updateIfChangesDetected();
     }
 
     // Update overlay scroll strategy
-    if (this.overlayRef) {
-      this.overlayRef.updateScrollStrategy(this.overlay.scrollStrategies.reposition());
+    if (this._overlayRef) {
+      this._overlayRef.updateScrollStrategy(this._overlay.scrollStrategies.reposition());
     }
 
     // Update overlay position strategy
-    if (this.overlayRef) {
+    if (this._overlayRef) {
 
       // Update strategy
-      const positionStrategy = this.overlay.position().flexibleConnectedTo(this.element)
+      const positionStrategy = this._overlay.position().flexibleConnectedTo(this._element)
         .withPush(this.iquiDropdownStayInViewport)
         .withPositions([
           // Selected, preferred position
@@ -223,15 +223,15 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
               .map(key => AngularCdkRelativePositioningDefinitions[key])
           )
         ]);
-      this.overlayRef.updatePositionStrategy(positionStrategy);
+      this._overlayRef.updatePositionStrategy(positionStrategy);
 
       // Watch for position changes
       positionStrategy.positionChanges.subscribe((positionChange) => {
         // Update position property
         const position = Object.keys(AngularCdkRelativePositioningDefinitions)
           .find(key => (AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair));
-        this.componentRef.instance.position = (position as RelativePositioning);
-        this.componentRef.instance.position = (position as RelativePositioning);
+        this._componentRef.instance.position = (position as RelativePositioning);
+        this._componentRef.instance.position = (position as RelativePositioning);
       });
 
     }
@@ -240,13 +240,13 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public ngOnDestroy () {
     // Stop managing visibility (on focus)
-    this.componentFocusMonitor.stopMonitoring(this.element);
-    this.dropdownFocusMonitor.stopMonitoring(this.componentRef.instance.element);
+    this._componentFocusMonitor.stopMonitoring(this._element);
+    this._dropdownFocusMonitor.stopMonitoring(this._componentRef.instance.element);
     // Stop managing visibility (on hover)
-    this.element.nativeElement.removeEventListener('mouseenter', this.eventListeners.mouseenter);
-    this.element.nativeElement.removeEventListener('mouseleave', this.eventListeners.mouseleave);
+    this._element.nativeElement.removeEventListener('mouseenter', this._eventListeners.mouseenter);
+    this._element.nativeElement.removeEventListener('mouseleave', this._eventListeners.mouseleave);
     // Destroy overlay
-    this.overlayRef.dispose();
+    this._overlayRef.dispose();
   }
 
 }
@@ -312,13 +312,13 @@ export class DropdownComponent {
    */
   public footer: any;
 
-  constructor (public element: ElementRef, private changeDetector: ChangeDetectorRef) {}
+  constructor (public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
 
   /**
    * Forces a component to (re)render if any of it's properties have changed
    */
   public updateIfChangesDetected () {
-    this.changeDetector.detectChanges();
+    this._changeDetector.detectChanges();
   }
 
   /**

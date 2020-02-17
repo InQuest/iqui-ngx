@@ -116,15 +116,14 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
   // Reference to passed-through content container element
   @ViewChild('syntax', { read: ElementRef })
-  private syntaxEl: ElementRef;
+  private _syntaxEl: ElementRef;
   // Syntax extracted from the passed-through content container element
-  private syntaxElInnerHTML: string;
+  private _syntaxElInnerHTML: string;
 
   // Rendered, highlighted syntax HTML
-  private highlightedSyntax = '';
-  public get _highlightedSyntax () { return this.highlightedSyntax; }
+  public _highlightedSyntax = '';
 
-  constructor (private cd: ChangeDetectorRef) {}
+  constructor (private _cd: ChangeDetectorRef) {}
 
   public ngAfterViewInit () {
 
@@ -133,38 +132,38 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
       // Check if single <textarea /> child
       // tslint:disable-next-line: max-line-length
-      if ((this.syntaxEl.nativeElement.children.length === 1) && (this.syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
+      if ((this._syntaxEl.nativeElement.children.length === 1) && (this._syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
         // Use textarea value as syntax
-        if (this.syntaxEl.nativeElement.children[0]) {
-          this.syntaxElInnerHTML = this.syntaxEl.nativeElement.children[0].value;
+        if (this._syntaxEl.nativeElement.children[0]) {
+          this._syntaxElInnerHTML = this._syntaxEl.nativeElement.children[0].value;
         }
       } else {
         // Use .innerHTML as syntax (might be pre-parsed by Angular)
-        this.syntaxElInnerHTML = this.syntaxEl.nativeElement.innerHTML;
+        this._syntaxElInnerHTML = this._syntaxEl.nativeElement.innerHTML;
       }
 
     }
 
     // Trigger highlighting render
-    this.renderHighlightedSyntax();
-    this.cd.detectChanges();
+    this._renderHighlightedSyntax();
+    this._cd.detectChanges();
 
   }
 
   public ngOnChanges () {
 
     // (Re)Trigger highlighting render
-    this.renderHighlightedSyntax();
+    this._renderHighlightedSyntax();
 
   }
 
   /**
    * (Re)Renders given syntax as HTML and displays it
    */
-  private renderHighlightedSyntax () {
+  private _renderHighlightedSyntax () {
 
     // Set initial syntax from [syntax] attribute
-    let syntax = this.syntax || this.syntaxElInnerHTML;
+    let syntax = this.syntax || this._syntaxElInnerHTML;
 
     // Trim lines
     if (syntax && this.trim) {
@@ -212,25 +211,25 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
         if (this.filter instanceof RegExp) {
           if (rawSyntaxLines[i].match(this.filter)) {
             // tslint:disable-next-line: max-line-length
-            numberedSyntax += this.renderLine(line, (this.lineNumbers ? i + 1 : null));
+            numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
           }
         } else if (this.filter && this.filter.toString().trim()) {
           if (rawSyntaxLines[i].indexOf(this.filter.toString().trim()) !== -1) {
             // tslint:disable-next-line: max-line-length
-            numberedSyntax += this.renderLine(line, (this.lineNumbers ? i + 1 : null));
+            numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
           }
         }
       });
     } else {
       // Allow all rows
       numberedSyntax = highlightedSyntaxLines.map((line, i) => {
-        return this.renderLine(line, (this.lineNumbers ? i + 1 : null));
+        return this._renderLine(line, (this.lineNumbers ? i + 1 : null));
       }).join('');
     }
 
     // Set syntax with added line numbers
     const orderOfMagnitude = Math.ceil(Math.log10(highlightedSyntaxLines.length));
-    this.highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${orderOfMagnitude}` : '' }">${numberedSyntax}</ul>`;
+    this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${orderOfMagnitude}` : '' }">${numberedSyntax}</ul>`;
 
   }
 
@@ -239,7 +238,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
    * @param line A line of already highlighted syntax
    * @param lineNumber (Optional) Line number to render left of thr syntax line
    */
-  private renderLine (line, lineNumber = null) {
+  private _renderLine (line, lineNumber = null) {
     // tslint:disable-next-line: max-line-length
     return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
   }
