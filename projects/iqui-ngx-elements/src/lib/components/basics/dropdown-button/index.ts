@@ -3,9 +3,44 @@
 
 // Import dependencies
 import { Component, Input, ContentChild, ViewChild } from '@angular/core';
-import { BootstrapButtonThemeColors, BootstrapButtonThemeSizes } from '../button';
-import { DropdownRelativePositioning,
+import { ButtonComponentTheme, TButtonComponentTheme, ButtonComponentSize, TButtonComponentSize } from '../button';
+import { DropdownRelativePositioning, TDropdownRelativePositioning,
          DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../../functional/dropdown';
+
+// Define and export enums and types
+/*
+ * Dropdown button's bootstrap theme colors type
+ */
+// tslint:disable-next-line: variable-name
+export const DropdownButtonComponentTheme: Record<string, TDropdownButtonComponentTheme> = {
+  ...ButtonComponentTheme
+};
+/*
+ * Dropdown button's bootstrap theme colors type
+ */
+export type TDropdownButtonComponentTheme = TButtonComponentTheme;
+/*
+ * Dropdown button's bootstrap theme colors type
+ */
+// tslint:disable-next-line: variable-name
+export const DropdownButtonComponentSize: Record<string, TDropdownButtonComponentSize> = {
+  ...ButtonComponentSize
+};
+/*
+ * Dropdown button's bootstrap theme size type
+ */
+export type TDropdownButtonComponentSize = TButtonComponentSize;
+/*
+ * Dropdown button's preferred positions enum
+ */
+// tslint:disable-next-line: variable-name
+export const DropdownButtonComponentRelativePositioning: Record<string, TDropdownButtonComponentRelativePositioning> = {
+  ...DropdownRelativePositioning
+};
+/*
+ * Dropdown button's preferred positions type
+ */
+export type TDropdownButtonComponentRelativePositioning = TDropdownRelativePositioning;
 
 /**
  * Drop-down button, renders a button (or link) control with a drop-down
@@ -67,17 +102,17 @@ export class DropdownButtonComponent {
    * Bootstrap theme color to be used by the component
    */
   @Input()
-  public theme: BootstrapButtonThemeColors = 'secondary';
+  public theme: TDropdownButtonComponentTheme = 'secondary';
   /**
    * Bootstrap theme size to be used by the component
    */
   @Input()
-  public size: BootstrapButtonThemeSizes = null;
+  public size: TDropdownButtonComponentSize = null;
   /**
    * Drop-down preferred position
    */
   @Input()
-  public position: DropdownRelativePositioning = 'bottom';
+  public position: TDropdownButtonComponentRelativePositioning = 'bottom';
   /**
    * If drop-down should be displayed when parent control is focused
    */

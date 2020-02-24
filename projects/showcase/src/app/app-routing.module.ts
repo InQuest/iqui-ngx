@@ -6,6 +6,7 @@ import { TooltipShowcaseComponent } from '../pages/documentation/functional/tool
 import { DropdownShowcaseComponent } from '../pages/documentation/functional/dropdown';
 import { ButtonShowcaseComponent } from '../pages/documentation/basics/button';
 import { DropdownButtonShowcaseComponent } from '../pages/documentation/basics/dropdown-button';
+import { FormShowcaseComponent } from '../pages/documentation/form/form';
 import { HighlightJsShowcaseComponent } from '../pages/documentation/3rdparty/highlight-js';
 
 const routes: Routes = [
@@ -17,6 +18,8 @@ const routes: Routes = [
   // Basic components
   { path: 'basics/button',            component: ButtonShowcaseComponent },
   { path: 'basics/dropdown-button',   component: DropdownButtonShowcaseComponent },
+  // Form components
+  { path: 'form/form',                component: FormShowcaseComponent },
   // 4rd party wrappers
   { path: '3rdparty/highlight-js',    component: HighlightJsShowcaseComponent },
   // Default

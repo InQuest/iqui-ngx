@@ -3,6 +3,9 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
+import { DropdownButtonComponentTheme, DropdownButtonComponentSize,
+         DropdownButtonComponentRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
+
 
 // Showcase component
 @Component({
@@ -17,15 +20,9 @@ export class DropdownButtonShowcaseComponent {
     disabled: [false, true],
     class:                '',
     ngClass:              {},
-    size:                 ['sm', 'lg', ''],
-    theme:                ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link', ''],
-    position:             [
-                            'auto',
-                            'bottom', 'bottom center', 'bottom left', 'bottom right',
-                            'right', 'right center', 'right top', 'right bottom',
-                            'left', 'left center', 'left top', 'left bottom',
-                            'top', 'top center', 'top left', 'top right'
-                          ],
+    size:                 [...Object.values(DropdownButtonComponentSize), ''],
+    theme:                [...Object.values(DropdownButtonComponentTheme), ''],
+    position:             Object.values(DropdownButtonComponentRelativePositioning),
     showOnFocus:          [true, false],
     showOnHover:          [false, true],
     stayInViewport:       [false, true],

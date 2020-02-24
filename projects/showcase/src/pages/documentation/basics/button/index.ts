@@ -3,6 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
+import { ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -17,8 +18,8 @@ export class ButtonShowcaseComponent {
     disabled: [false, true],
     class:    '',
     ngClass:  {},
-    size:     ['sm', 'lg', ''],
-    theme:    ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link', ''],
+    size:     [...Object.values(ButtonComponentSize), ''],
+    theme:    [...Object.values(ButtonComponentTheme), ''],
     href:     'https://example.com',
     target:   ['_blank', '_self', '']
   };

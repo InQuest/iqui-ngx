@@ -6,10 +6,20 @@ import { CommonModule } from '@angular/common';
 import { FunctionalModule } from '../functional';
 
 // Import components and (re)export components
-import { ButtonComponent } from './button';
-export { ButtonComponent };
-import { DropdownButtonComponent } from './dropdown-button';
-export { DropdownButtonComponent };
+import { ButtonComponent,
+         ButtonComponentTheme, TButtonComponentTheme,
+         ButtonComponentSize, TButtonComponentSize } from './button';
+export { ButtonComponent,
+         ButtonComponentTheme, TButtonComponentTheme,
+         ButtonComponentSize, TButtonComponentSize };
+import { DropdownButtonComponent,
+         DropdownButtonComponentTheme, TDropdownButtonComponentTheme,
+         DropdownButtonComponentSize, TDropdownButtonComponentSize,
+         DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning } from './dropdown-button';
+export { DropdownButtonComponent,
+         DropdownButtonComponentTheme, TDropdownButtonComponentTheme,
+         DropdownButtonComponentSize, TDropdownButtonComponentSize,
+         DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning };
 import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../functional/dropdown';
 
 /**

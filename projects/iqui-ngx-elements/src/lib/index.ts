@@ -6,8 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 // Import and (re)export modules
 import { FunctionalModule } from './components/functional';
 export * from './components/functional';
-import { BasicsModule } from './components/basics/';
+import { BasicsModule } from './components/basics';
 export * from './components/basics';
+import { FormModule } from './components/form';
+export * from './components/form';
 import { ThirdPartyModule } from './components/3rdparty';
 export * from './components/3rdparty';
 
@@ -23,6 +25,7 @@ export * from './components/3rdparty';
     // Import individual modules
     FunctionalModule,
     BasicsModule,
+    FormModule,
     ThirdPartyModule
   ],
   declarations: [],
@@ -30,6 +33,7 @@ export * from './components/3rdparty';
     // (Re)export individual modules, making them included into any app the root module is included in
     FunctionalModule,
     BasicsModule,
+    FormModule,
     ThirdPartyModule
   ]
 })

@@ -3,17 +3,32 @@
 
 // Import dependencies
 import { Component, Input } from '@angular/core';
-import { BootstrapThemeColors, BootstrapThemeSizes } from '../../../types';
+import { BootstrapTheme, TBootstrapTheme, BootstrapSize, TBootstrapSize } from '../../../types';
 
-// Define and export types
+// Define and export enums and types
 /*
- * Button's bootstrap theme colors
+ * Button's bootstrap theme colors type
  */
-export type BootstrapButtonThemeColors = BootstrapThemeColors | 'link';
+// tslint:disable-next-line: variable-name
+export const ButtonComponentTheme: Record<string, TButtonComponentTheme> = {
+  ...BootstrapTheme,
+  LINK: 'link'
+};
 /*
- * Button's bootstrap theme size
+ * Button's bootstrap theme colors type
  */
-export type BootstrapButtonThemeSizes = BootstrapThemeSizes;
+export type TButtonComponentTheme = TBootstrapTheme | 'link';
+/*
+ * Button's bootstrap theme colors type
+ */
+// tslint:disable-next-line: variable-name
+export const ButtonComponentSize: Record<string, TButtonComponentSize> = {
+  ...BootstrapSize
+};
+/*
+ * Button's bootstrap theme size type
+ */
+export type TButtonComponentSize = TBootstrapSize;
 
 /**
  * Button, renders a button (or link) control
@@ -59,12 +74,12 @@ export class ButtonComponent {
    * Bootstrap theme color to be used by the component
    */
   @Input()
-  public theme: BootstrapButtonThemeColors = 'secondary';
+  public theme: TButtonComponentTheme = 'secondary';
   /**
    * Bootstrap theme size to be used by the component
    */
   @Input()
-  public size: BootstrapButtonThemeSizes = null;
+  public size: TButtonComponentSize = null;
   /**
    * Anchor Hyperlink URL (if set, will style as a link by default)
    */

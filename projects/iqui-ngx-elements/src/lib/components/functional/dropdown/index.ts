@@ -7,13 +7,22 @@ import { Component, Directive, OnInit, AfterViewInit, OnChanges, OnDestroy,
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
+import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
+         RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
 
 // Define and export types
 /*
+ * Dropdown preferred positions enum
+ */
+// tslint:disable-next-line: variable-name
+export const DropdownRelativePositioning: Record<string, TDropdownRelativePositioning> = {
+  AUTO: 'auto',
+  ...BootstrapRelativePositioning
+};
+/*
  * Dropdown preferred positions type
  */
-export type DropdownRelativePositioning = 'auto' | RelativePositioning;
+export type TDropdownRelativePositioning = 'auto' | TBootstrapRelativePositioning;
 
 // Global constants
 // How soon after a focus event is a programmatic toggle of drop-down visibility allowed (in [ms])
@@ -84,7 +93,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
    * Drop-down preferred position
    */
   @Input()
-  public iquiDropdownPosition: DropdownRelativePositioning = 'auto';
+  public iquiDropdownPosition: TDropdownRelativePositioning = 'auto';
   /**
    * If drop-down should be displayed when parent control is focused
    */
@@ -215,7 +224,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
         .withPositions([
           // Selected, preferred position
           // tslint:disable-next-line: max-line-length
-          ...(this.iquiDropdownPosition !== 'auto' ? [AngularCdkRelativePositioningDefinitions[this.iquiDropdownPosition]] : []),
+          ...(this.iquiDropdownPosition !== DropdownRelativePositioning.AUTO ? [AngularCdkRelativePositioningDefinitions[this.iquiDropdownPosition]] : []),
           // Remaining positions in preference order
           ...(
             RelativePositioningPriority
@@ -230,8 +239,8 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
         // Update position property
         const position = Object.keys(AngularCdkRelativePositioningDefinitions)
           .find(key => (AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair));
-        this._componentRef.instance.position = (position as RelativePositioning);
-        this._componentRef.instance.position = (position as RelativePositioning);
+        this._componentRef.instance.position = (position as TDropdownRelativePositioning);
+        this._componentRef.instance.position = (position as TDropdownRelativePositioning);
       });
 
     }
@@ -270,7 +279,7 @@ export class DropdownComponent {
    * Drop-down preferred position
    * (to be set/managed by the orchestrating [iquiDropdown] directive)
    */
-  public position: DropdownRelativePositioning = 'auto';
+  public position: TDropdownRelativePositioning = 'auto';
   /**
    * If drop-down should be displayed when parent control is focused
    * (to be set/managed by the orchestrating [iquiDropdown] directive)

@@ -4,10 +4,16 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import components and (re)export components
-import { TooltipComponent, TooltipDirective } from './tooltip';
-export { TooltipComponent, TooltipDirective };
-import { DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from './dropdown';
-export { DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective };
+import { TooltipComponent, TooltipDirective,
+         TooltipRelativePositioning, TTooltipRelativePositioning } from './tooltip';
+export { TooltipComponent, TooltipDirective,
+         TooltipRelativePositioning, TTooltipRelativePositioning };
+import { DropdownComponent, DropdownDirective,
+         DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
+         DropdownRelativePositioning, TDropdownRelativePositioning } from './dropdown';
+export { DropdownComponent, DropdownDirective,
+         DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
+         DropdownRelativePositioning, TDropdownRelativePositioning };
 
 /**
  * IQ UI NGX Elements' Functional elements module

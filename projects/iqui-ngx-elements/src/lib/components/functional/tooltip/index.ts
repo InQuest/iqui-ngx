@@ -6,10 +6,22 @@ import { Component, Directive, OnInit, OnChanges, OnDestroy, Input, ElementRef, 
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { RelativePositioning, RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
+import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
+         RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
 
 // Define and export types
-export type TooltipRelativePositioning = 'auto' | RelativePositioning;
+/*
+ * Tooltip preferred positions enum
+ */
+// tslint:disable-next-line: variable-name
+export const TooltipRelativePositioning: Record<string, TTooltipRelativePositioning> = {
+  AUTO: 'auto',
+  ...BootstrapRelativePositioning
+};
+/*
+ * Tooltip preferred positions type
+ */
+export type TTooltipRelativePositioning = 'auto' | TBootstrapRelativePositioning;
 
 /**
  * Tooltip directive, adds a tooltip to an HTML element or Angular component
@@ -41,7 +53,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
    * Tooltip preferred position
    */
   @Input()
-  public iquiTooltipPosition: TooltipRelativePositioning = 'auto';
+  public iquiTooltipPosition: TTooltipRelativePositioning = 'auto';
   /**
    * If tooltip should be displayed when parent control is focused
    */
@@ -134,7 +146,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         .withPositions([
           // Selected, preferred position
           // tslint:disable-next-line: max-line-length
-          ...(this.iquiTooltipPosition !== 'auto' ? [AngularCdkRelativePositioningDefinitions[this.iquiTooltipPosition]] : []),
+          ...(this.iquiTooltipPosition !== TooltipRelativePositioning.AUTO ? [AngularCdkRelativePositioningDefinitions[this.iquiTooltipPosition]] : []),
           // Remaining positions in preference order
           ...(
             RelativePositioningPriority
@@ -149,8 +161,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // Update position property
         const position = Object.keys(AngularCdkRelativePositioningDefinitions)
           .find(key => (AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair));
-        this._componentRef.instance.position = (position as RelativePositioning);
-        this._componentRef.instance.position = (position as RelativePositioning);
+        this._componentRef.instance.position = (position as TTooltipRelativePositioning);
+        this._componentRef.instance.position = (position as TTooltipRelativePositioning);
       });
 
     }
@@ -194,7 +206,7 @@ export class TooltipComponent {
    * Tooltip preferred position
    * (to be set/managed by the orchestrating [iquiTooltip] directive)
    */
-  public position: TooltipRelativePositioning = 'auto';
+  public position: TTooltipRelativePositioning = 'auto';
   /**
    * If tooltip should be displayed when parent control is focused
    * (to be set/managed by the orchestrating [iquiTooltip] directive)

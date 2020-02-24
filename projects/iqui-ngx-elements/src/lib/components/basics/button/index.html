@@ -2,7 +2,8 @@
 <ng-template #content><ng-content></ng-content></ng-template>
 
 <!-- Button -->
-<button *ngIf="!href" [attr.disabled]="disabled || null"
+<button *ngIf="!href"
+        [attr.disabled]="disabled || null"
         [ngClass]="ngClass" [class]="_composedClassValue">
   <span class="iqui-button-content">
     <ng-container *ngTemplateOutlet="content"></ng-container>
@@ -10,7 +11,8 @@
 </button>
 
 <!-- Anchor -->
-<a *ngIf="!!href" [attr.disabled]="disabled || null"
+<a *ngIf="!!href"
+   [attr.disabled]="disabled || null"
    [ngClass]="ngClass" [class]="_composedClassValue"
    [href]="href" [target]="target">
   <span class="iqui-button-content">
