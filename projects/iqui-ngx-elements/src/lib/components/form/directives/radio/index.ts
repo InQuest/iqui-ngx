@@ -20,4 +20,21 @@ import { FormElement, FormElementDirective } from '../';
   providers: [{ provide: FormElementDirective, useExisting: RadioDirective }]
 })
 @FormElement({ idAttributeName: 'id', bindDisabled: true, bindValid: true })
-export class RadioDirective extends FormElementDirective {}
+export class RadioDirective extends FormElementDirective {
+
+  /**
+   * Applies bindings and styling to element
+   */
+  protected apply () {
+    // Execute inherited functionality
+    super.apply();
+
+    // Apply common name based on grand-parent instead of parent
+    const parentIds = this._parentIds;
+    if (parentIds.length) {
+      this._el.nativeElement.setAttribute('name', `unique-name-${ parentIds.length > 1 ? parentIds[1] : parentIds[0] }`);
+    }
+
+  }
+
+}

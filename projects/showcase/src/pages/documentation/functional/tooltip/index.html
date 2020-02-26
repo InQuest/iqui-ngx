@@ -2,60 +2,20 @@
 <h5> Basic Tooltip Directive </h5>
 Displays a tooltip HTML component
 
-<!-- Examples -->
-<div class="card mt-3 mb-3">
-  <div class="card-header"> Examples </div>
-  <div class="p-3">
-
-    <ng-container *ngFor="let position of attributes.iquiTooltipPosition">
-      <br *ngIf="position.split(' ').length === 1" />
-      <iqui-button class="m-1" theme="light"
-          [iquiTooltip]="'Tooltip'" [iquiTooltipPosition]="position">
-        Tooltip "{{position}}"
-      </iqui-button>
-    </ng-container>
-
-  </div>
-</div>
-
-<!-- Basic usage -->
-<div class="card mt-3 mb-3">
-  <div class="card-header"> Usage </div>
-  <div class="p-3">
-    <iqui-highlightjs [languages]="['xml']">
-      <textarea>
-        
-        <anything
-          [iquiTooltip]             ="'{{attributes.iquiTooltip}}'"
-          [iquiTooltipPosition]     ="'{{attributes.iquiTooltipPosition.join('|')}}'"
-          [iquiTooltipShowOnFocus   ="{{attributes.iquiTooltipShowOnFocus.join('|')}}"
-          [iquiTooltipShowOnHover   ="{{attributes.iquiTooltipShowOnHover.join('|')}}"
-          [iquiTooltipStayInViewport="{{attributes.iquiTooltipStayInViewport.join('|')}}"
-        >
-          {{content}}
-        </anything>
-
-      </textarea>
-    </iqui-highlightjs>
-  </div>
-</div>
-
 <!-- Playground -->
-<div class="card mb-3">
-  <div class="card-header"> Playground </div>
-  <iqui-showcase-playground [name]="'anything'" [attributes]="attributes" [content]="content">
-    <!-- Render styled button -->
-    <ng-container *iquiShowcasePlayground="let custom">
-      <div class="card-footer">
-        <iqui-button class="m-2" theme="primary"
-          [iquiTooltip]="custom.attributes.iquiTooltip"
-          [iquiTooltipPosition]="custom.attributes.iquiTooltipPosition"
-          [iquiTooltipShowOnFocus]="custom.attributes.iquiTooltipShowOnFocus"
-          [iquiTooltipShowOnHover]="custom.attributes.iquiTooltipShowOnHover"
-          [iquiTooltipStayInViewport]="custom.attributes.iquiTooltipStayInViewport">
-          {{custom.content}}
-        </iqui-button>
-      </div>
-    </ng-container>
-  </iqui-showcase-playground>
-</div>
+<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+  <textarea>
+
+    <iqui-button theme="light"
+                 [iquiTooltip]="               context.ContentText"
+                 [iquiTooltipPosition]="       context.Position"
+                 [iquiTooltipShowOnFocus]="    context.ShowOnFocus"
+                 [iquiTooltipShowOnHover]="    context.ShowOnHover"
+                 [iquiTooltipStayInViewport]=" context.StayInViewport">
+
+      Button with a Tooltip
+
+    </iqui-button>
+
+  </textarea>
+</iqui-playground>

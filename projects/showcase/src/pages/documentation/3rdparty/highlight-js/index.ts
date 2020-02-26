@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
+import { BasicsModule, ThirdPartyModule, highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
 
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
@@ -17,23 +17,23 @@ highlightJsRegisterLanguage('scss', scss);
 
 // Showcase component
 @Component({
-  selector:     'iqui-highlightjs-showcase',
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
 export class HighlightJsShowcaseComponent {
 
-  // Playground attribute values
-  public attributes = {
-    languages:    ['xml', 'css', 'javascript', ''],
-    filter:       '',
-    highlight:    [true, false],
-    wrap:         [true, false],
-    trim:         [true, false],
-    lineNumbers:  [true, false]
-  };
+  // Expose modules needed to render syntax
+  public modules = [BasicsModule, ThirdPartyModule];
 
-  // Playground content
-  public content = '<div> Hello world! </div>';
+  // Playground context
+  public context = {
+    Syntax:       '<div> Hello world! </div>',
+    Language:     ['xml', 'css', 'javascript', undefined],
+    Filter:       undefined,
+    Highlight:    [true, false],
+    Wrap:         [true, false],
+    Trim:         [true, false],
+    LineNumbers:  [true, false]
+  };
 
 }

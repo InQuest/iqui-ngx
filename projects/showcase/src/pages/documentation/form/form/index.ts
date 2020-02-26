@@ -3,30 +3,34 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { TBootstrapSize, BootstrapSize } from '../../../../../../iqui-ngx-elements/src';
+import { FormModule, TBootstrapSize, BootstrapSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
-  selector:     'iqui-form-group-showcase',
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
 export class FormShowcaseComponent {
 
-  public globalIsDisabled = false;
-  public globalSize = BootstrapSize.SMALL;
-  public globalIsValid: boolean = null;
+  // Expose modules needed to render syntax
+  public modules = [FormModule];
 
-  public isDisabled: boolean = undefined;
-  public size: TBootstrapSize = undefined;
-  public isValid: boolean = undefined;
+  // Playground context
+  public context = {
 
-  // Playground attribute values
-  public attributes = {
-    disabled: [false, true],
-    class:    '',
-    ngClass:  {},
-    size:     BootstrapSize
+    // If [iquiForm] directive is enabled
+    Enabled:        true,
+
+    // Form
+    FormDisabled:   [undefined, true, false],
+    FormSize:       [undefined, ...Object.values(BootstrapSize)],
+    FormValid:      [undefined, true, false],
+
+    // Form Group
+    GroupDisabled:  [undefined, true, false],
+    GroupSize:      [undefined, ...Object.values(BootstrapSize)],
+    GroupValid:     [undefined, true, false]
+
   };
 
 }

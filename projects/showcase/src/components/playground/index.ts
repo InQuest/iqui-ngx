@@ -1,63 +1,269 @@
-import { Component, OnInit, Directive, Input, ContentChild, TemplateRef } from '@angular/core';
+import '@angular/compiler';
+import {
+  Compiler, NgModuleRef, NgModule,
+  Component, OnInit, OnChanges, AfterViewInit, OnDestroy,
+  Input, ElementRef, ComponentRef, ViewChild, ViewContainerRef,
+  ChangeDetectorRef, Injector
+} from '@angular/core';
 
-@Directive({
-  selector: '[iquiShowcasePlayground]'
-})
-export class PlaygroundShowcaseDirective {
-  constructor () {}
-}
-
+/**
+ * Renders an interactive demo for a component/directive
+ *
+ * Usage:
+ *
+ *  <iqui-playground [context]="{ test: 123 }">
+ *    <textarea ngNonBindable>
+ *      <div> Code example: {{ context.test }} </div>
+ *    </textarea>
+ *  </iqui-playground>
+ */
 @Component({
-  selector: 'iqui-showcase-playground',
+  selector: 'iqui-playground',
   templateUrl: './index.html',
   styleUrls: ['./style.scss']
 })
-export class PlaygroundComponent implements OnInit {
+export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
+  constructor (
+    private _compiler: Compiler,
+    private _injector: Injector,
+    private _module: NgModuleRef<any>,
+    private _cd: ChangeDetectorRef
+  ) {}
+
+  /**
+   * Syntax to render/display (if not passed via <textarea /> through component content)
+   */
   @Input()
-  public name: string = null;
+  public syntax: string = null;
 
+  /**
+   * NgModules needed to render given syntax
+   */
   @Input()
-  public attributes: object = {};
+  public modules: any[] = [];
 
+  /**
+   * Interactive configuration definition for the component being demoed
+   */
   @Input()
-  public templates: object = {};
+  public context = {};
 
-  @Input()
-  public content: string = null;
+  /**
+   * Reference to pass-through syntax element
+   */
+  @ViewChild('syntax', { read: ElementRef })
+  private _syntaxEl: ElementRef;
 
-  @ContentChild(PlaygroundShowcaseDirective, { read: TemplateRef })
-  public template: TemplateRef<PlaygroundShowcaseDirective>;
+  /**
+   * Holds reference to the output host element for (dynamically created) playground example component
+   */
+  @ViewChild('example', { read: ViewContainerRef, static: true })
+  private _exampleHostEl: ViewContainerRef;
 
-  public get attributeKeys () { return Object.keys(this.attributes); }
-  public attributeValues = {};
-  public get templateKeys () { return Object.keys(this.templates); }
-  public templateValues = {};
-  public contentValue = null;
+  /**
+   * Holds breakdown for all context properties
+   */
+  public _context = {};
+  /**
+   * Holds keys of all context properties
+   */
+  public _contextKeys = [];
+  /**
+   * Holds value syntax for all context properties
+   */
+  public _contextSyntax = {};
+  /**
+   * Holds selected value for all context properties
+   */
+  public _contextSelected = {};
+
+  /**
+   * Holds reference to (dynamically created) playground example component
+   */
+  private _exampleComponent: ComponentRef<any>;
+
+  /**
+   * Holds processed component usage syntax
+   */
+  public _usageSyntax: string;
 
   public ngOnInit () {
-    // Initialize values
-    this.attributeValues = this.attributeKeys.reduce((attributeValues, key) => {
+    // Process configuration
+    this._processConfig();
+  }
+
+  public ngAfterViewInit () {
+    // Check if single <textarea /> child
+    if (this.syntax) {
+      // Load and process syntax
+      this._processSyntax(this.syntax);
+    // tslint:disable-next-line: max-line-length
+    } else if ((this._syntaxEl.nativeElement.children.length === 1) && (this._syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
+      // Load and process syntax
+      this._processSyntax(this._syntaxEl.nativeElement.children[0].value);
+    } else {
+      // Throw error
       // tslint:disable-next-line: max-line-length
-      attributeValues[key] = JSON.parse(JSON.stringify(this.attributes[key] instanceof Array ? this.attributes[key][0] : this.attributes[key]));
-      return attributeValues;
-    }, {});
-    this.templateValues = this.templateKeys.reduce((templateValues, key) => {
-      templateValues[key] = this.templates[key];
-      return templateValues;
-    }, {});
-    this.contentValue = this.content;
+      throw new Error('<iqui-playground /> components need sto be called with [syntax] attribute or a single <textarea /> child element containing syntax!');
+    }
   }
 
-  public isAttributeArray (key) {
-    return (this.attributes[key] instanceof Array);
-  }
-  public getAttributeType (key) {
-    return (this.attributes[key] instanceof Array ? (typeof this.attributes[key][0]) : (typeof this.attributes[key]));
+  public ngOnChanges () {
+    // Process configuration
+    this._processConfig();
   }
 
-  public selectAttributeValue (key, e) {
-    this.attributeValues[key] = this.attributes[key].find(value => (value.toString() === e.target.value.toString()));
+  public ngOnDestroy () {
+    if (this._exampleComponent) {
+      // Destroy dynamically added components
+      this._exampleComponent.destroy();
+    }
+  }
+
+  /**
+   * Process provided configuration
+   */
+  private _processConfig () {
+
+    // Reset context
+    this._context = {};
+    this._contextKeys = [];
+    this._contextSyntax = {};
+    this._contextSelected = {};
+
+    // Recompose context
+    for (const key in this.context) {
+      if (this.context.hasOwnProperty(key)) {
+
+        // Get context property
+        this._contextKeys.push(key);
+        const value = this.context[key];
+
+        // Initialize breakdown
+        if (!this._context[key]) { this._context[key] = {}; }
+
+        // Get context property type
+        let type: string = (this._context[key].type = typeof value);
+        if (type === 'object' && value instanceof Array) {
+          type = (this._context[key].type = 'array');
+        }
+
+        // Generate selection syntax
+        if (type === 'array') {
+          const syntax = value.map(item => this._stringify(item));
+          this._contextSyntax[key] = this._context[key].syntax = `${key}: (${ syntax.join('|') })`;
+        } else {
+          this._contextSyntax[key] = this._context[key].syntax = `${key}: ${this._context[key].type}`;
+        }
+
+        // (Pre)select value and options
+        if (type === 'array') {
+          this._context[key].options = value;
+          this._contextSelected[key] = this._context[key].selected = (value.length ? value[0] : null);
+        } else {
+          this._contextSelected[key] = this._context[key].selected = value;
+        }
+
+      }
+    }
+
+    // Trigger change detection
+    this._triggerDynamicComponentsChangeDetection();
+
+  }
+
+  /**
+   * Processes playground component syntax into a code syntax TemplateRef and an Example TemplateRef
+   * @param syntax Component syntax to process
+   */
+  private _processSyntax (syntax) {
+
+    // Set usage syntax
+    this._usageSyntax = syntax;
+    for (const key in this._context) {
+      if (this._context.hasOwnProperty(key)) {
+        this._usageSyntax = this._usageSyntax.replace(new RegExp(`context.${key}`, 'g'), this._contextSyntax[key]);
+      }
+    }
+
+    // Destroy previously dynamically added components
+    this._exampleHostEl.clear();
+    if (this._exampleComponent) {
+      this._exampleComponent.destroy();
+    }
+
+    // Create dynamic component
+    const dynamicComponentClass = Component({ template: syntax })(
+      class {
+        constructor () {}
+        public context: any = {};
+      }
+    );
+
+    // Create dynamic module
+    const dynamicModuleClass = NgModule({
+      imports: [...this.modules],
+      declarations: [dynamicComponentClass],
+    })(class {});
+
+    // Create and inject dynamically created component
+    this._compiler.compileModuleAndAllComponentsAsync(dynamicModuleClass)
+      .then((factories) => {
+
+        // Inject component
+        const factory = factories.componentFactories[0];
+        this._exampleComponent = factory.create(this._injector, [], null, this._module);
+        this._exampleHostEl.insert(this._exampleComponent.hostView);
+
+        // Trigger change detection
+        this._triggerDynamicComponentsChangeDetection();
+
+      });
+
+    // Trigger change detection
+    this._cd.detectChanges();
+  }
+
+  /**
+   * Updates selected values /while replacing the entire containing hash-map to trigger change detection
+   * @param key Key to update
+   * @param value Updated value
+   */
+  public _updateSelected (key, value) {
+
+    // Update selected values
+    this._contextSelected = { ...this._contextSelected };
+    this._contextSelected[key] = value;
+
+    // Trigger change detection
+    this._triggerDynamicComponentsChangeDetection();
+
+  }
+
+  /**
+   * Triggers change detection on injected dynamic components
+   */
+  private _triggerDynamicComponentsChangeDetection () {
+    if (this._exampleComponent) {
+      this._exampleComponent.instance.context = {...this._contextSelected};
+      // this._exampleComponent.instance._cd.detectChanges();
+    }
+  }
+
+  /**
+   * Gets string representation of value
+   * @param value Value to stringify
+   * @returns String representation of value
+   */
+  private _stringify (value) {
+    if (value === undefined) {
+      return 'undefined';
+     } else if (value === null ) {
+       return 'null';
+    } else {
+      return JSON.stringify(value).replace(/"/g, '\'');
+    }
   }
 
 }

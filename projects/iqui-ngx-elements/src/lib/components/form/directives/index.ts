@@ -17,14 +17,14 @@ import { TBootstrapSize, BootstrapSize } from '../../../types';
  */
 export function FormElement ({
   isolateId       = false,
-  className       = null as string,
-  idAttributeName = null as string,
+  className       = null as string | string[],
+  idAttributeName = null as string | string[],
   bindDisabled    = false,
   bindSize        = false,
   bindValid       = false
 }) {
   return (directiveClass) => {
-    directiveClass._formElementAnnotation = {
+    directiveClass.__formElementAnnotation = {
       isolateId,
       className,
       idAttributeName,
@@ -57,7 +57,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
     // Directive host element
     protected _el: ElementRef,
     // (Optional) Parent directive element
-    @Host() @SkipSelf() @Optional() private _parent: FormElementDirective
+    @Host() @SkipSelf() @Optional() protected _parent: FormElementDirective
   ) {
 
     // Subscribe to parent's events
@@ -93,8 +93,8 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets @FormElement decorator's annotations
    */
-  private get formControlAnnotation () {
-    return (this.constructor as any)._formElementAnnotation;
+  protected get formControlAnnotation () {
+    return (this.constructor as any).__formElementAnnotation;
   }
 
   /**
@@ -104,8 +104,18 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Unique ID for the parent container (if parent found)
    */
-  private get _parentId () {
+  protected get _parentId () {
     return (this._parent ? this._parent._id || this._parent._parentId : null);
+  }
+  /**
+   * Unique IDs for all parent containers (if parents found)
+   */
+  protected get _parentIds () {
+    const ids = [];
+    let parent: FormElementDirective = this;
+    // tslint:disable-next-line: no-conditional-assignment
+    do { if (parent._id) { ids.push(parent._id); } } while (parent = parent._parent);
+    return ids;
   }
 
   /**
@@ -128,7 +138,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets [disabled] binding, inherited from parent form containers
    */
-  private get _inheritedDisabled () {
+  protected get _inheritedDisabled () {
     if (this.disabled === true || this.disabled === false) {
       return this.disabled;
     } else {
@@ -144,7 +154,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets [size] binding, inherited from parent form containers
    */
-  private get _inheritedSize () {
+  protected get _inheritedSize () {
     return (this.size || this.size === null) || (this._parent ? this._parent._inheritedSize : null);
   }
 
@@ -156,7 +166,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets [valid] binding, inherited from parent form containers
    */
-  private get _inheritedValid () {
+  protected get _inheritedValid () {
     if (this.valid === null || this.valid === true || this.valid === false) {
       return this.valid;
     } else {
@@ -195,7 +205,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Applies bindings and styling to element
    */
-  private apply () {
+  protected apply () {
 
     // If (relative) isolateId container, set unique ID for instance
     if (this.shouldInitializeIdScope) {
@@ -212,9 +222,12 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
 
       // Inherit common container ID to be referenced by any labels
       if (this.formControlAnnotation.idAttributeName) {
-        const parentId = this._parentId;
+        const parentId        = this._parentId,
+              idAttributeName = this.formControlAnnotation.idAttributeName;
         if (parentId) {
-          this._el.nativeElement.setAttribute(this.formControlAnnotation.idAttributeName, `unique-id-${ parentId }`);
+          for (const id of (idAttributeName instanceof Array ? idAttributeName : [ idAttributeName ])) {
+            this._el.nativeElement.setAttribute(id, `unique-id-${ parentId }`);
+          }
         }
       }
 
@@ -225,14 +238,17 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
 
       // Inherit size from parent container
       if (this.formControlAnnotation.bindSize) {
-        // Remove existing sizes
-        for (const size of Object.values(BootstrapSize)) {
-          this._el.nativeElement.classList.remove(`${this.formControlAnnotation.className}-${size}`);
-        }
-        // Set size
-        const inheritedSize = this._inheritedSize;
-        if (inheritedSize) {
-          this._el.nativeElement.classList.add(`${this.formControlAnnotation.className}-${ inheritedSize }`);
+        const className = this.formControlAnnotation.className;
+        for (const name of (className instanceof Array ? className : [ className ])) {
+          // Remove existing sizes
+          for (const size of Object.values(BootstrapSize)) {
+            this._el.nativeElement.classList.remove(`${name}-${size}`);
+          }
+          // Set size
+          const inheritedSize = this._inheritedSize;
+          if (inheritedSize) {
+            this._el.nativeElement.classList.add(`${name}-${ inheritedSize }`);
+          }
         }
       }
 

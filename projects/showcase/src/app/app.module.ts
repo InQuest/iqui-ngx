@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { GettingStartedPageModule } from '../pages/howto/getting-started';
-import { ThirdPartyShowcaseModule } from '../pages/documentation/3rdparty';
 import { FunctionalShowcaseModule } from '../pages/documentation/functional';
 import { BasicsShowcaseModule } from '../pages/documentation/basics';
+import { FormShowcaseModule } from '../pages/documentation/form';
+import { ThirdPartyShowcaseModule } from '../pages/documentation/3rdparty';
 
 import { AppComponent } from './app.component';
 
@@ -20,6 +21,7 @@ import { AppComponent } from './app.component';
     GettingStartedPageModule,
     FunctionalShowcaseModule,
     BasicsShowcaseModule,
+    FormShowcaseModule,
     ThirdPartyShowcaseModule
   ],
   declarations: [

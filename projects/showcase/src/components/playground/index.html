@@ -1,61 +1,74 @@
-<!-- Usage -->
-<div class="p-3">
-  &lt;{{name}} <br/>
-
-  <!-- Attributes -->
-  <span class="attribute" *ngFor="let key of attributeKeys">
-    &nbsp;&nbsp; {{((attributes[key] !== null ? '[' : '') + key + (attributes[key] !== null ? ']' : '')).padStart(32, '&nbsp;')}}
-      <span class="edit">
-
-        <!-- Not editable -->
-        <span *ngIf="attributes[key] === null"></span>
-
-        <!-- Select enum value -->
-        <span *ngIf="attributes[key] !== null && isAttributeArray(key)">
-          = "{{getAttributeType(key) === 'string' ? '\'' : ' '}}<select [value]="attributeValues[key]" (change)="selectAttributeValue(key, $event)">
-                <option *ngFor="let value of attributes[key]" [value]="value"> {{value}} </option>
-              </select>{{getAttributeType(key) === 'string' ? '\'' : ' '}}"
-        </span>
-
-        <!-- String editor -->
-        <span *ngIf="attributes[key] !== null && !isAttributeArray(key) && getAttributeType(key) === 'string'">
-          = "'<input type="text" [value]="attributeValues[key]" (change)="attributeValues[key] = $event.target.value" />'"
-        </span>
-
-        <!-- Object editor -->
-        <span *ngIf="attributes[key] !== null && !isAttributeArray(key) && getAttributeType(key) === 'object'">
-          = " {{'{'}} ... {{'}'}} "
-        </span>
-
-      </span>
-    
-    <br/>
-  </span>
-
-  &gt; <br />
-
-  <!-- Templates -->
-  <span class="attribute" *ngFor="let key of templateKeys">
-    &nbsp;&nbsp;
-    &lt;ng-container *{{key}}&gt; <br />
-    <span class="edit">
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <textarea class="template" [value]="templateValues[key]" (change)="templateValues[key] = $event.target.value"></textarea>
-    </span> <br />
-    &nbsp;&nbsp;
-    &lt;/ng-container&gt;
-  </span> <br />
-
-  <!-- Content -->
-  <span class="attribute">
-    <span class="edit">
-      &nbsp;&nbsp;
-      <textarea class="content" [value]="contentValue" (change)="contentValue = $event.target.value"></textarea>
-    </span>
-  </span> <br />
-
-  &lt;/{{name}}&gt;
+<!-- Content Pass-through -->
+<div #syntax style="display: none">
+  <ng-content></ng-content>
 </div>
 
-<!-- Live example -->
-<ng-container *ngTemplateOutlet="template, context: { $implicit: { attributes: attributeValues, templates: templateValues, content: contentValue } }"></ng-container>
+<!-- Playground -->
+<div class="row mt-2">
+
+  <!-- Live Example -->
+  <div class="col-8 p-3">
+    <div class="card">
+      <div class="card-header"> Example </div>
+      <div class="p-3">
+        <ng-container #example></ng-container>
+      </div>
+    </div>
+  </div> 
+
+  <!-- Live Parameters Playground -->
+  <div class="col-4 p-3">
+    <div class="card">
+      <div class="card-header"> Playground </div>
+      <form iquiForm [size]="'sm'" class="p-3">
+        <ng-container *ngFor="let key of _contextKeys">
+
+          <!-- Boolean values -->
+          <div class="form-group" *ngIf="_context[key].type === 'boolean'">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+                [checked]="_contextSelected[key]" (change)="_updateSelected(key, $event.target.checked)" />
+              <label class="form-check-label"> {{ key }} </label>
+            </div>
+          </div>
+
+          <!-- String values -->
+          <div class="form-group" *ngIf="_context[key].type === 'string'">
+            <label> {{ key }} </label>
+            <input type="text"
+              [value]="_contextSelected[key]" (change)="_updateSelected(key, $event.target.value)" />
+          </div>
+
+          <!-- Number values -->
+          <div class="form-group" *ngIf="_context[key].type === 'number'">
+            <label> {{ key }} </label>
+            <input type="number"
+              [value]="_contextSelected[key]" (change)="_updateSelected(key, $event.target.value)" />
+          </div>
+
+          <!-- Array values -->
+          <div class="form-group" *ngIf="_context[key].type === 'array'">
+            <label> {{ key }} </label>
+            <div class="row">
+              <div class="custom-control custom-radio mr-2" *ngFor="let value of _context[key].options">
+                <input type="radio" class="custom-control-input"
+                  [checked]="value == _contextSelected[key]" (change)="_updateSelected(key, value)">
+                <label class="custom-control-label"> {{ value === undefined ? 'undefined' : (value === null ? 'null' : value) }} </label>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<!-- Syntax -->
+<div class="card mt-2">
+  <div class="card-header"> Usage </div>
+  <div class="p-3">
+    <iqui-highlightjs [syntax]="_usageSyntax" [languages]="['xml']"></iqui-highlightjs>
+  </div>
+</div>

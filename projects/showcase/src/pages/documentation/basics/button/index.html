@@ -2,60 +2,22 @@
 <h5> Basic Button Element </h5>
 Displays a button-styled button or anchor HTML element
 
-<!-- Examples -->
-<div class="card mt-3 mb-3">
-  <div class="card-header"> Examples </div>
-  <div class="row p-3">
-    <span class="p-2" *ngFor="let theme of attributes.theme">
-      <iqui-button [disabled]="false" [size]="'sm'" [theme]="theme">
-        <span> Button <span *ngIf="theme">"{{theme}}"</span> </span>
-      </iqui-button>
-    </span>
-  </div>
-</div>
-
-<!-- Basic usage -->
-<div class="card mt-3 mb-3">
-  <div class="card-header"> Usage </div>
-  <div class="p-3">
-    <iqui-highlightjs [languages]="['xml']">
-      <textarea>
-
-        <iqui-button
-          [disabled]  ="{{attributes.disabled.join('|')}}"
-          [class]     ="..."
-          [ngClass]   ="{{'{...}'}}"
-          [size]      ="'{{attributes.size.slice(0, -1).join('|')}}'"
-          [theme]     ="'{{attributes.theme.slice(0, -1).join('|')}}'"
-          [href]      ="'{{attributes.href}}'"
-          [target]    ="'{{attributes.target.slice(0, -1).join('|')}}'"
-        >
-          Button content
-        </iqui-button>
-
-      </textarea>
-    </iqui-highlightjs>
-  </div>
-</div>
-
 <!-- Playground -->
-<div class="card mb-3">
-  <div class="card-header"> Playground </div>
-  <iqui-showcase-playground [name]="'iqui-button'" [attributes]="attributes" [content]="content">
-    <!-- Render styled button -->
-    <ng-container *iquiShowcasePlayground="let custom">
-      <div class="card-footer">
-        <iqui-button
-          [disabled]="custom.attributes.disabled"
-          [class]   ="custom.attributes.class"
-          [ngClass] ="custom.attributes.ngClass"
-          [href]    ="custom.attributes.href"
-          [target]  ="custom.attributes.target"
-          [size]    ="custom.attributes.size"
-          [theme]   ="custom.attributes.theme">
-          {{ custom.content }}
-        </iqui-button>
-      </div>
-    </ng-container>
-  </iqui-showcase-playground>
-</div>
+<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+  <textarea ngNonBindable>
+
+    <iqui-button
+          [disabled]="context.Disabled"
+          [class]="   context.Class"
+          [ngClass]=" context.NgClass"
+          [size]="    context.Size"
+          [theme]="   context.Theme"
+          [href]="    context.Href"
+          [target]="  context.Target">
+
+      {{ context.Content }}
+
+    </iqui-button>
+
+  </textarea>
+</iqui-playground>

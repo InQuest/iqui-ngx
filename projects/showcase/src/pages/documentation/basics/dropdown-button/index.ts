@@ -3,40 +3,34 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { DropdownButtonComponentTheme, DropdownButtonComponentSize,
+import { BasicsModule, ThirdPartyModule,
+         DropdownButtonComponentTheme, DropdownButtonComponentSize,
          DropdownButtonComponentRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
 
 
 // Showcase component
 @Component({
-  selector:     'iqui-dropdown-button-showcase',
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
 export class DropdownButtonShowcaseComponent {
 
-  // Playground attribute values
-  public attributes = {
-    disabled: [false, true],
-    class:                '',
-    ngClass:              {},
-    size:                 [...Object.values(DropdownButtonComponentSize), ''],
-    theme:                [...Object.values(DropdownButtonComponentTheme), ''],
-    position:             Object.values(DropdownButtonComponentRelativePositioning),
-    showOnFocus:          [true, false],
-    showOnHover:          [false, true],
-    stayInViewport:       [false, true],
-    toggleOnButtonClick:  [true, false],
-  };
+  // Expose modules needed to render syntax
+  public modules = [BasicsModule, ThirdPartyModule];
 
-  // Playground template values
-  public templates = {
-    iquiDropdownHeader: 'Dropdown button header content',
-    iquiDropdownBody:   `Dropdown button body content\n${ Array(50).join('...\n') }`,
-    iquiDropdownFooter: 'Dropdown button footer content'
+  // Playground context
+  public context = {
+    Content:              'Button content',
+    Disabled:             [false, true],
+    Class:                undefined,
+    NgClass:              {},
+    Size:                 [undefined, ...Object.values(DropdownButtonComponentSize)],
+    Theme:                [undefined, ...Object.values(DropdownButtonComponentTheme)],
+    Position:             Object.values(DropdownButtonComponentRelativePositioning),
+    ShowOnFocus:          [true, false],
+    ShowOnHover:          [false, true],
+    StayInViewport:       [false, true],
+    ToggleOnButtonClick:  [true, false],
   };
-
-  // Playground content
-  public content = 'Host component content';
 
 }

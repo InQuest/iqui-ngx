@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 // Import modules
 import { PlaygroundModule } from '../../../components/playground.module';
-import { FormModule, ThirdPartyModule } from '../../../../../iqui-ngx-elements/src';
+import { FormModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
 import { FormShowcaseComponent } from './form';
@@ -15,7 +15,7 @@ import { FormShowcaseComponent } from './form';
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
   imports: [
-    CommonModule, PlaygroundModule, FormModule, ThirdPartyModule
+    CommonModule, PlaygroundModule, FormModule
   ],
   declarations: [
     FormShowcaseComponent
@@ -24,4 +24,4 @@ import { FormShowcaseComponent } from './form';
     FormShowcaseComponent
   ]
 })
-export class BasicsShowcaseModule { }
+export class FormShowcaseModule { }

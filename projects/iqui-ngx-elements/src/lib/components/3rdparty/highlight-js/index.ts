@@ -134,9 +134,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
       // tslint:disable-next-line: max-line-length
       if ((this._syntaxEl.nativeElement.children.length === 1) && (this._syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
         // Use textarea value as syntax
-        if (this._syntaxEl.nativeElement.children[0]) {
-          this._syntaxElInnerHTML = this._syntaxEl.nativeElement.children[0].value;
-        }
+        this._syntaxElInnerHTML = this._syntaxEl.nativeElement.children[0].value;
       } else {
         // Use .innerHTML as syntax (might be pre-parsed by Angular)
         this._syntaxElInnerHTML = this._syntaxEl.nativeElement.innerHTML;
@@ -196,7 +194,10 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
     // HighlightSyntax
     try {
       syntax = (this.highlight ? hljs.highlightAuto(syntax, this.languages).value : syntax);
-    } catch (err) { return; }
+    } catch (err) {
+      // tslint:disable-next-line: no-unused-expression
+      err; return;
+    }
 
     // Add line numbers
     const rawSyntaxLines = syntax.split('\n'),

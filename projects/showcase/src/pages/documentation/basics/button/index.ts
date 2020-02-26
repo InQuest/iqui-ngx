@@ -3,28 +3,28 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
+import { BasicsModule, ThirdPartyModule, ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
-  selector:     'iqui-button-showcase',
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
 export class ButtonShowcaseComponent {
 
-  // Playground attribute values
-  public attributes = {
-    disabled: [false, true],
-    class:    '',
-    ngClass:  {},
-    size:     [...Object.values(ButtonComponentSize), ''],
-    theme:    [...Object.values(ButtonComponentTheme), ''],
-    href:     'https://example.com',
-    target:   ['_blank', '_self', '']
-  };
+  // Expose modules needed to render syntax
+  public modules = [BasicsModule, ThirdPartyModule];
 
-  // Playground content
-  public content = 'Button content';
+  // Playground context
+  public context = {
+    Content:  'Button content',
+    Disabled: [false, true],
+    Class:    undefined,
+    NgClass:  {},
+    Size:     [undefined, ...Object.values(ButtonComponentSize)],
+    Theme:    [undefined, ...Object.values(ButtonComponentTheme)],
+    Href:     'https://example.com',
+    Target:   ['_blank', '_self', '']
+  };
 
 }
