@@ -58,6 +58,15 @@
             </div>
           </div>
 
+          <!-- Object values -->
+          <div class="form-group" *ngIf="_context[key].type === 'object'">
+            <label> {{ key }} </label>
+            <div class="row">
+              <textarea class="form-control"
+                [value]="_jsonToString(_contextSelected[key])" (change)="_updateSelected(key, _stringToJson($event.target.value))"></textarea>
+            </div>
+          </div>
+
         </ng-container>
       </form>
     </div>

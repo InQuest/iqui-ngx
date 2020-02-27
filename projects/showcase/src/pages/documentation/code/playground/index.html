@@ -1,0 +1,12 @@
+<!-- Description -->
+<h5> Code HighlightJS Directive </h5>
+Provides an interactive playground for a component or just-any-old-code example.
+
+<!-- Playground -->
+<iqui-playground [modules]="[CodeModule]" [context]="context" class="mt-3">
+  <textarea ngNonBindable>
+
+    <iqui-playground [modules]="[context.Module]" [context]="context.Context" [syntax]="context.Syntax"></iqui-playground>
+
+  </textarea>
+</iqui-playground>

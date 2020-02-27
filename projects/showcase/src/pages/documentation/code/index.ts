@@ -6,22 +6,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { PlaygroundModule } from '../../../components/playground.module';
-import { BasicsModule, ThirdPartyModule } from '../../../../../iqui-ngx-elements/src';
+import { CodeModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
 import { HighlightJsShowcaseComponent } from './highlight-js';
+import { PlaygroundShowcaseComponent } from './playground';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
   imports: [
-    CommonModule, PlaygroundModule, BasicsModule, ThirdPartyModule
+    CommonModule, CodeModule
   ],
   declarations: [
-    HighlightJsShowcaseComponent
+    HighlightJsShowcaseComponent, PlaygroundShowcaseComponent
   ],
   exports: [
-    HighlightJsShowcaseComponent
+    HighlightJsShowcaseComponent, PlaygroundShowcaseComponent
   ]
 })
-export class ThirdPartyShowcaseModule { }
+export class CodeShowcaseModule { }

@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, ThirdPartyModule, ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
+import { BasicsModule, CodeModule, ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -13,7 +13,7 @@ import { BasicsModule, ThirdPartyModule, ButtonComponentTheme, ButtonComponentSi
 export class ButtonShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [BasicsModule, ThirdPartyModule];
+  public modules = [BasicsModule, CodeModule];
 
   // Playground context
   public context = {

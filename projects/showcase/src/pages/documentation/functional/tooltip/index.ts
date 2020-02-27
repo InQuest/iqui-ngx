@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FunctionalModule, BasicsModule, ThirdPartyModule, TooltipRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
+import { FunctionalModule, BasicsModule, CodeModule, TooltipRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -13,7 +13,7 @@ import { FunctionalModule, BasicsModule, ThirdPartyModule, TooltipRelativePositi
 export class TooltipShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [FunctionalModule, BasicsModule, ThirdPartyModule];
+  public modules = [FunctionalModule, BasicsModule, CodeModule];
 
   // Playground context
   public context = {

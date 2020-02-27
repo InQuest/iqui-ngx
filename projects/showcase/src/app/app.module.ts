@@ -7,7 +7,7 @@ import { GettingStartedPageModule } from '../pages/howto/getting-started';
 import { FunctionalShowcaseModule } from '../pages/documentation/functional';
 import { BasicsShowcaseModule } from '../pages/documentation/basics';
 import { FormShowcaseModule } from '../pages/documentation/form';
-import { ThirdPartyShowcaseModule } from '../pages/documentation/3rdparty';
+import { CodeShowcaseModule } from '../pages/documentation/code';
 
 import { AppComponent } from './app.component';
 
@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
     FunctionalShowcaseModule,
     BasicsShowcaseModule,
     FormShowcaseModule,
-    ThirdPartyShowcaseModule
+    CodeShowcaseModule
   ],
   declarations: [
     AppComponent

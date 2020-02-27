@@ -1,5 +1,5 @@
 <!-- Header -->
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top sticky-top">
   <a class="navbar-brand mr-1" [routerLink]="'/'">InQuest V4 UI</a>
 </nav>
 
@@ -74,14 +74,19 @@
           </ul>
         </li>
 
-        <!-- 3rd party wrappers -->
+        <!-- Code -->
         <li class="nav-item">
-          <h6 class="nav-link disabled">3rd party wrappers</h6>
+          <h6 class="nav-link disabled">Code</h6>
         </li>
         <li>
           <ul class="ml-0 pl-2">
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/3rdparty/highlight-js'"> &lt;iqui-highlightjs /&gt; </a>
+              <a class="nav-link" [routerLink]="'/code/highlight-js'"> &lt;iqui-highlightjs /&gt; </a>
+            </li>
+          </ul>
+          <ul class="ml-0 pl-2">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/code/playground'"> &lt;iqui-playground /&gt; </a>
             </li>
           </ul>
         </li>

@@ -7,7 +7,8 @@ import { DropdownShowcaseComponent } from '../pages/documentation/functional/dro
 import { ButtonShowcaseComponent } from '../pages/documentation/basics/button';
 import { DropdownButtonShowcaseComponent } from '../pages/documentation/basics/dropdown-button';
 import { FormShowcaseComponent } from '../pages/documentation/form/form';
-import { HighlightJsShowcaseComponent } from '../pages/documentation/3rdparty/highlight-js';
+import { HighlightJsShowcaseComponent } from '../pages/documentation/code/highlight-js';
+import { PlaygroundShowcaseComponent } from '../pages/documentation/code/playground';
 
 const routes: Routes = [
   // Frontpage
@@ -21,7 +22,8 @@ const routes: Routes = [
   // Form components
   { path: 'form/form',                component: FormShowcaseComponent },
   // 4rd party wrappers
-  { path: '3rdparty/highlight-js',    component: HighlightJsShowcaseComponent },
+  { path: 'code/highlight-js',        component: HighlightJsShowcaseComponent },
+  { path: 'code/playground',          component: PlaygroundShowcaseComponent },
   // Default
   { path: '**',                       redirectTo: '/' },
 ];

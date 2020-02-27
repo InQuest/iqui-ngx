@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FunctionalModule, BasicsModule, ThirdPartyModule, DropdownRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
+import { FunctionalModule, BasicsModule, CodeModule, DropdownRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -13,7 +13,7 @@ import { FunctionalModule, BasicsModule, ThirdPartyModule, DropdownRelativePosit
 export class DropdownShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [FunctionalModule, BasicsModule, ThirdPartyModule];
+  public modules = [FunctionalModule, BasicsModule, CodeModule];
 
   // Playground context
   public context = {

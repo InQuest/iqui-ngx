@@ -10,8 +10,8 @@ import { BasicsModule } from './components/basics';
 export * from './components/basics';
 import { FormModule } from './components/form';
 export * from './components/form';
-import { ThirdPartyModule } from './components/3rdparty';
-export * from './components/3rdparty';
+import { CodeModule } from './components/code';
+export * from './components/code';
 
 /**
  * IQ UI NGX Elements' module
@@ -26,7 +26,7 @@ export * from './components/3rdparty';
     FunctionalModule,
     BasicsModule,
     FormModule,
-    ThirdPartyModule
+    CodeModule
   ],
   declarations: [],
   exports: [
@@ -34,7 +34,7 @@ export * from './components/3rdparty';
     FunctionalModule,
     BasicsModule,
     FormModule,
-    ThirdPartyModule
+    CodeModule
   ]
 })
 export class IqUiNgxElementsModule { }

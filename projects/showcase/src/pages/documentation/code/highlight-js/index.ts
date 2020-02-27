@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, ThirdPartyModule, highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
+import { CodeModule, highlightJsRegisterLanguage } from '../../../../../../iqui-ngx-elements/src';
 
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
@@ -23,7 +23,7 @@ highlightJsRegisterLanguage('scss', scss);
 export class HighlightJsShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [BasicsModule, ThirdPartyModule];
+  public modules = [CodeModule];
 
   // Playground context
   public context = {

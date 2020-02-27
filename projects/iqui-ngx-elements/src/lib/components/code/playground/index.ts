@@ -1,7 +1,7 @@
 import '@angular/compiler';
 import {
   Compiler, NgModuleRef, NgModule,
-  Component, OnInit, OnChanges, AfterViewInit, OnDestroy,
+  Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, OnDestroy,
   Input, ElementRef, ComponentRef, ViewChild, ViewContainerRef,
   ChangeDetectorRef, Injector
 } from '@angular/core';
@@ -90,7 +90,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
 
   public ngOnInit () {
     // Process configuration
-    this._processConfig();
+    this._processContext();
   }
 
   public ngAfterViewInit () {
@@ -109,9 +109,13 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
     }
   }
 
-  public ngOnChanges () {
+  public ngOnChanges (changes: SimpleChanges) {
     // Process configuration
-    this._processConfig();
+    if (changes.context) {
+      this._processContext();
+    }
+    // (Re)Process syntax
+    this._processSyntax(this.syntax);
   }
 
   public ngOnDestroy () {
@@ -122,9 +126,9 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
   }
 
   /**
-   * Process provided configuration
+   * Process provided context and example
    */
-  private _processConfig () {
+  private _processContext () {
 
     // Reset context
     this._context = {};
@@ -151,7 +155,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
 
         // Generate selection syntax
         if (type === 'array') {
-          const syntax = value.map(item => this._stringify(item));
+          const syntax = value.map(item => this._stringifyValue(item));
           this._contextSyntax[key] = this._context[key].syntax = `${key}: (${ syntax.join('|') })`;
         } else {
           this._contextSyntax[key] = this._context[key].syntax = `${key}: ${this._context[key].type}`;
@@ -180,18 +184,13 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
   private _processSyntax (syntax) {
 
     // Set usage syntax
-    this._usageSyntax = syntax;
+    this._usageSyntax = syntax || '';
     for (const key in this._context) {
       if (this._context.hasOwnProperty(key)) {
         this._usageSyntax = this._usageSyntax.replace(new RegExp(`context.${key}`, 'g'), this._contextSyntax[key]);
       }
     }
 
-    // Destroy previously dynamically added components
-    this._exampleHostEl.clear();
-    if (this._exampleComponent) {
-      this._exampleComponent.destroy();
-    }
 
     // Create dynamic component
     const dynamicComponentClass = Component({ template: syntax })(
@@ -211,9 +210,15 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
     this._compiler.compileModuleAndAllComponentsAsync(dynamicModuleClass)
       .then((factories) => {
 
+        // Destroy previously dynamically added components
+        if (this._exampleComponent) {
+          this._exampleComponent.destroy();
+        }
+
         // Inject component
         const factory = factories.componentFactories[0];
         this._exampleComponent = factory.create(this._injector, [], null, this._module);
+        this._exampleHostEl.clear();
         this._exampleHostEl.insert(this._exampleComponent.hostView);
 
         // Trigger change detection
@@ -256,14 +261,34 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
    * @param value Value to stringify
    * @returns String representation of value
    */
-  private _stringify (value) {
+  private _stringifyValue (value) {
     if (value === undefined) {
       return 'undefined';
      } else if (value === null ) {
        return 'null';
+    } else if (value.constructor) {
+      return value.constructor.name;
     } else {
       return JSON.stringify(value).replace(/"/g, '\'');
     }
+  }
+
+  /**
+   *
+   * @param {*} json
+   * @returns
+   */
+  public _jsonToString (json) {
+    return JSON.stringify(json, null, 2);
+  }
+
+  /**
+   *
+   * @param {*} str
+   * @returns
+   */
+  public _stringToJson (str) {
+    return JSON.parse(str);
   }
 
 }

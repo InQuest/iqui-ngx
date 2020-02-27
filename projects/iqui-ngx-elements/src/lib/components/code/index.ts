@@ -2,9 +2,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Import modules
+import { FormModule } from '../form';
+
 // Import components and (re)export components
 import { HighlightJsComponent, highlightJsRegisterLanguage } from './highlight-js';
 export { HighlightJsComponent, highlightJsRegisterLanguage };
+import { PlaygroundComponent } from './playground';
+export { PlaygroundComponent };
 
 /**
  * IQ UI NGX Elements' 3rd party wrappers module
@@ -12,13 +17,13 @@ export { HighlightJsComponent, highlightJsRegisterLanguage };
  */
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule, FormModule
   ],
   declarations: [
-    HighlightJsComponent
+    HighlightJsComponent, PlaygroundComponent
   ],
   exports: [
-    HighlightJsComponent
+    HighlightJsComponent, PlaygroundComponent
   ]
 })
-export class ThirdPartyModule { }
+export class CodeModule { }
