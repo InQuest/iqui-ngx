@@ -141,7 +141,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     if (this._overlayRef) {
 
       // Update strategy
-      const positionStrategy = this._overlay.position().flexibleConnectedTo(this._element)
+      const positionStrategy = this._overlay
+        .position()
+        .flexibleConnectedTo(this._element)
         .withPush(this.iquiTooltipStayInViewport)
         .withPositions([
           // Selected, preferred position

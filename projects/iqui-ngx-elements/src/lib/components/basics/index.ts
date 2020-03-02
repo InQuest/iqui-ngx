@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 // Import dependency modules
 import { FunctionalModule } from '../functional';
+import { FormModule } from '../form';
 
 // Import components and (re)export components
 import { ButtonComponent,
@@ -28,7 +29,7 @@ import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective
  */
 @NgModule({
   imports: [
-    CommonModule, FunctionalModule
+    CommonModule, FunctionalModule, FormModule
   ],
   declarations: [
     ButtonComponent,

@@ -3,6 +3,7 @@
 
 // Import dependencies
 import { Component, Input } from '@angular/core';
+import { UsesFormElementDirectives } from '../../form';
 import { BootstrapTheme, TBootstrapTheme, BootstrapSize, TBootstrapSize } from '../../../types';
 
 // Define and export enums and types
@@ -53,7 +54,7 @@ export type TButtonComponentSize = TBootstrapSize;
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-export class ButtonComponent {
+export class ButtonComponent extends UsesFormElementDirectives {
 
   /**
    * [disabled] binding

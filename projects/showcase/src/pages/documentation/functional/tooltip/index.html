@@ -1,17 +1,19 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Basic Tooltip Directive </h5>
 Displays a tooltip HTML component
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
   <textarea>
 
-    <iqui-button theme="light"
-                 [iquiTooltip]="               context.ContentText"
-                 [iquiTooltipPosition]="       context.Position"
-                 [iquiTooltipShowOnFocus]="    context.ShowOnFocus"
-                 [iquiTooltipShowOnHover]="    context.ShowOnHover"
-                 [iquiTooltipStayInViewport]=" context.StayInViewport">
+    <iqui-button
+      theme="light"
+      [iquiTooltip]="               context.ContentText"
+      [iquiTooltipPosition]="       context.Position"
+      [iquiTooltipShowOnFocus]="    context.ShowOnFocus"
+      [iquiTooltipShowOnHover]="    context.ShowOnHover"
+      [iquiTooltipStayInViewport]=" context.StayInViewport">
 
       Button with a Tooltip
 

@@ -1,18 +1,23 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Code HighlightJS Directive </h5>
 Highlights language syntax using 3rd party <a href="https://highlightjs.org/" target="_blank">highlight.js</a> library.
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
   <textarea ngNonBindable>
 
-    <iqui-highlightjs [syntax]="      context.Syntax"
-                      [languages]="   [context.Language]"
-                      [filter]="      context.Filter"
-                      [highlight]="   context.Highlight"
-                      [wrap]="        context.Wrap"
-                      [trim]="        context.Trim"
-                      [lineNumbers]=" context.LineNumbers">
+    <iqui-highlightjs
+      [disabled]="    context.Disabled"
+      [class]="       context.Class"
+      [ngClass]="     context.NgClass"
+      [syntax]="      context.Syntax"
+      [languages]="   [context.Language]"
+      [filter]="      context.Filter"
+      [highlight]="   context.Highlight"
+      [wrap]="        context.Wrap"
+      [trim]="        context.Trim"
+      [lineNumbers]=" context.LineNumbers">
     </iqui-highlightjs>
 
   </textarea>

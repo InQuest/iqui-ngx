@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FormModule, TBootstrapSize, BootstrapSize } from '../../../../../../iqui-ngx-elements/src';
+import { FormModule, BasicsModule, BootstrapSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -13,7 +13,7 @@ import { FormModule, TBootstrapSize, BootstrapSize } from '../../../../../../iqu
 export class FormShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [FormModule];
+  public modules = [FormModule, BasicsModule];
 
   // Playground context
   public context = {

@@ -17,6 +17,9 @@ export class PlaygroundShowcaseComponent {
 
   // Playground context
   public context = {
+    Title:        'Demo in a Demo',
+    Class:        '',
+    NgClass:      {},
     Syntax:       '<div [class]="context.class"> I do declare: "{{context.message}}" </div>',
     Context:      {
                     class: 'card p-3',

@@ -3,7 +3,8 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, CodeModule, ButtonComponentTheme, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
+import { BasicsModule, FormModule, CodeModule,
+         ButtonComponentTheme, BootstrapSize, ButtonComponentSize } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -13,18 +14,25 @@ import { BasicsModule, CodeModule, ButtonComponentTheme, ButtonComponentSize } f
 export class ButtonShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [BasicsModule, CodeModule];
+  public modules = [BasicsModule, FormModule, CodeModule];
 
   // Playground context
   public context = {
     Content:  'Button content',
     Disabled: [false, true],
-    Class:    undefined,
+    Class:    '',
     NgClass:  {},
     Size:     [undefined, ...Object.values(ButtonComponentSize)],
     Theme:    [undefined, ...Object.values(ButtonComponentTheme)],
-    Href:     'https://example.com',
+    Href:     '',
     Target:   ['_blank', '_self', '']
+  };
+
+  // Playground form context
+  public contextForm = {
+      FormDisabled:   [undefined, true, false],
+      FormSize:       [undefined, ...Object.values(BootstrapSize)],
+      FormValid:      [undefined, true, false],
   };
 
 }

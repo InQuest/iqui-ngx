@@ -219,7 +219,9 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     if (this._overlayRef) {
 
       // Update strategy
-      const positionStrategy = this._overlay.position().flexibleConnectedTo(this._element)
+      const positionStrategy = this._overlay
+        .position()
+        .flexibleConnectedTo(this._element)
         .withPush(this.iquiDropdownStayInViewport)
         .withPositions([
           // Selected, preferred position

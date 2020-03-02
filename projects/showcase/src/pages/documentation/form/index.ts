@@ -10,6 +10,10 @@ import { FormModule, CodeModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
 import { FormShowcaseComponent } from './form';
+import { InputShowcaseComponent } from './input';
+import { CheckboxShowcaseComponent } from './checkbox';
+import { RadioShowcaseComponent } from './radio';
+import { SelectShowcaseComponent } from './select';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
@@ -17,7 +21,7 @@ import { FormShowcaseComponent } from './form';
     CommonModule, FormModule, CodeModule
   ],
   declarations: [
-    FormShowcaseComponent
+    FormShowcaseComponent, InputShowcaseComponent, CheckboxShowcaseComponent, RadioShowcaseComponent, SelectShowcaseComponent
   ],
   exports: [
     FormShowcaseComponent

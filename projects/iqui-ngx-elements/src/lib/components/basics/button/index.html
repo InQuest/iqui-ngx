@@ -3,6 +3,7 @@
 
 <!-- Button -->
 <button *ngIf="!href"
+        [iquiFormParent]="_iquiFormParent"
         [attr.disabled]="disabled || null"
         [ngClass]="ngClass" [class]="_composedClassValue">
   <span class="iqui-button-content">

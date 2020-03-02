@@ -3,6 +3,8 @@
 @import "../../../node_modules/startbootstrap-sb-admin/scss/sb-admin";
 // Import angular CDK structural styling
 @import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
+@import '../../../node_modules/@angular/cdk/text-field/text-field'; 
+@include cdk-text-field();
 
 // Import highlight.js theme
 @import '../../../node_modules/highlight.js/styles/default.css';
@@ -16,4 +18,39 @@
 iqui-dropdown-button iqui-button .iqui-button-content::after {
   content: '▾';
   padding-left: 8px;
+}
+
+// Resizable textarea width adjustment (needs to subtract left and right padding and border from 100% width)
+textarea.iqui-resizable-textarea {
+  width: calc(100% - 24px - 2px);
+}
+
+// General cards hierarchy styling
+.card {
+  // 1st level card's header
+  & > .card-header {
+    color: var(--light);
+    background-color: var(--dark);
+  }
+  // 2nd level card's header
+  & .card {
+    & > .card-header {
+      color: var(--dark);
+      background-color: var(--light);
+    }
+    // 3rd level card's header
+    & .card {
+      & > .card-header {
+        color: var(--light);
+        background-color: var(--dark);
+      }
+      // 4th level card's header
+      & .card {
+        & > .card-header {
+          color: var(--dark);
+          background-color: var(--light);
+        }
+      }
+    }
+  }
 }

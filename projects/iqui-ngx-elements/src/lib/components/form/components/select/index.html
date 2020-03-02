@@ -1,0 +1,19 @@
+<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent"
+  [ngClass]="ngClass"  
+  [class]="_composedClassValue">
+
+  <label>
+    <ng-content></ng-content>
+  </label>
+
+  <select [attr.disabled]="disabled || null"
+    [value]="_findValue(value)" (change)="_updateValue($event)">
+
+    <option *ngFor="let option of _optionEls; let i = index"
+      [value]="i" [selected]="i === _findValue(value)"> 
+      {{ option.label || option.value }}
+    </option>
+
+  </select>
+
+</div>

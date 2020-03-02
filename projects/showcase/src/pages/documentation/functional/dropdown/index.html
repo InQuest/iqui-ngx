@@ -1,40 +1,42 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Basic Dropdown Directive </h5>
 Displays a dropdown HTML component
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
   <textarea>
 
-    <iqui-button theme="light"
-                 iquiDropdown
-                 [iquiDropdownPosition]="       context.Position"
-                 [iquiDropdownShowOnFocus]="    context.ShowOnFocus"
-                 [iquiDropdownShowOnHover]="    context.ShowOnHover"
-                 [iquiDropdownStayInViewport]=" context.StayInViewport">
+    <iqui-button
+      theme="light"
+      iquiDropdown
+      [iquiDropdownPosition]="       context.Position"
+      [iquiDropdownShowOnFocus]="    context.ShowOnFocus"
+      [iquiDropdownShowOnHover]="    context.ShowOnHover"
+      [iquiDropdownStayInViewport]=" context.StayInViewport">
 
-        <!-- Example header content using exposed close() method -->
-        <ng-container *iquiDropdownHeader="let close">
-          <span class="dropdown-header">Header content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
-          <div class="dropdown-divider"></div>
-        </ng-container>
+      Button with a Dropdown
 
-        <!-- Example body content using exposed close() method -->
-        <ng-container *iquiDropdownBody="let close">
-          <span class="dropdown-item">item #1</span>
-          <span class="dropdown-item">item #2</span>
-          <span class="dropdown-item">item #3</span>
-        </ng-container>
+      <!-- Example header content using exposed close() method -->
+      <ng-container *iquiDropdownHeader="let close">
+        <span class="dropdown-header">Header content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
+        <div class="dropdown-divider"></div>
+      </ng-container>
 
-        <!-- Example footer content using exposed close() method -->
-        <ng-container *iquiDropdownFooter="let close">
-          <div class="dropdown-divider"></div>
-          <span class="dropdown-header">Footer content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
-        </ng-container>
+      <!-- Example body content using exposed close() method -->
+      <ng-container *iquiDropdownBody="let close">
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #1</a>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #2</a>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #3</a>
+      </ng-container>
 
-        Button with a Dropdown
+      <!-- Example footer content using exposed close() method -->
+      <ng-container *iquiDropdownFooter="let close">
+        <div class="dropdown-divider"></div>
+        <span class="dropdown-header">Footer content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
+      </ng-container>
 
-      </iqui-button>
+    </iqui-button>
 
   </textarea>
 </iqui-playground>

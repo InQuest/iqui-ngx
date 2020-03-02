@@ -32,6 +32,23 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
   ) {}
 
   /**
+   * [class] binding
+   */
+  @Input()
+  public class: string = null;
+  /**
+   * [ngClass] binding
+   */
+  @Input()
+  public ngClass: any;
+
+  /**
+   * Top title
+   */
+  @Input()
+  public title: string = null;
+
+  /**
    * Syntax to render/display (if not passed via <textarea /> through component content)
    */
   @Input()
@@ -156,7 +173,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
         // Generate selection syntax
         if (type === 'array') {
           const syntax = value.map(item => this._stringifyValue(item));
-          this._contextSyntax[key] = this._context[key].syntax = `${key}: (${ syntax.join('|') })`;
+          this._contextSyntax[key] = this._context[key].syntax = `${key}: (${ syntax.join(' | ') })`;
         } else {
           this._contextSyntax[key] = this._context[key].syntax = `${key}: ${this._context[key].type}`;
         }
@@ -193,7 +210,9 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
 
 
     // Create dynamic component
-    const dynamicComponentClass = Component({ template: syntax })(
+    const dynamicComponentClass = Component({
+      template: syntax
+    })(
       class {
         constructor () {}
         public context: any = {};
@@ -203,12 +222,14 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
     // Create dynamic module
     const dynamicModuleClass = NgModule({
       imports: [...this.modules],
-      declarations: [dynamicComponentClass],
-    })(class {});
+      declarations: [dynamicComponentClass]
+    })(
+      class {}
+    );
 
     // Create and inject dynamically created component
     this._compiler.compileModuleAndAllComponentsAsync(dynamicModuleClass)
-      .then((factories) => {
+      .then((moduleWithFactories) => {
 
         // Destroy previously dynamically added components
         if (this._exampleComponent) {
@@ -216,8 +237,9 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
         }
 
         // Inject component
-        const factory = factories.componentFactories[0];
-        this._exampleComponent = factory.create(this._injector, [], null, this._module);
+        const moduleRef = moduleWithFactories.ngModuleFactory.create(this._injector),
+              factory = moduleWithFactories.componentFactories[0];
+        this._exampleComponent = factory.create(moduleRef.injector, [], null, this._module);
         this._exampleHostEl.clear();
         this._exampleHostEl.insert(this._exampleComponent.hostView);
 
@@ -237,8 +259,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
    */
   public _updateSelected (key, value) {
 
-    // Update selected values
-    this._contextSelected = { ...this._contextSelected };
+    // Update selected value
     this._contextSelected[key] = value;
 
     // Trigger change detection
@@ -251,8 +272,8 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
    */
   private _triggerDynamicComponentsChangeDetection () {
     if (this._exampleComponent) {
-      this._exampleComponent.instance.context = {...this._contextSelected};
-      // this._exampleComponent.instance._cd.detectChanges();
+      this._exampleComponent.instance.context = this._contextSelected;
+      this._exampleComponent.hostView.detectChanges();
     }
   }
 
@@ -261,34 +282,57 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
    * @param value Value to stringify
    * @returns String representation of value
    */
-  private _stringifyValue (value) {
+  public _stringifyValue (value) {
     if (value === undefined) {
+      // Stringify undefined
       return 'undefined';
      } else if (value === null ) {
+       // Stringify null
        return 'null';
-    } else if (value.constructor) {
-      return value.constructor.name;
+    } else if (typeof value === 'function' && value.decorators && value.decorators.length) {
+      // Stringify decorated classes into class names
+      return `[${value.decorators[0].type.prototype.ngMetadataName}]`;
+    } else if (typeof value === 'function' && value.constructor) {
+      // Stringify classes into class names
+      return `[${value.constructor.name}]`;
     } else {
+      // Stringify as JSON
       return JSON.stringify(value).replace(/"/g, '\'');
     }
   }
 
   /**
-   *
-   * @param {*} json
-   * @returns
+   * Expose JSON.stringify(...)
+   * @param json JSON to strinfigy
+   * @returns Stringified value
    */
   public _jsonToString (json) {
     return JSON.stringify(json, null, 2);
   }
 
   /**
-   *
-   * @param {*} str
-   * @returns
+   * Exposes JSON.parse(...)
+   * @param  str String to parse
+   * @returns Parsed value
    */
   public _stringToJson (str) {
-    return JSON.parse(str);
+    try {
+      return JSON.parse(str);
+    } catch {
+      return {};
+    }
+  }
+
+  /**
+   * Composes class value based on property values
+   */
+  public get _composedClassValue () {
+    return [
+      // Mark as card (.card)
+      'card',
+      // Pass-through host class
+      (this.class || null)
+    ].join(' ');
   }
 
 }

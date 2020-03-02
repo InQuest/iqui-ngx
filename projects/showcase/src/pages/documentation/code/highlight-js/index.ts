@@ -27,10 +27,12 @@ export class HighlightJsShowcaseComponent {
 
   // Playground context
   public context = {
+    Disabled:     [false, true],
+    Class:        '',
+    NgClass:      {},
     Syntax:       '<div> Hello world! </div>',
     Language:     ['xml', 'css', 'javascript', undefined],
-    Filter:       undefined,
-    Highlight:    [true, false],
+    Filter:       '',
     Wrap:         [true, false],
     Trim:         [true, false],
     LineNumbers:  [true, false]

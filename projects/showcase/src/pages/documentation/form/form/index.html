@@ -1,16 +1,18 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Form Input Element </h5>
 Displays a button-styled button or anchor HTML element
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
   <textarea>
 
     <!-- Form[iquiForm] root container, defining a root scope for [disabled, size, valid] -->
-    <form [iquiForm]="context.Enabled"
-          [disabled]="context.FormDisabled"
-          [size] ="   context.FormSize"
-          [valid]="   context.FormValid">
+    <form
+      [iquiForm]="context.Enabled"
+      [disabled]="context.FormDisabled"
+      [size] ="   context.FormSize"
+      [valid]="   context.FormValid">
 
       <!-- Components inside root scope -->
       <label> Root scoped components inheriting Form's [disabled], [size], [valid] values </label>
@@ -27,10 +29,11 @@ Displays a button-styled button or anchor HTML element
       </div>
 
       <!-- .form-group container, defining a local scope for [disabled, size, valid] -->
-      <div class="mt-3 p-3 form-group"
-           [disabled]=" context.GroupDisabled"
-           [size]="     context.GroupSize"
-           [valid]="    context.GroupValid">
+      <div
+        class="mt-3 p-3 form-group"
+        [disabled]=" context.GroupDisabled"
+        [size]="     context.GroupSize"
+        [valid]="    context.GroupValid">
 
         <!-- Components inside local scope -->
         <label> Local scoped components inheriting Form Group's [disabled], [size], [valid] values </label>
@@ -51,6 +54,17 @@ Displays a button-styled button or anchor HTML element
               <label> Date </label>
               <input type="date"    placeholder="..." />
             </div>
+          </div>
+          <hr />
+
+          <!-- Selects are bound to labels automatically -->
+          <div class="form-group">
+            <label> Selects are bound to labels automatically </label>
+            <select>
+              <option value="A">Option A</option>
+              <option value="B">Option B</option>
+              <option value="C">Option C</option>
+            </select>
           </div>
           <hr />
 
@@ -97,190 +111,3 @@ Displays a button-styled button or anchor HTML element
 
   </textarea>
 </iqui-playground>
-
-<!-- Examples --_>
-<div class="card mt-3 mb-3">
-  <div class="card-header"> Examples </div>
-  <div class="p-3">
-
-    <!-- [size] propagation --_>
-    <form iquiForm [disabled]="globalIsDisabled" [size]="globalSize" [valid]="globalIsValid">
-
-      <!-- Global config --_>
-      <div class="form-group card p-2">
-
-        <!-- Global disabled config --_>
-        <label> Enabled/Disabled (Immune to global enable/disabled) </label>
-        <div class="form-group" [disabled]="false">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-disabled" [checked]="globalIsDisabled === false" (change)="globalIsDisabled = false">
-            <label class="custom-control-label"> Enabled </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-disabled" [checked]="globalIsDisabled === true" (change)="globalIsDisabled = true">
-            <label class="custom-control-label"> Disabled </label>
-          </div>
-        </div>
-
-        <!-- Global size config --_>
-        <label> Size: </label>
-        <div class="form-group">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-sizing" [checked]="globalSize === 'sm'" (change)="globalSize = 'sm'">
-            <label class="custom-control-label"> Small </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-sizing" [checked]="globalSize === null" (change)="globalSize = null">
-            <label class="custom-control-label"> Default </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-sizing" [checked]="globalSize === 'lg'" (change)="globalSize = 'lg'">
-            <label class="custom-control-label"> Large </label>
-          </div>
-        </div>
-
-        <!-- Global validation config --_>
-        <label> Validation: </label>
-        <div class="form-group">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-validation" [checked]="globalIsValid === null" (change)="globalIsValid = null">
-            <label class="custom-control-label"> Not validated </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-validation" [checked]="globalIsValid === true" (change)="globalIsValid = true">
-            <label class="custom-control-label"> Valid </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="global-validation" [checked]="globalIsValid === false" (change)="globalIsValid = false">
-            <label class="custom-control-label"> Invalid </label>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Enabled/Disabled content and override --_>
-      <div class="form-group card p-2">
-
-        <!-- Disabled config override --_>
-        <label> Enabled/Disabled OVERRIDE (Immune to global enable/disabled) </label>
-        <div class="form-group" [disabled]="false">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="disabled" [checked]="isDisabled === undefined" (change)="isDisabled = undefined">
-            <label class="custom-control-label"> Inherit </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="disabled" [checked]="isDisabled === false" (change)="isDisabled = false">
-            <label class="custom-control-label"> Enabled </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="disabled" [checked]="isDisabled === true" (change)="isDisabled = true">
-            <label class="custom-control-label"> Disabled </label>
-          </div>
-        </div>
-
-        <!-- Content --_>
-        <div class="form-group" [disabled]="isDisabled">
-          <input value="Value" />
-          <button class="btn btn-primary mt-1"> Button </button>
-          <input type="checkbox" />
-          <input type="radio" />
-        </div>
-
-      </div>
-
-      <!-- Size content and override --_>
-      <div class="form-group card p-2" [size]="size">
-
-        <!-- Size config override --_>
-        <label> Size OVERRIDE: </label>
-        <div class="form-group">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="sizing" [checked]="size === undefined" (change)="size = undefined">
-            <label class="custom-control-label"> Inherit </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="sizing" [checked]="size === 'sm'" (change)="size = 'sm'">
-            <label class="custom-control-label"> Small </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="sizing" [checked]="size === null" (change)="size = null">
-            <label class="custom-control-label"> Default </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="sizing" [checked]="size === 'lg'" (change)="size = 'lg'">
-            <label class="custom-control-label"> Large </label>
-          </div>
-        </div>
-
-        <!-- Content --_>
-        <div class="form-group ml-2">
-          <ng-container iquiFormGroup>
-            <label> Label B1: </label>
-            <input value="Value?!" />
-          </ng-container>
-          <ng-container iquiFormGroup>
-            <label> Label B2: </label>
-            <input testing="true" type="text" value="Value?!" />
-          </ng-container>
-        </div>
-        <div class="form-group ml-2">
-          <label> Label C: </label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" />
-            <label class="form-check-label"> Checkbox </label>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Validation content and override --_>
-      <div class="form-group card p-2" [valid]="isValid">
-
-        <!-- Validation config override --_>
-        <label> Validation OVERRIDE: </label>
-        <div class="form-group">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="validation" [checked]="isValid === undefined" (change)="isValid = undefined">
-            <label class="custom-control-label"> Inherit </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="validation" [checked]="isValid === null" (change)="isValid = null">
-            <label class="custom-control-label"> Not validated </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="validation" [checked]="isValid === true" (change)="isValid = true">
-            <label class="custom-control-label"> Valid </label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" name="validation" [checked]="isValid === false" (change)="isValid = false">
-            <label class="custom-control-label"> Invalid </label>
-          </div>
-        </div>
-
-        <!-- Content --_>
-        <div class="form-group ml-2">
-          <ng-container iquiFormGroup>
-            <label> Label: </label>
-            <input />
-          </ng-container>
-          <ng-container iquiFormGroup>
-            <input />
-          </ng-container>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" />
-            <label class="form-check-label"> Checkbox </label>
-          </div>
-          <div class="valid-feedback"> Valid! </div>
-          <div class="invalid-feedback"> Invalid! </div>
-        </div>
-
-      </div>
-
-      <button class="btn btn-primary"> Button </button>
-      <button class="btn btn-warning"> Button </button>
-
-    </form>
-
-  </div>
-</div>
--->

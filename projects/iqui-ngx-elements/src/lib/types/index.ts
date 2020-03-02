@@ -2,6 +2,9 @@
 // - Enumerates commonly used values as types to be used to statically type properties and such.
 // ----------------------------------------------------------------------------
 
+// (Re)Export HTML ENUMs and Types
+export * from './html';
+
 // (Re)Export Bootstrap ENUMs and Types
 export * from './bootstrap';
 

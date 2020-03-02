@@ -1,23 +1,43 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Basic Button Element </h5>
-Displays a button-styled button or anchor HTML element
+Displays a button-styled button or anchor HTML element.
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Demo: Standalone -->
+<iqui-playground class="mt-5" [title]="'Demo: Standalone'"
+  [modules]="modules" [context]="context">
   <textarea ngNonBindable>
 
     <iqui-button
-          [disabled]="context.Disabled"
-          [class]="   context.Class"
-          [ngClass]=" context.NgClass"
-          [size]="    context.Size"
-          [theme]="   context.Theme"
-          [href]="    context.Href"
-          [target]="  context.Target">
+      [disabled]="context.Disabled"
+      [class]="   context.Class"
+      [ngClass]=" context.NgClass"
+      [size]="    context.Size"
+      [theme]="   context.Theme"
+      [href]="    context.Href"
+      [target]="  context.Target">
 
       {{ context.Content }}
 
     </iqui-button>
+
+  </textarea>
+</iqui-playground>
+
+<!-- Demo: for[iquiForm] -->
+<iqui-playground class="mt-5" [title]="'Demo: Plays nice with &lt;form [iquiForm] /&gt;'"
+  [modules]="modules" [context]="contextForm">
+  <textarea ngNonBindable>
+
+    <form iquiForm
+      [disabled]="context.FormDisabled"
+      [size]="    context.FormSize"
+      [valid]="   context.FormValid">
+
+      <iqui-button [theme]="'secondary'">
+        Button content
+      </iqui-button>
+
+    </form>
 
   </textarea>
 </iqui-playground>

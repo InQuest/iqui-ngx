@@ -1,0 +1,51 @@
+<!-- Intro -->
+<h5> Basic Select Element </h5>
+Displays a select element.
+
+<!-- Demo: Standalone -->
+<iqui-playground class="mt-5" [title]="'Demo: Standalone'"
+  [modules]="modules" [context]="context">
+  <textarea ngNonBindable>
+
+    <iqui-select
+      [(value)]=" context.Value"
+      [disabled]="context.Disabled"
+      [class]="   context.Class"
+      [ngClass]=" context.NgClass">
+
+      {{ context.Label }}
+
+      <iqui-option [value]="context.OptionAValue" [label]="context.OptionALabel"></iqui-option>
+      <iqui-option [value]="context.OptionBValue" [label]="context.OptionBLabel"></iqui-option>
+      <iqui-option [value]="context.OptionCValue" [label]="context.OptionCLabel"></iqui-option>
+
+    </iqui-select>
+
+  </textarea>
+</iqui-playground>
+
+<!-- Demo: for[iquiForm] -->
+<iqui-playground class="mt-5" [title]="'Demo: Plays nice with &lt;form [iquiForm] /&gt;'"
+  [modules]="modules" [context]="contextForm">
+  <textarea ngNonBindable>
+
+    <form
+      iquiForm
+      [disabled]="context.FormDisabled"
+      [size]="    context.FormSize"
+      [valid]="   context.FormValid">
+
+      <iqui-select>
+
+        Label text
+
+        <iqui-option [value]="'A'" [label]="'Option A'"></iqui-option>
+        <iqui-option [value]="'B'" [label]="'Option B'"></iqui-option>
+        <iqui-option [value]="'C'" [label]="'Option C'"></iqui-option>
+
+      </iqui-select>
+
+    </form>
+
+  </textarea>
+</iqui-playground>

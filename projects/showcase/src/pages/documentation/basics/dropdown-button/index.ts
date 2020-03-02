@@ -3,8 +3,8 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, CodeModule,
-         DropdownButtonComponentTheme, DropdownButtonComponentSize,
+import { BasicsModule, FormModule, CodeModule,
+         DropdownButtonComponentTheme, BootstrapSize, DropdownButtonComponentSize,
          DropdownButtonComponentRelativePositioning } from '../../../../../../iqui-ngx-elements/src';
 
 
@@ -16,13 +16,13 @@ import { BasicsModule, CodeModule,
 export class DropdownButtonShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [BasicsModule, CodeModule];
+  public modules = [BasicsModule, FormModule, CodeModule];
 
   // Playground context
   public context = {
     Content:              'Button content',
     Disabled:             [false, true],
-    Class:                undefined,
+    Class:                '',
     NgClass:              {},
     Size:                 [undefined, ...Object.values(DropdownButtonComponentSize)],
     Theme:                [undefined, ...Object.values(DropdownButtonComponentTheme)],
@@ -31,6 +31,14 @@ export class DropdownButtonShowcaseComponent {
     ShowOnHover:          [false, true],
     StayInViewport:       [false, true],
     ToggleOnButtonClick:  [true, false],
+    OnSelected:           (e) => { console.log(e); }
+  };
+
+  // Playground form context
+  public contextForm = {
+      FormDisabled:   [undefined, true, false],
+      FormSize:       [undefined, ...Object.values(BootstrapSize)],
+      FormValid:      [undefined, true, false],
   };
 
 }

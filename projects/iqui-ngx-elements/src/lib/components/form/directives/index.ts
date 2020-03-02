@@ -7,6 +7,46 @@ import { Directive, OnInit, OnChanges, OnDestroy, Input, Output, EventEmitter, H
 import { TBootstrapSize, BootstrapSize } from '../../../types';
 
 /**
+ * Defines component as using form directives internally inside its template. Will expose [iquiFormParent] attribute
+ * through which the implementing component can pass explicit reference to outside scope parent FormElementDirectiveFormElementDirective
+ */
+export interface IUsesFormElementDirectives {
+
+  /**
+   * Accepts explicit reference to parent FormElementDirective
+   */
+  iquiFormParent: FormElementDirective;
+
+}
+
+/**
+ * Defines component as using form directives internally inside its template. Will expose [iquiFormParent] attribute
+ * through which the implementing component can pass explicit reference to outside scope parent FormElementDirectiveFormElementDirective
+ */
+export class UsesFormElementDirectives implements IUsesFormElementDirectives {
+
+  constructor (
+    // (Optional) Injected parent directive element
+    @Host() @SkipSelf() @Optional()
+    public _formParent: FormElementDirective
+  ) {}
+
+  /**
+   * Accepts explicit reference to parent FormElementDirective
+   */
+  @Input()
+  public iquiFormParent: FormElementDirective;
+
+  /**
+   * Gets reference to explicitly passed or injected reference to outside scope parent FormElementDirectiveFormElementDirective
+   */
+  public get _iquiFormParent () {
+    return (this.iquiFormParent || this._formParent);
+  }
+
+}
+
+/**
  * Form element decorator, registers a directive/component as interactive with iquiForm directive
  * @param isolateId If true, will give element and its children their own ID scope
  * @param className Base class og the element, applied if not present and used to generate additional styling subs-classes
@@ -42,7 +82,7 @@ export function FormElement ({
   selector: 'form[iquiForm]'
 })
 @FormElement({}) // Making <ng-container iqui> or <anything iqui> use isolated IDs
-export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
+export class FormElementDirective implements IUsesFormElementDirectives, OnInit, OnChanges, OnDestroy {
 
   //#region Static
 
@@ -58,18 +98,7 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
     protected _el: ElementRef,
     // (Optional) Parent directive element
     @Host() @SkipSelf() @Optional() protected _parent: FormElementDirective
-  ) {
-
-    // Subscribe to parent's events
-    if (this._parent) {
-      // Subscribe to "applied" event
-      this._appliedSubscription = this._parent._applied.subscribe(() => {
-        // Apply self when parent applied
-        this.apply();
-      });
-    }
-
-  }
+  ) { }
 
   //#endregion
 
@@ -125,6 +154,13 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
   public iquiForm = false;
 
   /**
+   * Explicitly set parent (To be used by other components needing to detect
+   * parent manually from outside scope and pass it into their templates)
+   */
+  @Input()
+  public iquiFormParent: FormElementDirective;
+
+  /**
    * If element should have its own ID scope
    */
   @Input()
@@ -178,8 +214,33 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
 
   //#region Private methods
 
-  public ngOnInit () { this.apply(); }
-  public ngOnChanges () { this.apply(); }
+  public ngOnInit () {
+
+    // Check if explicitly passed parent
+    if (this.iquiFormParent) {
+      this._parent = this.iquiFormParent;
+    }
+
+    // Subscribe to parent's events
+    if (this._parent) {
+      // Subscribe to "applied" event
+      this._appliedSubscription = this._parent._applied.subscribe(() => {
+        // Apply self when parent applied
+        this.apply();
+      });
+    }
+
+    // Apply form control modifications
+    this.apply();
+
+  }
+
+  public ngOnChanges () {
+
+    // Apply form control modifications
+    this.apply();
+
+  }
 
   public ngOnDestroy () {
     // Unsubscribe from parent's events
@@ -214,6 +275,10 @@ export class FormElementDirective implements OnInit, OnChanges, OnDestroy {
 
     // Initialize if isolateId form directive, or if has isolateId as parent
     if (this.shouldInitializeBindings) {
+
+      // Set ".iqui" class to allow selecting only if iqui directive applied
+      // tslint:disable-next-line: max-line-length
+      this._el.nativeElement.classList.add((this.formControlAnnotation.className ? `iqui-${this.formControlAnnotation.className}` : 'iqui'));
 
       // Set base class
       if (this.formControlAnnotation.className) {

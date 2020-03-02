@@ -3,6 +3,7 @@
 
 // Import dependencies
 import { Component, Input, ContentChild, ViewChild } from '@angular/core';
+import { UsesFormElementDirectives } from '../../form';
 import { ButtonComponentTheme, TButtonComponentTheme, ButtonComponentSize, TButtonComponentSize } from '../button';
 import { DropdownRelativePositioning, TDropdownRelativePositioning,
          DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../../functional/dropdown';
@@ -81,7 +82,7 @@ export type TDropdownButtonComponentRelativePositioning = TDropdownRelativePosit
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-export class DropdownButtonComponent {
+export class DropdownButtonComponent extends UsesFormElementDirectives {
 
   /**
    * [disabled] binding

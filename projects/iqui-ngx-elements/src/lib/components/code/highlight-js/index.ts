@@ -79,6 +79,21 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   }
 
   /**
+   * If highlighting is disabled. If not, non-highlighted syntax will be shown
+   */
+  @Input()
+  public disabled = false;
+  /**
+   * [class] binding
+   */
+  @Input()
+  public class: string = null;
+  /**
+   * [ngClass] binding
+   */
+  @Input()
+  public ngClass: any;
+  /**
    * Syntax to highlight and display
    */
   @Input()
@@ -93,11 +108,6 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
    */
   @Input()
   public filter: RegExp|any;
-  /**
-   * If highlighting is enabled. If not, non-highlighted syntax will be shown
-   */
-  @Input()
-  public highlight = true;
   /**
    * If rows should wrap
    */
@@ -193,7 +203,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
     // HighlightSyntax
     try {
-      syntax = (this.highlight ? hljs.highlightAuto(syntax, this.languages).value : syntax);
+      syntax = (!this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax);
     } catch (err) {
       // tslint:disable-next-line: no-unused-expression
       err; return;
@@ -243,5 +253,18 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
     // tslint:disable-next-line: max-line-length
     return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
   }
+
+  /**
+   * Composes class value based on property values
+   */
+  public get _composedClassValue () {
+    return [
+      // Mark as disabled, if disabled (.disabled)
+      (this.disabled ? 'disabled' : null),
+      // Pass-through host class
+      (this.class || null)
+    ].join(' ');
+  }
+
 
 }

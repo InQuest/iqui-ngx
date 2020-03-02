@@ -1,0 +1,20 @@
+<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent"
+  [ngClass]="ngClass"  
+  [class]="_composedClassValue">
+
+  <label>
+    <ng-content></ng-content>
+  </label>
+
+  <input #input *ngIf="type !== 'textarea'"
+    type="text" class="form-control"
+    [attr.disabled]="disabled || null"
+    [value]="value" (input)="_updateValue($event)" />
+
+  <textarea *ngIf="type === 'textarea'"
+    [ngClass]="[(resize ? 'iqui-resizable-textarea' : '')]"
+    [attr.disabled]="disabled || null"
+    [value]="value" (input)="_updateValue($event)"
+    [cdkTextareaAutosize]="resize" [cdkAutosizeMinRows]="resizeMin" [cdkAutosizeMaxRows]="resizeMax"></textarea>
+
+</div>

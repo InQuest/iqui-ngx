@@ -1,22 +1,39 @@
-<!-- Description -->
+<!-- Intro -->
 <h5> Basic Drop-down Button Element </h5>
-Displays a button-styled drop-down
+Displays a button-styled drop-down.
 
-<!-- Playground -->
-<iqui-playground [modules]="modules" [context]="context" class="mt-3">
+<!-- Styling -->
+<div class="card mt-3">
+  <div class="card-header"> Styling</div>
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['scss']">
+      <textarea>
+        // Drop-down button down arrow styling
+        iqui-dropdown-button iqui-button .iqui-button-content::after {
+          content: '▾';
+          padding-left: 8px;
+        }
+      </textarea>
+    </iqui-highlightjs>
+  </div>
+</div>
+
+<!-- Demo: Standalone -->
+<iqui-playground class="mt-5" [title]="'Demo: Standalone'"
+  [modules]="modules" [context]="context">
   <textarea ngNonBindable>
 
     <iqui-dropdown-button
-          [disabled]="            context.Disabled"
-          [class]="               context.Class"
-          [ngClass]="             context.NgClass"
-          [size]="                context.Size"
-          [theme]="               context.Theme"
-          [position]="            context.Position"
-          [showOnFocus]="         context.ShowOnFocus"
-          [showOnHover]="         context.ShowOnHover"
-          [stayInViewport]="      context.StayInViewport"
-          [toggleOnButtonClick]=" context.ToggleOnButtonClick">
+      [disabled]="            context.Disabled"
+      [class]="               context.Class"
+      [ngClass]="             context.NgClass"
+      [size]="                context.Size"
+      [theme]="               context.Theme"
+      [position]="            context.Position"
+      [showOnFocus]="         context.ShowOnFocus"
+      [showOnHover]="         context.ShowOnHover"
+      [stayInViewport]="      context.StayInViewport"
+      [toggleOnButtonClick]=" context.ToggleOnButtonClick">
 
       <!-- Example header content using exposed close() method -->
       <ng-container *iquiDropdownHeader="let close">
@@ -26,9 +43,9 @@ Displays a button-styled drop-down
 
       <!-- Example body content using exposed close() method -->
       <ng-container *iquiDropdownBody="let close">
-        <span class="dropdown-item">item #1</span>
-        <span class="dropdown-item">item #2</span>
-        <span class="dropdown-item">item #3</span>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #1</a>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #2</a>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="context.OnSelected($event)">item #3</a>
       </ng-container>
 
       <!-- Example footer content using exposed close() method -->
@@ -40,6 +57,28 @@ Displays a button-styled drop-down
       {{ context.Content }}
 
     </iqui-dropdown-button>
+
+  </textarea>
+</iqui-playground>
+
+<!-- Demo: for[iquiForm] -->
+<iqui-playground class="mt-5" [title]="'Demo: Plays nice with &lt;form [iquiForm] /&gt;'"
+  [modules]="modules" [context]="contextForm">
+  <textarea ngNonBindable>
+
+    <form iquiForm
+      [disabled]="context.FormDisabled"
+      [size]="    context.FormSize"
+      [valid]="   context.FormValid">
+
+      <iqui-dropdown-button [theme]="'secondary'">
+        Button content
+        <ng-container *iquiDropdownHeader> Header content </ng-container>
+        <ng-container *iquiDropdownBody> Body </ng-container>
+        <ng-container *iquiDropdownFooter> Footer content </ng-container>
+      </iqui-dropdown-button>
+
+    </form>
 
   </textarea>
 </iqui-playground>
