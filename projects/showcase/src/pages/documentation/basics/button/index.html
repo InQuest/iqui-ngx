@@ -16,7 +16,8 @@ Displays a button-styled button or anchor HTML element.
       [href]="    context.Href"
       [target]="  context.Target">
 
-      {{ context.Content }}
+      <!-- HTML content -->
+      <div [innerHTML]="context.ContentHtml"></div>
 
     </iqui-button>
 
@@ -34,7 +35,7 @@ Displays a button-styled button or anchor HTML element.
       [valid]="   context.FormValid">
 
       <iqui-button [theme]="'secondary'">
-        Button content
+        <i>Button content</i>
       </iqui-button>
 
     </form>

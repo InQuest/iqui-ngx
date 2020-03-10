@@ -20,7 +20,7 @@ export class DropdownButtonShowcaseComponent {
 
   // Playground context
   public context = {
-    Content:              'Button content',
+    ContentHtml:          '<i>Button content</i>',
     Disabled:             [false, true],
     Class:                '',
     NgClass:              {},

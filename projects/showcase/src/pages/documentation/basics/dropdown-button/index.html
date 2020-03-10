@@ -9,9 +9,15 @@ Displays a button-styled drop-down.
     <iqui-highlightjs [languages]="['scss']">
       <textarea>
         // Drop-down button down arrow styling
-        iqui-dropdown-button iqui-button .iqui-button-content::after {
-          content: '▾';
-          padding-left: 8px;
+        iqui-dropdown-button iqui-button .iqui-button-content {
+          position: relative;
+          padding-right: 16px;
+          &::after {
+            content: "▾";
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
         }
       </textarea>
     </iqui-highlightjs>
@@ -54,7 +60,8 @@ Displays a button-styled drop-down.
         <span class="dropdown-header">Footer content <a href="javascript:void(0)" (click)="close()">[X]</a></span>
       </ng-container>
 
-      {{ context.Content }}
+      <!-- HTML content -->
+      <div [innerHTML]="context.ContentHtml"></div>
 
     </iqui-dropdown-button>
 
