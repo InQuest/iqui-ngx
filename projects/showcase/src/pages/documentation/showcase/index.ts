@@ -1,4 +1,4 @@
-// Code/Syntax utilities Showcase module
+// Showcasing Showcase module
 // ----------------------------------------------------------------------------
 
 // Import dependencies
@@ -9,18 +9,18 @@ import { CommonModule } from '@angular/common';
 import { CodeModule, ShowcasingModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
-import { HighlightJsShowcaseComponent } from './highlight-js';
+import { PlaygroundShowcaseComponent } from './playground';
 
-// IQ UI NGX Elements' Code/Syntax module
+// IQ UI NGX Elements' Showcasing module
 @NgModule({
   imports: [
     CommonModule, CodeModule, ShowcasingModule
   ],
   declarations: [
-    HighlightJsShowcaseComponent
+    PlaygroundShowcaseComponent
   ],
   exports: [
-    HighlightJsShowcaseComponent
+    PlaygroundShowcaseComponent
   ]
 })
-export class CodeShowcaseModule { }
+export class ShowcasingShowcaseModule { }

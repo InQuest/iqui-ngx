@@ -8,22 +8,20 @@ import { FormModule } from '../form';
 // Import components and (re)export components
 import { HighlightJsComponent, highlightJsRegisterLanguage } from './highlight-js';
 export { HighlightJsComponent, highlightJsRegisterLanguage };
-import { PlaygroundComponent } from './playground';
-export { PlaygroundComponent };
 
 /**
- * IQ UI NGX Elements' 3rd party wrappers module
- * Implements wrappers around useful 3rd party modules
+ * IQ UI NGX Elements' code/syntax utilities module
+ * Implements code/syntax utilities
  */
 @NgModule({
   imports: [
     CommonModule, FormModule
   ],
   declarations: [
-    HighlightJsComponent, PlaygroundComponent
+    HighlightJsComponent
   ],
   exports: [
-    HighlightJsComponent, PlaygroundComponent
+    HighlightJsComponent
   ]
 })
 export class CodeModule { }

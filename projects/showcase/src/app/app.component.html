@@ -26,84 +26,38 @@
       </ul>
     </li>
 
-
     <!-- Documentation -->
     <li class="nav-item">
       <h5 class="nav-link disabled">Documentation</h5>
-      <ul class="ml-0 pl-2">
 
-        <!-- Functional directives -->
-        <li class="nav-item">
-          <h6 class="nav-link disabled">Functional directives</h6>
-        </li>
-        <li>
-          <ul class="ml-0 pl-2">
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/functional/tooltip'"> [iqui-tooltip] </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/functional/dropdown'"> [iqui-dropdown] </a>
-            </li>
-          </ul>
-        </li>
-
-        <!-- Forms -->
-        <li class="nav-item">
-          <h6 class="nav-link disabled">Forms</h6>
-        </li>
-        <li>
-          <ul class="ml-0 pl-2">
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/form/form'"> form[iquiForm] * </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/form/input'"> &lt;iqui-input /&gt; </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/form/checkbox'"> &lt;iqui-checkbox /&gt; </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/form/radio'"> &lt;iqui-radio /&gt; </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/form/select'"> &lt;iqui-select /&gt; </a>
-            </li>
-          </ul>
-        </li>
-
-        <!-- Basic controls -->
-        <li class="nav-item">
-          <h6 class="nav-link disabled">Basic controls</h6>
-        </li>
-        <li>
-          <ul class="ml-0 pl-2">
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/basics/button'"> &lt;iqui-button /&gt; </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/basics/dropdown-button'"> &lt;iqui-dropdown-button /&gt; </a>
-            </li>
-          </ul>
-        </li>
+      <!-- Component pages tree -->
+      <cdk-tree [dataSource]="pages" [treeControl]="tree">
         
-        <!-- Code -->
-        <li class="nav-item">
-          <h6 class="nav-link disabled">Code</h6>
-        </li>
-        <li>
-          <ul class="ml-0 pl-2">
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/code/highlight-js'"> &lt;iqui-highlightjs /&gt; </a>
-            </li>
-          </ul>
-          <ul class="ml-0 pl-2">
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="'/code/playground'"> &lt;iqui-playground /&gt; </a>
-            </li>
-          </ul>
-        </li>
+        <!-- Page link -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node" 
+          class="menu-tree-node">
 
-      </ul>
+          <!-- Link -->
+          <a class="nav-link" [class.active]="node.meta.active" [routerLink]="node.path"> {{ node.title }} </a>
+
+        </cdk-nested-tree-node>
+        
+        <!-- Page category group -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChildren"
+          class="menu-tree-node menu-tree-node-group" [ngClass]="tree.isExpanded(node) ? ['menu-tree-node-expanded'] : ['menu-tree-node-collapsed']">
+
+          <!-- Link -->
+          <a cdkTreeNodeToggle class="nav-link" [class.active]="node.meta.active" [routerLink]="node.component ? node.path : null"> {{ node.title }}</a>
+
+          <!-- Child links -->
+          <div [class.menu-tree-invisible]="!tree.isExpanded(node)">
+            <ng-container cdkTreeNodeOutlet></ng-container>
+          </div>
+
+        </cdk-nested-tree-node>
+
+      </cdk-tree>
+
     </li>
     
   </ul>

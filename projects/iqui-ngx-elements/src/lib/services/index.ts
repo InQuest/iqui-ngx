@@ -1,5 +1,5 @@
 // Services
 // ----------------------------------------------------------------------------
 
-// TODO: ...
-export const dummyService = null;
+// Export routing services
+export * from './routing';

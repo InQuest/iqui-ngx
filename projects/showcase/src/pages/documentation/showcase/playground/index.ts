@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FunctionalModule, BasicsModule, FormModule, CodeModule } from '../../../../../../iqui-ngx-elements/src';
+import { FunctionalModule, BasicsModule, FormModule, CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx-elements/src';
 
 // Showcase component
 @Component({
@@ -14,6 +14,7 @@ export class PlaygroundShowcaseComponent {
 
   // Expose modules needed to render syntax
   public CodeModule = CodeModule;
+  public ShowcasingModule = ShowcasingModule;
 
   // Playground context
   public context = {
@@ -25,7 +26,7 @@ export class PlaygroundShowcaseComponent {
                     class: 'card p-3',
                     message: 'HelloWorld!'
                   },
-    Module:       [CodeModule, FunctionalModule, BasicsModule, FormModule]
+    Module:       [FunctionalModule, BasicsModule, FormModule, CodeModule, ShowcasingModule]
   };
 
 }

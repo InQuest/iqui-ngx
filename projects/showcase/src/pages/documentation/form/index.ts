@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { FormModule, CodeModule } from '../../../../../iqui-ngx-elements/src';
+import { FormModule, CodeModule, ShowcasingModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
 import { FormShowcaseComponent } from './form';
@@ -18,7 +18,7 @@ import { SelectShowcaseComponent } from './select';
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
   imports: [
-    CommonModule, FormModule, CodeModule
+    CommonModule, FormModule, CodeModule, ShowcasingModule
   ],
   declarations: [
     FormShowcaseComponent, InputShowcaseComponent, CheckboxShowcaseComponent, RadioShowcaseComponent, SelectShowcaseComponent
