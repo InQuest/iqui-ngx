@@ -7,6 +7,8 @@ import { TooltipDirective } from '../../../iqui-ngx-elements/src';
 import { TooltipShowcaseComponent } from '../pages/documentation/functional/tooltip';
 import { DropdownDirective } from '../../../iqui-ngx-elements/src';
 import { DropdownShowcaseComponent } from '../pages/documentation/functional/dropdown';
+import { ModalComponent } from '../../../iqui-ngx-elements/src';
+import { ModalShowcaseComponent	 } from '../pages/documentation/functional/modal';
 import { FormDirective } from '../../../iqui-ngx-elements/src';
 import { FormShowcaseComponent } from '../pages/documentation/form/form';
 import { InputComponent } from '../../../iqui-ngx-elements/src';
@@ -33,11 +35,12 @@ export { Page };
 export const pages: Page[] = [
 
   new Page ('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components,', null, [
-    new Page ('functional', 'Functional directives', 'Directives providing functionality to any HTML element,', null, [
+    new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality,', null, [
       Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
       Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
+      Page.fromClass(ModalComponent, ModalShowcaseComponent),
     ]),
-    new Page ('form', 'Forms', 'Extension of standard <form /> and related HTML elements,', null, [
+    new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements,', null, [
       Page.fromClass(FormDirective, FormShowcaseComponent),
       Page.fromClass(InputComponent, InputShowcaseComponent),
       Page.fromClass(CheckboxComponent, CheckboxShowcaseComponent),

@@ -1,0 +1,27 @@
+<!-- Intro -->
+<h5> Basic Modal Component </h5>
+Displays a modal
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
+  <textarea>
+
+    <iqui-button [size]="'sm'" (click)="modal.show()"> Show modal programmatically! </iqui-button>
+
+    <iqui-modal #modal [(visible)]="context.Visible">
+      <div class="modal fade show">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" [innerHtml]="context.HeaderHtml"></div>
+            <div class="modal-body" [innerHtml]="context.ContentHtml"></div>
+            <div class="modal-footer">
+              <iqui-button [size]="'sm'" (click)="modal.hide()"> Hide modal programmatically! </iqui-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </iqui-modal>
+
+  </textarea>
+</iqui-playground>

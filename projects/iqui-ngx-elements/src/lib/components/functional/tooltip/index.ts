@@ -1,4 +1,4 @@
-// Tooltip component
+// Tooltip directive
 // ----------------------------------------------------------------------------
 
 // Import dependencies

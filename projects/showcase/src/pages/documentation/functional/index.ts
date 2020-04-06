@@ -11,6 +11,7 @@ import { FunctionalModule, BasicsModule, CodeModule, ShowcasingModule } from '..
 // Import showcase components
 import { TooltipShowcaseComponent } from './tooltip';
 import { DropdownShowcaseComponent } from './dropdown';
+import { ModalShowcaseComponent } from './modal';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
@@ -19,11 +20,13 @@ import { DropdownShowcaseComponent } from './dropdown';
   ],
   declarations: [
     TooltipShowcaseComponent,
-    DropdownShowcaseComponent
+    DropdownShowcaseComponent,
+    ModalShowcaseComponent
   ],
   exports: [
     TooltipShowcaseComponent,
-    DropdownShowcaseComponent
+    DropdownShowcaseComponent,
+    ModalShowcaseComponent
   ]
 })
 export class FunctionalShowcaseModule { }

@@ -1,4 +1,4 @@
-// Dropdown component
+// Dropdown directive
 // ----------------------------------------------------------------------------
 
 // Import dependencies
