@@ -2,7 +2,6 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Page } from '../../../iqui-ngx-elements/src';
 import { TooltipDirective } from '../../../iqui-ngx-elements/src';
 import { TooltipShowcaseComponent } from '../pages/documentation/functional/tooltip';
 import { DropdownDirective } from '../../../iqui-ngx-elements/src';
@@ -25,6 +24,8 @@ import { DropdownButtonComponent } from '../../../iqui-ngx-elements/src';
 import { DropdownButtonShowcaseComponent } from '../pages/documentation/basics/dropdown-button';
 import { HighlightJsComponent } from '../../../iqui-ngx-elements/src';
 import { HighlightJsShowcaseComponent } from '../pages/documentation/code/highlight-js';
+import { Page } from '../../../iqui-ngx-elements/src';
+import { PageServiceShowcaseComponent } from '../pages/documentation/showcase/page';
 import { PlaygroundComponent } from '../../../iqui-ngx-elements/src';
 import { PlaygroundShowcaseComponent } from '../pages/documentation/showcase/playground';
 
@@ -38,7 +39,7 @@ export const pages: Page[] = [
     new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality,', null, [
       Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
       Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
-      Page.fromClass(ModalComponent, ModalShowcaseComponent),
+      Page.fromClass(ModalComponent, ModalShowcaseComponent)
     ]),
     new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements,', null, [
       Page.fromClass(FormDirective, FormShowcaseComponent),
@@ -52,16 +53,17 @@ export const pages: Page[] = [
   new Page ('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality,', null, [
     new Page ('basics', 'Basic controls', 'Simpler composite controls', null, [
       Page.fromClass(ButtonComponent, ButtonShowcaseComponent),
-      Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent),
+      Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent)
     ])
   ]),
 
   new Page ('code', 'Code', 'Components used for visualizing code and code syntax.', null, [
-    Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent),
+    Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent)
   ]),
 
   new Page ('showcase', 'Showcasing', 'Components and services used for quickly building "showcase" apps.', null, [
-    Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent),
+    Page.fromClass(Page, PageServiceShowcaseComponent),
+    Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent)
   ])
 
 ];

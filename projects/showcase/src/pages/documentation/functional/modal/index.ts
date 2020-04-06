@@ -15,7 +15,7 @@ export class ModalShowcaseComponent {
   // Expose modules needed to render syntax
   public modules = [FunctionalModule, BasicsModule, CodeModule];
 
-  // Playground context
+  // Modal context
   public context = {
     Visible:     [true, false],
     HeaderHtml:  'This is a modal',

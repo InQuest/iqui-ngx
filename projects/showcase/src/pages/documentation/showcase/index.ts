@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { CodeModule, ShowcasingModule } from '../../../../../iqui-ngx-elements/src';
 
 // Import showcase components
+import { PageServiceShowcaseComponent } from './page';
 import { PlaygroundShowcaseComponent } from './playground';
 
 // IQ UI NGX Elements' Showcasing module
@@ -17,9 +18,11 @@ import { PlaygroundShowcaseComponent } from './playground';
     CommonModule, CodeModule, ShowcasingModule
   ],
   declarations: [
+    PageServiceShowcaseComponent,
     PlaygroundShowcaseComponent
   ],
   exports: [
+    PageServiceShowcaseComponent,
     PlaygroundShowcaseComponent
   ]
 })

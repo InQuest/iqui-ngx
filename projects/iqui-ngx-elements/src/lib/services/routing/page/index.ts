@@ -13,8 +13,8 @@ export class Page {
    * @returns Page representing and linking to the target
    */
   public static fromClass (descriptor, component = null) {
-    const directiveDecorator = descriptor.decorators.find(decorator => (decorator.type.prototype.ngMetadataName === 'Directive')),
-          componentDecorator = descriptor.decorators.find(decorator => (decorator.type.prototype.ngMetadataName === 'Component'));
+    const directiveDecorator = descriptor.decorators?.find(decorator => (decorator.type.prototype.ngMetadataName === 'Directive')),
+          componentDecorator = descriptor.decorators?.find(decorator => (decorator.type.prototype.ngMetadataName === 'Component'));
     if (directiveDecorator) {
       // Compose directive page
       const name     = descriptor.name.toLowerCase().replace(/directive/g, ''),
@@ -27,7 +27,8 @@ export class Page {
       return new Page(name, selector, null, (component || descriptor));
     } else {
       // Compose service page
-      return new Page('a', 'b', null, component || descriptor);
+      const name = descriptor.name.replace(/Service/g, '');
+      return new Page(name, name, null, (component || descriptor));
     }
   }
 
