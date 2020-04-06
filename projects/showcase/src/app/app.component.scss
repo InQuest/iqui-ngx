@@ -1,35 +1,98 @@
-h5 {
-  color: white !important; 
-}
-a.active {
-  color: white !important;
+$navbar-height: 56px;
+$sidebar-width: 240px;
+$sidebar-link-tooltip-arrow-size: 5px;
+
+// Page Header
+.page-navbar {
+  z-index: 1;
+  height: calc($navbar-height - 16px) !important;
+  padding: 8px 16px !important;
 }
 
-.menu-tree-invisible {
-  display: none;
-}
+// Page Menu
+.page-sidebar {
+  z-index: 1;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: $sidebar-width !important;
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+  overflow-x: hidden;
 
-.menu-tree ul,
-.menu-tree li {
-  margin-top: 0;
-  margin-bottom: 0;
-  list-style-type: none;
-}
-.menu-tree-node {
-  display: block;
-  &.menu-tree-node-group {
-    margin-left: 20px;
-    color: white;
-    &::before {
-      position: absolute;
-      left: 0;
-      padding: 1rem 0.5rem;
+  h5 {
+    color: white !important; 
+  }
+  a {
+    padding: 4px 16px !important;
+    &, & > * {
+      font-size: 12px !important;
     }
-    &.menu-tree-node-expanded::before {
-      content: '[-]';
-    }
-    &.menu-tree-node-collapsed::before {
-      content: '[+]';
+    &.active {
+      color: white !important;
     }
   }
+
+  .menu-tree-invisible {
+    display: none;
+  }
+
+  .menu-tree ul,
+  .menu-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+  .menu-tree-node {
+    position: relative;
+    display: block;
+    &.menu-tree-node-group {
+      margin-left: 15px;
+      color: white;
+      & > a {
+        width: auto !important;
+        & > span::before {
+          position: absolute;
+          top: 0;
+          left: -20px;
+          padding: 4px 8px;
+        }
+      }
+      &.menu-tree-node-expanded > a > span::before {
+        content: '[-]';
+      }
+      &.menu-tree-node-collapsed > a > span::before {
+        content: '[+]';
+      }
+    }
+  }
+}
+
+// Page Menu tooltips
+.page-sidebar-link-tooltip {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: -1 * $sidebar-link-tooltip-arrow-size;
+    top: 50%;
+    margin-top: -1 * $sidebar-link-tooltip-arrow-size;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: $sidebar-link-tooltip-arrow-size solid transparent;
+    border-bottom: $sidebar-link-tooltip-arrow-size solid transparent;
+    border-left: $sidebar-link-tooltip-arrow-size solid transparent;
+    border-right: $sidebar-link-tooltip-arrow-size solid black;
+  }
+}
+
+// Page Content
+.page-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: $navbar-height;
+  padding-left: $sidebar-width;
 }

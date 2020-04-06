@@ -21,6 +21,7 @@ export class DropdownShowcaseComponent {
     ShowOnFocus:    [true, false],
     ShowOnHover:    [false, true],
     StayInViewport: [false, true],
+    CustomClass:    'custom-class',
     OnSelected:     (e) => { console.log(e); }
   };
 

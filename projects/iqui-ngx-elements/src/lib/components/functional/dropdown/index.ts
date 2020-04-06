@@ -110,6 +110,11 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
   @Input()
   public iquiDropdownStayInViewport = false;
   /**
+   * Custom class to be set for the dropdown element
+   */
+  @Input()
+  public iquiDropdownClass: string = null;
+  /**
    * Content child element implementing a *iquiDropdownHeader directive and containing the drop-down header content
    */
   @ContentChild(DropdownHeaderDirective)
@@ -163,6 +168,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
+        this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
         // Allow toggle on click after a while
         isFocused = false;
@@ -173,21 +179,25 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
+        this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
       });
     });
     this.toggle = (visible: boolean = null) => {
       if (isFocused) {
         // Toggle drop-down focus (visibility)
+        this._overlayRef.updatePosition();
         this._componentRef.instance.focused = (visible !== null ? visible : !this._componentRef.instance.focused);
         this._componentRef.instance.updateIfChangesDetected();
       }
     };
     // Manage visibility (on hover)
     this._element.nativeElement.addEventListener('mouseenter', (this._eventListeners.mouseenter = () => {
+      this._overlayRef.updatePosition();
       this._componentRef.instance.hovered = true;
     }));
     this._element.nativeElement.addEventListener('mouseleave', (this._eventListeners.mouseleave = () => {
+      this._overlayRef.updatePosition();
       this._componentRef.instance.hovered = false;
     }));
   }
@@ -201,12 +211,13 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
     // Update properties
     if (this._componentRef) {
-      this._componentRef.instance.header = this.header;
-      this._componentRef.instance.body = this.body;
-      this._componentRef.instance.footer = this.footer;
-      this._componentRef.instance.position = this.iquiDropdownPosition;
+      this._componentRef.instance.header      = this.header;
+      this._componentRef.instance.body        = this.body;
+      this._componentRef.instance.footer      = this.footer;
+      this._componentRef.instance.position    = this.iquiDropdownPosition;
       this._componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
       this._componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
+      this._componentRef.instance.class       = this.iquiDropdownClass;
       this._componentRef.instance.updateIfChangesDetected();
     }
 
@@ -308,6 +319,11 @@ export class DropdownComponent {
    */
   public hovered = false;
   /**
+   * Custom class to be set for the dropdown element
+   * (to be set/managed by the orchestrating [iquiDropdown] directive)
+   */
+  public class: string = null;
+  /**
    * Content child element implementing a *iquiDropdownHeader directive and containing the drop-down header content
    * (to be set/managed by the orchestrating [iquiDropdown] directive)
    */
@@ -353,7 +369,9 @@ export class DropdownComponent {
       // Choose positioning (.bs-dropdown-[position])
       (this.position !== 'auto' ? `bs-dropdown-${this.position.split(' ')[0]}` : null),
       // Choose precise positioning (.bs-dropdown-[position]-[alignment])
-      (this.position !== 'auto' ? `bs-dropdown-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null)
+      (this.position !== 'auto' ? `bs-dropdown-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null),
+      // Inject custom class
+      this.class
     ].join(' ');
   }
 

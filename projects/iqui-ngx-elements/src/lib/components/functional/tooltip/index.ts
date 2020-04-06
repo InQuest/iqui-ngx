@@ -69,6 +69,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Input()
   public iquiTooltipStayInViewport = true;
+  /**
+   * Custom class to be set for the tooltip element
+   */
+  @Input()
+  public iquiTooltipClass: string = null;
 
   // Holds overlay element reference
   private _overlayRef: OverlayRef;
@@ -103,20 +108,24 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     this._componentFocusMonitor.monitor(this._element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
+        this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
       });
     });
     this._tooltipFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe((origin) => {
       if (timeout) { clearTimeout(timeout); }
       timeout = setTimeout(() => {
+        this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
       });
     });
     // Manage visibility (on hover)
     this._element.nativeElement.addEventListener('mouseenter', (this._eventListeners.mouseenter = () => {
+      this._overlayRef.updatePosition();
       this._componentRef.instance.hovered = true;
     }));
     this._element.nativeElement.addEventListener('mouseleave', (this._eventListeners.mouseleave = () => {
+      this._overlayRef.updatePosition();
       this._componentRef.instance.hovered = false;
     }));
   }
@@ -125,10 +134,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     // Update properties
     if (this._componentRef) {
-      this._componentRef.instance.content = this.iquiTooltip;
-      this._componentRef.instance.position = this.iquiTooltipPosition;
+      this._componentRef.instance.content     = this.iquiTooltip;
+      this._componentRef.instance.position    = this.iquiTooltipPosition;
       this._componentRef.instance.showOnFocus = this.iquiTooltipShowOnFocus;
       this._componentRef.instance.showOnHover = this.iquiTooltipShowOnHover;
+      this._componentRef.instance.class       = this.iquiTooltipClass;
       this._componentRef.instance.updateIfChangesDetected();
     }
 
@@ -234,6 +244,11 @@ export class TooltipComponent {
    * (to be set/managed by the orchestrating [iquiTooltip] directive)
    */
   public hovered = false;
+  /**
+   * Custom class
+   * (to be set/managed by the orchestrating [iquiTooltip] directive)
+   */
+  public class: string = null;
 
   constructor (public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
 
@@ -261,7 +276,9 @@ export class TooltipComponent {
       // Choose positioning (.bs-tooltip-[position])
       (this.position !== 'auto' ? `bs-tooltip-${this.position.split(' ')[0]}` : null),
       // Choose precise positioning (.bs-tooltip-[position]-[alignment])
-      (this.position !== 'auto' ? `bs-tooltip-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null)
+      (this.position !== 'auto' ? `bs-tooltip-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null),
+      // Inject custom class
+      this.class
     ].join(' ');
   }
 

@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { ArrayDataSource } from '@angular/cdk/collections';
@@ -11,7 +11,8 @@ import { Page, pages } from './app-pages';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
 
@@ -46,7 +47,7 @@ export class AppComponent {
 
         // Expand and mark active route
         let selected = flatPages.find(page => (`/${page.path.join('/')}` === e.url));
-        while (selected.parent) {
+        while (selected?.parent) {
           selected.meta.active = selected.parent.meta.active = true;
           this.tree.expand((selected = selected.parent));
         }

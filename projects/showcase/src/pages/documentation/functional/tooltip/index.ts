@@ -21,7 +21,8 @@ export class TooltipShowcaseComponent {
     Position:       Object.values(TooltipRelativePositioning),
     ShowOnFocus:    [true, false],
     ShowOnHover:    [true, false],
-    StayInViewport: [true, false]
+    StayInViewport: [true, false],
+    CustomClass:    'custom-class'
   };
 
 }
