@@ -1,0 +1,78 @@
+<!-- Description -->
+<h5> Getting started </h5>
+...
+
+<!-- How to get -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Fetching the library </div>
+  <div class="row p-3">
+    <!-- TODO: ... -->
+  </div>
+</div>
+
+<!-- How to integrate -->
+<div class="card mt-3 mb-3">
+  <div class="card-header"> Integrating into your project </div>
+  <div class="p-3">
+    
+    <div class="card">
+      <div class="card-header"> Styling </div>
+      <div class="p-2">
+
+        <iqui-highlightjs [languages]="['scss']">
+          <textarea>
+            // Bootstrap style imports
+            @import "~/node_modules/bootstrap/scss/bootstrap";
+
+            // Import angular CDK structural styling
+            @import '~/node_modules/@angular/cdk/overlay-prebuilt.css';
+            @import '~/node_modules/@angular/cdk/text-field/text-field'; 
+            @include cdk-text-field();
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+    
+    <div class="card mt-2">
+      <div class="card-header"> Include into main application module </div>
+      <div class="p-2">
+
+        <iqui-highlightjs [languages]="['javascript']">
+          <textarea>
+            // Import @angular dependencies
+            import { NgModule } from '@angular/core';
+            import { BrowserModule } from '@angular/platform-browser';
+            import { CommonModule } from '@angular/common';
+
+            // Import module
+            import { IqUiNgxElementsModule } from 'ngx-iqui';
+
+            // Import application component
+            import { AppComponent } from './app.component';
+
+            // Import into main application module
+            @NgModule({
+              imports: [
+                BrowserModule,
+                CommonModule,
+                AppRoutingModule,
+
+                IqUiNgxElementsModule
+              ],
+              declarations: [
+                AppComponent
+              ],
+              providers: [],
+              bootstrap: [AppComponent]
+            })
+
+            export class AppModule { }
+          </textarea>
+        </iqui-highlightjs>
+
+      </div>
+    </div>
+
+  </div>
+</div>

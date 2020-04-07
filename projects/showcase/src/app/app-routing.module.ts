@@ -5,7 +5,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GettingStartedPageComponent } from '../pages/howto/getting-started/component';
+import { GettingStartedPageComponent } from './pages/howto/getting-started/component';
 import { Page, pages } from './app-pages';
 
 // Application routes
