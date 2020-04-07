@@ -7,20 +7,37 @@ Displays a modal
   [modules]="modules" [context]="context">
   <textarea>
 
-    <iqui-button [size]="'sm'" (click)="modal.show()"> Show modal programmatically! </iqui-button>
+    <iqui-button [size]="'sm'"
+                 (click)="modal.show()">
+      Show modal programmatically!
+    </iqui-button>
 
-    <iqui-modal #modal [(visible)]="context.Visible">
+    <iqui-modal #modal
+                [(visible)]="context.Visible"
+                [closeOnOverlay]="context.CloseOnOverlay"
+                [closeOnEscape]="context.CloseOnEscape">
+
       <div class="modal fade show">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class="modal-header" [innerHtml]="context.HeaderHtml"></div>
-            <div class="modal-body" [innerHtml]="context.ContentHtml"></div>
+
+            <div class="modal-header"
+                 [innerHtml]="context.HeaderHtml"></div>
+
+            <div class="modal-body"
+                 [innerHtml]="context.ContentHtml"></div>
+
             <div class="modal-footer">
-              <iqui-button [size]="'sm'" (click)="modal.hide()"> Hide modal programmatically! </iqui-button>
+              <iqui-button [size]="'sm'"
+                           (click)="modal.hide()">
+                Hide modal programmatically!
+              </iqui-button>
             </div>
+
           </div>
         </div>
       </div>
+
     </iqui-modal>
 
   </textarea>

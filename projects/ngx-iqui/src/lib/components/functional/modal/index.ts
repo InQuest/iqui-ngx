@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component, AfterViewInit, OnChanges, SimpleChanges, OnDestroy,
-         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef, EmbeddedViewRef } from '@angular/core';
+         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -32,18 +32,35 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Output()
   public visibleChange = new EventEmitter();
 
+  @Input()
+  public closeOnOverlay = true;
+
+  @Input()
+  public closeOnEscape = true;
+
   /**
    * Content to be displayed inside the modal
    */
   @ViewChild('content', { read: TemplateRef })
   public content: TemplateRef<any> = null;
 
+
+  /**
+   * Holds modal's currently displayed status
+   */
+  private _isShown = false;
+
+  /**
+   * Holds changes queued for processing before modal was initialized
+   */
+  private _queuedChanges = [];
+
   /**
    * Holds overlay element reference
    */
   private _overlayRef: OverlayRef;
 
-  constructor (private _viewContainerRef: ViewContainerRef, private _overlay: Overlay) {}
+  constructor (private _cd: ChangeDetectorRef, private _viewContainerRef: ViewContainerRef, private _overlay: Overlay) {}
 
   public ngAfterViewInit () {
     // Configure
@@ -65,20 +82,40 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
         .centerVertically();
       this._overlayRef.updatePositionStrategy(positionStrategy);
     }
+
+    // Process queued changes
+    for (const changes of this._queuedChanges) {
+      this.ngOnChanges(changes);
+    }
+
   }
 
   public ngOnChanges (changes: SimpleChanges) {
-    if (changes.visible) {
-      // Close previous dialog, if shown
-      this._closePreviousModalDialog();
-      // Open in new dialog
-      this._openModalDialog();
+    // Check if already initialized
+    if (this._overlayRef) {
+
+      // Process changes
+      if (changes.visible) {
+        if (changes.visible.currentValue) {
+          // Open modal
+          this.show();
+        } else {
+          // Close modal
+          this.hide();
+        }
+      }
+
+    } else {
+
+      // Queue changes for later processing
+      this._queuedChanges.push(changes);
+
     }
   }
 
   public ngOnDestroy () {
     // Close previous dialog, if shown
-    this._closePreviousModalDialog();
+    this.hide();
     // Destroy overlay
     this._overlayRef.dispose();
   }
@@ -87,42 +124,27 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
    * Shows modal
    */
   public show () {
-    this.visible = true;
-    this._openModalDialog();
+    if (!this._isShown && this._overlayRef) {
+      // Set visible
+      this._overlayRef.backdropElement.classList.add('modal-visible');
+      this._overlayRef.hostElement.classList.add('modal-visible');
+      // Trigger change
+      this._isShown = true;
+      this.visibleChange.emit(true);
+    }
   }
 
   /**
    * Hides modal
    */
   public hide () {
-    this.visible = false;
-    this._closePreviousModalDialog();
-  }
-
-  /**
-   * Closes previously opened modal dialog (if found)
-   */
-  private _closePreviousModalDialog () {
-    if (this._overlayRef) {
+    if (this._isShown && this._overlayRef) {
       // Set not visible
       this._overlayRef.backdropElement.classList.remove('modal-visible');
       this._overlayRef.hostElement.classList.remove('modal-visible');
       // Trigger change
+      this._isShown = false;
       this.visibleChange.emit(false);
-    }
-  }
-
-  /**
-   * Opens modal using MatDialog service
-   */
-  private _openModalDialog () {
-    this._closePreviousModalDialog();
-    if (this._overlayRef && this.visible) {
-      // Set visible
-      this._overlayRef.backdropElement.classList.add('modal-visible');
-      this._overlayRef.hostElement.classList.add('modal-visible');
-      // Trigger change
-      this.visibleChange.emit(true);
     }
   }
 
