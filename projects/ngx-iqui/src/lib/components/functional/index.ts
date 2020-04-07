@@ -14,8 +14,8 @@ import { DropdownComponent, DropdownDirective,
 export { DropdownComponent, DropdownDirective,
          DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
          DropdownRelativePositioning, TDropdownRelativePositioning };
-import { ModalComponent } from './modal';
-export { ModalComponent };
+import { ModalComponent, ModalDirective, ModalDialogDirective } from './modal';
+export { ModalComponent, ModalDirective, ModalDialogDirective };
 
 /**
  * IQ UI NGX Elements' Functional elements module
@@ -28,12 +28,12 @@ export { ModalComponent };
   declarations: [
     TooltipComponent, TooltipDirective,
     DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
-    ModalComponent
+    ModalComponent, ModalDirective, ModalDialogDirective
   ],
   exports: [
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
-    ModalComponent
+    ModalComponent, ModalDirective, ModalDialogDirective
   ]
 })
 export class FunctionalModule { }

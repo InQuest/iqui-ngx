@@ -3,9 +3,16 @@
 
 // Import dependencies
 import { Component, AfterViewInit, OnChanges, SimpleChanges, OnDestroy,
-         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
+         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+
+// Import and (re)export child directives
+import { ModelEventDispatcher, ModalCloseRequestedReason } from './directives';
+import { ModalDirective } from './directives/modal';
+export { ModalDirective };
+import { ModalDialogDirective } from './directives/dialog';
+export { ModalDialogDirective };
 
 /**
  * Modal component, capable of managing display of contents in a modal\
@@ -20,7 +27,8 @@ import { TemplatePortal } from '@angular/cdk/portal';
 @Component({
   selector:    'iqui-modal',
   templateUrl: 'index.html',
-  styleUrls:   ['style.scss']
+  styleUrls:   ['style.scss'],
+  providers:   [{ provide: ModelEventDispatcher }]
 })
 export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
 
@@ -44,7 +52,6 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('content', { read: TemplateRef })
   public content: TemplateRef<any> = null;
 
-
   /**
    * Holds modal's currently displayed status
    */
@@ -60,7 +67,16 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
    */
   private _overlayRef: OverlayRef;
 
-  constructor (private _cd: ChangeDetectorRef, private _viewContainerRef: ViewContainerRef, private _overlay: Overlay) {}
+  /**
+   * Holds dispatched event subscriptions
+   */
+  private _dispatcherSubscriptions = [];
+
+  constructor (
+    private _overlay: Overlay,
+    private _viewContainerRef: ViewContainerRef,
+    public _dispatcher: ModelEventDispatcher
+  ) {}
 
   public ngAfterViewInit () {
     // Configure
@@ -87,6 +103,20 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
     for (const changes of this._queuedChanges) {
       this.ngOnChanges(changes);
     }
+
+    // Subscribe to dispatched events
+    this._dispatcherSubscriptions.push(
+      this._dispatcher.modalCloseRequested.subscribe((reason: ModalCloseRequestedReason) => {
+        // Check if closing on overlay click
+        if (reason === ModalCloseRequestedReason.OverlayClicked && this.closeOnOverlay) {
+          this.hide();
+        }
+        // Check if closing on escape keypress
+        if (reason === ModalCloseRequestedReason.EscapePressed && this.closeOnEscape) {
+          this.hide();
+        }
+      })
+    );
 
   }
 
@@ -118,6 +148,10 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.hide();
     // Destroy overlay
     this._overlayRef.dispose();
+    // Destroy dispatched subscriptions
+    for (const subscription of this._dispatcherSubscriptions) {
+      subscription.unsubscribe();
+    }
   }
 
   /**
