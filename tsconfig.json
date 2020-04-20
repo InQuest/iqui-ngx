@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "ngx-iqui": [
-        "dist/ngx-iqui"
+      "iqui-ngx": [
+        "dist/iqui-ngx"
       ],
-      "ngx-iqui/*": [
-        "dist/ngx-iqui/*"
+      "iqui-ngx/*": [
+        "dist/iqui-ngx/*"
       ]
     }
   },

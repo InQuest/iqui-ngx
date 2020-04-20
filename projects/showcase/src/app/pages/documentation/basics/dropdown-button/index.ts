@@ -5,7 +5,7 @@
 import { Component } from '@angular/core';
 import { BasicsModule, FormModule, CodeModule,
          DropdownButtonComponentTheme, BootstrapSize, DropdownButtonComponentSize,
-         DropdownButtonComponentRelativePositioning } from '../../../../../../../ngx-iqui/src';
+         DropdownButtonComponentRelativePositioning } from '../../../../../../../iqui-ngx/src';
 
 
 // Showcase component

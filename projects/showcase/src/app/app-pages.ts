@@ -2,31 +2,31 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { TooltipDirective } from '../../../ngx-iqui/src';
+import { TooltipDirective } from '../../../iqui-ngx/src';
 import { TooltipShowcaseComponent } from './pages/documentation/functional/tooltip';
-import { DropdownDirective } from '../../../ngx-iqui/src';
+import { DropdownDirective } from '../../../iqui-ngx/src';
 import { DropdownShowcaseComponent } from './pages/documentation/functional/dropdown';
-import { ModalComponent } from '../../../ngx-iqui/src';
+import { ModalComponent } from '../../../iqui-ngx/src';
 import { ModalShowcaseComponent	 } from './pages/documentation/functional/modal';
-import { FormDirective } from '../../../ngx-iqui/src';
+import { FormDirective } from '../../../iqui-ngx/src';
 import { FormShowcaseComponent } from './pages/documentation/form/form';
-import { InputComponent } from '../../../ngx-iqui/src';
+import { InputComponent } from '../../../iqui-ngx/src';
 import { InputShowcaseComponent } from './pages/documentation/form/input';
-import { CheckboxComponent } from '../../../ngx-iqui/src';
+import { CheckboxComponent } from '../../../iqui-ngx/src';
 import { CheckboxShowcaseComponent } from './pages/documentation/form/checkbox';
-import { RadioComponent } from '../../../ngx-iqui/src';
+import { RadioComponent } from '../../../iqui-ngx/src';
 import { RadioShowcaseComponent } from './pages/documentation/form/radio';
-import { SelectComponent } from '../../../ngx-iqui/src';
+import { SelectComponent } from '../../../iqui-ngx/src';
 import { SelectShowcaseComponent } from './pages/documentation/form/select';
-import { ButtonComponent } from '../../../ngx-iqui/src';
+import { ButtonComponent } from '../../../iqui-ngx/src';
 import { ButtonShowcaseComponent } from './pages/documentation/basics/button';
-import { DropdownButtonComponent } from '../../../ngx-iqui/src';
+import { DropdownButtonComponent } from '../../../iqui-ngx/src';
 import { DropdownButtonShowcaseComponent } from './pages/documentation/basics/dropdown-button';
-import { HighlightJsComponent } from '../../../ngx-iqui/src';
+import { HighlightJsComponent } from '../../../iqui-ngx/src';
 import { HighlightJsShowcaseComponent } from './pages/documentation/code/highlight-js';
-import { Page } from '../../../ngx-iqui/src';
+import { Page } from '../../../iqui-ngx/src';
 import { PageServiceShowcaseComponent } from './pages/documentation/showcase/page';
-import { PlaygroundComponent } from '../../../ngx-iqui/src';
+import { PlaygroundComponent } from '../../../iqui-ngx/src';
 import { PlaygroundShowcaseComponent } from './pages/documentation/showcase/playground';
 
 // (Re)export Page class

@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { CodeModule } from '../../../../../../ngx-iqui/src';
+import { CodeModule } from '../../../../../../iqui-ngx/src';
 
 // Import page component
 import { GettingStartedPageComponent } from './component';

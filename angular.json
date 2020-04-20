@@ -3,38 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-iqui": {
+    "iqui-ngx": {
       "projectType": "library",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/ngx-iqui",
-      "sourceRoot": "projects/ngx-iqui/src",
+      "root": "projects/iqui-ngx",
+      "sourceRoot": "projects/iqui-ngx/src",
       "prefix": "iqui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ngx-iqui/tsconfig.lib.json",
-            "project": "projects/ngx-iqui/ng-package.json"
+            "tsConfig": "projects/iqui-ngx/tsconfig.lib.json",
+            "project": "projects/iqui-ngx/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-iqui/src/test.ts",
-            "tsConfig": "projects/ngx-iqui/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-iqui/karma.conf.js"
+            "main": "projects/iqui-ngx/src/test.ts",
+            "tsConfig": "projects/iqui-ngx/tsconfig.spec.json",
+            "karmaConfig": "projects/iqui-ngx/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-iqui/tsconfig.lib.json",
-              "projects/ngx-iqui/tsconfig.spec.json"
+              "projects/iqui-ngx/tsconfig.lib.json",
+              "projects/iqui-ngx/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -164,5 +164,5 @@
         }
       }
     }},
-  "defaultProject": "ngx-iqui"
+  "defaultProject": "iqui-ngx"
 }

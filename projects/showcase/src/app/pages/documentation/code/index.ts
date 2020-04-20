@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { CodeModule, ShowcasingModule } from '../../../../../../ngx-iqui/src';
+import { CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src';
 
 // Import showcase components
 import { HighlightJsShowcaseComponent } from './highlight-js';

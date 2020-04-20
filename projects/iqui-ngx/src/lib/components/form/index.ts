@@ -32,7 +32,8 @@ import { InputComponent, TInputType, InputType } from './components/input';
 export { InputComponent, TInputType, InputType };
 import { CheckboxComponent } from './components/checkbox';
 export { CheckboxComponent };
-import { OptionDirective } from './components/option'
+import { OptionDirective } from './components/option';
+export { OptionDirective };
 import { RadioComponent } from './components/radio';
 export { RadioComponent };
 import { SelectComponent } from './components/select';

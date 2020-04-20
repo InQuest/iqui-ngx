@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, FormModule, CodeModule, BootstrapSize, InputType } from '../../../../../../../ngx-iqui/src';
+import { BasicsModule, FormModule, CodeModule, BootstrapSize, InputType } from '../../../../../../../iqui-ngx/src';
 
 // Showcase component
 @Component({

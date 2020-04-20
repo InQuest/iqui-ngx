@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { IqUiNgxElementsModule } from '../../../ngx-iqui/src';
+import { IqUiNgxElementsModule } from '../../../iqui-ngx/src';
 import { AppRoutingModule } from './app-routing.module';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { GettingStartedPageModule } from './pages/howto/getting-started';

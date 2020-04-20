@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FunctionalModule, BasicsModule, CodeModule, TooltipRelativePositioning } from '../../../../../../../ngx-iqui/src';
+import { FunctionalModule, BasicsModule, CodeModule, TooltipRelativePositioning } from '../../../../../../../iqui-ngx/src';
 
 // Showcase component
 @Component({
