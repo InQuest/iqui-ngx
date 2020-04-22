@@ -9,7 +9,7 @@
   <div class="row p-3">
 
     <!-- Left column -->
-    <div class="col-8">
+    <div [ngClass]="(_contextKeys.length ? 'col-8' : 'col-12')">
 
       <!-- Live Example -->
       <div class="card">
@@ -30,7 +30,7 @@
     </div> 
 
     <!-- Right column -->
-    <div class="col-4">
+    <div *ngIf="_contextKeys.length" class="col-4">
 
       <!-- Live Parameters Playground -->
       <div class="card">

@@ -14,6 +14,8 @@ import { DropdownComponent, DropdownDirective,
 export { DropdownComponent, DropdownDirective,
          DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
          DropdownRelativePositioning, TDropdownRelativePositioning };
+import { CollapseDirective } from './collapse';
+export { CollapseDirective };
 import { ModalComponent, ModalDirective, ModalDialogDirective } from './modal';
 export { ModalComponent, ModalDirective, ModalDialogDirective };
 
@@ -28,11 +30,13 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
   declarations: [
     TooltipComponent, TooltipDirective,
     DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
+    CollapseDirective,
     ModalComponent, ModalDirective, ModalDialogDirective
   ],
   exports: [
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
+    CollapseDirective,
     ModalComponent, ModalDirective, ModalDialogDirective
   ]
 })

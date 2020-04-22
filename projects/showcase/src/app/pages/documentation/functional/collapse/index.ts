@@ -1,4 +1,4 @@
-// Modal component showcase
+// Collapse component showcase
 // ----------------------------------------------------------------------------
 
 // Import dependencies
@@ -10,18 +10,12 @@ import { FunctionalModule, BasicsModule, CodeModule } from '../../../../../../..
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-export class ModalShowcaseComponent {
+export class CollapseShowcaseComponent {
 
   // Expose modules needed to render syntax
   public modules = [FunctionalModule, BasicsModule, CodeModule];
 
-  // Modal context
-  public context = {
-    Visible:        [true, false],
-    HeaderHtml:     'This is a modal',
-    ContentHtml:    '... a real, real modal!',
-    CloseOnOverlay: [true, false],
-    CloseOnEscape:  [true, false],
-  };
+  // Playground context
+  public context = {};
 
 }

@@ -8,6 +8,8 @@ import { DropdownDirective } from '../../../iqui-ngx/src';
 import { DropdownShowcaseComponent } from './pages/documentation/functional/dropdown';
 import { ModalComponent } from '../../../iqui-ngx/src';
 import { ModalShowcaseComponent	 } from './pages/documentation/functional/modal';
+import { CollapseDirective } from '../../../iqui-ngx/src';
+import { CollapseShowcaseComponent	 } from './pages/documentation/functional/collapse';
 import { FormDirective } from '../../../iqui-ngx/src';
 import { FormShowcaseComponent } from './pages/documentation/form/form';
 import { InputComponent } from '../../../iqui-ngx/src';
@@ -39,6 +41,7 @@ export const pages: Page[] = [
     new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality,', null, [
       Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
       Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
+      Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
       Page.fromClass(ModalComponent, ModalShowcaseComponent)
     ]),
     new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements,', null, [
