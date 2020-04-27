@@ -1,4 +1,4 @@
-// Export IQ UI NGX Elements' ROOT module, child modules and all components
+// Export IQ UI NGX ROOT module, child modules and all components
 export * from './lib';
 
 // (Re)Export ENUMS and Types

@@ -41,4 +41,4 @@ export * from './components/showcase';
     ShowcasingModule
   ]
 })
-export class IqUiNgxElementsModule { }
+export class IqUiNgxModule { }
