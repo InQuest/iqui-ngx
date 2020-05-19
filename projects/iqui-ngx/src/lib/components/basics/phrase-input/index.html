@@ -1,0 +1,25 @@
+<div class="input-group">
+  <!-- Input -->
+  <input type="text" [class]="'form-control' + (presets && presets.length ? ' has-dropdown' : '')"
+        [placeholder]="placeholder || ''"
+        [value]="_phrase.value || ''"
+        (input)="_valueChanged($event.target.value)" />
+  <!-- Actions -->
+  <div class="input-group-append">
+    <span [class]="'actions d-flex align-items-center' + (presets && presets.length ? ' has-dropdown' : '')">
+      <a *ngIf="_phrase.value"
+        href="javascript:void(0)" class="clear-filter" title="Clear"
+        (click)="_clearPhrase()">
+        [x]
+      </a>
+      <a href="javascript:void(0)" [class]="'toggle-case' + (_phrase.isCaseSensitive ? ' selected' : '')" title="Match Case"
+        (click)="_togglePhraseCaseSensitivity()">
+        [Aa]
+      </a>
+      <a href="javascript:void(0)" [class]="'toggle-regexp' + (_phrase.isRegExp ? ' selected' : '')" title="Use Regular Expression"
+        (click)="_togglePhraseRegExp()">
+        [.*]
+      </a>
+    </span>
+  </div>
+</div>

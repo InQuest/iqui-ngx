@@ -34,6 +34,9 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
     ModalComponent, ModalDirective, ModalDialogDirective
   ],
   exports: [
+    // Export dependency modules
+    OverlayModule,
+    // Export child components
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,

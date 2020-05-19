@@ -20,6 +20,9 @@ import { HighlightJsShowcaseComponent } from './highlight-js';
     HighlightJsShowcaseComponent
   ],
   exports: [
+    // Export dependency modules
+    CodeModule, ShowcasingModule,
+    // Export child components
     HighlightJsShowcaseComponent
   ]
 })

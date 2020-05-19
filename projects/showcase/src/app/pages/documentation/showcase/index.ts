@@ -22,6 +22,9 @@ import { PlaygroundShowcaseComponent } from './playground';
     PlaygroundShowcaseComponent
   ],
   exports: [
+    // Export dependency modules
+    CodeModule, ShowcasingModule,
+    // Export child components
     PageServiceShowcaseComponent,
     PlaygroundShowcaseComponent
   ]

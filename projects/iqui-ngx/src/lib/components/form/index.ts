@@ -54,6 +54,9 @@ export { SelectComponent };
     InputComponent, CheckboxComponent, RadioComponent, SelectComponent, OptionDirective
   ],
   exports: [
+    // Export dependency modules
+    TextFieldModule,
+    // Export child components
     FormElementDirective,
     FormDirective, FormGroupDirective,
     ButtonDirective, LabelDirective, TextareaDirective, InputDirective, CheckboxDirective, RadioDirective, SelectDirective,

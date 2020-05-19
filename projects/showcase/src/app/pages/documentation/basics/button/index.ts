@@ -37,6 +37,6 @@ export class ButtonShowcaseComponent {
     public static FormSize =     [undefined, ...Object.values(BootstrapSize)];
     public static FormValid =    [undefined, true, false];
   // tslint:enable: variable-name
-};
+  };
 
 }

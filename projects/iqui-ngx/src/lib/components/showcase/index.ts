@@ -7,8 +7,8 @@ import { FormModule } from '../form';
 import { CodeModule } from '../code';
 
 // Import components and (re)export components
-import { PlaygroundComponent } from './playground';
-export { PlaygroundComponent };
+import { PlaygroundComponent, PlaygroundTextareaDirective } from './playground';
+export { PlaygroundComponent, PlaygroundTextareaDirective };
 
 /**
  * IQ UI NGX Elements' showcasing module
@@ -19,10 +19,13 @@ export { PlaygroundComponent };
     CommonModule, FormModule, CodeModule
   ],
   declarations: [
-    PlaygroundComponent
+    PlaygroundComponent, PlaygroundTextareaDirective
   ],
   exports: [
-    PlaygroundComponent
+    // Export dependency modules
+    FormModule, CodeModule,
+    // Export child components
+    PlaygroundComponent, PlaygroundTextareaDirective
   ]
 })
 export class ShowcasingModule { }

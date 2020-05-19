@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { CodeModule, highlightJsRegisterLanguage } from '../../../../../../../iqui-ngx/src';
+import { BasicsModule, CodeModule, highlightJsRegisterLanguage, Phrase } from '../../../../../../../iqui-ngx/src';
 
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
@@ -23,19 +23,28 @@ highlightJsRegisterLanguage('scss', scss);
 export class HighlightJsShowcaseComponent {
 
   // Expose modules needed to render syntax
-  public modules = [CodeModule];
+  public modules = [BasicsModule, CodeModule];
 
   // Playground context
-  public context = {
+  private contextBase = {
     Disabled:     [false, true],
     Class:        '',
     NgClass:      {},
-    Syntax:       '<div> Hello world! </div>',
+    Syntax:       '<div> Hello world! </div>\n<div> How you doin\'?!?! </div>',
     Language:     ['xml', 'css', 'javascript', undefined],
-    Filter:       '',
     Wrap:         [true, false],
     Trim:         [true, false],
     LineNumbers:  [true, false]
+  };
+  // Playground context
+  public context = {
+    ...this.contextBase,
+    Filter:       ''
+  };
+  // Playground context
+  public contextWithPhrase = {
+    ...this.contextBase,
+    FilterPhrase: new Phrase()
   };
 
 }

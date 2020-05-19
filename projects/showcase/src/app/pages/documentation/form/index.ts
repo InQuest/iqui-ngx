@@ -24,6 +24,9 @@ import { SelectShowcaseComponent } from './select';
     FormShowcaseComponent, InputShowcaseComponent, CheckboxShowcaseComponent, RadioShowcaseComponent, SelectShowcaseComponent
   ],
   exports: [
+    // Export dependency modules
+    FormModule, CodeModule, ShowcasingModule,
+    // Export child components
     FormShowcaseComponent
   ]
 })

@@ -1,8 +1,3 @@
-<!-- Content Pass-through -->
-<div #syntax style="display: none">
-  <ng-content></ng-content>
-</div>
-
 <!-- Playground -->
 <div [ngClass]="ngClass" [class]="_composedClassValue">
   <div class="card-header"> {{ title || 'Demo' }} </div>
@@ -44,7 +39,7 @@
 
             <!-- String values -->
             <iqui-input *ngIf="_context[key].type === 'string'"
-              [type]="'text'"
+              [type]="_contextMultiline[key] ? 'textarea' : 'text'" [resize]="_contextMultiline[key]"
               [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)"> {{ key }} </iqui-input>
 
             <!-- Number values -->

@@ -3,8 +3,14 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component,  OnChanges, AfterViewInit, Input, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {
+  Directive, Component, OnChanges, AfterContentInit,
+  Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
+} from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
+
+// Import data
+import { Phrase } from '../../../data';
 
 /**
  * Registers additional highligh.js (https://highlightjs.org/) language syntaxes
@@ -14,6 +20,60 @@ import { default as hljs } from 'highlight.js/lib/highlight';
 export function highlightJsRegisterLanguage (languageName: string, language: any) {
   HighlightJsComponent.registerLanguage(languageName, language);
 }
+
+/**
+ * Used to include syntax using a textarea child element
+ *
+ * Usage:
+ *
+ * <iqui-highlightjs>
+ *   <textarea>
+ *     <div> Code example ... </div>
+ *   </textarea>
+ * </iqui-highlightjs>
+ */
+@Directive({
+  selector: 'textarea'
+})
+export class HighlightJsTextareaDirective {}
+
+/**
+ * Used to include a filter component into a <iqui-highlightjs /> component
+ *
+ * Usage:
+ *
+ * <iqui-highlightjs>
+ *   <ng-container *iquiHighlightJsInjectedTop="let filter = filter;">
+ *     Some header content ...
+ *   </ng-container>
+ *   <textarea ngNonBindable>
+ *     <div> Code example ... </div>
+ *   </textarea>
+ * </iqui-highlightjs>
+ */
+@Directive({
+  selector: '[iquiHighlightJsInjectedTop]'
+})
+export class HighlightJsInjectTopDirective {}
+
+/**
+ * Used to include a filter component into a <iqui-highlightjs /> component
+ *
+ * Usage:
+ *
+ * <iqui-highlightjs>
+ *   <ng-container *iquiHighlightJsInjectedBottom="let filter = filter;">
+ *     Some footer content ...
+ *   </ng-container>
+ *   <textarea ngNonBindable>
+ *     <div> Code example ... </div>
+ *   </textarea>
+ * </iqui-highlightjs>
+ */
+@Directive({
+  selector: '[iquiHighlightJsInjectedBottom]'
+})
+export class HighlightJsInjectBottomDirective {}
 
 /**
  * Highlight.js (https://highlightjs.org/) wrapper, displays colored syntax
@@ -67,7 +127,7 @@ export function highlightJsRegisterLanguage (languageName: string, language: any
   templateUrl:    './index.html',
   styleUrls:      [`./style.scss`]
 })
-export class HighlightJsComponent implements OnChanges, AfterViewInit {
+export class HighlightJsComponent implements OnChanges, AfterContentInit {
 
   /**
    * Static method allowing registration of additional language syntaxes
@@ -104,10 +164,10 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   @Input()
   public languages: string[];
   /**
-   * Row filter (will only show rows matching given string or regexp)
+   * Row filter (will only show rows matching given string or regexp or Phrase instance)
    */
   @Input()
-  public filter: RegExp|any;
+  public filter: string|RegExp|Phrase = new Phrase();
   /**
    * If rows should wrap
    */
@@ -125,31 +185,28 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   public lineNumbers = true;
 
   // Reference to passed-through content container element
-  @ViewChild('syntax', { read: ElementRef })
+  @ContentChild(HighlightJsTextareaDirective, { read: ElementRef })
   private _syntaxEl: ElementRef;
   // Syntax extracted from the passed-through content container element
   private _syntaxElInnerHTML: string;
+
+  // Finds all content elements injected to the top
+  @ContentChildren(HighlightJsInjectTopDirective, { read: TemplateRef })
+  public _injectedTop: QueryList<TemplateRef<any>>;
+  // Finds all content elements injected to the bottom
+  @ContentChildren(HighlightJsInjectBottomDirective, { read: TemplateRef })
+  public _injectedBottom: QueryList<TemplateRef<any>>;
 
   // Rendered, highlighted syntax HTML
   public _highlightedSyntax = '';
 
   constructor (private _cd: ChangeDetectorRef) {}
 
-  public ngAfterViewInit () {
+  public ngAfterContentInit () {
 
     // If no syntax attribute set, try extracting value from <textarea /> child
     if (!this.syntax) {
-
-      // Check if single <textarea /> child
-      // tslint:disable-next-line: max-line-length
-      if ((this._syntaxEl.nativeElement.children.length === 1) && (this._syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
-        // Use textarea value as syntax
-        this._syntaxElInnerHTML = this._syntaxEl.nativeElement.children[0].value;
-      } else {
-        // Use .innerHTML as syntax (might be pre-parsed by Angular)
-        this._syntaxElInnerHTML = this._syntaxEl.nativeElement.innerHTML;
-      }
-
+      this._ingestTextareaSyntax();
     }
 
     // Trigger highlighting render
@@ -159,10 +216,31 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
   }
 
   public ngOnChanges () {
+    // Trigger highlighting render
+    this._renderHighlightedSyntax();
+  }
 
+  /**
+   * Forces a refresh of the component and it's syntax
+   */
+  public refresh () {
+    // (Re)Ingest textarea syntax
+    if (!this.syntax) {
+      this._ingestTextareaSyntax();
+    }
     // (Re)Trigger highlighting render
     this._renderHighlightedSyntax();
+  }
 
+  /**
+   * Ingest syntax from textarea, if one is used
+   */
+  private _ingestTextareaSyntax () {
+    // Check if single <textarea /> child
+    if (this._syntaxEl) {
+      // Use textarea value as syntax
+      this._syntaxElInnerHTML = this._syntaxEl.nativeElement.value;
+    }
   }
 
   /**
@@ -172,6 +250,7 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
 
     // Set initial syntax from [syntax] attribute
     let syntax = this.syntax || this._syntaxElInnerHTML;
+    if (!syntax) { return; }
 
     // Trim lines
     if (syntax && this.trim) {
@@ -215,20 +294,31 @@ export class HighlightJsComponent implements OnChanges, AfterViewInit {
     let numberedSyntax = '';
 
     // Filter lines
-    if (this.filter && ((this.filter instanceof RegExp) || (this.filter && this.filter.toString().trim()))) {
+    const hasStringFilter = (typeof this.filter === 'string' && this.filter.trim()),
+          hasRegExpFilter = (this.filter instanceof RegExp),
+          hasPhraseFilter = (this.filter instanceof Phrase && this.filter.value.trim());
+    if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
       // Filter rows
       highlightedSyntaxLines.forEach((line, i) => {
         // Check if filter is regexp or treat as string
-        if (this.filter instanceof RegExp) {
-          if (rawSyntaxLines[i].match(this.filter)) {
+        if (hasStringFilter || (hasPhraseFilter && !(this.filter as Phrase).isRegExp)) {
+          try {
+            const filterValue         = (hasStringFilter ? (this.filter as string) : (this.filter as Phrase).value),
+                  filterCaseSensitive = (hasStringFilter ? true : (this.filter as Phrase).isCaseSensitive),
+                  haystack            = (filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase()),
+                  needle              = (filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase());
+            if (haystack.indexOf(needle) !== -1) {
+              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
+            }
+          } catch (err) {}
+        } else if (hasPhraseFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
+          try {
             // tslint:disable-next-line: max-line-length
-            numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
-          }
-        } else if (this.filter && this.filter.toString().trim()) {
-          if (rawSyntaxLines[i].indexOf(this.filter.toString().trim()) !== -1) {
-            // tslint:disable-next-line: max-line-length
-            numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
-          }
+            const filterValue = (hasRegExpFilter ? (this.filter as RegExp) : new RegExp((this.filter as Phrase).value, ((this.filter as Phrase).isCaseSensitive ? '' : 'i')));
+            if (rawSyntaxLines[i].match(filterValue)) {
+              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
+            }
+          } catch (err) {}
         }
       });
     } else {

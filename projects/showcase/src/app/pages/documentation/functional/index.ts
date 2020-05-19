@@ -26,6 +26,9 @@ import { ModalShowcaseComponent } from './modal';
     ModalShowcaseComponent
   ],
   exports: [
+    // Export dependency modules
+    BasicsModule, FunctionalModule, CodeModule, ShowcasingModule,
+    // Export child components
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,

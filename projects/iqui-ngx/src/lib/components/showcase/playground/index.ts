@@ -1,10 +1,27 @@
 import '@angular/compiler';
 import {
-  Compiler, NgModuleRef, NgModule,
-  Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, OnDestroy,
-  Input, ElementRef, ComponentRef, ViewChild, ViewContainerRef,
+  Compiler, Directive, NgModuleRef, NgModule,
+  Component, OnInit, OnChanges, SimpleChanges, AfterContentInit, AfterViewInit, OnDestroy,
+  Input, ElementRef, ComponentRef, ViewChild, ContentChild, ViewContainerRef,
   ChangeDetectorRef, Injector
 } from '@angular/core';
+
+/**
+ * Used to include syntax using a textarea child element
+ *
+ * Usage:
+ *
+ * <iqui-playground>
+ *    <textarea ngNonBindable>
+ *      <div> Code example: {{ context.test }} </div>
+ *    </textarea>
+ * </iqui-playground>
+ */
+@Directive({
+  selector: 'textarea'
+})
+export class PlaygroundTextareaDirective {}
+
 
 /**
  * Renders an interactive demo for a component/directive
@@ -22,7 +39,7 @@ import {
   templateUrl: './index.html',
   styleUrls: ['./style.scss']
 })
-export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
 
   constructor (
     private _compiler: Compiler,
@@ -69,7 +86,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
   /**
    * Reference to pass-through syntax element
    */
-  @ViewChild('syntax', { read: ElementRef })
+  @ContentChild(PlaygroundTextareaDirective, { read: ElementRef })
   private _syntaxEl: ElementRef;
 
   /**
@@ -86,6 +103,10 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
    * Holds keys of all context properties
    */
   public _contextKeys = [];
+  /**
+   * Holds if multiline value for all context properties
+   */
+  public _contextMultiline = {};
   /**
    * Holds value syntax for all context properties
    */
@@ -110,15 +131,15 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
     this._processContext();
   }
 
-  public ngAfterViewInit () {
+  public ngAfterContentInit () {
     // Check if single <textarea /> child
     if (this.syntax) {
       // Load and process syntax
       this._processSyntax(this.syntax);
     // tslint:disable-next-line: max-line-length
-    } else if ((this._syntaxEl.nativeElement.children.length === 1) && (this._syntaxEl.nativeElement.children[0].tagName.toLowerCase() === 'textarea')) {
+    } else if (this._syntaxEl) {
       // Load and process syntax
-      this._processSyntax(this._syntaxEl.nativeElement.children[0].value);
+      this._processSyntax(this._syntaxEl.nativeElement.value);
     } else {
       // Throw error
       // tslint:disable-next-line: max-line-length
@@ -132,7 +153,9 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
       this._processContext();
     }
     // (Re)Process syntax
-    this._processSyntax(this.syntax);
+    if (changes.syntax) {
+      this._processSyntax(this.syntax);
+    }
   }
 
   public ngOnDestroy () {
@@ -150,6 +173,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
     // Reset context
     this._context = {};
     this._contextKeys = [];
+    this._contextMultiline = {};
     this._contextSyntax = {};
     this._contextSelected = {};
 
@@ -168,6 +192,11 @@ export class PlaygroundComponent implements OnInit, AfterViewInit, OnChanges, On
         let type: string = (this._context[key].type = typeof value);
         if (type === 'object' && value instanceof Array) {
           type = (this._context[key].type = 'array');
+        }
+
+        // Generate selection syntax
+        if (type === 'string') {
+          this._contextMultiline[key] = this._context[key].multiline = (value.split('\n').length > 1);
         }
 
         // Generate selection syntax

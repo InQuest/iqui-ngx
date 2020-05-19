@@ -11,6 +11,7 @@ import { BasicsModule, CodeModule, ShowcasingModule } from '../../../../../../iq
 // Import showcase components
 import { ButtonShowcaseComponent } from './button';
 import { DropdownButtonShowcaseComponent } from './dropdown-button';
+import { PhraseInputShowcaseComponent } from './phrase-input';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
@@ -19,11 +20,16 @@ import { DropdownButtonShowcaseComponent } from './dropdown-button';
   ],
   declarations: [
     ButtonShowcaseComponent,
-    DropdownButtonShowcaseComponent
+    DropdownButtonShowcaseComponent,
+    PhraseInputShowcaseComponent
   ],
   exports: [
+    // Export dependency modules
+    BasicsModule, CodeModule, ShowcasingModule,
+    // Export child components
     ButtonShowcaseComponent,
-    DropdownButtonShowcaseComponent
+    DropdownButtonShowcaseComponent,
+    PhraseInputShowcaseComponent
   ]
 })
 export class BasicsShowcaseModule { }

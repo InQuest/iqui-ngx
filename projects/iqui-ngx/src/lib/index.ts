@@ -15,6 +15,9 @@ export * from './components/code';
 import { ShowcasingModule } from './components/showcase';
 export * from './components/showcase';
 
+// Import and (re)export data
+export * from './data';
+
 /**
  * IQ UI NGX Elements' module
  * InQuest NGX reusable Elements based of Angular material CDK and Bootstrap

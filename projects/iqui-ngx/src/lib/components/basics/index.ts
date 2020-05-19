@@ -22,6 +22,8 @@ export { DropdownButtonComponent,
          DropdownButtonComponentSize, TDropdownButtonComponentSize,
          DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning };
 import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../functional/dropdown';
+import { PhraseInputComponent } from './phrase-input';
+export { PhraseInputComponent };
 
 /**
  * IQ UI NGX Elements' Basic elements module
@@ -33,11 +35,16 @@ import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective
   ],
   declarations: [
     ButtonComponent,
-    DropdownButtonComponent
+    DropdownButtonComponent,
+    PhraseInputComponent
   ],
   exports: [
+    // Export dependency modules
+    FunctionalModule, FormModule,
+    // Export child components
     ButtonComponent,
-    DropdownButtonComponent, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective
+    DropdownButtonComponent, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
+    PhraseInputComponent
   ]
 })
 export class BasicsModule { }

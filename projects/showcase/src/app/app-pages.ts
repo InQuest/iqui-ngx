@@ -24,6 +24,8 @@ import { ButtonComponent } from '../../../iqui-ngx/src';
 import { ButtonShowcaseComponent } from './pages/documentation/basics/button';
 import { DropdownButtonComponent } from '../../../iqui-ngx/src';
 import { DropdownButtonShowcaseComponent } from './pages/documentation/basics/dropdown-button';
+import { PhraseInputComponent } from '../../../iqui-ngx/src';
+import { PhraseInputShowcaseComponent } from './pages/documentation/basics/phrase-input';
 import { HighlightJsComponent } from '../../../iqui-ngx/src';
 import { HighlightJsShowcaseComponent } from './pages/documentation/code/highlight-js';
 import { Page } from '../../../iqui-ngx/src';
@@ -56,7 +58,8 @@ export const pages: Page[] = [
   new Page ('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality,', null, [
     new Page ('basics', 'Basic controls', 'Simpler composite controls', null, [
       Page.fromClass(ButtonComponent, ButtonShowcaseComponent),
-      Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent)
+      Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent),
+      Page.fromClass(PhraseInputComponent, PhraseInputShowcaseComponent)
     ])
   ]),
 

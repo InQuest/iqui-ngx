@@ -115,24 +115,24 @@ export class CollapseDirective implements OnInit, OnChanges, OnDestroy {
       this.toggleOnEvent = ['click', 'keypress'];
     }
 
-    // Subscribe toggle events
-    if (this.toggleOnEvent) {
-      for (const eventName of (this.toggleOnEvent instanceof Array ? this.toggleOnEvent : [this.toggleOnEvent])) {
-        const eventHandlerFn = () => {
-          for (const target of this._toggleTargetElements) {
-            target.classList.toggle('show');
-          }
-        };
-        this._subscribedEvents[eventName] = eventHandlerFn;
-        this._el.nativeElement.addEventListener(eventName, eventHandlerFn);
-      }
-    }
     // Subscribe hide events
     if (this.hideOnEvent) {
       for (const eventName of (this.hideOnEvent instanceof Array ? this.hideOnEvent : [this.hideOnEvent])) {
         const eventHandlerFn = () => {
           for (const target of [...this._toggleTargetElements, ...this._targetHideElements]) {
             target.classList.remove('show');
+          }
+        };
+        this._subscribedEvents[eventName] = eventHandlerFn;
+        this._el.nativeElement.addEventListener(eventName, eventHandlerFn);
+      }
+    }
+    // Subscribe toggle events
+    if (this.toggleOnEvent) {
+      for (const eventName of (this.toggleOnEvent instanceof Array ? this.toggleOnEvent : [this.toggleOnEvent])) {
+        const eventHandlerFn = () => {
+          for (const target of this._toggleTargetElements) {
+            target.classList.toggle('show');
           }
         };
         this._subscribedEvents[eventName] = eventHandlerFn;

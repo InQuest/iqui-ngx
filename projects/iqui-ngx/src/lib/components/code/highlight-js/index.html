@@ -1,9 +1,10 @@
-<!-- Get syntax content if passed as component body -->
-<div #syntax style="display: none">
-  <ng-content></ng-content>
-</div>
-
 <!-- Output highlighted syntax -->
 <pre [ngClass]="ngClass" [class]="_composedClassValue">
+  <ng-container *ngFor="let injected of _injectedTop">
+    <ng-container *ngTemplateOutlet="injected"></ng-container>
+  </ng-container>
   <code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code>
+  <ng-container *ngFor="let injected of _injectedBottom">
+    <ng-container *ngTemplateOutlet="injected"></ng-container>
+  </ng-container>
 </pre>

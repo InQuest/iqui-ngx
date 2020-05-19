@@ -1,1 +1,5 @@
-:host {}
+::ng-deep {
+  iqui-phrase-input a.selected {
+    text-decoration: underline;
+  }
+}
