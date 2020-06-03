@@ -15,8 +15,16 @@ export * from './components/code';
 import { ShowcasingModule } from './components/showcase';
 export * from './components/showcase';
 
+// Import and (re)export pipes
+import { FilterPipe } from './pipes';
+export * from './pipes';
+
 // Import and (re)export data
 export * from './data';
+
+// Import and (re)export services
+import { providers } from './services';
+export * from './services';
 
 /**
  * IQ UI NGX Elements' module
@@ -34,14 +42,22 @@ export * from './data';
     CodeModule,
     ShowcasingModule
   ],
-  declarations: [],
+  declarations: [
+    // Declare pipes
+    FilterPipe
+  ],
+  providers: [
+    ...providers
+  ],
   exports: [
     // (Re)export individual modules, making them included into any app the root module is included in
     FunctionalModule,
     BasicsModule,
     FormModule,
     CodeModule,
-    ShowcasingModule
+    ShowcasingModule,
+    // Re export pipes
+    FilterPipe
   ]
 })
 export class IqUiNgxModule { }

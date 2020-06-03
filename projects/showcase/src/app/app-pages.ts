@@ -2,6 +2,12 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
+import { Phrase } from '../../../iqui-ngx/src';
+import { PhraseShowcaseComponent } from './pages/documentation/data/Phrase';
+import { FilterPipe } from '../../../iqui-ngx/src';
+import { FilterShowcaseComponent } from './pages/documentation/pipes/Filter';
+import { Copy2ClipboardDirective } from '../../../iqui-ngx/src';
+import { Copy2ClipboardShowcaseComponent } from './pages/documentation/functional/copy2clipboard';
 import { TooltipDirective } from '../../../iqui-ngx/src';
 import { TooltipShowcaseComponent } from './pages/documentation/functional/tooltip';
 import { DropdownDirective } from '../../../iqui-ngx/src';
@@ -39,38 +45,51 @@ export { Page };
 // Component pages definitions
 export const pages: Page[] = [
 
-  new Page ('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components,', null, [
-    new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality,', null, [
-      Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
-      Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
-      Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
-      Page.fromClass(ModalComponent, ModalShowcaseComponent)
+  new Page ('controls', 'Controls', 'Components and Directives', null, [
+
+    new Page ('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components', null, [
+      new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality', null, [
+        Page.fromClass(Copy2ClipboardDirective, Copy2ClipboardShowcaseComponent),
+        Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
+        Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
+        Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
+        Page.fromClass(ModalComponent, ModalShowcaseComponent)
+      ]),
+      new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements', null, [
+        Page.fromClass(FormDirective, FormShowcaseComponent),
+        Page.fromClass(InputComponent, InputShowcaseComponent),
+        Page.fromClass(CheckboxComponent, CheckboxShowcaseComponent),
+        Page.fromClass(RadioComponent, RadioShowcaseComponent),
+        Page.fromClass(SelectComponent, SelectShowcaseComponent)
+      ]),
     ]),
-    new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements,', null, [
-      Page.fromClass(FormDirective, FormShowcaseComponent),
-      Page.fromClass(InputComponent, InputShowcaseComponent),
-      Page.fromClass(CheckboxComponent, CheckboxShowcaseComponent),
-      Page.fromClass(RadioComponent, RadioShowcaseComponent),
-      Page.fromClass(SelectComponent, SelectShowcaseComponent)
+
+    new Page ('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality', null, [
+      new Page ('basics', 'Basic controls', 'Simpler composite controls', null, [
+        Page.fromClass(ButtonComponent, ButtonShowcaseComponent),
+        Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent),
+        Page.fromClass(PhraseInputComponent, PhraseInputShowcaseComponent)
+      ])
     ]),
+
+    new Page ('code', 'Code', 'Components used for visualizing code and code syntax.', null, [
+      Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent)
+    ]),
+
+    new Page ('showcase', 'Showcasing', 'Components and services used for quickly building "showcase" apps.', null, [
+      Page.fromClass(Page, PageServiceShowcaseComponent),
+      Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent)
+    ]),
+
   ]),
 
-  new Page ('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality,', null, [
-    new Page ('basics', 'Basic controls', 'Simpler composite controls', null, [
-      Page.fromClass(ButtonComponent, ButtonShowcaseComponent),
-      Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent),
-      Page.fromClass(PhraseInputComponent, PhraseInputShowcaseComponent)
-    ])
+  new Page ('pipes', 'Pipes', 'Pipes', null, [
+    Page.fromClass(FilterPipe, FilterShowcaseComponent),
   ]),
 
-  new Page ('code', 'Code', 'Components used for visualizing code and code syntax.', null, [
-    Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent)
+  new Page ('data', 'Data Classes', 'Data classes', null, [
+    Page.fromClass(Phrase, PhraseShowcaseComponent),
   ]),
-
-  new Page ('showcase', 'Showcasing', 'Components and services used for quickly building "showcase" apps.', null, [
-    Page.fromClass(Page, PageServiceShowcaseComponent),
-    Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent)
-  ])
 
 ];
 

@@ -91,6 +91,26 @@ export class Phrase {
   }
 
   /**
+   * Checks if haystack contains phrase
+   * @param haystack String to check
+   */
+  public match (haystack: string) {
+    if (!this._isRegExp) {
+      // Match as plain string
+      if (this._isCaseSensitive) {
+        // Maths as case-sensitive
+        return (haystack.toLowerCase().indexOf(this._value.toLowerCase()) !== -1);
+      } else {
+        // Maths as not case-sensitive
+        return (haystack.indexOf(this._value) !== -1);
+      }
+    } else {
+      // Match as regexp
+      return !!haystack.match(new RegExp(this._value, (this.isCaseSensitive ? '' : 'i')));
+    }
+  }
+
+  /**
    * Converts a phrase into a string representation
    */
   public toString () {

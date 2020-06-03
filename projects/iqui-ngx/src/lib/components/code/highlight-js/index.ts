@@ -5,7 +5,7 @@
 // Import dependencies
 import {
   Directive, Component, OnChanges, AfterContentInit,
-  Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
+  HostBinding, Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
 } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
@@ -144,15 +144,24 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @Input()
   public disabled = false;
   /**
-   * [class] binding
-   */
-  @Input()
-  public class: string = null;
-  /**
    * [ngClass] binding
    */
+  private _ngClass: string;
+  @HostBinding('attr.ngClass')
+  public _attrNgClass: any;
   @Input()
-  public ngClass: any;
+  public get ngClass () { return this._ngClass; }
+  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  /**
+   * [class] binding
+   */
+  private _class: string;
+  @HostBinding('attr.class')
+  public _attrClass: any;
+  @Input()
+  public get class () { return this._class; }
+  public set class (value: string) { this._class = value; this._attrClass = null; }
+
   /**
    * Syntax to highlight and display
    */
@@ -311,7 +320,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
               numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
             }
           } catch (err) {}
-        } else if (hasPhraseFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
+        } else if (hasRegExpFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
           try {
             // tslint:disable-next-line: max-line-length
             const filterValue = (hasRegExpFilter ? (this.filter as RegExp) : new RegExp((this.filter as Phrase).value, ((this.filter as Phrase).isCaseSensitive ? '' : 'i')));

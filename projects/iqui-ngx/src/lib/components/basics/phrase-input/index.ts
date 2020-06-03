@@ -2,6 +2,8 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
+import { interval  } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 // Import data
@@ -27,12 +29,24 @@ import { Phrase } from '../../../data';
 export class PhraseInputComponent implements OnChanges {
 
   /**
+   * Internal, pre-debounced, change event
+   */
+  private _phraseChange = (new EventEmitter<string|Phrase>());
+
+  /**
    * Two-way bound phrase being edited
    */
   @Input()
   public phrase: string|Phrase = new Phrase();
   @Output()
-  public phraseChange = new EventEmitter<string|Phrase>();
+  public phraseChange = this._phraseChange
+    .pipe(debounce(() => interval(this.debounce)));
+
+  /**
+   * Change event debounce interval (in [ms])
+   */
+  @Input()
+  public debounce = 400;
 
   /**
    * Input component input
@@ -107,9 +121,9 @@ export class PhraseInputComponent implements OnChanges {
   public _triggerUpdate () {
     // Trigger update event
     if (this.phrase && this.phrase instanceof Phrase) {
-      this.phraseChange.emit(Phrase.clone(this._phrase))
+      this._phraseChange.emit(Phrase.clone(this._phrase))
     } else if (this.phrase && typeof this.phrase === 'string') {
-      this.phraseChange.emit(Phrase.stringify(this._phrase));
+      this._phraseChange.emit(Phrase.stringify(this._phrase));
     }
   }
 

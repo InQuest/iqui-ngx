@@ -1,8 +1,8 @@
 import '@angular/compiler';
 import {
   Compiler, Directive, NgModuleRef, NgModule,
-  Component, OnInit, OnChanges, SimpleChanges, AfterContentInit, AfterViewInit, OnDestroy,
-  Input, ElementRef, ComponentRef, ViewChild, ContentChild, ViewContainerRef,
+  Component, OnInit, OnChanges, SimpleChanges, AfterContentInit, OnDestroy,
+  HostBinding, Input, ElementRef, ComponentRef, ViewChild, ContentChild, ViewContainerRef,
   ChangeDetectorRef, Injector
 } from '@angular/core';
 
@@ -49,15 +49,23 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
   ) {}
 
   /**
-   * [class] binding
-   */
-  @Input()
-  public class: string = null;
-  /**
    * [ngClass] binding
    */
+  private _ngClass: string;
+  @HostBinding('attr.ngClass')
+  public _attrNgClass: any;
   @Input()
-  public ngClass: any;
+  public get ngClass () { return this._ngClass; }
+  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  /**
+   * [class] binding
+   */
+  private _class: string;
+  @HostBinding('attr.class')
+  public _attrClass: any;
+  @Input()
+  public get class () { return this._class; }
+  public set class (value: string) { this._class = value; this._attrClass = null; }
 
   /**
    * Top title

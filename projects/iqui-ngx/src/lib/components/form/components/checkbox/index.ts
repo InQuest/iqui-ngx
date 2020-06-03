@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { HostBinding, Component, Input, Output, EventEmitter } from '@angular/core';
 import { UsesFormElementDirectives } from '../../directives';
 
 /**
@@ -33,15 +33,23 @@ export class CheckboxComponent extends UsesFormElementDirectives {
   @Input()
   public disabled = false;
   /**
-   * [class] binding
-   */
-  @Input()
-  public class: string = null;
-  /**
    * [ngClass] binding
    */
+  private _ngClass: string;
+  @HostBinding('attr.ngClass')
+  public _attrNgClass: any;
   @Input()
-  public ngClass: any;
+  public get ngClass () { return this._ngClass; }
+  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  /**
+   * [class] binding
+   */
+  private _class: string;
+  @HostBinding('attr.class')
+  public _attrClass: any;
+  @Input()
+  public get class () { return this._class; }
+  public set class (value: string) { this._class = value; this._attrClass = null; }
 
   /**
    * [(value)] two-way binding

@@ -1,8 +1,8 @@
 :host {
-  & > pre {
+  & > div {
     margin-bottom: unset;
     
-    & > code {
+    & > pre > code {
     
       &.wrapped {
         white-space: pre-wrap;

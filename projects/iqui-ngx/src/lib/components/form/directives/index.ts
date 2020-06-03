@@ -28,7 +28,7 @@ export class UsesFormElementDirectives implements IUsesFormElementDirectives {
   constructor (
     // (Optional) Injected parent directive element
     @Host() @SkipSelf() @Optional()
-    public _formParent: FormElementDirective
+    public _formParent: FormElementDirective,
   ) {}
 
   /**

@@ -6,6 +6,8 @@ import { IqUiNgxModule } from '../../../iqui-ngx/src';
 import { AppRoutingModule } from './app-routing.module';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { GettingStartedPageModule } from './pages/howto/getting-started';
+import { DataShowcaseModule } from './pages/documentation/data';
+import { PipesShowcaseModule } from './pages/documentation/pipes';
 import { FunctionalShowcaseModule } from './pages/documentation/functional';
 import { BasicsShowcaseModule } from './pages/documentation/basics';
 import { FormShowcaseModule } from './pages/documentation/form';
@@ -26,6 +28,8 @@ import { AppComponent } from './app.component';
     IqUiNgxModule,
     // Showcase modules
     GettingStartedPageModule,
+    DataShowcaseModule,
+    PipesShowcaseModule,
     FunctionalShowcaseModule,
     BasicsShowcaseModule,
     FormShowcaseModule,

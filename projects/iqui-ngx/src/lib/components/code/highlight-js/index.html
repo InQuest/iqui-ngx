@@ -1,10 +1,10 @@
 <!-- Output highlighted syntax -->
-<pre [ngClass]="ngClass" [class]="_composedClassValue">
+<div [ngClass]="ngClass" [class]="_composedClassValue">
   <ng-container *ngFor="let injected of _injectedTop">
     <ng-container *ngTemplateOutlet="injected"></ng-container>
   </ng-container>
-  <code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code>
+  <pre><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
   <ng-container *ngFor="let injected of _injectedBottom">
     <ng-container *ngTemplateOutlet="injected"></ng-container>
   </ng-container>
-</pre>
+</div>

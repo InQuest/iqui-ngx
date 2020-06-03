@@ -27,7 +27,9 @@ export class Page {
       return new Page(name, selector, null, (component || descriptor));
     } else {
       // Compose service page
-      const name = descriptor.name.replace(/Service/g, '');
+      const name = descriptor.name
+        .replace(/Service/g, '')
+        .replace(/Pipe/g, '');
       return new Page(name, name, null, (component || descriptor));
     }
   }

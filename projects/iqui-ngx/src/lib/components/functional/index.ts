@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import components and (re)export components
+import { Copy2ClipboardDirective } from './copy2clipboard';
+export { Copy2ClipboardDirective } from './copy2clipboard';
 import { TooltipComponent, TooltipDirective,
          TooltipRelativePositioning, TTooltipRelativePositioning } from './tooltip';
 export { TooltipComponent, TooltipDirective,
@@ -28,6 +30,7 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
     CommonModule, OverlayModule
   ],
   declarations: [
+    Copy2ClipboardDirective,
     TooltipComponent, TooltipDirective,
     DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,
@@ -37,6 +40,7 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
     // Export dependency modules
     OverlayModule,
     // Export child components
+    Copy2ClipboardDirective,
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,

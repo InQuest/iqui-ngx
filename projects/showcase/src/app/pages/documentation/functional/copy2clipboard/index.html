@@ -1,0 +1,37 @@
+<!-- Intro -->
+<h5> Copy-2-Clipboard Directive </h5>
+Any HTML element's content, when marked with [iquiCopy2Clipboard] directive, will be copied to clipboard when clicked.
+
+<!-- Styling -->
+<div class="card mt-3">
+  <div class="card-header"> Styling</div>
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['scss']">
+      <textarea>
+        // Copy-2-Clipboard styling
+        .iqui-copy-2-clipboard:hover {
+          text-decoration: underline;
+          cursor: copy;
+        }
+        // Copy-2-Clipboard styling once on clipboard
+        .iqui-copy-2-clipboard.iqui-copy-2-clipboard-copied {
+          color: green;
+        }
+    </textarea>
+    </iqui-highlightjs>
+  </div>
+</div>
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
+  <textarea>
+
+    <!-- Copy content -->
+    <div iquiCopy2Clipboard [innerHTML]="context.ContentText"></div>
+
+    <!-- Copy explicitly set value -->
+    <div [iquiCopy2Clipboard]="context.ExplicitText" [innerHTML]="context.ContentText"></div>
+
+  </textarea>
+</iqui-playground>

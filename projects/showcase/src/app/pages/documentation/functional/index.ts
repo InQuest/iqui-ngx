@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FunctionalModule, BasicsModule, CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src';
 
 // Import showcase components
+import { Copy2ClipboardShowcaseComponent } from './copy2clipboard';
 import { TooltipShowcaseComponent } from './tooltip';
 import { DropdownShowcaseComponent } from './dropdown';
 import { CollapseShowcaseComponent } from './collapse';
@@ -20,6 +21,7 @@ import { ModalShowcaseComponent } from './modal';
     CommonModule, BasicsModule, FunctionalModule, CodeModule, ShowcasingModule
   ],
   declarations: [
+    Copy2ClipboardShowcaseComponent,
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
@@ -29,6 +31,7 @@ import { ModalShowcaseComponent } from './modal';
     // Export dependency modules
     BasicsModule, FunctionalModule, CodeModule, ShowcasingModule,
     // Export child components
+    Copy2ClipboardShowcaseComponent,
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
