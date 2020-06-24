@@ -8,6 +8,8 @@ import { BasicsModule, CodeModule, highlightJsRegisterLanguage, Phrase } from '.
 // Register highlight.js languages
 import { default as javascript } from 'highlight.js/lib/languages/javascript';
 highlightJsRegisterLanguage('javascript', javascript);
+import { default as typescript } from 'highlight.js/lib/languages/typescript';
+highlightJsRegisterLanguage('typescript', typescript);
 import { default as xml } from 'highlight.js/lib/languages/xml';
 highlightJsRegisterLanguage('xml', xml);
 import { default as css } from 'highlight.js/lib/languages/css';

@@ -73,3 +73,10 @@ textarea.iqui-resizable-textarea {
     }
   }
 }
+
+// Bookmark-able offset
+.iquiBookmarkable.scrolling {
+  position: relative;
+  padding-top: 60px;
+  margin-top: -60px;
+}

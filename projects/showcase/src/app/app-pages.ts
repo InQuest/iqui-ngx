@@ -4,8 +4,16 @@
 // Import dependencies
 import { Phrase } from '../../../iqui-ngx/src';
 import { PhraseShowcaseComponent } from './pages/documentation/data/Phrase';
+import { Pagination } from '../../../iqui-ngx/src';
+import { PaginationShowcaseComponent } from './pages/documentation/data/Pagination';
 import { FilterPipe } from '../../../iqui-ngx/src';
 import { FilterShowcaseComponent } from './pages/documentation/pipes/Filter';
+import { SortPipe } from '../../../iqui-ngx/src';
+import { SortShowcaseComponent } from './pages/documentation/pipes/Sort';
+import { PaginatePipe } from '../../../iqui-ngx/src';
+import { PaginateShowcaseComponent } from './pages/documentation/pipes/Paginate';
+import { SlicePipe } from '../../../iqui-ngx/src';
+import { SliceShowcaseComponent } from './pages/documentation/pipes/Slice';
 import { Copy2ClipboardDirective } from '../../../iqui-ngx/src';
 import { Copy2ClipboardShowcaseComponent } from './pages/documentation/functional/copy2clipboard';
 import { TooltipDirective } from '../../../iqui-ngx/src';
@@ -14,6 +22,8 @@ import { DropdownDirective } from '../../../iqui-ngx/src';
 import { DropdownShowcaseComponent } from './pages/documentation/functional/dropdown';
 import { ModalComponent } from '../../../iqui-ngx/src';
 import { ModalShowcaseComponent	 } from './pages/documentation/functional/modal';
+import { BookmarkableDirective } from '../../../iqui-ngx/src';
+import { BookmarkableShowcaseComponent	 } from './pages/documentation/functional/bookmarkable';
 import { CollapseDirective } from '../../../iqui-ngx/src';
 import { CollapseShowcaseComponent	 } from './pages/documentation/functional/collapse';
 import { FormDirective } from '../../../iqui-ngx/src';
@@ -53,7 +63,8 @@ export const pages: Page[] = [
         Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
         Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
         Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
-        Page.fromClass(ModalComponent, ModalShowcaseComponent)
+        Page.fromClass(ModalComponent, ModalShowcaseComponent),
+        Page.fromClass(BookmarkableDirective, BookmarkableShowcaseComponent)
       ]),
       new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements', null, [
         Page.fromClass(FormDirective, FormShowcaseComponent),
@@ -85,10 +96,14 @@ export const pages: Page[] = [
 
   new Page ('pipes', 'Pipes', 'Pipes', null, [
     Page.fromClass(FilterPipe, FilterShowcaseComponent),
+    Page.fromClass(SortPipe, SortShowcaseComponent),
+    Page.fromClass(PaginatePipe, PaginateShowcaseComponent),
+    Page.fromClass(SlicePipe, SliceShowcaseComponent)
   ]),
 
   new Page ('data', 'Data Classes', 'Data classes', null, [
     Page.fromClass(Phrase, PhraseShowcaseComponent),
+    Page.fromClass(Pagination, PaginationShowcaseComponent)
   ]),
 
 ];

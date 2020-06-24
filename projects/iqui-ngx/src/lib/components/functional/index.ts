@@ -20,6 +20,8 @@ import { CollapseDirective } from './collapse';
 export { CollapseDirective };
 import { ModalComponent, ModalDirective, ModalDialogDirective } from './modal';
 export { ModalComponent, ModalDirective, ModalDialogDirective };
+import { BookmarkableDirective, BookmarkableService } from './bookmarkable';
+export { BookmarkableDirective, BookmarkableService };
 
 /**
  * IQ UI NGX Elements' Functional elements module
@@ -34,7 +36,8 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
     TooltipComponent, TooltipDirective,
     DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,
-    ModalComponent, ModalDirective, ModalDialogDirective
+    ModalComponent, ModalDirective, ModalDialogDirective,
+    BookmarkableDirective
   ],
   exports: [
     // Export dependency modules
@@ -44,7 +47,8 @@ export { ModalComponent, ModalDirective, ModalDialogDirective };
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,
-    ModalComponent, ModalDirective, ModalDialogDirective
+    ModalComponent, ModalDirective, ModalDialogDirective,
+    BookmarkableDirective
   ]
 })
 export class FunctionalModule { }

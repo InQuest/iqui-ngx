@@ -14,6 +14,7 @@ import { TooltipShowcaseComponent } from './tooltip';
 import { DropdownShowcaseComponent } from './dropdown';
 import { CollapseShowcaseComponent } from './collapse';
 import { ModalShowcaseComponent } from './modal';
+import { BookmarkableShowcaseComponent } from './bookmarkable';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
@@ -25,7 +26,8 @@ import { ModalShowcaseComponent } from './modal';
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
-    ModalShowcaseComponent
+    ModalShowcaseComponent,
+    BookmarkableShowcaseComponent
   ],
   exports: [
     // Export dependency modules
@@ -35,7 +37,8 @@ import { ModalShowcaseComponent } from './modal';
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
-    ModalShowcaseComponent
+    ModalShowcaseComponent,
+    BookmarkableShowcaseComponent
   ]
 })
 export class FunctionalShowcaseModule { }

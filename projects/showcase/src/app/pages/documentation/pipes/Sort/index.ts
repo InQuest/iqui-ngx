@@ -1,4 +1,4 @@
-// Filter pipe showcase
+// Sort pipe showcase
 // ----------------------------------------------------------------------------
 
 // Import dependencies
@@ -9,4 +9,4 @@ import { Component } from '@angular/core';
   templateUrl:  `./index.html`,
   styleUrls:    [`./style.scss`]
 })
-export class FilterShowcaseComponent {}
+export class SortShowcaseComponent {}

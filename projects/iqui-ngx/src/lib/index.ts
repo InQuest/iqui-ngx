@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 // Import and (re)export modules
-import { FunctionalModule } from './components/functional';
+import { FunctionalModule, BookmarkableService } from './components/functional';
 export * from './components/functional';
 import { BasicsModule } from './components/basics';
 export * from './components/basics';
@@ -16,15 +16,21 @@ import { ShowcasingModule } from './components/showcase';
 export * from './components/showcase';
 
 // Import and (re)export pipes
-import { FilterPipe } from './pipes';
+import { FilterPipe, SortPipe, PaginatePipe, SlicePipe } from './pipes';
 export * from './pipes';
 
 // Import and (re)export data
 export * from './data';
 
-// Import and (re)export services
-import { providers } from './services';
-export * from './services';
+// Import and services
+import { ClipboardService } from './services';
+
+// Compose and export all providers
+const providers = [
+  BookmarkableService,
+  ClipboardService
+];
+export { providers };
 
 /**
  * IQ UI NGX Elements' module
@@ -44,10 +50,13 @@ export * from './services';
   ],
   declarations: [
     // Declare pipes
-    FilterPipe
+    FilterPipe,
+    SortPipe,
+    PaginatePipe,
+    SlicePipe
   ],
   providers: [
-    ...providers
+    ...providers,
   ],
   exports: [
     // (Re)export individual modules, making them included into any app the root module is included in
@@ -57,7 +66,10 @@ export * from './services';
     CodeModule,
     ShowcasingModule,
     // Re export pipes
-    FilterPipe
+    FilterPipe,
+    SortPipe,
+    PaginatePipe,
+    SlicePipe
   ]
 })
 export class IqUiNgxModule { }

@@ -12,15 +12,26 @@ import { Phrase} from '../../data';
   name: 'iquiFilter'
 })
 export class FilterPipe implements PipeTransform {
-  public transform (items: any[], filter: string|RegExp|Phrase, path: string|((a: any) => string)): any {
-    return items.filter(item => {
+  public transform (
+    items: any[],
+    filter: boolean|number|string|RegExp|Phrase,
+    path: string|((a: any) => boolean|number|string)
+  ): any[] {
+    return (items || []).filter(item => {
       // Check filter type
-      const hasStringFilter = (typeof filter === 'string' && filter.trim()),
-            hasRegExpFilter = (filter instanceof RegExp),
-            hasPhraseFilter = (filter instanceof Phrase && filter.value.trim());
+      const hasBooleanFilter = (typeof filter === 'boolean'),
+            hasNumberFilter  = (typeof filter === 'number'),
+            hasStringFilter  = (typeof filter === 'string' && filter.trim()),
+            hasRegExpFilter  = (filter instanceof RegExp),
+            hasPhraseFilter  = (filter instanceof Phrase && filter.value.trim());
       // Check if filter is regexp or treat as string
-      if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
-        if (hasStringFilter || (hasPhraseFilter && !(filter as Phrase).isRegExp)) {
+      if (hasBooleanFilter || hasNumberFilter || hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
+        if (hasBooleanFilter || hasNumberFilter) {
+
+          // Filter as exact value
+          return (extractValueFromItem(item, path) === filter);
+
+        } else if (hasStringFilter || (hasPhraseFilter && !(filter as Phrase).isRegExp)) {
 
           // Filter as string
           try {
@@ -63,7 +74,7 @@ export class FilterPipe implements PipeTransform {
  * @param item Item to extract value from
  * @param path Path string or extracting function
  */
-function extractValueFromItem (item, path: string|((a: any) => string)) {
+function extractValueFromItem (item, path: string|((a: any) => boolean|number|string)) {
   if (path instanceof Function) {
     return path(item);
   } else {

@@ -6,7 +6,7 @@ import { Directive, Input, ElementRef } from '@angular/core';
 import { ClipboardService } from '../../../services';
 
 /**
- * Copy2Clipboard directive, makes any HTML element's content copiable to clipboard when clicked
+ * Copy2Clipboard directive, makes any HTML element's content copy-able to clipboard when clicked
  *
  * Usage:
  *

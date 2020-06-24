@@ -1,0 +1,83 @@
+<!-- Intro -->
+<h5> Bookmarkable Directive </h5>
+Uses URL fragment to persist page position to the parent element through reloads and link shares
+
+<!-- Styling -->
+<div class="card mt-3">
+  <div class="card-header"> Styling </div>
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['scss']">
+      <textarea>
+        // Bookmark-able vertical offset (for example, if fixed header and link needs to be scrolled with an offset to show below it)
+        .iquiBookmarkable.scrolling {
+          position: relative;
+          display: inline-block; // Making sure padding and margin can apply
+          padding-top: 60px;     // Offset height
+          margin-top: -60px;     // Offset height
+        }
+      </textarea>
+    </iqui-highlightjs>
+  </div>
+</div>
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
+  <textarea>
+
+    <!-- Bookmarkable link -->
+    <a [iquiBookmarkable]="context.BookmarkA" [link]="true" [copy]="true">
+      This link will get persisted in the URL and copy-2-clipboard when pressed
+    </a>
+
+    <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    <hr />
+
+    <!-- Bookmarkable link -->
+    <a [iquiBookmarkable]="context.BookmarkB" [link]="true" [copy]="false">
+      This link will only get persisted in the URL when pressed
+    </a>
+
+    <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    ... <br />
+    <hr />
+
+    <!-- Bookmarkable link -->
+    <a [iquiBookmarkable]="context.BookmarkC" [link]="false" [copy]="true">
+      This link will only copy-2-clipboard when pressed
+    </a>
+
+  </textarea>
+</iqui-playground>
+
+<!-- Service -->
+<div class="card mt-3">
+  <div class="card-header"> BookmarkableService </div>
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['typescript']">
+      <textarea>
+        // To scroll to a [iquiBookmarkable] programmatically, inject and use the BookmarkableService
+        import { BookmarkableService } from '@inquest/iqui-ngx'
+        class MyComponent {
+          
+          constructor (private _bookmarkable: BookmarkableService) {
+            // Scroll to element
+            this._bookmarkable.scrollToValue('bookmark-a');
+            // Scroll to element referenced by URL fragment
+            this._bookmarkable.scrollToFragment();
+          }
+
+        }
+      </textarea>
+    </iqui-highlightjs>
+  </div>
+</div>

@@ -6,9 +6,9 @@
         [iquiFormParent]="_iquiFormParent"
         [attr.disabled]="disabled || null"
         [ngClass]="ngClass" [class]="_composedClassValue">
-  <div class="iqui-button-content">
+  <span class="iqui-button-content">
     <ng-container *ngTemplateOutlet="content"></ng-container>
-  </div>
+  </span>
 </button>
 
 <!-- Anchor -->
@@ -16,7 +16,7 @@
    [attr.disabled]="disabled || null"
    [ngClass]="ngClass" [class]="_composedClassValue"
    [href]="href" [target]="target">
-  <div class="iqui-button-content">
+  <span class="iqui-button-content">
     <ng-container *ngTemplateOutlet="content"></ng-container>
-  </div>
+  </span>
 </a>
