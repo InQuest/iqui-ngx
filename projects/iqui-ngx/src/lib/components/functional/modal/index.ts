@@ -28,7 +28,7 @@ export { ModalDialogDirective };
   selector:    'iqui-modal',
   templateUrl: 'index.html',
   styleUrls:   ['style.scss'],
-  providers:   [{ provide: ModelEventDispatcher }]
+  providers:   [{ provide: ModelEventDispatcher, useValue: undefined }]
 })
 export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
 

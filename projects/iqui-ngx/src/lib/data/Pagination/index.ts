@@ -3,11 +3,12 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Output, EventEmitter } from '@angular/core';
+import { Output, EventEmitter, Directive } from '@angular/core';
 
 /**
  * Pagination class
  */
+@Directive()
 export class Pagination {
 
   /**

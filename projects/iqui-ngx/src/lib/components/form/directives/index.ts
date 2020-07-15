@@ -23,6 +23,7 @@ export interface IUsesFormElementDirectives {
  * Defines component as using form directives internally inside its template. Will expose [iquiFormParent] attribute
  * through which the implementing component can pass explicit reference to outside scope parent FormElementDirectiveFormElementDirective
  */
+@Directive()
 export class UsesFormElementDirectives implements IUsesFormElementDirectives {
 
   constructor (
