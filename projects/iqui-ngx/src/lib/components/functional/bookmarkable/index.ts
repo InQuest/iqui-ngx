@@ -124,8 +124,9 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
    * Composes a full URL to the bookmark-able element
    */
   private _composeUrl () {
-    const path = this._url.map(seg => seg.toString()).join('/');
-    return `${window.location.protocol}//${window.location.host}/${path}#${ this.value }`;
+    const path = this._url.map(seg => seg.toString()).join('/'),
+          postFragment = (this._fragment.split('#').length > 1 ? `#${ this._fragment.split('#')[1] }` : '');
+    return `${window.location.protocol}//${window.location.host}/${path}#${ this.value }${ postFragment }`;
   }
 
   /**
@@ -149,7 +150,7 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
    * Checks if this instance is being referenced by the URL fragment
    */
   public checkReferencedByUrlFragment () {
-    return (this._fragment === this.value);
+    return (this._fragment.split('#')[0] === this.value);
   }
 
   /**
