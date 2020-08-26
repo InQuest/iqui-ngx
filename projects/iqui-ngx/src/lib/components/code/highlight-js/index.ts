@@ -188,7 +188,12 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @Input()
   public trim = true;
   /**
-   * If line numbers should be shown left of all rows
+   * If syntax highlighting should be used (with very many lines of syntax this can be taxing for the browser to display)
+   */
+  @Input()
+  public highlight = true;
+  /**
+   * If line numbers should be shown left of all rows (Only works if [process] true)
    */
   @Input()
   public lineNumbers = true;
@@ -291,7 +296,9 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
 
     // HighlightSyntax
     try {
-      syntax = (!this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax);
+      if (this.highlight) {
+        syntax = (!this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax);
+      }
     } catch (err) {
       // tslint:disable-next-line: no-unused-expression
       err; return;
@@ -299,7 +306,8 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
 
     // Add line numbers
     const rawSyntaxLines = syntax.split('\n'),
-          highlightedSyntaxLines = syntax.split('\n');
+          highlightedSyntaxLines = syntax.split('\n'),
+          lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
     let numberedSyntax = '';
 
     // Filter lines
@@ -317,7 +325,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
                   haystack            = (filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase()),
                   needle              = (filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase());
             if (haystack.indexOf(needle) !== -1) {
-              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
+              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
             }
           } catch (err) {}
         } else if (hasRegExpFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
@@ -325,7 +333,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
             // tslint:disable-next-line: max-line-length
             const filterValue = (hasRegExpFilter ? (this.filter as RegExp) : new RegExp((this.filter as Phrase).value, ((this.filter as Phrase).isCaseSensitive ? '' : 'i')));
             if (rawSyntaxLines[i].match(filterValue)) {
-              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null));
+              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
             }
           } catch (err) {}
         }
@@ -333,13 +341,16 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     } else {
       // Allow all rows
       numberedSyntax = highlightedSyntaxLines.map((line, i) => {
-        return this._renderLine(line, (this.lineNumbers ? i + 1 : null));
+        return this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
       }).join('');
     }
 
     // Set syntax with added line numbers
-    const orderOfMagnitude = Math.ceil(Math.log10(highlightedSyntaxLines.length));
-    this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${orderOfMagnitude}` : '' }">${numberedSyntax}</ul>`;
+    if (this.highlight) {
+      this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : '' }">${numberedSyntax}</ul>`;
+    } else {
+      this._highlightedSyntax = `${numberedSyntax}`;
+    }
 
   }
 
@@ -347,10 +358,15 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    * (Re)Renders a line of already highlighted syntax as HTML with or without a line number
    * @param line A line of already highlighted syntax
    * @param lineNumber (Optional) Line number to render left of thr syntax line
+   * @param lineNumberPaddingLength (Optional) Padding length target for line numbers
    */
-  private _renderLine (line, lineNumber = null) {
+  private _renderLine (line, lineNumber = null, lineNumberPaddingLength = null) {
     // tslint:disable-next-line: max-line-length
-    return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
+    if (this.highlight) {
+      return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
+    } else {
+      return (lineNumber !== null ? `${lineNumber.toString().padStart(lineNumberPaddingLength, ' ').padEnd(lineNumberPaddingLength + 5, ' ')}${line}\n` : `${line}\n`);
+    }
   }
 
   /**

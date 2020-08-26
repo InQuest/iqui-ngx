@@ -54,5 +54,15 @@
       }
 
     }
+
+    textarea {
+      display: block;
+      width: 100%;
+
+      &.wrapped {
+        white-space: pre-wrap;
+      }
+    }
+
   }
 }

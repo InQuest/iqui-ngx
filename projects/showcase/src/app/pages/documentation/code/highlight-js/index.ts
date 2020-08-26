@@ -36,6 +36,7 @@ export class HighlightJsShowcaseComponent {
     Language:     ['xml', 'css', 'javascript', undefined],
     Wrap:         [true, false],
     Trim:         [true, false],
+    Highlight:    [true, false],
     LineNumbers:  [true, false]
   };
   // Playground context

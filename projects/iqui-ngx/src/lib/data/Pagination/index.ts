@@ -3,18 +3,16 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Output, EventEmitter, Directive } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 /**
  * Pagination class
  */
-@Directive()
 export class Pagination {
 
   /**
    * Changed event triggers when pagination has changed
    */
-  @Output()
   public changed = new EventEmitter<any>();
 
   /**

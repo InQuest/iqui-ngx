@@ -1,9 +1,14 @@
 <!-- Output highlighted syntax -->
 <div [ngClass]="ngClass" [class]="_composedClassValue">
+  <!-- Injected top section -->
   <ng-container *ngFor="let injected of _injectedTop">
     <ng-container *ngTemplateOutlet="injected"></ng-container>
   </ng-container>
-  <pre><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
+  <!-- Highlighted syntax -->
+  <pre *ngIf="highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
+  <!-- Not-highlighted sytax -->
+  <pre *ngIf="!highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]"><ul><li>{{_highlightedSyntax}}</li></ul></code></pre>
+  <!-- Injected bottom section -->
   <ng-container *ngFor="let injected of _injectedBottom">
     <ng-container *ngTemplateOutlet="injected"></ng-container>
   </ng-container>
