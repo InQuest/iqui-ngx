@@ -5,7 +5,7 @@
 // Import dependencies
 import {
   Directive, Component, OnChanges, AfterContentInit,
-  HostBinding, Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
+  HostBinding, Input, ViewChild, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
 } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
@@ -198,6 +198,12 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @Input()
   public lineNumbers = true;
 
+  /**
+   * Textarea element reference (in use for non-highlighted syntax)
+   */
+  @ViewChild('textarea', { read: ElementRef })
+  private _textareaEl: ElementRef;
+
   // Reference to passed-through content container element
   @ContentChild(HighlightJsTextareaDirective, { read: ElementRef })
   private _syntaxEl: ElementRef;
@@ -308,7 +314,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     const rawSyntaxLines = syntax.split('\n'),
           highlightedSyntaxLines = syntax.split('\n'),
           lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
-    let numberedSyntax = '';
+    let numberedSyntax = [];
 
     // Filter lines
     const hasStringFilter = (typeof this.filter === 'string' && this.filter.trim()),
@@ -325,7 +331,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
                   haystack            = (filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase()),
                   needle              = (filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase());
             if (haystack.indexOf(needle) !== -1) {
-              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
+              numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
             }
           } catch (err) {}
         } else if (hasRegExpFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
@@ -333,23 +339,27 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
             // tslint:disable-next-line: max-line-length
             const filterValue = (hasRegExpFilter ? (this.filter as RegExp) : new RegExp((this.filter as Phrase).value, ((this.filter as Phrase).isCaseSensitive ? '' : 'i')));
             if (rawSyntaxLines[i].match(filterValue)) {
-              numberedSyntax += this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
+              numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
             }
           } catch (err) {}
         }
       });
     } else {
       // Allow all rows
-      numberedSyntax = highlightedSyntaxLines.map((line, i) => {
-        return this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength);
-      }).join('');
+      highlightedSyntaxLines.forEach((line, i) => {
+        numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
+      });
     }
 
     // Set syntax with added line numbers
     if (this.highlight) {
-      this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : '' }">${numberedSyntax}</ul>`;
+      // Set syntax
+      this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : '' }">${numberedSyntax.join('')}</ul>`;
     } else {
-      this._highlightedSyntax = `${numberedSyntax}`;
+      // Set syntax
+      this._highlightedSyntax = `${numberedSyntax.join('\n')}`;
+      // Resize textarea element
+      this._resizeTextareaHeight();
     }
 
   }
@@ -365,7 +375,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     if (this.highlight) {
       return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
     } else {
-      return (lineNumber !== null ? `${lineNumber.toString().padStart(lineNumberPaddingLength, ' ').padEnd(lineNumberPaddingLength + 5, ' ')}${line}\n` : `${line}\n`);
+      return (lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`);
     }
   }
 
@@ -377,9 +387,21 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
       // Mark as disabled, if disabled (.disabled)
       (this.disabled ? 'disabled' : null),
       // Pass-through host class
-      (this.class || null)
+      (this.class || null),
+      // If highlighting on
+      (this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted')
     ].join(' ');
   }
 
+  /**
+   * Resizes textarea element to it's content
+   */
+  public _resizeTextareaHeight () {
+    if (this._textareaEl) {
+      const el = this._textareaEl.nativeElement;
+      el.style.height = `0px`;
+      setTimeout(() => { el.style.height = `${el.scrollHeight}px`; });
+    }
+  }
 
 }
