@@ -7,7 +7,7 @@
   <!-- Highlighted syntax -->
   <pre *ngIf="highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
   <!-- Not-highlighted sytax -->
-  <pre *ngIf="!highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]"><ul><li><textarea #textarea [readonly]="true" [value]="_highlightedSyntax"></textarea></li></ul></code></pre>
+  <pre *ngIf="!highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]"><ul><li><textarea cdkTextareaAutosize [readonly]="true" [value]="_highlightedSyntax"></textarea></li></ul></code></pre>
   <!-- Injected bottom section -->
   <ng-container *ngFor="let injected of _injectedBottom">
     <ng-container *ngTemplateOutlet="injected"></ng-container>

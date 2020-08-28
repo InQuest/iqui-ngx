@@ -150,7 +150,7 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
    * Checks if this instance is being referenced by the URL fragment
    */
   public checkReferencedByUrlFragment () {
-    return (this._fragment?.split('#')[0] === this.value);
+    return this.value && (this._fragment?.split('#')[0] === this.value);
   }
 
   /**

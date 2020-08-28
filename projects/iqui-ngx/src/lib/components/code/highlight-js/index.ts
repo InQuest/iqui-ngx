@@ -5,7 +5,7 @@
 // Import dependencies
 import {
   Directive, Component, OnChanges, AfterContentInit,
-  HostBinding, Input, ViewChild, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
+  HostBinding, Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
 } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
@@ -198,12 +198,6 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @Input()
   public lineNumbers = true;
 
-  /**
-   * Textarea element reference (in use for non-highlighted syntax)
-   */
-  @ViewChild('textarea', { read: ElementRef })
-  private _textareaEl: ElementRef;
-
   // Reference to passed-through content container element
   @ContentChild(HighlightJsTextareaDirective, { read: ElementRef })
   private _syntaxEl: ElementRef;
@@ -358,8 +352,6 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     } else {
       // Set syntax
       this._highlightedSyntax = `${numberedSyntax.join('\n')}`;
-      // Resize textarea element
-      this._resizeTextareaHeight();
     }
 
   }
@@ -391,17 +383,6 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
       // If highlighting on
       (this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted')
     ].join(' ');
-  }
-
-  /**
-   * Resizes textarea element to it's content
-   */
-  public _resizeTextareaHeight () {
-    if (this._textareaEl) {
-      const el = this._textareaEl.nativeElement;
-      el.style.height = `0px`;
-      setTimeout(() => { el.style.height = `${el.scrollHeight}px`; });
-    }
   }
 
 }
