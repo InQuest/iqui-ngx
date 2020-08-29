@@ -72,6 +72,8 @@ export class PhraseInputComponent implements OnChanges {
     } else if (this.phrase && typeof this.phrase === 'string') {
       this._phrase = Phrase.parse(this.phrase);
     }
+    // Trigger update
+    this._triggerUpdate();
   }
 
 

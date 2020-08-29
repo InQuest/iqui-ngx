@@ -1,5 +1,9 @@
-.btn.disabled {
-  cursor: default;
-}
+:host {
+  display: inline-block;
 
-.iqui-button-content { display: inline-block; }
+  .btn.disabled {
+    cursor: default;
+  }
+
+  .iqui-button-content { display: inline-block; }
+}
