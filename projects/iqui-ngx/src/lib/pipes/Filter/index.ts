@@ -14,30 +14,31 @@ import { Phrase} from '../../data';
 export class FilterPipe implements PipeTransform {
   public transform (
     items: any[],
-    filter: boolean|number|string|RegExp|Phrase,
-    path: string|((a: any) => boolean|number|string)
+    match: boolean|number|string|RegExp|Phrase,
+    path: string|((a: any) => boolean|number|string)|((a: any) => ((b: any) => boolean|number|string)),
+    pathFactoryArguments = null as any
   ): any[] {
     return (items || []).filter(item => {
       // Check filter type
-      const hasBooleanFilter = (typeof filter === 'boolean'),
-            hasNumberFilter  = (typeof filter === 'number'),
-            hasStringFilter  = (typeof filter === 'string' && filter.trim()),
-            hasRegExpFilter  = (filter instanceof RegExp),
-            hasPhraseFilter  = (filter instanceof Phrase && filter.value.trim());
+      const hasBooleanFilter = (typeof match === 'boolean'),
+            hasNumberFilter  = (typeof match === 'number'),
+            hasStringFilter  = (typeof match === 'string' && match.trim()),
+            hasRegExpFilter  = (match instanceof RegExp),
+            hasPhraseFilter  = (match instanceof Phrase && match.value.trim());
       // Check if filter is regexp or treat as string
       if (hasBooleanFilter || hasNumberFilter || hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
         if (hasBooleanFilter || hasNumberFilter) {
 
           // Filter as exact value
-          return (extractValueFromItem(item, path) === filter);
+          return (extractValueFromItem(item, path, pathFactoryArguments) === match);
 
-        } else if (hasStringFilter || (hasPhraseFilter && !(filter as Phrase).isRegExp)) {
+        } else if (hasStringFilter || (hasPhraseFilter && !(match as Phrase).isRegExp)) {
 
           // Filter as string
           try {
-            const filterValue         = (hasStringFilter ? (filter as string) : (filter as Phrase).value),
-                  filterCaseSensitive = (hasStringFilter ? true : (filter as Phrase).isCaseSensitive),
-                  value               = extractValueFromItem(item, path),
+            const filterValue         = (hasStringFilter ? (match as string) : (match as Phrase).value),
+                  filterCaseSensitive = (hasStringFilter ? true : (match as Phrase).isCaseSensitive),
+                  value               = extractValueFromItem(item, path, pathFactoryArguments),
                   haystack            = (filterCaseSensitive ? value : value.toLowerCase()),
                   needle              = (filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase());
             return (haystack.indexOf(needle) !== -1);
@@ -45,13 +46,13 @@ export class FilterPipe implements PipeTransform {
             return false;
           }
 
-        } else if (hasRegExpFilter || (hasPhraseFilter && (filter as Phrase).isRegExp)) {
+        } else if (hasRegExpFilter || (hasPhraseFilter && (match as Phrase).isRegExp)) {
 
           // Filter as regexp
           try {
-            const value       = extractValueFromItem(item, path),
+            const value       = extractValueFromItem(item, path, pathFactoryArguments),
                   // tslint:disable-next-line: max-line-length
-                  filterValue = (hasRegExpFilter ? (filter as RegExp) : new RegExp((filter as Phrase).value, ((filter as Phrase).isCaseSensitive ? '' : 'i')));
+                  filterValue = (hasRegExpFilter ? (match as RegExp) : new RegExp((match as Phrase).value, ((match as Phrase).isCaseSensitive ? '' : 'i')));
             return !!(value.match(filterValue));
           } catch (err) {
             return false;
@@ -74,10 +75,21 @@ export class FilterPipe implements PipeTransform {
  * @param item Item to extract value from
  * @param path Path string or extracting function
  */
-function extractValueFromItem (item, path: string|((a: any) => boolean|number|string)) {
+function extractValueFromItem (
+  item,
+  path: string|((a: any) => boolean|number|string)|((a: any) => ((b: any) => boolean|number|string)),
+  pathFactoryArguments: any
+) {
   if (path instanceof Function) {
-    return path(item);
+    if (!pathFactoryArguments) {
+      // Extract using provided function
+      return (path as (a: any) => boolean|number|string)(item);
+    } else {
+      // Extract using provided function factory
+      return (path as (a: any) => ((a: any) => boolean|number|string))(pathFactoryArguments)(item);
+    }
   } else {
+    // Extract value directly
     return item[path];
   }
 }
