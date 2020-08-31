@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Subscription } from 'rxjs';
-import { Directive, OnInit, OnChanges, OnDestroy, Input, Output, EventEmitter, Host, Optional, SkipSelf, ElementRef } from '@angular/core';
+import { Directive, OnInit, OnChanges, OnDestroy, Input, HostBinding, Output, EventEmitter, Host, Optional, SkipSelf, ElementRef } from '@angular/core';
 import { TBootstrapSize, BootstrapSize } from '../../../types';
 
 /**
@@ -171,6 +171,7 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
    * [disabled] binding for all child components
    */
   @Input()
+  @HostBinding('disabled')
   public disabled: boolean = undefined;
   /**
    * Gets [disabled] binding, inherited from parent form containers
