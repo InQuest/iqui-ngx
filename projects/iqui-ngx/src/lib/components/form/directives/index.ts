@@ -64,7 +64,8 @@ export function FormElement ({
   bindSize        = false,
   bindValid       = false
 }) {
-  return (directiveClass) => {
+  // tslint:disable-next-line: only-arrow-functions
+  return function (directiveClass) {
     directiveClass.__formElementAnnotation = {
       isolateId,
       className,
@@ -82,7 +83,7 @@ export function FormElement ({
 @Directive({
   selector: 'form[iquiForm]'
 })
-@FormElement({}) // Making <ng-container iqui> or <anything iqui> use isolated IDs
+@FormElement({})
 export class FormElementDirective implements IUsesFormElementDirectives, OnInit, OnChanges, OnDestroy {
 
   //#region Static

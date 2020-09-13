@@ -17,11 +17,11 @@ export class ModalShowcaseComponent {
 
   // Modal context
   public context = {
-    Visible:        [true, false],
-    HeaderHtml:     'This is a modal',
-    ContentHtml:    '... a real, real modal!',
-    CloseOnOverlay: [true, false],
-    CloseOnEscape:  [true, false],
+    Visible:          [true, false],
+    HeaderHtml:       'This is a modal',
+    ContentHtml:      '... a real, real modal!',
+    OverlayShow:      [true, false],
+    CloseOnEscape:    [true, false],
   };
 
 }

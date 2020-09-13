@@ -124,7 +124,7 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
     // Check if already initialized
     if (this._overlayRef) {
 
-      // Process changes
+      // Process changes to modal shown
       if (changes.visible) {
         if (changes.visible.currentValue) {
           // Open modal

@@ -24,6 +24,10 @@ if [ "${repName}" != "${libName}" ]; then
   exit 1;
 fi
 
+# TODO: Compare peer dependencies in package.json files
+
+# TODO: Compare dependencies in package.json files
+
 repDescription=$( cat ../package.json | jq -r ".description" );
 libDescription=$( cat ../dist/iqui-ngx/package.json | jq -r ".description");
 echo "- description: '${repDescription}' ?= '${libDescription}'";
@@ -32,6 +36,6 @@ if [ "${repDescription}" != "${libDescription}" ]; then
   exit 1;
 fi
 
-# Publish via NPM to GitHub
+# Publish via NPM
 cd ../dist/iqui-ngx
-npm publish
+# npm publish

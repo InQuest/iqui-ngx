@@ -1,9 +1,9 @@
 {
-  "name": "iqui-ngx",
+  "name": "@inquest/iqui-ngx",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "~9.0.0",
-    "@angular/core": "~9.0.0",
+    "@angular/common": "~10.0.3",
+    "@angular/core": "~10.0.3",
     "bootstrap": "^4.3.1",
     "highlight.js": "^9.18.1"
   },
