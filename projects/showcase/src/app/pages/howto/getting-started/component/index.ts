@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { highlightJsRegisterLanguage } from '../../../../../../../iqui-ngx/src';
+import { highlightJsRegisterLanguage } from '../../../../../../../iqui-ngx/src/public-api';
 
 // Register highlight.js languages
 import { default as scss } from 'highlight.js/lib/languages/scss';

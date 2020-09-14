@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { BasicsModule, Phrase } from '../../../../../../../iqui-ngx/src';
+import { BasicsModule, Phrase } from '../../../../../../../iqui-ngx/src/public-api';
 
 
 // Showcase component

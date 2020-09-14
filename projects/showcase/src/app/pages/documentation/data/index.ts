@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // Import modules
-import { CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src';
+import { CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src/public-api';
 
 // Import showcase components
 import { PhraseShowcaseComponent } from './Phrase';

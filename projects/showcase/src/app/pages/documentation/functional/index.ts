@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import modules
-import { FunctionalModule, BasicsModule, CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src';
+import { FunctionalModule, BasicsModule, CodeModule, ShowcasingModule } from '../../../../../../iqui-ngx/src/public-api';
 
 // Import showcase components
 import { Copy2ClipboardShowcaseComponent } from './copy2clipboard';

@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component } from '@angular/core';
-import { FunctionalModule } from '../../../../../../../iqui-ngx/src';
+import { FunctionalModule } from '../../../../../../../iqui-ngx/src/public-api';
 
 // Showcase component
 @Component({

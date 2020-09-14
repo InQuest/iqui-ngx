@@ -11,7 +11,7 @@
         }
       },
       "root": "projects/iqui-ngx",
-      "sourceRoot": "projects/iqui-ngx/src",
+      "sourceRoot": "projects/iqui-ngx/src/public-api",
       "prefix": "iqui",
       "architect": {
         "build": {
@@ -29,7 +29,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/iqui-ngx/src/test.ts",
+            "main": "projects/iqui-ngx/src/public-api/test.ts",
             "tsConfig": "projects/iqui-ngx/tsconfig.spec.json",
             "karmaConfig": "projects/iqui-ngx/karma.conf.js"
           }
