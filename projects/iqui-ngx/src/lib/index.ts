@@ -27,6 +27,9 @@ const modules = [
   ShowcasingModule
 ];
 
+// Import and (re)export types
+export * from './types';
+
 // Import and (re)export pipes
 import { FilterPipe, SortPipe, PaginatePipe, SlicePipe } from './pipes';
 export * from './pipes';
