@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
-// Import and (re)export modules
+// Import and (re)export types
+export * from './types';
+
+// Import and (re)export component modules
 import { FunctionalModule, BookmarkableService } from './components/functional';
 export { FunctionalModule, BookmarkableService } from './components/functional'; // Required IVY hinting
 export * from './components/functional';
@@ -26,9 +29,6 @@ const modules = [
   CodeModule,
   ShowcasingModule
 ];
-
-// Import and (re)export types
-export * from './types';
 
 // Import and (re)export pipes
 import { FilterPipe, SortPipe, PaginatePipe, SlicePipe } from './pipes';
