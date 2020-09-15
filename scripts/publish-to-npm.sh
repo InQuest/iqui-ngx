@@ -6,27 +6,9 @@ echo '> Building latest library version ...';
 ng build --prod
 
 # Check if main project package.json and library package.json are have same proeprty values
+echo '';
 echo '> Comparing package.json files between repo and library...';
-
-repVersion=$( cat ../package.json | jq -r ".version" );
-libVersion=$( cat ../dist/iqui-ngx/package.json | jq -r ".version");
-echo "- version: '${repVersion}' ?= '${libVersion}'";
-if [ "${repVersion}" != "${libVersion}" ]; then
-  echo "ERROR: versions in package.json are different between the showcase repo and the library!"
-  exit 1;
-fi
-
-repName=$( cat ../package.json | jq -r ".name" );
-libName=$( cat ../dist/iqui-ngx/package.json | jq -r ".name");
-echo "- name: '${repName}' ?= '${libName}'";
-if [ "${repName}" != "${libName}" ]; then
-  echo "ERROR: names in package.json are different between the showcase repo and the library!"
-  exit 1;
-fi
-
-# TODO: Compare peer dependencies in package.json files
-
-# TODO: Compare dependencies in package.json files
+npx jasmine ../package.spec.ts
 
 repDescription=$( cat ../package.json | jq -r ".description" );
 libDescription=$( cat ../dist/iqui-ngx/package.json | jq -r ".description");
