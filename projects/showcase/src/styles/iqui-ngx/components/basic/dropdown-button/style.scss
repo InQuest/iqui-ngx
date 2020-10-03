@@ -1,0 +1,12 @@
+// Drop-down button down arrow styling
+iqui-dropdown-button iqui-button .iqui-button-content {
+  position: relative;
+  padding-right: 16px;
+
+  &::after {
+    content: "▾";
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

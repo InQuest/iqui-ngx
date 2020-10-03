@@ -12,6 +12,16 @@
 // Import highlight.js theme
 @import '../../../node_modules/highlight.js/styles/default.css';
 
+
+// ----------------------------------------------------------------
+
+// IQUI-NGX STYLINGS
+
+@import './styles/iqui-ngx/components/styles.scss';
+
+// ----------------------------------------------------------------
+
+
 // Global styling
 * {
   font-family: monospace;
@@ -30,22 +40,7 @@
   }
 }
 
-// Drop-down button down arrow styling
-iqui-dropdown-button iqui-button .iqui-button-content {
-  position: relative;
-  padding-right: 16px;
-  &::after {
-    content: "▾";
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-}
 
-// Resizable textarea width adjustment (needs to subtract left and right padding and border from 100% width)
-textarea.iqui-resizable-textarea {
-  width: calc(100% - 24px - 2px);
-}
 
 // General cards hierarchy styling
 .card {

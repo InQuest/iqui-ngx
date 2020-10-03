@@ -168,6 +168,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "iqui-ngx"
+    }
+  },
+  "defaultProject": "iqui-ngx",
+  "cli": {
+    "analytics": false
+  }
 }

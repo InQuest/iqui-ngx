@@ -6,7 +6,7 @@
     <ng-content></ng-content>
   </label>
 
-  <select [attr.disabled]="disabled || null"
+  <select [attr.disabled]="disabled || null" class="form-select"
     [value]="_findValue(value)" (change)="_updateValue($event)">
 
     <option *ngFor="let option of _optionEls; let i = index"
