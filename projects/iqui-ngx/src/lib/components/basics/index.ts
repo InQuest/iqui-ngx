@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FunctionalModule } from '../functional';
 import { FormModule } from '../form';
 
+// Import components
+import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../functional/dropdown';
 // Import components and (re)export components
 import { ButtonComponent,
          ButtonComponentTheme, TButtonComponentTheme,
@@ -21,7 +23,6 @@ export { DropdownButtonComponent,
          DropdownButtonComponentTheme, TDropdownButtonComponentTheme,
          DropdownButtonComponentSize, TDropdownButtonComponentSize,
          DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning };
-import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../functional/dropdown';
 import { PhraseInputComponent } from './phrase-input';
 export { PhraseInputComponent };
 

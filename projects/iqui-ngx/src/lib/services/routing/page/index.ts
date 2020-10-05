@@ -37,12 +37,28 @@ export class Page {
   /**
    * Composes routes from pages definitions
    * @param pages Pages definition
+   * @param path Root path of current pages
+   * @returns Composed routes
+   */
+  // tslint:disable-next-line: no-shadowed-variable
+  public static compileRoutes (pages, path = []) {
+    // Update pages' route paths
+    for (const page of pages) {
+      page.setParentPath(path);
+    }
+    // Compile routes
+    return Page._compileRoutes(pages, path, []);
+  }
+
+  /**
+   * Composes routes from pages definitions
+   * @param pages Pages definition
    * @param path Relative path of current pages
    * @param routes Array of composed routes
    * @returns Composed routes
    */
   // tslint:disable-next-line: no-shadowed-variable
-  public static compileRoutes (pages, path = [], routes = []) {
+  private static _compileRoutes (pages, path = [], routes = []) {
     // Process pages
     for (const page of pages) {
       // If page has component, add to routes
@@ -54,7 +70,7 @@ export class Page {
       }
       // If page has children, process children
       if (page.children.length) {
-        Page.compileRoutes(page.children, [...path, page.name], routes);
+        Page._compileRoutes(page.children, [...path, page.name], routes);
       }
     }
     // Return composed routes

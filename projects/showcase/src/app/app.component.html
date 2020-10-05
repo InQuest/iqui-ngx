@@ -1,80 +1,17 @@
 <!-- Header -->
-<nav class="page-navbar navbar navbar-expand navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand mr-1" [routerLink]="'/'">InQuest V4 NGX-UI</a>
+<nav class="iqui-showcase-page-navbar navbar navbar-expand navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand mr-1" [routerLink]="'/'">Inquest NGX UI</a>
 </nav>
 
-<!-- Sidebar navigation -->
-<ul class="page-sidebar sidebar navbar-nav">
-
-  <!-- How to -->
-  <li class="nav-item">
-    <h5 class="nav-link disabled">How to</h5>
-    <ul class="ml-0 pl-2">
-      <li>
-        <ul class="ml-0 pl-2">
-
-          <!--Getting started -->
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/'">Getting started</a>
-          </li>
-
-        </ul>
-      </li>
-    </ul>
-  </li>
-
-  <!-- Documentation -->
-  <li class="nav-item">
-    <h5 class="nav-link disabled">Documentation</h5>
-
-    <!-- Component pages tree -->
-    <cdk-tree [dataSource]="pages" [treeControl]="tree">
-      
-      <!-- Page link -->
-      <cdk-nested-tree-node *cdkTreeNodeDef="let node" 
-        class="menu-tree-node">
-
-        <!-- Link -->
-        <a class="nav-link" [class.active]="node.meta.active"
-           [iquiTooltip]="node.description" [iquiTooltipPosition]="'right'" [iquiTooltipShowOnHover]="!!node.description"
-           [iquiTooltipShowOnFocus]="false" [iquiTooltipStayInViewport]="true" [iquiTooltipClass]="'page-sidebar-link-tooltip'"
-           [routerLink]="node.path">
-          <span> {{ node.title }} </span>
-        </a>
-
-      </cdk-nested-tree-node>
-      
-      <!-- Page category group -->
-      <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChildren"
-        class="menu-tree-node menu-tree-node-group" [ngClass]="tree.isExpanded(node) ? ['menu-tree-node-expanded'] : ['menu-tree-node-collapsed']">
-
-        <!-- Link -->
-        <a cdkTreeNodeToggle
-           class="nav-link" [class.active]="node.meta.active"
-           [iquiTooltip]="node.description" [iquiTooltipPosition]="'right'" [iquiTooltipShowOnHover]="!!node.description"
-           [iquiTooltipShowOnFocus]="false" [iquiTooltipStayInViewport]="true" [iquiTooltipClass]="'page-sidebar-link-tooltip'"
-           [routerLink]="node.component ? node.path : null">
-          <span> {{ node.title }} </span>
-        </a>
-
-        <!-- Child links -->
-        <div [class.menu-tree-invisible]="!tree.isExpanded(node)">
-          <ng-container cdkTreeNodeOutlet></ng-container>
-        </div>
-
-      </cdk-nested-tree-node>
-
-    </cdk-tree>
-
-  </li>
-  
-</ul>
-
-<!-- Page content -->
-<div class="page-content">
-  <content class="p-2">
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
-  </content>
-</div>
+<!-- Showcase -->
+<content class="iqui-showcase-page-content">
+  <!-- Showcase menu -->
+  <iqui-showcase>
+    <ng-container [iqui-showcase-pages]="_gettingStartedPages" [title]="'How to'"></ng-container>
+    <ng-container [iqui-showcase-pages]="_iquiNgxPages" [title]="'IQUI-NGX'"></ng-container>
+  </iqui-showcase>
+  <!-- Router outlet -->
+  <div class="iqui-showcase-router-outlet">
+    <router-outlet></router-outlet>
+  </div>
+</content>
