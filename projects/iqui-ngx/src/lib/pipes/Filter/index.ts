@@ -13,12 +13,13 @@ import { Phrase} from '../../data';
 })
 export class FilterPipe implements PipeTransform {
   public transform (
-    items: any[],
+    items: string|any[],
     match: boolean|number|string|RegExp|Phrase,
-    path: string|((a: any) => boolean|number|string)|((a: any) => ((b: any) => boolean|number|string)),
+    path: null|string|((a: any) => boolean|number|string)|((a: any) => ((b: any) => boolean|number|string)),
     pathFactoryArguments = null as any
   ): any[] {
-    return (items || []).filter(item => {
+    const target = (items instanceof Array ? items : items.split('\n'));
+    return (target || []).filter(item => {
       // Check filter type
       const hasBooleanFilter = (typeof match === 'boolean'),
             hasNumberFilter  = (typeof match === 'number'),
@@ -63,8 +64,8 @@ export class FilterPipe implements PipeTransform {
           return true;
         }
       } else {
-          // Return unfiltered
-          return true;
+        // Return unfiltered
+        return true;
       }
     });
   }
@@ -88,8 +89,11 @@ function extractValueFromItem (
       // Extract using provided function factory
       return (path as (a: any) => ((a: any) => boolean|number|string))(pathFactoryArguments)(item);
     }
-  } else {
+  } else if (path ) {
     // Extract value directly
     return item[path];
+  } else {
+    // Return item as already extracted
+    return item;
   }
 }

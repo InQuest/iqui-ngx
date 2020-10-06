@@ -68,12 +68,19 @@ export class PhraseInputComponent implements OnChanges {
   public ngOnChanges () {
     // Ingest set phrase
     if (this.phrase && this.phrase instanceof Phrase) {
-      this._phrase = Phrase.clone(this.phrase);
+
+      // Check if phrases have different values
+      if (this._phrase.toString() !== this.phrase.toString()) {
+        // Update phrase
+        this._phrase = this.phrase;
+      }
+
     } else if (this.phrase && typeof this.phrase === 'string') {
+
+      // Update phrase
       this._phrase = Phrase.parse(this.phrase);
+
     }
-    // Trigger update
-    this._triggerUpdate();
   }
 
 
@@ -123,7 +130,7 @@ export class PhraseInputComponent implements OnChanges {
   public _triggerUpdate () {
     // Trigger update event
     if (this.phrase && this.phrase instanceof Phrase) {
-      this._phraseChange.emit(Phrase.clone(this._phrase))
+      this._phraseChange.emit(Phrase.clone(this._phrase));
     } else if (this.phrase && typeof this.phrase === 'string') {
       this._phraseChange.emit(Phrase.stringify(this._phrase));
     }

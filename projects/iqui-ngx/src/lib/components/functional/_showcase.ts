@@ -12,6 +12,8 @@ import { CodeModule } from '../code';
 import { ShowcasingModule } from '../showcasing';
 
 // Import showcase components and (re)export components
+import { DeclareShowcaseComponent } from './declare/_showcase';
+export { DeclareShowcaseComponent } from './declare/_showcase';
 import { Copy2ClipboardShowcaseComponent } from './copy2clipboard/_showcase';
 export { Copy2ClipboardShowcaseComponent } from './copy2clipboard/_showcase';
 import { TooltipShowcaseComponent } from './tooltip/_showcase';
@@ -31,6 +33,7 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
     CommonModule, BasicsModule, FunctionalModule, CodeModule, ShowcasingModule
   ],
   declarations: [
+    DeclareShowcaseComponent,
     Copy2ClipboardShowcaseComponent,
     TooltipShowcaseComponent,
     DropdownShowcaseComponent,

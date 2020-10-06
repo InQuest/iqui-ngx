@@ -2,6 +2,8 @@
 // ----------------------------------------------------------------------------
 
 // Import components dependencies
+import { DeclareDirective } from '../components/functional';
+import { DeclareShowcaseComponent } from '../components/functional/_showcase';
 import { Copy2ClipboardDirective } from '../components/functional';
 import { Copy2ClipboardShowcaseComponent } from '../components/functional/_showcase';
 import { TooltipDirective } from '../components/functional';
@@ -61,6 +63,7 @@ const pages = [
 
     new Page ('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components', null, [
       new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality', null, [
+        Page.fromClass(DeclareDirective, DeclareShowcaseComponent),
         Page.fromClass(Copy2ClipboardDirective, Copy2ClipboardShowcaseComponent),
         Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
         Page.fromClass(DropdownDirective, DropdownShowcaseComponent),

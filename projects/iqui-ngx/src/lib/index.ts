@@ -37,6 +37,9 @@ export * from './components/showcasing/_showcase';
 import { DataShowcaseModule } from './data/_showcase';
 export { DataShowcaseModule } from './data/_showcase'; // Required IVY hinting
 export * from './data/_showcase';
+import { PipesModule } from './pipes';
+export { PipesModule } from './pipes'; // Required IVY hinting
+export * from './pipes';
 import { PipesShowcaseModule } from './pipes/_showcase';
 export { PipesShowcaseModule } from './pipes/_showcase'; // Required IVY hinting
 export * from './pipes/_showcase';
@@ -61,6 +64,7 @@ const modules = [
   // Data modules
   DataShowcaseModule,
   // Pipes modules
+  PipesModule,
   PipesShowcaseModule,
   // Services modules
   RoutingShowcaseModule,
@@ -70,16 +74,6 @@ const modules = [
 
 // Import and (re)export types
 export * from './types';
-
-// Import and (re)export pipes
-import { FilterPipe, SortPipe, PaginatePipe, SlicePipe } from './pipes';
-export * from './pipes';
-const pipes = [
-  FilterPipe,
-  SortPipe,
-  PaginatePipe,
-  SlicePipe
-];
 
 // Import and (re)export data
 export * from './data';
@@ -107,18 +101,13 @@ export { providers };
     // Import individual modules
     ...modules
   ],
-  declarations: [
-    // Declare pipes
-    ...pipes
-  ],
+  declarations: [],
   providers: [
     ...providers,
   ],
   exports: [
     // (Re)export individual modules, making them included into any app the root module is included in
     ...modules,
-    // (Re)export pipes
-    ...pipes
   ]
 })
 export class IqUiNgxModule { }
