@@ -20,7 +20,8 @@ export class Copy2ClipboardShowcaseComponent {
   // Playground context
   public context = {
     ContentText:    'Some content to copy',
-    ExplicitText:   'Explicit content to copy'
+    ExplicitText:   'Explicit content to copy',
+    doSomething: () => {}
   };
 
 }

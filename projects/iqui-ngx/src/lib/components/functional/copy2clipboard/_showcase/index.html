@@ -28,7 +28,7 @@ Any HTML element's content, when marked with [iquiCopy2Clipboard] directive, wil
   <textarea>
 
     <!-- Copy content -->
-    <div iquiCopy2Clipboard [innerHTML]="context.ContentText"></div>
+    <div iquiCopy2Clipboard [innerHTML]="context.ContentText" (copied)="context.doSomething()"></div>
 
     <!-- Copy explicitly set value -->
     <div [iquiCopy2Clipboard]="context.ExplicitText" [innerHTML]="context.ContentText"></div>
