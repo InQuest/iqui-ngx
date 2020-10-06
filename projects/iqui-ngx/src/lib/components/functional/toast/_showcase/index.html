@@ -1,0 +1,35 @@
+<!-- Intro -->
+<h5> Basic Toast Component </h5>
+Displays a toast
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
+  <textarea>
+
+    <iqui-button [size]="'sm'"
+                 (click)="toast.show()">
+      Show toast programmatically!
+    </iqui-button>
+
+    <iqui-toast #toast
+                [(visible)]="context.Visible"
+                [position]="context.Position">
+
+      <div class="toast">
+        <div class="toast-header">
+          <strong class="mr-auto"
+            [innerHtml]="context.HeaderHtml"></strong>
+        </div>
+        <div class="toast-body"
+                 [innerHtml]="context.ContentHtml"></div>
+        <iqui-button [size]="'sm'"
+          (click)="toast.hide()">
+            Hide toast programmatically!
+        </iqui-button>
+      </div>
+
+    </iqui-toast>
+
+  </textarea>
+</iqui-playground>

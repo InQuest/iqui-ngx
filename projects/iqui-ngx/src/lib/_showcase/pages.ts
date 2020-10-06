@@ -12,6 +12,8 @@ import { DropdownDirective } from '../components/functional';
 import { DropdownShowcaseComponent } from '../components/functional/_showcase';
 import { ModalComponent } from '../components/functional';
 import { ModalShowcaseComponent	 } from '../components/functional/_showcase';
+import { ToastComponent } from '../components/functional';
+import { ToastShowcaseComponent	 } from '../components/functional/_showcase';
 import { BookmarkableDirective } from '../components/functional';
 import { BookmarkableShowcaseComponent	 } from '../components/functional/_showcase';
 import { CollapseDirective } from '../components/functional';
@@ -69,6 +71,7 @@ const pages = [
         Page.fromClass(DropdownDirective, DropdownShowcaseComponent),
         Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
         Page.fromClass(ModalComponent, ModalShowcaseComponent),
+        Page.fromClass(ToastComponent, ToastShowcaseComponent),
         Page.fromClass(BookmarkableDirective, BookmarkableShowcaseComponent)
       ]),
       new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements', null, [

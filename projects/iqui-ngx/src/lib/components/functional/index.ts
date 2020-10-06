@@ -20,6 +20,8 @@ export { DropdownComponent, DropdownDirective,
          DropdownRelativePositioning, TDropdownRelativePositioning };
 import { CollapseDirective } from './collapse';
 export { CollapseDirective };
+import { ToastComponent } from './toast';
+export { ToastComponent };
 import { ModalComponent, ModalDirective, ModalDialogDirective } from './modal';
 export { ModalComponent, ModalDirective, ModalDialogDirective };
 import { BookmarkableDirective, BookmarkableService } from './bookmarkable';
@@ -39,6 +41,7 @@ export { BookmarkableDirective, BookmarkableService };
     TooltipComponent, TooltipDirective,
     DropdownComponent, DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,
+    ToastComponent,
     ModalComponent, ModalDirective, ModalDialogDirective,
     BookmarkableDirective
   ],
@@ -51,6 +54,7 @@ export { BookmarkableDirective, BookmarkableService };
     TooltipDirective,
     DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
     CollapseDirective,
+    ToastComponent,
     ModalComponent, ModalDirective, ModalDialogDirective,
     BookmarkableDirective
   ]

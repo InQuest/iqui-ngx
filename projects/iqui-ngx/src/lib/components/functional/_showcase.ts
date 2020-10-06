@@ -24,6 +24,8 @@ import { CollapseShowcaseComponent } from './collapse/_showcase';
 export { CollapseShowcaseComponent } from './collapse/_showcase';
 import { ModalShowcaseComponent } from './modal/_showcase';
 export { ModalShowcaseComponent } from './modal/_showcase';
+import { ToastShowcaseComponent } from './toast/_showcase';
+export { ToastShowcaseComponent } from './toast/_showcase';
 import { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
 export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
 
@@ -39,6 +41,7 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
     ModalShowcaseComponent,
+    ToastShowcaseComponent,
     BookmarkableShowcaseComponent
   ],
   exports: [
@@ -50,6 +53,7 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
     DropdownShowcaseComponent,
     CollapseShowcaseComponent,
     ModalShowcaseComponent,
+    ToastShowcaseComponent,
     BookmarkableShowcaseComponent
   ]
 })
