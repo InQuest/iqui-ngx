@@ -9,35 +9,35 @@ export { FormElementDirective, IUsesFormElementDirectives, UsesFormElementDirect
 
 // Import and (re)export element directives
 import { FormDirective } from './directives/form';
-export { FormDirective };
+export { FormDirective } from './directives/form';
 import { FormGroupDirective } from './directives/group';
-export { FormGroupDirective };
+export { FormGroupDirective } from './directives/group';
 import { ButtonDirective } from './directives/button';
-export { ButtonDirective };
+export { ButtonDirective } from './directives/button';
 import { LabelDirective } from './directives/label';
-export { LabelDirective };
+export { LabelDirective } from './directives/label';
 import { TextareaDirective } from './directives/textarea';
-export { TextareaDirective };
+export { TextareaDirective } from './directives/textarea';
 import { InputDirective } from './directives/input';
-export { InputDirective };
+export { InputDirective } from './directives/input';
 import { CheckboxDirective } from './directives/checkbox';
-export { CheckboxDirective };
+export { CheckboxDirective } from './directives/checkbox';
 import { RadioDirective } from './directives/radio';
-export { RadioDirective };
+export { RadioDirective } from './directives/radio';
 import { SelectDirective } from './directives/select';
-export { SelectDirective };
+export { SelectDirective } from './directives/select';
 
 // Import and (re)export element components
 import { InputComponent, TInputType, InputType } from './components/input';
-export { InputComponent, TInputType, InputType };
+export { InputComponent, TInputType, InputType } from './components/input';
 import { CheckboxComponent } from './components/checkbox';
-export { CheckboxComponent };
+export { CheckboxComponent } from './components/checkbox';
 import { OptionDirective } from './components/option';
-export { OptionDirective };
+export { OptionDirective } from './components/option';
 import { RadioComponent } from './components/radio';
-export { RadioComponent };
+export { RadioComponent } from './components/radio';
 import { SelectComponent } from './components/select';
-export { SelectComponent };
+export { SelectComponent } from './components/select';
 
 /**
  * IQ UI NGX Elements' Form elements module

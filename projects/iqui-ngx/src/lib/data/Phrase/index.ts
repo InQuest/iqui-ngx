@@ -2,10 +2,13 @@
 // Used to encapsulate a searchable/filterable string/reg-exp definition
 // ----------------------------------------------------------------------------
 
+// Import dependencies
+import { EnTT } from '@ofzza/entt';
+
 /**
  * Phrase class
  */
-export class Phrase {
+export class Phrase extends EnTT {
 
   /**
    * Clones a phrase instance
@@ -27,9 +30,9 @@ export class Phrase {
    */
   public static stringify (phrase) {
     if (phrase._isRegExp) {
-      return `/${phrase._value}/${!phrase._isCaseSensitive ? 'i' : ''}`;
+      return `/${phrase.value}/${!phrase.isCaseSensitive ? 'i' : ''}`;
     } else {
-      return `"${phrase._value}"${!phrase._isCaseSensitive ? 'i' : ''}`;
+      return `"${phrase.value}"${!phrase.isCaseSensitive ? 'i' : ''}`;
     }
   }
 
@@ -58,36 +61,31 @@ export class Phrase {
   /**
    * Holds phrase inner value
    */
-  protected _value: string;
-  /**
-   * Gets/Sets phrase inner value
-   */
-  public get value () { return this._value; }
-  public set value (value) { this._value = value; }
+  public value = undefined as string;
   /**
    * Holds if value is a RegExp string
    */
-  protected _isRegExp: boolean;
-  /**
-   * Gets/Sets if value is a RegExp string
-   */
-  public get isRegExp () { return this._isRegExp; }
-  public set isRegExp (value) { this._isRegExp = value; }
+  public isRegExp = undefined as boolean;
   /**
    * Holds if value is case sensitive
    */
-  protected _isCaseSensitive: boolean;
+  public isCaseSensitive = undefined as boolean;
+
   /**
-   * Gets/Sets if value is case sensitive
+   * Checks if phrase is empty (equal to newly created instance)
    */
-  public get isCaseSensitive () { return this._isCaseSensitive; }
-  public set isCaseSensitive (value) { this._isCaseSensitive = value; }
+  public get isEmpty () {
+    return (!this.value && !this.isRegExp && !this.isCaseSensitive);
+  }
 
   constructor (value: string = '', { isRegExp = false, isCaseSensitive = false } = {}) {
+    super();
+    super.entt();
+
     // Set properties
-    this._value	= value;
-    this._isRegExp = isRegExp;
-    this._isCaseSensitive = isCaseSensitive;
+    this.value	= value;
+    this.isRegExp = isRegExp;
+    this.isCaseSensitive = isCaseSensitive;
   }
 
   /**
@@ -95,18 +93,18 @@ export class Phrase {
    * @param haystack String to check
    */
   public match (haystack: string) {
-    if (!this._isRegExp) {
+    if (!this.isRegExp) {
       // Match as plain string
-      if (this._isCaseSensitive) {
+      if (this.isCaseSensitive) {
         // Maths as case-sensitive
-        return (haystack.toLowerCase().indexOf(this._value.toLowerCase()) !== -1);
+        return (haystack.toLowerCase().indexOf(this.value.toLowerCase()) !== -1);
       } else {
         // Maths as not case-sensitive
-        return (haystack.indexOf(this._value) !== -1);
+        return (haystack.indexOf(this.value) !== -1);
       }
     } else {
       // Match as regexp
-      return !!haystack.match(new RegExp(this._value, (this.isCaseSensitive ? '' : 'i')));
+      return !!haystack.match(new RegExp(this.value, (this.isCaseSensitive ? '' : 'i')));
     }
   }
 

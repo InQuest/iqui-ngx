@@ -31,25 +31,23 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
   public value = undefined as string;
 
   /**
-   * If applied to an anchor element, should it be made to link to the fragment
+   * If applied to an anchor element, will manage [href] attribute to link to the URL fragment
    */
   @Input()
   public link = true;
+
+  /**
+   * If page should scroll to the element when matched by URL fragment.
+   * This allows multiple elements with same fragment name, where only one is scrolled to ...
+   */
+  @Input()
+  public scroll = true;
 
   /**
    * If on click, the component should copy the bookmark-able url to clipboard
    */
   @Input()
   public copy = true;
-
-  /**
-   * Holds detected URL
-   */
-  private _url: UrlSegment[];
-  /**
-   * Holds detected URL fragment
-   */
-  private _fragment: string;
 
   constructor (
     private _service: BookmarkableService,
@@ -58,15 +56,8 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
     private _zone: NgZone,
     private _clipboard: ClipboardService
   ) {
-    // Subscribe to url changes
-    this._route.url.subscribe((url: UrlSegment[]) => {
-      // Set url
-      this._url = url;
-    });
     // Subscribe to fragment changes
-    this._route.fragment.subscribe((fragment) => {
-      // Set fragment
-      this._fragment = fragment;
+    this._route.fragment.subscribe(() => {
       // Check fragment and scroll into view
       if (this.checkReferencedByUrlFragment()) {
         this._scrollIntoViewOnceStable();
@@ -84,6 +75,8 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
     // Handle click
     if (this.copy) {
       this._el.nativeElement.addEventListener('click', () => {
+        // Set HREF attribute value
+        this._updateHrefAttribute();
         // Copy full URL to clipboard
         this._clipboard.copy2Clipboard(this._composeUrl());
       });
@@ -124,8 +117,12 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
    * Composes a full URL to the bookmark-able element
    */
   private _composeUrl () {
-    const path = this._url.map(seg => seg.toString()).join('/'),
-          postFragment = (this._fragment?.split('#').length > 1 ? `#${ this._fragment.split('#')[1] }` : '');
+    // tslint:disable-next-line: max-line-length
+    const pathname     = window.location.pathname,
+          path         = (pathname.length && (pathname[0] === '/' ? pathname.substr(1) : pathname)),
+          hash         = window.location.hash,
+          fragment     = (hash.length && (hash[0] === '#') ? hash.substr(1) : hash),
+          postFragment = (fragment?.split('#').length > 1 ? `#${ fragment.split('#').slice(1).join('#') }` : '');
     return `${window.location.protocol}//${window.location.host}/${path}#${ this.value }${ postFragment }`;
   }
 
@@ -133,24 +130,30 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
    * Scrolls into view once page is stable
    */
   private _scrollIntoViewOnceStable () {
-    // Wait until stable
-    const observable = this._zone.onStable
-      .pipe(debounce(() => interval(200)))
-      .subscribe(() => {
-        // Unsubscribe
-        observable.unsubscribe();
-        // Scroll into view
-        this._zone.runTask(() => {
-          this.scrollIntoView();
+    // Check if element should be scrolled to
+    if (this.scroll) {
+      // Wait until stable
+      const observable = this._zone.onStable
+        .pipe(debounce(() => interval(200)))
+        .subscribe(() => {
+          // Unsubscribe
+          observable.unsubscribe();
+          // Scroll into view
+          this._zone.runTask(() => {
+            this.scrollIntoView();
+          });
         });
-      });
+      }
   }
 
   /**
    * Checks if this instance is being referenced by the URL fragment
    */
   public checkReferencedByUrlFragment () {
-    return this.value && (this._fragment?.split('#')[0] === this.value);
+    const hash         = window.location.hash,
+          fragment     = (hash.length && (hash[0] === '#') ? hash.substr(1) : hash),
+          target       = fragment.split('#')[0];
+    return this.value && (target === this.value);
   }
 
   /**

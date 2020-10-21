@@ -2,13 +2,18 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 /**
  * Provides clipboard functionality
  */
 @Injectable()
 export class ClipboardService {
+
+  /**
+   * Fires when a value is copied onto the clipboard
+   */
+  public static onCopy = new EventEmitter<string>();
 
   /**
    * Copies content to clipboard
@@ -28,6 +33,9 @@ export class ClipboardService {
       document.execCommand('copy');
       document.body.removeChild(textarea);
 
+      // Fire event
+      ClipboardService.onCopy.emit(content);
+
     } else {
 
       // Copy from element to clipboard
@@ -38,6 +46,9 @@ export class ClipboardService {
       selection.addRange(range);
       document.execCommand('copy');
       selection.removeAllRanges();
+
+      // Fire event
+      ClipboardService.onCopy.emit(selection.toString());
 
     }
     // Refocus previous element

@@ -1,0 +1,20 @@
+<!-- Intro -->
+<h5> Declare Directive </h5>
+Evaluates and exposes given value/expression on tho the scope
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'"
+  [modules]="modules" [context]="context">
+  <textarea>
+
+    <!-- Copy content -->
+    <ng-container *iquiDeclare="(context.Arg1 + context.Arg2) as complexCalculationResult">
+      Now I can use the value multile times:
+      <span [innerHTML]="complexCalculationResult"></span>,
+      <span [innerHTML]="complexCalculationResult + 1"></span>,
+      <span [innerHTML]="complexCalculationResult + 2"></span>
+      without having to recalculate it each time!
+    </ng-container>
+
+  </textarea>
+</iqui-playground>
