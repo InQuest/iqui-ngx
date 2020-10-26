@@ -1,11 +1,10 @@
 :host {
   & > div {
     margin-bottom: unset;
-    
+
     & > pre {
       position: relative;
       & > code {
-      
         &.wrapped {
           white-space: pre-wrap;
         }
@@ -15,13 +14,11 @@
           margin-bottom: 0;
           padding-inline-start: unset;
         }
-
       }
     }
 
     // Highlighted
     &.syntax-highlighted > pre > code::ng-deep > ul {
-
       & > li {
         position: relative;
         & > .hljs-line-num {
@@ -55,7 +52,6 @@
           left: -80px;
         }
       }
-
     }
 
     // Not Highlighted
@@ -71,12 +67,12 @@
         background-color: inherit;
         color: inherit;
 
-        &, &:focus {
+        &,
+        &:focus {
           border: none;
           outline: none;
         }
       }
     }
-
   }
 }

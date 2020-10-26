@@ -17,15 +17,13 @@ export { getShowcasePages } from './pages';
  * Implements an embedded showcase application
  */
 @NgModule({
-  imports: [
-    CommonModule, RouterModule, CdkTreeModule, FunctionalModule
-  ],
-  declarations: [
-    ShowcaseComponent, ShowcasePagesDirective, ShowcaseMenuComponent
-  ],
+  imports: [CommonModule, RouterModule, CdkTreeModule, FunctionalModule],
+  declarations: [ShowcaseComponent, ShowcasePagesDirective, ShowcaseMenuComponent],
   exports: [
     // Export child components
-    ShowcaseComponent, ShowcasePagesDirective, ShowcaseMenuComponent
-  ]
+    ShowcaseComponent,
+    ShowcasePagesDirective,
+    ShowcaseMenuComponent,
+  ],
 })
-export class ShowcaseModule { }
+export class ShowcaseModule {}

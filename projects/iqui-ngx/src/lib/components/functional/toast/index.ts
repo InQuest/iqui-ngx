@@ -2,8 +2,19 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, AfterViewInit, OnChanges, SimpleChanges, OnDestroy,
-         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+  ViewContainerRef,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { BootstrapRelativePositioning, TBootstrapRelativePositioning } from '../../../types';
@@ -15,7 +26,7 @@ import { BootstrapRelativePositioning, TBootstrapRelativePositioning } from '../
 // tslint:disable-next-line: variable-name
 export const ToastRelativePositioning: Record<string, TToastRelativePositioning> = {
   AUTO: 'auto',
-  ...BootstrapRelativePositioning
+  ...BootstrapRelativePositioning,
 };
 /*
  * Tooltip preferred positions type
@@ -33,12 +44,11 @@ export type TToastRelativePositioning = 'auto' | TBootstrapRelativePositioning;
  * </iqui-toast>
  */
 @Component({
-  selector:    'iqui-toast',
+  selector: 'iqui-toast',
   templateUrl: 'index.html',
-  styleUrls:   ['style.scss']
+  styleUrls: ['style.scss'],
 })
 export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
-
   /**
    * If modal is displayed or not (two-way bound)
    */
@@ -79,12 +89,9 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
    */
   private _dispatcherSubscriptions = [];
 
-  constructor (
-    private _overlay: Overlay,
-    private _viewContainerRef: ViewContainerRef
-  ) {}
+  constructor(private _overlay: Overlay, private _viewContainerRef: ViewContainerRef) {}
 
-  public ngAfterViewInit () {
+  public ngAfterViewInit() {
     // Configure
     const overlayConfig = new OverlayConfig();
     overlayConfig.hasBackdrop = false;
@@ -98,18 +105,14 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
     for (const changes of this._queuedChanges) {
       this.ngOnChanges(changes);
     }
-
   }
 
-  public ngOnChanges (changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     // Check if already initialized
     if (this._overlayRef) {
-
       // Update overlay position strategy
       if (this._overlayRef) {
-        const positionStrategy = this._overlay
-          .position()
-          .global();
+        const positionStrategy = this._overlay.position().global();
         if (this.position === ToastRelativePositioning.AUTO) {
           positionStrategy.centerHorizontally();
           positionStrategy.centerVertically();
@@ -142,16 +145,13 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
           this.hide();
         }
       }
-
     } else {
-
       // Queue changes for later processing
       this._queuedChanges.push(changes);
-
     }
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Close previous dialog, if shown
     this.hide();
     // Destroy overlay
@@ -165,7 +165,7 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Shows modal
    */
-  public show () {
+  public show() {
     if (!this._isShown && this._overlayRef) {
       // Set visible
       this._overlayRef.overlayElement.classList.add('toast-visible');
@@ -178,7 +178,7 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Hides modal
    */
-  public hide () {
+  public hide() {
     if (this._isShown && this._overlayRef) {
       // Set not visible
       this._overlayRef.overlayElement.classList.remove('toast-visible');
@@ -187,5 +187,4 @@ export class ToastComponent implements AfterViewInit, OnChanges, OnDestroy {
       this.visibleChange.emit(false);
     }
   }
-
 }

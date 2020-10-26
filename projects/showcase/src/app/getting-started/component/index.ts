@@ -13,8 +13,8 @@ highlightJsRegisterLanguage('javascript', javascript);
 
 // Showcase component
 @Component({
-  selector:     'iqui-getting-started-page',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-getting-started-page',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class GettingStartedPageComponent {}

@@ -18,19 +18,17 @@ export { PhraseShowcaseComponent } from './Phrase/_showcase';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
-  imports: [
-    CommonModule, RouterModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    PaginationShowcaseComponent,
-    PhraseShowcaseComponent
-  ],
+  imports: [CommonModule, RouterModule, CodeModule, ShowcasingModule],
+  declarations: [PaginationShowcaseComponent, PhraseShowcaseComponent],
   exports: [
     // Export dependency modules
-    CommonModule, RouterModule, CodeModule, ShowcasingModule,
+    CommonModule,
+    RouterModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
     PaginationShowcaseComponent,
-    PhraseShowcaseComponent
-  ]
+    PhraseShowcaseComponent,
+  ],
 })
-export class DataShowcaseModule { }
+export class DataShowcaseModule {}

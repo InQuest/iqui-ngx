@@ -31,9 +31,7 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
-  imports: [
-    CommonModule, BasicsModule, FunctionalModule, CodeModule, ShowcasingModule
-  ],
+  imports: [CommonModule, BasicsModule, FunctionalModule, CodeModule, ShowcasingModule],
   declarations: [
     DeclareShowcaseComponent,
     Copy2ClipboardShowcaseComponent,
@@ -42,11 +40,14 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
     CollapseShowcaseComponent,
     ModalShowcaseComponent,
     ToastShowcaseComponent,
-    BookmarkableShowcaseComponent
+    BookmarkableShowcaseComponent,
   ],
   exports: [
     // Export dependency modules
-    BasicsModule, FunctionalModule, CodeModule, ShowcasingModule,
+    BasicsModule,
+    FunctionalModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
     Copy2ClipboardShowcaseComponent,
     TooltipShowcaseComponent,
@@ -54,7 +55,7 @@ export { BookmarkableShowcaseComponent } from './bookmarkable/_showcase';
     CollapseShowcaseComponent,
     ModalShowcaseComponent,
     ToastShowcaseComponent,
-    BookmarkableShowcaseComponent
-  ]
+    BookmarkableShowcaseComponent,
+  ],
 })
-export class FunctionalShowcaseModule { }
+export class FunctionalShowcaseModule {}

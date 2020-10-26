@@ -25,12 +25,11 @@ import { UsesFormElementDirectives } from '../../directives';
  *
  */
 @Component({
-  selector:     'iqui-select',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-select',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class SelectComponent extends UsesFormElementDirectives {
-
   /**
    * [disabled] binding
    */
@@ -43,8 +42,13 @@ export class SelectComponent extends UsesFormElementDirectives {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -52,9 +56,13 @@ export class SelectComponent extends UsesFormElementDirectives {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
-
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * [(value)] two-way binding
@@ -75,30 +83,29 @@ export class SelectComponent extends UsesFormElementDirectives {
    * @param value Value to search for
    * @returns Index of option of same value
    */
-  public _findValue (value) {
-    return [...this._optionEls].findIndex(option => (option.value === value));
+  public _findValue(value) {
+    return [...this._optionEls].findIndex(option => option.value === value);
   }
 
   /**
    * Updates value when change detected
    * @param e Event descriptor
    */
-  public _updateValue (e) {
-    this.valueChange.emit(this.value = [...this._optionEls][e.target.value].value);
+  public _updateValue(e) {
+    this.valueChange.emit((this.value = [...this._optionEls][e.target.value].value));
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as radio container (.form-group)
       'form-group',
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }

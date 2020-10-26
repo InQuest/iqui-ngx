@@ -6,8 +6,12 @@ import { Component, Directive, OnInit, OnChanges, OnDestroy, Input, ElementRef, 
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
-         RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
+import {
+  BootstrapRelativePositioning,
+  TBootstrapRelativePositioning,
+  RelativePositioningPriority,
+  AngularCdkRelativePositioningDefinitions,
+} from '../../../types';
 
 // Define and export types
 /*
@@ -16,7 +20,7 @@ import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
 // tslint:disable-next-line: variable-name
 export const TooltipRelativePositioning: Record<string, TTooltipRelativePositioning> = {
   AUTO: 'auto',
-  ...BootstrapRelativePositioning
+  ...BootstrapRelativePositioning,
 };
 /*
  * Tooltip preferred positions type
@@ -43,7 +47,6 @@ export type TTooltipRelativePositioning = 'auto' | TBootstrapRelativePositioning
   selector: '[iquiTooltip]',
 })
 export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
-
   /**
    * Tooltip text content
    */
@@ -82,15 +85,14 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
   // Holds references to registered event's event listeners
   private _eventListeners: Record<string, EventListenerOrEventListenerObject> = {};
 
-  constructor (
+  constructor(
     private _element: ElementRef,
     private _componentFocusMonitor: FocusMonitor,
     private _tooltipFocusMonitor: FocusMonitor,
-    private _overlay: Overlay
-  ) { }
+    private _overlay: Overlay,
+  ) {}
 
-  public ngOnInit () {
-
+  public ngOnInit() {
     // Inject
     this._overlayRef = this._overlay.create();
     this._componentRef = this._overlayRef.attach(new ComponentPortal(TooltipComponent));
@@ -105,40 +107,49 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     // tslint:disable-next-line: max-line-length
     // (Updates tooltip visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the tooltip)
     let timeout = null;
-    this._componentFocusMonitor.monitor(this._element, true).subscribe((origin) => {
-      if (timeout) { clearTimeout(timeout); }
+    this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       timeout = setTimeout(() => {
         this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
       });
     });
-    this._tooltipFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe((origin) => {
-      if (timeout) { clearTimeout(timeout); }
+    this._tooltipFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       timeout = setTimeout(() => {
         this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
       });
     });
     // Manage visibility (on hover)
-    this._element.nativeElement.addEventListener('mouseenter', (this._eventListeners.mouseenter = () => {
-      this._overlayRef.updatePosition();
-      this._componentRef.instance.hovered = true;
-    }));
-    this._element.nativeElement.addEventListener('mouseleave', (this._eventListeners.mouseleave = () => {
-      this._overlayRef.updatePosition();
-      this._componentRef.instance.hovered = false;
-    }));
+    this._element.nativeElement.addEventListener(
+      'mouseenter',
+      (this._eventListeners.mouseenter = () => {
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.hovered = true;
+      }),
+    );
+    this._element.nativeElement.addEventListener(
+      'mouseleave',
+      (this._eventListeners.mouseleave = () => {
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.hovered = false;
+      }),
+    );
   }
 
-  public ngOnChanges () {
-
+  public ngOnChanges() {
     // Update properties
     if (this._componentRef) {
-      this._componentRef.instance.content     = this.iquiTooltip;
-      this._componentRef.instance.position    = this.iquiTooltipPosition;
+      this._componentRef.instance.content = this.iquiTooltip;
+      this._componentRef.instance.position = this.iquiTooltipPosition;
       this._componentRef.instance.showOnFocus = this.iquiTooltipShowOnFocus;
       this._componentRef.instance.showOnHover = this.iquiTooltipShowOnHover;
-      this._componentRef.instance.class       = this.iquiTooltipClass;
+      this._componentRef.instance.class = this.iquiTooltipClass;
       this._componentRef.instance.updateIfChangesDetected();
     }
 
@@ -149,7 +160,6 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     // Update overlay position strategy
     if (this._overlayRef) {
-
       // Update strategy
       const positionStrategy = this._overlay
         .position()
@@ -160,28 +170,23 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
           // tslint:disable-next-line: max-line-length
           ...(this.iquiTooltipPosition !== TooltipRelativePositioning.AUTO ? [AngularCdkRelativePositioningDefinitions[this.iquiTooltipPosition]] : []),
           // Remaining positions in preference order
-          ...(
-            RelativePositioningPriority
-              .filter(key => (key !== this.iquiTooltipPosition))
-              .map(key => AngularCdkRelativePositioningDefinitions[key])
-          )
+          ...RelativePositioningPriority.filter(key => key !== this.iquiTooltipPosition).map(key => AngularCdkRelativePositioningDefinitions[key]),
         ]);
       this._overlayRef.updatePositionStrategy(positionStrategy);
 
       // Watch for position changes
-      positionStrategy.positionChanges.subscribe((positionChange) => {
+      positionStrategy.positionChanges.subscribe(positionChange => {
         // Update position property
-        const position = Object.keys(AngularCdkRelativePositioningDefinitions)
-          .find(key => (AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair));
-        this._componentRef.instance.position = (position as TTooltipRelativePositioning);
-        this._componentRef.instance.position = (position as TTooltipRelativePositioning);
+        const position = Object.keys(AngularCdkRelativePositioningDefinitions).find(
+          key => AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair,
+        );
+        this._componentRef.instance.position = position as TTooltipRelativePositioning;
+        this._componentRef.instance.position = position as TTooltipRelativePositioning;
       });
-
     }
-
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Stop managing visibility (on focus)
     this._componentFocusMonitor.stopMonitoring(this._element);
     this._tooltipFocusMonitor.stopMonitoring(this._componentRef.instance.element);
@@ -191,7 +196,6 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     // Destroy overlay
     this._overlayRef.dispose();
   }
-
 }
 
 /**
@@ -204,11 +208,10 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
  */
 @Component({
   selector: 'iqui-tooltip',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class TooltipComponent {
-
   /**
    * Tooltip text content
    * (to be set/managed by the orchestrating [iquiTooltip] directive)
@@ -250,19 +253,19 @@ export class TooltipComponent {
    */
   public class: string = null;
 
-  constructor (public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
+  constructor(public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
 
   /**
    * Forces a component to (re)render if any of it's properties have changed
    */
-  public updateIfChangesDetected () {
+  public updateIfChangesDetected() {
     this._changeDetector.detectChanges();
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     // Ready values
     const position = this.position.split(' ');
     // Compose classes
@@ -270,16 +273,15 @@ export class TooltipComponent {
       // Mark as tooltip (.tooltip)
       'tooltip',
       // Mark if visible (.tooltip-visible/.tooltip-hidden)
-      ( (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'tooltip-visible' : 'tooltip-hidden'),
-      (this.showOnFocus && this.focused ? 'tooltip-visible-focus' : null),
-      (this.showOnHover && this.hovered ? 'tooltip-visible-hover' : null),
+      (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'tooltip-visible' : 'tooltip-hidden',
+      this.showOnFocus && this.focused ? 'tooltip-visible-focus' : null,
+      this.showOnHover && this.hovered ? 'tooltip-visible-hover' : null,
       // Choose positioning (.bs-tooltip-[position])
-      (this.position !== 'auto' ? `bs-tooltip-${this.position.split(' ')[0]}` : null),
+      this.position !== 'auto' ? `bs-tooltip-${this.position.split(' ')[0]}` : null,
       // Choose precise positioning (.bs-tooltip-[position]-[alignment])
-      (this.position !== 'auto' ? `bs-tooltip-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null),
+      this.position !== 'auto' ? `bs-tooltip-${position.length === 1 ? `${position[0]}-center` : position.join('-')}` : null,
       // Inject custom class
-      this.class
+      this.class,
     ].join(' ');
   }
-
 }

@@ -1,9 +1,9 @@
 // Bootstrap style imports
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../node_modules/startbootstrap-sb-admin/scss/sb-admin";
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../node_modules/startbootstrap-sb-admin/scss/sb-admin';
 // Import angular CDK structural styling
 @import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
-@import '../../../node_modules/@angular/cdk/text-field/text-field'; 
+@import '../../../node_modules/@angular/cdk/text-field/text-field';
 @include cdk-text-field();
 
 // Import highlight.js theme
@@ -32,7 +32,7 @@ iqui-dropdown-button iqui-button .iqui-button-content {
   position: relative;
   padding-right: 16px;
   &::after {
-    content: "▾";
+    content: '▾';
     position: absolute;
     top: 0;
     right: 0;

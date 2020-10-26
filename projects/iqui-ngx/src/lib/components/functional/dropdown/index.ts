@@ -2,13 +2,29 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, Directive, OnInit, AfterViewInit, OnChanges, OnDestroy,
-         Input, ContentChild, ElementRef, ComponentRef, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Directive,
+  OnInit,
+  AfterViewInit,
+  OnChanges,
+  OnDestroy,
+  Input,
+  ContentChild,
+  ElementRef,
+  ComponentRef,
+  TemplateRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
-         RelativePositioningPriority, AngularCdkRelativePositioningDefinitions } from '../../../types';
+import {
+  BootstrapRelativePositioning,
+  TBootstrapRelativePositioning,
+  RelativePositioningPriority,
+  AngularCdkRelativePositioningDefinitions,
+} from '../../../types';
 
 // Define and export types
 /*
@@ -17,7 +33,7 @@ import { BootstrapRelativePositioning, TBootstrapRelativePositioning,
 // tslint:disable-next-line: variable-name
 export const DropdownRelativePositioning: Record<string, TDropdownRelativePositioning> = {
   AUTO: 'auto',
-  ...BootstrapRelativePositioning
+  ...BootstrapRelativePositioning,
 };
 /*
  * Dropdown preferred positions type
@@ -32,28 +48,28 @@ const PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT = 200;
  * Drop-down header directive, marks content as drop-down header content
  */
 @Directive({
-  selector: '[iquiDropdownHeader]'
+  selector: '[iquiDropdownHeader]',
 })
-export class DropdownHeaderDirective  {
-  constructor (public template: TemplateRef<any>) {}
+export class DropdownHeaderDirective {
+  constructor(public template: TemplateRef<any>) {}
 }
 /**
  * Drop-down body directive, marks content as drop-down body content
  */
 @Directive({
-  selector: '[iquiDropdownBody]'
+  selector: '[iquiDropdownBody]',
 })
-export class DropdownBodyDirective  {
-  constructor (public template: TemplateRef<any>) {}
+export class DropdownBodyDirective {
+  constructor(public template: TemplateRef<any>) {}
 }
 /**
  * Drop-down footer directive, marks content as drop-down footer content
  */
 @Directive({
-  selector: '[iquiDropdownFooter]'
+  selector: '[iquiDropdownFooter]',
 })
-export class DropdownFooterDirective  {
-  constructor (public template: TemplateRef<any>) {}
+export class DropdownFooterDirective {
+  constructor(public template: TemplateRef<any>) {}
 }
 
 /**
@@ -88,7 +104,6 @@ export class DropdownFooterDirective  {
   selector: '[iquiDropdown]',
 })
 export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-
   /**
    * Drop-down preferred position
    */
@@ -143,15 +158,14 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
    */
   public toggle: (visible?: boolean) => void;
 
-  constructor (
+  constructor(
     private _element: ElementRef,
     private _componentFocusMonitor: FocusMonitor,
     private _dropdownFocusMonitor: FocusMonitor,
-    private _overlay: Overlay
-  ) { }
+    private _overlay: Overlay,
+  ) {}
 
-  public ngOnInit () {
-
+  public ngOnInit() {
     // Inject
     this._overlayRef = this._overlay.create();
     this._componentRef = this._overlayRef.attach(new ComponentPortal(DropdownComponent));
@@ -163,20 +177,26 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     // tslint:disable-next-line: max-line-length
     // (Updates drop-down visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the drop-down)
     let timeout = null,
-        isFocused = false;
-    this._componentFocusMonitor.monitor(this._element, true).subscribe((origin) => {
-      if (timeout) { clearTimeout(timeout); }
+      isFocused = false;
+    this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
         this._overlayRef.updatePosition();
         this._componentRef.instance.focused = !!origin;
         // Allow toggle on click after a while
         isFocused = false;
-        timeout = setTimeout(() => { isFocused = !!origin; }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
+        timeout = setTimeout(() => {
+          isFocused = !!origin;
+        }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
       });
     });
-    this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe((origin) => {
-      if (timeout) { clearTimeout(timeout); }
+    this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       timeout = setTimeout(() => {
         // Update drop-down focus (visibility)
         this._overlayRef.updatePosition();
@@ -187,37 +207,42 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
       if (isFocused) {
         // Toggle drop-down focus (visibility)
         this._overlayRef.updatePosition();
-        this._componentRef.instance.focused = (visible !== null ? visible : !this._componentRef.instance.focused);
+        this._componentRef.instance.focused = visible !== null ? visible : !this._componentRef.instance.focused;
         this._componentRef.instance.updateIfChangesDetected();
       }
     };
     // Manage visibility (on hover)
-    this._element.nativeElement.addEventListener('mouseenter', (this._eventListeners.mouseenter = () => {
-      this._overlayRef.updatePosition();
-      this._componentRef.instance.hovered = true;
-    }));
-    this._element.nativeElement.addEventListener('mouseleave', (this._eventListeners.mouseleave = () => {
-      this._overlayRef.updatePosition();
-      this._componentRef.instance.hovered = false;
-    }));
+    this._element.nativeElement.addEventListener(
+      'mouseenter',
+      (this._eventListeners.mouseenter = () => {
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.hovered = true;
+      }),
+    );
+    this._element.nativeElement.addEventListener(
+      'mouseleave',
+      (this._eventListeners.mouseleave = () => {
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.hovered = false;
+      }),
+    );
   }
 
-  public ngAfterViewInit () {
+  public ngAfterViewInit() {
     // Set properties
     this.ngOnChanges();
   }
 
-  public ngOnChanges () {
-
+  public ngOnChanges() {
     // Update properties
     if (this._componentRef) {
-      this._componentRef.instance.header      = this.header;
-      this._componentRef.instance.body        = this.body;
-      this._componentRef.instance.footer      = this.footer;
-      this._componentRef.instance.position    = this.iquiDropdownPosition;
+      this._componentRef.instance.header = this.header;
+      this._componentRef.instance.body = this.body;
+      this._componentRef.instance.footer = this.footer;
+      this._componentRef.instance.position = this.iquiDropdownPosition;
       this._componentRef.instance.showOnFocus = this.iquiDropdownShowOnFocus;
       this._componentRef.instance.showOnHover = this.iquiDropdownShowOnHover;
-      this._componentRef.instance.class       = this.iquiDropdownClass;
+      this._componentRef.instance.class = this.iquiDropdownClass;
       this._componentRef.instance.updateIfChangesDetected();
     }
 
@@ -228,7 +253,6 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
 
     // Update overlay position strategy
     if (this._overlayRef) {
-
       // Update strategy
       const positionStrategy = this._overlay
         .position()
@@ -239,28 +263,23 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
           // tslint:disable-next-line: max-line-length
           ...(this.iquiDropdownPosition !== DropdownRelativePositioning.AUTO ? [AngularCdkRelativePositioningDefinitions[this.iquiDropdownPosition]] : []),
           // Remaining positions in preference order
-          ...(
-            RelativePositioningPriority
-              .filter(key => (key !== this.iquiDropdownPosition))
-              .map(key => AngularCdkRelativePositioningDefinitions[key])
-          )
+          ...RelativePositioningPriority.filter(key => key !== this.iquiDropdownPosition).map(key => AngularCdkRelativePositioningDefinitions[key]),
         ]);
       this._overlayRef.updatePositionStrategy(positionStrategy);
 
       // Watch for position changes
-      positionStrategy.positionChanges.subscribe((positionChange) => {
+      positionStrategy.positionChanges.subscribe(positionChange => {
         // Update position property
-        const position = Object.keys(AngularCdkRelativePositioningDefinitions)
-          .find(key => (AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair));
-        this._componentRef.instance.position = (position as TDropdownRelativePositioning);
-        this._componentRef.instance.position = (position as TDropdownRelativePositioning);
+        const position = Object.keys(AngularCdkRelativePositioningDefinitions).find(
+          key => AngularCdkRelativePositioningDefinitions[key] === positionChange.connectionPair,
+        );
+        this._componentRef.instance.position = position as TDropdownRelativePositioning;
+        this._componentRef.instance.position = position as TDropdownRelativePositioning;
       });
-
     }
-
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Stop managing visibility (on focus)
     this._componentFocusMonitor.stopMonitoring(this._element);
     this._dropdownFocusMonitor.stopMonitoring(this._componentRef.instance.element);
@@ -270,7 +289,6 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     // Destroy overlay
     this._overlayRef.dispose();
   }
-
 }
 
 /**
@@ -283,11 +301,10 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
  */
 @Component({
   selector: 'iqui-dropdown',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class DropdownComponent {
-
   /**
    * Drop-down preferred position
    * (to be set/managed by the orchestrating [iquiDropdown] directive)
@@ -339,19 +356,19 @@ export class DropdownComponent {
    */
   public footer: any;
 
-  constructor (public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
+  constructor(public element: ElementRef, private _changeDetector: ChangeDetectorRef) {}
 
   /**
    * Forces a component to (re)render if any of it's properties have changed
    */
-  public updateIfChangesDetected () {
+  public updateIfChangesDetected() {
     this._changeDetector.detectChanges();
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     // Ready values
     const position = this.position.split(' ');
     // Compose classes
@@ -359,30 +376,29 @@ export class DropdownComponent {
       // Mark as dropdown (.dropdown)
       'dropdown',
       // Mark if has header/body/content
-      (this.header && this.header.template ? 'dropdown-has-header' : ''),
-      (this.body && this.body.template ? 'dropdown-has-body' : ''),
-      (this.footer && this.footer.template ? 'dropdown-has-footer' : ''),
+      this.header && this.header.template ? 'dropdown-has-header' : '',
+      this.body && this.body.template ? 'dropdown-has-body' : '',
+      this.footer && this.footer.template ? 'dropdown-has-footer' : '',
       // Mark if visible (.dropdown-visible/.dropdown-hidden)
-      ((this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden'),
-      (this.showOnFocus && this.focused ? 'dropdown-visible-focus' : null),
-      (this.showOnHover && this.hovered ? 'dropdown-visible-hover' : null),
+      (this.showOnFocus && this.focused) || (this.showOnHover && this.hovered) ? 'dropdown-visible' : 'dropdown-hidden',
+      this.showOnFocus && this.focused ? 'dropdown-visible-focus' : null,
+      this.showOnHover && this.hovered ? 'dropdown-visible-hover' : null,
       // Choose positioning (.bs-dropdown-[position])
-      (this.position !== 'auto' ? `bs-dropdown-${this.position.split(' ')[0]}` : null),
+      this.position !== 'auto' ? `bs-dropdown-${this.position.split(' ')[0]}` : null,
       // Choose precise positioning (.bs-dropdown-[position]-[alignment])
-      (this.position !== 'auto' ? `bs-dropdown-${ (position.length === 1 ? `${position[0]}-center` : position.join('-')) }` : null),
+      this.position !== 'auto' ? `bs-dropdown-${position.length === 1 ? `${position[0]}-center` : position.join('-')}` : null,
       // Inject custom class
-      this.class
+      this.class,
     ].join(' ');
   }
 
   /**
    * Close drop-down function factory
    */
-  public _createClose () {
+  public _createClose() {
     return () => {
       // Close dropdown
       this.focused = false;
     };
   }
-
 }

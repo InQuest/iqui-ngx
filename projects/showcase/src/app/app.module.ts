@@ -19,12 +19,10 @@ import { GettingStartedPageModule } from './getting-started';
     AppRoutingModule,
     // IQUI module and pages
     GettingStartedPageModule,
-    IqUiNgxModule
+    IqUiNgxModule,
   ],
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

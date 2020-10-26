@@ -10,18 +10,16 @@ import { BasicsModule } from '../../';
 
 // Showcase component
 @Component({
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class PhraseInputShowcaseComponent {
-
   // Expose modules needed to render syntax
   public modules = [BasicsModule];
 
   // Playground context
   public context = {
-    Phrase:      new Phrase(),
-    Placeholder: 'Enter phrase here'
+    Phrase: new Phrase(),
+    Placeholder: 'Enter phrase here',
   };
-
 }

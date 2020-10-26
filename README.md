@@ -1,7 +1,7 @@
 # Inquest Angular UI Library
 
-IQUI Elements styling is based on [Bootstrap](https://getbootstrap.com/) but has it's functionality implemented via [Angular CDK](https://material.angular.io/cdk/categories).
-As a consequence, any project importing and using the IQUI Elements Library, needs to also include the following SCSS files:
+IQUI Elements styling is based on [Bootstrap](https://getbootstrap.com/) but has it's functionality implemented via [Angular CDK](https://material.angular.io/cdk/categories). As a consequence, any project importing and using the IQUI Elements Library, needs to also include the following SCSS files:
+
 ```scss
 // Bootstrap style imports
 @import '~/node_modules/bootstrap/scss/bootstrap';
@@ -9,16 +9,13 @@ As a consequence, any project importing and using the IQUI Elements Library, nee
 @import '~/node_modules/@angular/cdk/overlay-prebuilt.css';
 ```
 
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
 
 ## Contributing
 
@@ -31,6 +28,7 @@ Before reporting issues, please read: [GitHub Work-Flow](https://github.com/ofzz
 ### Contributing Code
 
 For work-flow and general etiquette when contributing, please see:
+
 - [Git Source-Control Work-Flow](https://github.com/ofzza/onboarding/blob/master/CONTRIBUTING/git.md)
 - [GitHub Work-Flow](https://github.com/ofzza/onboarding/blob/master/CONTRIBUTING/github.md)
 - [Angular Work-Flow](https://github.com/ofzza/onboarding/blob/master/CONTRIBUTING/angular.md)

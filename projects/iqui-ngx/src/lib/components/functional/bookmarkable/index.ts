@@ -22,7 +22,6 @@ import { ClipboardService } from '../../../services';
   selector: '[iquiBookmarkable]',
 })
 export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-
   /**
    * Holds unique fragment name to be used in the URL
    */
@@ -49,12 +48,12 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
   @Input()
   public copy = true;
 
-  constructor (
+  constructor(
     private _service: BookmarkableService,
     private _route: ActivatedRoute,
     private _el: ElementRef,
     private _zone: NgZone,
-    private _clipboard: ClipboardService
+    private _clipboard: ClipboardService,
   ) {
     // Subscribe to fragment changes
     this._route.fragment.subscribe(() => {
@@ -65,7 +64,7 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
     });
   }
 
-  public ngOnInit () {
+  public ngOnInit() {
     // Register with central service
     this._service.register(this.value, this);
     // Set class
@@ -83,14 +82,14 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
     }
   }
 
-  public ngAfterViewInit () {
+  public ngAfterViewInit() {
     // Check fragment and scroll into view
     if (this.checkReferencedByUrlFragment()) {
       this._scrollIntoViewOnceStable();
     }
   }
 
-  public ngOnChanges (changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     // Re-register with central service
     this._service.unregister(this.value);
     this._service.register(changes.value, this);
@@ -98,7 +97,7 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
     this._updateHrefAttribute();
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Un-register from central service
     this._service.unregister(this.value);
   }
@@ -106,9 +105,9 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
   /**
    * Updates HREF attribute value
    */
-  private _updateHrefAttribute () {
+  private _updateHrefAttribute() {
     // Set anchor [href] value
-    if (this.link && (this._el.nativeElement.tagName.toLowerCase() === 'a')) {
+    if (this.link && this._el.nativeElement.tagName.toLowerCase() === 'a') {
       this._el.nativeElement.href = this._composeUrl();
     }
   }
@@ -116,62 +115,59 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
   /**
    * Composes a full URL to the bookmark-able element
    */
-  private _composeUrl () {
+  private _composeUrl() {
     // tslint:disable-next-line: max-line-length
-    const pathname     = window.location.pathname,
-          path         = (pathname.length && (pathname[0] === '/' ? pathname.substr(1) : pathname)),
-          hash         = window.location.hash,
-          fragment     = (hash.length && (hash[0] === '#') ? hash.substr(1) : hash),
-          postFragment = (fragment?.split('#').length > 1 ? `#${ fragment.split('#').slice(1).join('#') }` : '');
-    return `${window.location.protocol}//${window.location.host}/${path}#${ this.value }${ postFragment }`;
+    const pathname = window.location.pathname,
+      path = pathname.length && (pathname[0] === '/' ? pathname.substr(1) : pathname),
+      hash = window.location.hash,
+      fragment = hash.length && hash[0] === '#' ? hash.substr(1) : hash,
+      postFragment = fragment?.split('#').length > 1 ? `#${fragment.split('#').slice(1).join('#')}` : '';
+    return `${window.location.protocol}//${window.location.host}/${path}#${this.value}${postFragment}`;
   }
 
   /**
    * Scrolls into view once page is stable
    */
-  private _scrollIntoViewOnceStable () {
+  private _scrollIntoViewOnceStable() {
     // Check if element should be scrolled to
     if (this.scroll) {
       // Wait until stable
-      const observable = this._zone.onStable
-        .pipe(debounce(() => interval(200)))
-        .subscribe(() => {
-          // Unsubscribe
-          observable.unsubscribe();
-          // Scroll into view
-          this._zone.runTask(() => {
-            this.scrollIntoView();
-          });
+      const observable = this._zone.onStable.pipe(debounce(() => interval(200))).subscribe(() => {
+        // Unsubscribe
+        observable.unsubscribe();
+        // Scroll into view
+        this._zone.runTask(() => {
+          this.scrollIntoView();
         });
-      }
+      });
+    }
   }
 
   /**
    * Checks if this instance is being referenced by the URL fragment
    */
-  public checkReferencedByUrlFragment () {
-    const hash         = window.location.hash,
-          fragment     = (hash.length && (hash[0] === '#') ? hash.substr(1) : hash),
-          target       = fragment.split('#')[0];
-    return this.value && (target === this.value);
+  public checkReferencedByUrlFragment() {
+    const hash = window.location.hash,
+      fragment = hash.length && hash[0] === '#' ? hash.substr(1) : hash,
+      target = fragment.split('#')[0];
+    return this.value && target === this.value;
   }
 
   /**
    * Scrolls host element into view
    */
-  public scrollIntoView () {
+  public scrollIntoView() {
     // Scroll into view
     setTimeout(() => {
       this._el.nativeElement.classList.add('scrolling');
       this._el.nativeElement.scrollIntoView({
-        block:    'start',
-        inline:   'nearest',
-        behavior: 'smooth'
+        block: 'start',
+        inline: 'nearest',
+        behavior: 'smooth',
       });
       this._el.nativeElement.classList.remove('scrolling');
     });
   }
-
 }
 
 /**
@@ -179,7 +175,6 @@ export class BookmarkableDirective implements OnInit, AfterViewInit, OnChanges, 
  */
 @Injectable()
 export class BookmarkableService {
-
   /**
    * Holds references to all BookmarkableDirective instances by their set value
    */
@@ -190,14 +185,14 @@ export class BookmarkableService {
    * @param value Currently set value of the BookmarkableDirective instance
    * @param instance BookmarkableDirective instance to register
    */
-  public register (value, instance: BookmarkableDirective) {
+  public register(value, instance: BookmarkableDirective) {
     BookmarkableService.bookmarkables[value] = instance;
   }
   /**
    * Un-registers a BookmarkableDirective instance
    * @param value Value the BookmarkableDirective instance is registered under
    */
-  public unregister (value) {
+  public unregister(value) {
     delete BookmarkableService.bookmarkables[value];
   }
 
@@ -205,7 +200,7 @@ export class BookmarkableService {
    * Scrolls to BookmarkableDirective instance referenced by the URL fragment
    * @param value Value the BookmarkableDirective instance is registered under
    */
-  public scrollToValue (value: string) {
+  public scrollToValue(value: string) {
     if (BookmarkableService.bookmarkables[value]) {
       BookmarkableService.bookmarkables[value].scrollIntoView();
     }
@@ -214,12 +209,11 @@ export class BookmarkableService {
   /**
    * Scrolls to BookmarkableDirective instance referenced by the URL fragment
    */
-  public scrollToFragment () {
+  public scrollToFragment() {
     for (const instance of Object.values(BookmarkableService.bookmarkables)) {
       if (instance.checkReferencedByUrlFragment()) {
         instance.scrollIntoView();
       }
     }
   }
-
 }

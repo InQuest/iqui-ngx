@@ -37,13 +37,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/iqui-ngx/tsconfig.lib.json",
-              "projects/iqui-ngx/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/iqui-ngx/tsconfig.lib.json", "projects/iqui-ngx/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -68,13 +63,8 @@
             "polyfills": "projects/showcase/src/polyfills.ts",
             "tsConfig": "projects/showcase/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "projects/showcase/src/favicon.ico",
-              "projects/showcase/src/assets"
-            ],
-            "styles": [
-              "projects/showcase/src/styles.scss"
-            ],
+            "assets": ["projects/showcase/src/favicon.ico", "projects/showcase/src/assets"],
+            "styles": ["projects/showcase/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -132,27 +122,16 @@
             "polyfills": "projects/showcase/src/polyfills.ts",
             "tsConfig": "projects/showcase/tsconfig.spec.json",
             "karmaConfig": "projects/showcase/karma.conf.js",
-            "assets": [
-              "projects/showcase/src/favicon.ico",
-              "projects/showcase/src/assets"
-            ],
-            "styles": [
-              "projects/showcase/src/styles.scss"
-            ],
+            "assets": ["projects/showcase/src/favicon.ico", "projects/showcase/src/assets"],
+            "styles": ["projects/showcase/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/showcase/tsconfig.app.json",
-              "projects/showcase/tsconfig.spec.json",
-              "projects/showcase/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["projects/showcase/tsconfig.app.json", "projects/showcase/tsconfig.spec.json", "projects/showcase/e2e/tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -168,6 +147,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "iqui-ngx"
 }

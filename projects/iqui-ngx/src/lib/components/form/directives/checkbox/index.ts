@@ -17,7 +17,7 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: 'input[type="checkbox"]',
-  providers: [{ provide: FormElementDirective, useExisting: CheckboxDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: CheckboxDirective }],
 })
 @FormElement({ idAttributeName: 'id', bindDisabled: true, bindValid: true })
 export class CheckboxDirective extends FormElementDirective {}

@@ -18,22 +18,20 @@ export { SliceShowcaseComponent } from './Slice/_showcase';
 
 // IQ UI NGX Elements' Code/Syntax module
 @NgModule({
-  imports: [
-    CommonModule, RouterModule
-  ],
+  imports: [CommonModule, RouterModule],
   declarations: [
     // Declare showcasing components
     FilterShowcaseComponent,
     SortShowcaseComponent,
     PaginateShowcaseComponent,
-    SliceShowcaseComponent
+    SliceShowcaseComponent,
   ],
   exports: [
     // Export child components
     FilterShowcaseComponent,
     SortShowcaseComponent,
     PaginateShowcaseComponent,
-    SliceShowcaseComponent
-  ]
+    SliceShowcaseComponent,
+  ],
 })
-export class PipesShowcaseModule { }
+export class PipesShowcaseModule {}

@@ -4,8 +4,18 @@
 
 // Import dependencies
 import {
-  Directive, Component, OnChanges, AfterContentInit,
-  HostBinding, Input, ElementRef, ContentChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef
+  Directive,
+  Component,
+  OnChanges,
+  AfterContentInit,
+  HostBinding,
+  Input,
+  ElementRef,
+  ContentChild,
+  ContentChildren,
+  QueryList,
+  TemplateRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { default as hljs } from 'highlight.js/lib/highlight';
 
@@ -17,7 +27,7 @@ import { Phrase } from '../../../data';
  * @param languageName Name by which the language will be referenced
  * @param language Language syntax definition (from "highlight.js/lib/languages/")
  */
-export function highlightJsRegisterLanguage (languageName: string, language: any) {
+export function highlightJsRegisterLanguage(languageName: string, language: any) {
   HighlightJsComponent.registerLanguage(languageName, language);
 }
 
@@ -33,7 +43,7 @@ export function highlightJsRegisterLanguage (languageName: string, language: any
  * </iqui-highlightjs>
  */
 @Directive({
-  selector: 'textarea'
+  selector: 'textarea',
 })
 export class HighlightJsTextareaDirective {}
 
@@ -52,7 +62,7 @@ export class HighlightJsTextareaDirective {}
  * </iqui-highlightjs>
  */
 @Directive({
-  selector: '[iquiHighlightJsInjectedTop]'
+  selector: '[iquiHighlightJsInjectedTop]',
 })
 export class HighlightJsInjectTopDirective {}
 
@@ -71,7 +81,7 @@ export class HighlightJsInjectTopDirective {}
  * </iqui-highlightjs>
  */
 @Directive({
-  selector: '[iquiHighlightJsInjectedBottom]'
+  selector: '[iquiHighlightJsInjectedBottom]',
 })
 export class HighlightJsInjectBottomDirective {}
 
@@ -123,18 +133,17 @@ export class HighlightJsInjectBottomDirective {}
  *
  */
 @Component({
-  selector:       'iqui-highlightjs',
-  templateUrl:    './index.html',
-  styleUrls:      [`./style.scss`]
+  selector: 'iqui-highlightjs',
+  templateUrl: './index.html',
+  styleUrls: [`./style.scss`],
 })
 export class HighlightJsComponent implements OnChanges, AfterContentInit {
-
   /**
    * Static method allowing registration of additional language syntaxes
    * @param languageName Name by which the language will be referenced
    * @param language Language syntax definition (from "highlight.js/lib/languages/")
    */
-  public static registerLanguage (languageName: string, language: any) {
+  public static registerLanguage(languageName: string, language: any) {
     hljs.registerLanguage(languageName, language);
   }
 
@@ -150,8 +159,13 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -159,8 +173,13 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * Syntax to highlight and display
@@ -176,7 +195,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    * Row filter (will only show rows matching given string or regexp or Phrase instance)
    */
   @Input()
-  public filter: string|RegExp|Phrase = new Phrase();
+  public filter: string | RegExp | Phrase = new Phrase();
   /**
    * If rows should wrap
    */
@@ -214,10 +233,9 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   // Rendered, highlighted syntax HTML
   public _highlightedSyntax = '';
 
-  constructor (private _cd: ChangeDetectorRef) {}
+  constructor(private _cd: ChangeDetectorRef) {}
 
-  public ngAfterContentInit () {
-
+  public ngAfterContentInit() {
     // If no syntax attribute set, try extracting value from <textarea /> child
     if (!this.syntax) {
       this._ingestTextareaSyntax();
@@ -226,10 +244,9 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     // Trigger highlighting render
     this._renderHighlightedSyntax();
     this._cd.detectChanges();
-
   }
 
-  public ngOnChanges () {
+  public ngOnChanges() {
     // Trigger highlighting render
     this._renderHighlightedSyntax();
   }
@@ -237,7 +254,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   /**
    * Forces a refresh of the component and it's syntax
    */
-  public refresh () {
+  public refresh() {
     // (Re)Ingest textarea syntax
     if (!this.syntax) {
       this._ingestTextareaSyntax();
@@ -249,7 +266,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   /**
    * Ingest syntax from textarea, if one is used
    */
-  private _ingestTextareaSyntax () {
+  private _ingestTextareaSyntax() {
     // Check if single <textarea /> child
     if (this._syntaxEl) {
       // Use textarea value as syntax
@@ -260,31 +277,36 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   /**
    * (Re)Renders given syntax as HTML and displays it
    */
-  private _renderHighlightedSyntax () {
-
+  private _renderHighlightedSyntax() {
     // Set initial syntax from [syntax] attribute
     let syntax = this.syntax || this._syntaxElInnerHTML;
-    if (!syntax) { return; }
+    if (!syntax) {
+      return;
+    }
 
     // Trim lines
     if (syntax && this.trim) {
       // Find shortest available start-trim
       const minStartTrim = syntax.split('\n').reduce((min: number, line: string) => {
         const match = line.match(/\S/),
-              trimLength = (match ? match.index : Number.MAX_SAFE_INTEGER);
-        return (trimLength < min ? trimLength : min);
+          trimLength = match ? match.index : Number.MAX_SAFE_INTEGER;
+        return trimLength < min ? trimLength : min;
       }, Number.MAX_SAFE_INTEGER);
       // Trim lines
       syntax = syntax
         .split('\n')
         .reduce((aggregate: any, line: string, i: number, arr: string[]) => {
           // Use remaining (after empty rows) array as response
-          if (line.match(/\S/)) { return arr.splice(i); }
+          if (line.match(/\S/)) {
+            return arr.splice(i);
+          }
         }, null)
         .reverse()
         .reduce((aggregate: any, line: string, i: number, arr: string[]) => {
           // Use remaining (after empty rows) array as response
-          if (line.match(/\S/)) { return arr.splice(i); }
+          if (line.match(/\S/)) {
+            return arr.splice(i);
+          }
         }, null)
         .reverse()
         .reduce((lines: string[], line: string) => {
@@ -297,43 +319,46 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     // HighlightSyntax
     try {
       if (this.highlight) {
-        syntax = (!this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax);
+        syntax = !this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax;
       }
     } catch (err) {
       // tslint:disable-next-line: no-unused-expression
-      err; return;
+      err;
+      return;
     }
 
     // Add line numbers
     const rawSyntaxLines = syntax.split('\n'),
-          highlightedSyntaxLines = syntax.split('\n'),
-          lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
+      highlightedSyntaxLines = syntax.split('\n'),
+      lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
     let numberedSyntax = [];
 
     // Filter lines
-    const hasStringFilter = (typeof this.filter === 'string' && this.filter.trim()),
-          hasRegExpFilter = (this.filter instanceof RegExp),
-          hasPhraseFilter = (this.filter instanceof Phrase && this.filter.value.trim());
+    const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(),
+      hasRegExpFilter = this.filter instanceof RegExp,
+      hasPhraseFilter = this.filter instanceof Phrase && this.filter.value.trim();
     if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
       // Filter rows
       highlightedSyntaxLines.forEach((line, i) => {
         // Check if filter is regexp or treat as string
         if (hasStringFilter || (hasPhraseFilter && !(this.filter as Phrase).isRegExp)) {
           try {
-            const filterValue         = (hasStringFilter ? (this.filter as string) : (this.filter as Phrase).value),
-                  filterCaseSensitive = (hasStringFilter ? true : (this.filter as Phrase).isCaseSensitive),
-                  haystack            = (filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase()),
-                  needle              = (filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase());
+            const filterValue = hasStringFilter ? (this.filter as string) : (this.filter as Phrase).value,
+              filterCaseSensitive = hasStringFilter ? true : (this.filter as Phrase).isCaseSensitive,
+              haystack = filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase(),
+              needle = filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase();
             if (haystack.indexOf(needle) !== -1) {
-              numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
+              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
             }
           } catch (err) {}
         } else if (hasRegExpFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
           try {
             // tslint:disable-next-line: max-line-length
-            const filterValue = (hasRegExpFilter ? (this.filter as RegExp) : new RegExp((this.filter as Phrase).value, ((this.filter as Phrase).isCaseSensitive ? '' : 'i')));
+            const filterValue = hasRegExpFilter
+              ? (this.filter as RegExp)
+              : new RegExp((this.filter as Phrase).value, (this.filter as Phrase).isCaseSensitive ? '' : 'i');
             if (rawSyntaxLines[i].match(filterValue)) {
-              numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
+              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
             }
           } catch (err) {}
         }
@@ -341,19 +366,18 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     } else {
       // Allow all rows
       highlightedSyntaxLines.forEach((line, i) => {
-        numberedSyntax.push(this._renderLine(line, (this.lineNumbers ? i + 1 : null), lineNumberPaddingLength));
+        numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
       });
     }
 
     // Set syntax with added line numbers
     if (this.highlight) {
       // Set syntax
-      this._highlightedSyntax = `<ul class="${ this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : '' }">${numberedSyntax.join('')}</ul>`;
+      this._highlightedSyntax = `<ul class="${this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : ''}">${numberedSyntax.join('')}</ul>`;
     } else {
       // Set syntax
       this._highlightedSyntax = `${numberedSyntax.join('\n')}`;
     }
-
   }
 
   /**
@@ -362,27 +386,26 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    * @param lineNumber (Optional) Line number to render left of thr syntax line
    * @param lineNumberPaddingLength (Optional) Padding length target for line numbers
    */
-  private _renderLine (line, lineNumber = null, lineNumberPaddingLength = null) {
+  private _renderLine(line, lineNumber = null, lineNumberPaddingLength = null) {
     // tslint:disable-next-line: max-line-length
     if (this.highlight) {
-      return (lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`);
+      return lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`;
     } else {
-      return (lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`);
+      return lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`;
     }
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null),
+      this.class || null,
       // If highlighting on
-      (this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted')
+      this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted',
     ].join(' ');
   }
-
 }

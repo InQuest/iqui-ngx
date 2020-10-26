@@ -44,23 +44,43 @@ export { SelectComponent } from './components/select';
  * Implements components that are mainly meant to be used for user input within forms
  */
 @NgModule({
-  imports: [
-    CommonModule, TextFieldModule
-  ],
+  imports: [CommonModule, TextFieldModule],
   declarations: [
     FormElementDirective,
-    FormDirective, FormGroupDirective,
-    ButtonDirective, LabelDirective, TextareaDirective, InputDirective, CheckboxDirective, RadioDirective, SelectDirective,
-    InputComponent, CheckboxComponent, RadioComponent, SelectComponent, OptionDirective
+    FormDirective,
+    FormGroupDirective,
+    ButtonDirective,
+    LabelDirective,
+    TextareaDirective,
+    InputDirective,
+    CheckboxDirective,
+    RadioDirective,
+    SelectDirective,
+    InputComponent,
+    CheckboxComponent,
+    RadioComponent,
+    SelectComponent,
+    OptionDirective,
   ],
   exports: [
     // Export dependency modules
     TextFieldModule,
     // Export child components
     FormElementDirective,
-    FormDirective, FormGroupDirective,
-    ButtonDirective, LabelDirective, TextareaDirective, InputDirective, CheckboxDirective, RadioDirective, SelectDirective,
-    InputComponent, CheckboxComponent, RadioComponent, SelectComponent, OptionDirective
-  ]
+    FormDirective,
+    FormGroupDirective,
+    ButtonDirective,
+    LabelDirective,
+    TextareaDirective,
+    InputDirective,
+    CheckboxDirective,
+    RadioDirective,
+    SelectDirective,
+    InputComponent,
+    CheckboxComponent,
+    RadioComponent,
+    SelectComponent,
+    OptionDirective,
+  ],
 })
-export class FormModule { }
+export class FormModule {}

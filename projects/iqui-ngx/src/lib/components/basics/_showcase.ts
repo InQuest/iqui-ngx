@@ -20,21 +20,17 @@ export { PhraseInputShowcaseComponent } from './phrase-input/_showcase';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
-  imports: [
-    CommonModule, BasicsModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    ButtonShowcaseComponent,
-    DropdownButtonShowcaseComponent,
-    PhraseInputShowcaseComponent
-  ],
+  imports: [CommonModule, BasicsModule, CodeModule, ShowcasingModule],
+  declarations: [ButtonShowcaseComponent, DropdownButtonShowcaseComponent, PhraseInputShowcaseComponent],
   exports: [
     // Export dependency modules
-    BasicsModule, CodeModule, ShowcasingModule,
+    BasicsModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
     ButtonShowcaseComponent,
     DropdownButtonShowcaseComponent,
-    PhraseInputShowcaseComponent
-  ]
+    PhraseInputShowcaseComponent,
+  ],
 })
-export class BasicsShowcaseModule { }
+export class BasicsShowcaseModule {}

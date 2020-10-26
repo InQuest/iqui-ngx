@@ -2,10 +2,7 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import {
-  Component, OnInit, OnChanges, SimpleChanges,
-  HostBinding, Input, Output, EventEmitter, ViewChild, ElementRef
-} from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, HostBinding, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { THtmlInputType, HtmlInputType } from '../../../../types';
 import { UsesFormElementDirectives } from '../../directives';
 
@@ -16,7 +13,7 @@ import { UsesFormElementDirectives } from '../../directives';
 // tslint:disable-next-line: variable-name
 export const InputType: Record<string, TInputType> = {
   ...HtmlInputType,
-  TEXTAREA: 'textarea'
+  TEXTAREA: 'textarea',
 };
 /*
  * Button's bootstrap theme colors type
@@ -44,12 +41,11 @@ export type TInputType = THtmlInputType | 'textarea';
  *
  */
 @Component({
-  selector:     'iqui-input',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-input',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class InputComponent extends UsesFormElementDirectives implements OnInit, OnChanges {
-
   /**
    * [disabled] binding
    */
@@ -62,8 +58,13 @@ export class InputComponent extends UsesFormElementDirectives implements OnInit,
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -71,8 +72,13 @@ export class InputComponent extends UsesFormElementDirectives implements OnInit,
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * input[type] value
@@ -110,10 +116,10 @@ export class InputComponent extends UsesFormElementDirectives implements OnInit,
   @ViewChild('input')
   private _input: ElementRef;
 
-  public ngOnInit () {
+  public ngOnInit() {
     this._updateType();
   }
-  public ngOnChanges (changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (changes.type) {
       this._updateType();
     }
@@ -122,7 +128,7 @@ export class InputComponent extends UsesFormElementDirectives implements OnInit,
   /**
    * Updates input type
    */
-  private _updateType () {
+  private _updateType() {
     if (this._input) {
       this._input.nativeElement.setAttribute('type', this.type);
     }
@@ -132,22 +138,21 @@ export class InputComponent extends UsesFormElementDirectives implements OnInit,
    * Updates value when change detected
    * @param e Event descriptor
    */
-  public _updateValue (e) {
-    this.valueChange.emit(this.value = e.target.value);
+  public _updateValue(e) {
+    this.valueChange.emit((this.value = e.target.value));
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as input container (.form-group)
       'form-group',
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }

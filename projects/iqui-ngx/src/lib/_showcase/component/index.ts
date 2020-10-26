@@ -16,10 +16,9 @@ export { ShowcaseMenuComponent } from './components';
 @Component({
   selector: 'iqui-showcase',
   templateUrl: './index.html',
-  styleUrls: ['./style.scss']
+  styleUrls: ['./style.scss'],
 })
 export class ShowcaseComponent {
-
   /**
    * Holds pages structure and definitions
    */
@@ -31,7 +30,7 @@ export class ShowcaseComponent {
   @ContentChildren(ShowcasePagesDirective, { read: ShowcasePagesDirective })
   public _groups: QueryList<ShowcasePagesDirective>;
 
-  constructor () {
+  constructor() {
     // Get pages structure and definitions
     this._pages = getShowcasePages();
   }

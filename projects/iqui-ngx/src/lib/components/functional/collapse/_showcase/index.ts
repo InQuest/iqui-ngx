@@ -11,15 +11,13 @@ import { CodeModule } from '../../../code';
 
 // Showcase component
 @Component({
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class CollapseShowcaseComponent {
-
   // Expose modules needed to render syntax
   public modules = [FunctionalModule, BasicsModule, CodeModule];
 
   // Playground context
   public context = {};
-
 }

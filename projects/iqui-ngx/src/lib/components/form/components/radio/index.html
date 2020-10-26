@@ -1,21 +1,17 @@
-<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent"
-  [ngClass]="ngClass"  
-  [class]="_composedClassValue">
-
+<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent" [ngClass]="ngClass" [class]="_composedClassValue">
   <label>
     <ng-content></ng-content>
   </label>
 
-  <div *ngFor="let option of _optionEls"
-    class="custom-control custom-radio">
-
-    <input type="radio" class="custom-control-input"
+  <div *ngFor="let option of _optionEls" class="custom-control custom-radio">
+    <input
+      type="radio"
+      class="custom-control-input"
       [attr.disabled]="disabled || null"
-      [checked]="value === option.value" (change)="_updateValue(option.value)"
+      [checked]="value === option.value"
+      (change)="_updateValue(option.value)"
     />
 
-    <label class="custom-control-label" > {{ option.label || option.value }} </label>
-
+    <label class="custom-control-label"> {{ option.label || option.value }} </label>
   </div>
 </div>
-

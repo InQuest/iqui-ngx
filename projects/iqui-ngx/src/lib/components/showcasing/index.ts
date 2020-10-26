@@ -15,17 +15,15 @@ export { PlaygroundComponent, PlaygroundTextareaDirective };
  * Implements helpful utilities for building showcase applications
  */
 @NgModule({
-  imports: [
-    CommonModule, FormModule, CodeModule
-  ],
-  declarations: [
-    PlaygroundComponent, PlaygroundTextareaDirective
-  ],
+  imports: [CommonModule, FormModule, CodeModule],
+  declarations: [PlaygroundComponent, PlaygroundTextareaDirective],
   exports: [
     // Export dependency modules
-    FormModule, CodeModule,
+    FormModule,
+    CodeModule,
     // Export child components
-    PlaygroundComponent, PlaygroundTextareaDirective
-  ]
+    PlaygroundComponent,
+    PlaygroundTextareaDirective,
+  ],
 })
-export class ShowcasingModule { }
+export class ShowcasingModule {}

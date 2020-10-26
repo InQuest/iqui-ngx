@@ -24,17 +24,15 @@ export { SelectShowcaseComponent } from './components/select/_showcase';
 
 // IQ UI NGX Elements' Basic elements module
 @NgModule({
-  imports: [
-    CommonModule, FormModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    FormShowcaseComponent, InputShowcaseComponent, CheckboxShowcaseComponent, RadioShowcaseComponent, SelectShowcaseComponent
-  ],
+  imports: [CommonModule, FormModule, CodeModule, ShowcasingModule],
+  declarations: [FormShowcaseComponent, InputShowcaseComponent, CheckboxShowcaseComponent, RadioShowcaseComponent, SelectShowcaseComponent],
   exports: [
     // Export dependency modules
-    FormModule, CodeModule, ShowcasingModule,
+    FormModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
-    FormShowcaseComponent
-  ]
+    FormShowcaseComponent,
+  ],
 })
-export class FormShowcaseModule { }
+export class FormShowcaseModule {}

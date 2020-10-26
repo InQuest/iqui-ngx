@@ -13,7 +13,7 @@ export { GettingStartedPageComponent } from './getting-started/component';
 // Application routes
 const routes: Routes = [
   // Frontpage
-  { path: '',   component: GettingStartedPageComponent },
+  { path: '', component: GettingStartedPageComponent },
   // Component pages
   ...Page.compileRoutes(getShowcasePages(), ['iqui-ngx']),
   // Default
@@ -22,6 +22,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

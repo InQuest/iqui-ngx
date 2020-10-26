@@ -8,36 +8,31 @@ import { FormModule } from '../form';
 
 // Import components and (re)export components
 import {
-  HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTopDirective, HighlightJsInjectBottomDirective,
-  highlightJsRegisterLanguage
+  HighlightJsComponent,
+  HighlightJsTextareaDirective,
+  HighlightJsInjectTopDirective,
+  HighlightJsInjectBottomDirective,
+  highlightJsRegisterLanguage,
 } from './highlight-js';
-export {
-  HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTopDirective, HighlightJsInjectBottomDirective,
-  highlightJsRegisterLanguage
-};
+export { HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTopDirective, HighlightJsInjectBottomDirective, highlightJsRegisterLanguage };
 
 /**
  * IQ UI NGX Elements' code/syntax utilities module
  * Implements code/syntax utilities
  */
 @NgModule({
-  imports: [
-    CommonModule, BasicsModule, FormModule
-  ],
-  declarations: [
-    HighlightJsComponent,
-    HighlightJsTextareaDirective,
-    HighlightJsInjectTopDirective,
-    HighlightJsInjectBottomDirective
-  ],
+  imports: [CommonModule, BasicsModule, FormModule],
+  declarations: [HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTopDirective, HighlightJsInjectBottomDirective],
   exports: [
     // Export dependency modules
-    CommonModule, BasicsModule, FormModule,
+    CommonModule,
+    BasicsModule,
+    FormModule,
     // Export child components
     HighlightJsComponent,
     HighlightJsTextareaDirective,
     HighlightJsInjectTopDirective,
-    HighlightJsInjectBottomDirective
-  ]
+    HighlightJsInjectBottomDirective,
+  ],
 })
-export class CodeModule { }
+export class CodeModule {}

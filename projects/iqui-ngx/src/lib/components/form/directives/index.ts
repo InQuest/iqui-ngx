@@ -11,12 +11,10 @@ import { TBootstrapSize, BootstrapSize } from '../../../types';
  * through which the implementing component can pass explicit reference to outside scope parent FormElementDirectiveFormElementDirective
  */
 export interface IUsesFormElementDirectives {
-
   /**
    * Accepts explicit reference to parent FormElementDirective
    */
   iquiFormParent: FormElementDirective;
-
 }
 
 /**
@@ -25,10 +23,11 @@ export interface IUsesFormElementDirectives {
  */
 @Directive()
 export class UsesFormElementDirectives implements IUsesFormElementDirectives {
-
-  constructor (
+  constructor(
     // (Optional) Injected parent directive element
-    @Host() @SkipSelf() @Optional()
+    @Host()
+    @SkipSelf()
+    @Optional()
     public _formParent: FormElementDirective,
   ) {}
 
@@ -41,10 +40,9 @@ export class UsesFormElementDirectives implements IUsesFormElementDirectives {
   /**
    * Gets reference to explicitly passed or injected reference to outside scope parent FormElementDirectiveFormElementDirective
    */
-  public get _iquiFormParent () {
-    return (this.iquiFormParent || this._formParent);
+  public get _iquiFormParent() {
+    return this.iquiFormParent || this._formParent;
   }
-
 }
 
 /**
@@ -56,13 +54,13 @@ export class UsesFormElementDirectives implements IUsesFormElementDirectives {
  * @param bindSize  If true, will apply size value set to the directive/component or one of its parents
  * @param bindValid If true, will apply validation status set to the directive/component or one of its parents
  */
-export function FormElement ({
-  isolateId       = false,
-  className       = null as string | string[],
+export function FormElement({
+  isolateId = false,
+  className = null as string | string[],
   idAttributeName = null as string | string[],
-  bindDisabled    = false,
-  bindSize        = false,
-  bindValid       = false
+  bindDisabled = false,
+  bindSize = false,
+  bindValid = false,
 }) {
   // tslint:disable-next-line: only-arrow-functions
   return function (directiveClass) {
@@ -72,7 +70,7 @@ export function FormElement ({
       idAttributeName,
       bindDisabled,
       bindSize,
-      bindValid
+      bindValid,
     };
   };
 }
@@ -81,11 +79,10 @@ export function FormElement ({
  * Extendable Form container class
  */
 @Directive({
-  selector: 'form[iquiForm]'
+  selector: 'form[iquiForm]',
 })
 @FormElement({})
 export class FormElementDirective implements IUsesFormElementDirectives, OnInit, OnChanges, OnDestroy {
-
   //#region Static
 
   // Holds next unique ID to be used
@@ -95,12 +92,12 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
 
   //#region Constructor
 
-  constructor (
+  constructor(
     // Directive host element
     protected _el: ElementRef,
     // (Optional) Parent directive element
-    @Host() @SkipSelf() @Optional() protected _parent: FormElementDirective
-  ) { }
+    @Host() @SkipSelf() @Optional() protected _parent: FormElementDirective,
+  ) {}
 
   //#endregion
 
@@ -124,7 +121,7 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Gets @FormElement decorator's annotations
    */
-  protected get formControlAnnotation () {
+  protected get formControlAnnotation() {
     return (this.constructor as any).__formElementAnnotation;
   }
 
@@ -135,17 +132,21 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Unique ID for the parent container (if parent found)
    */
-  protected get _parentId () {
-    return (this._parent ? this._parent._id || this._parent._parentId : null);
+  protected get _parentId() {
+    return this._parent ? this._parent._id || this._parent._parentId : null;
   }
   /**
    * Unique IDs for all parent containers (if parents found)
    */
-  protected get _parentIds () {
+  protected get _parentIds() {
     const ids = [];
     let parent: FormElementDirective = this;
     // tslint:disable-next-line: no-conditional-assignment
-    do { if (parent._id) { ids.push(parent._id); } } while (parent = parent._parent);
+    do {
+      if (parent._id) {
+        ids.push(parent._id);
+      }
+    } while ((parent = parent._parent));
     return ids;
   }
 
@@ -177,11 +178,11 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Gets [disabled] binding, inherited from parent form containers
    */
-  protected get _inheritedDisabled () {
+  protected get _inheritedDisabled() {
     if (this.disabled === true || this.disabled === false) {
       return this.disabled;
     } else {
-      return (this._parent ? this._parent._inheritedDisabled : false);
+      return this._parent ? this._parent._inheritedDisabled : false;
     }
   }
 
@@ -193,8 +194,8 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Gets [size] binding, inherited from parent form containers
    */
-  protected get _inheritedSize () {
-    return (this.size || this.size === null) || (this._parent ? this._parent._inheritedSize : null);
+  protected get _inheritedSize() {
+    return this.size || this.size === null || (this._parent ? this._parent._inheritedSize : null);
   }
 
   /**
@@ -205,11 +206,11 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Gets [valid] binding, inherited from parent form containers
    */
-  protected get _inheritedValid () {
+  protected get _inheritedValid() {
     if (this.valid === null || this.valid === true || this.valid === false) {
       return this.valid;
     } else {
-      return (this._parent ? this._parent._inheritedValid : null);
+      return this._parent ? this._parent._inheritedValid : null;
     }
   }
 
@@ -217,8 +218,7 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
 
   //#region Private methods
 
-  public ngOnInit () {
-
+  public ngOnInit() {
     // Check if explicitly passed parent
     if (this.iquiFormParent) {
       this._parent = this.iquiFormParent;
@@ -235,17 +235,14 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
 
     // Apply form control modifications
     this.apply();
-
   }
 
-  public ngOnChanges () {
-
+  public ngOnChanges() {
     // Apply form control modifications
     this.apply();
-
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Unsubscribe from parent's events
     if (this._appliedSubscription) {
       this._appliedSubscription.unsubscribe();
@@ -255,22 +252,21 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   /**
    * Gets if element or any of it's parents is marked as [iqui] and needs to initialize as form container
    */
-  private get shouldInitializeBindings () {
-    return (this.iquiForm !== false) || (this._parent ? this._parent.shouldInitializeBindings : false);
+  private get shouldInitializeBindings() {
+    return this.iquiForm !== false || (this._parent ? this._parent.shouldInitializeBindings : false);
   }
 
   /**
    * Gets if element should initialize its own ID scope
    */
-  private get shouldInitializeIdScope () {
+  private get shouldInitializeIdScope() {
     return this.formControlAnnotation.isolateId && this.isolateId;
   }
 
   /**
    * Applies bindings and styling to element
    */
-  protected apply () {
-
+  protected apply() {
     // If (relative) isolateId container, set unique ID for instance
     if (this.shouldInitializeIdScope) {
       this._id = FormElementDirective._id++;
@@ -278,10 +274,9 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
 
     // Initialize if isolateId form directive, or if has isolateId as parent
     if (this.shouldInitializeBindings) {
-
       // Set ".iqui" class to allow selecting only if iqui directive applied
       // tslint:disable-next-line: max-line-length
-      this._el.nativeElement.classList.add((this.formControlAnnotation.className ? `iqui-${this.formControlAnnotation.className}` : 'iqui'));
+      this._el.nativeElement.classList.add(this.formControlAnnotation.className ? `iqui-${this.formControlAnnotation.className}` : 'iqui');
 
       // Set base class
       if (this.formControlAnnotation.className) {
@@ -290,11 +285,11 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
 
       // Inherit common container ID to be referenced by any labels
       if (this.formControlAnnotation.idAttributeName) {
-        const parentId        = this._parentId,
-              idAttributeName = this.formControlAnnotation.idAttributeName;
+        const parentId = this._parentId,
+          idAttributeName = this.formControlAnnotation.idAttributeName;
         if (parentId) {
-          for (const id of (idAttributeName instanceof Array ? idAttributeName : [ idAttributeName ])) {
-            this._el.nativeElement.setAttribute(id, `unique-id-${ parentId }`);
+          for (const id of idAttributeName instanceof Array ? idAttributeName : [idAttributeName]) {
+            this._el.nativeElement.setAttribute(id, `unique-id-${parentId}`);
           }
         }
       }
@@ -307,7 +302,7 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
       // Inherit size from parent container
       if (this.formControlAnnotation.bindSize) {
         const className = this.formControlAnnotation.className;
-        for (const name of (className instanceof Array ? className : [ className ])) {
+        for (const name of className instanceof Array ? className : [className]) {
           // Remove existing sizes
           for (const size of Object.values(BootstrapSize)) {
             this._el.nativeElement.classList.remove(`${name}-${size}`);
@@ -315,7 +310,7 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
           // Set size
           const inheritedSize = this._inheritedSize;
           if (inheritedSize) {
-            this._el.nativeElement.classList.add(`${name}-${ inheritedSize }`);
+            this._el.nativeElement.classList.add(`${name}-${inheritedSize}`);
           }
         }
       }
@@ -331,14 +326,11 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
           this._el.nativeElement.classList.add(inheritedValidation ? 'is-valid' : 'is-invalid');
         }
       }
-
     }
 
     // Trigger "applied" event
     this._applied.emit();
-
   }
 
   //#endregion
-
 }

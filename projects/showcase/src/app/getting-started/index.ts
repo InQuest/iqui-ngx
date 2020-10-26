@@ -13,14 +13,8 @@ import { GettingStartedPageComponent } from './component';
 
 // IQ UI NGX Elements' Functional elements module
 @NgModule({
-  imports: [
-    CommonModule, CodeModule
-  ],
-  declarations: [
-    GettingStartedPageComponent
-  ],
-  exports: [
-    GettingStartedPageComponent
-  ]
+  imports: [CommonModule, CodeModule],
+  declarations: [GettingStartedPageComponent],
+  exports: [GettingStartedPageComponent],
 })
-export class GettingStartedPageModule { }
+export class GettingStartedPageModule {}

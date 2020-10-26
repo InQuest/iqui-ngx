@@ -5,8 +5,14 @@
 import { Component, HostBinding, Input, ContentChild, ViewChild } from '@angular/core';
 import { UsesFormElementDirectives } from '../../form';
 import { ButtonComponentTheme, TButtonComponentTheme, ButtonComponentSize, TButtonComponentSize } from '../button';
-import { DropdownRelativePositioning, TDropdownRelativePositioning,
-         DropdownDirective, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../../functional/dropdown';
+import {
+  DropdownRelativePositioning,
+  TDropdownRelativePositioning,
+  DropdownDirective,
+  DropdownHeaderDirective,
+  DropdownBodyDirective,
+  DropdownFooterDirective,
+} from '../../functional/dropdown';
 
 // Define and export enums and types
 /*
@@ -14,7 +20,7 @@ import { DropdownRelativePositioning, TDropdownRelativePositioning,
  */
 // tslint:disable-next-line: variable-name
 export const DropdownButtonComponentTheme: Record<string, TDropdownButtonComponentTheme> = {
-  ...ButtonComponentTheme
+  ...ButtonComponentTheme,
 };
 /*
  * Dropdown button's bootstrap theme colors type
@@ -25,7 +31,7 @@ export type TDropdownButtonComponentTheme = TButtonComponentTheme;
  */
 // tslint:disable-next-line: variable-name
 export const DropdownButtonComponentSize: Record<string, TDropdownButtonComponentSize> = {
-  ...ButtonComponentSize
+  ...ButtonComponentSize,
 };
 /*
  * Dropdown button's bootstrap theme size type
@@ -36,7 +42,7 @@ export type TDropdownButtonComponentSize = TButtonComponentSize;
  */
 // tslint:disable-next-line: variable-name
 export const DropdownButtonComponentRelativePositioning: Record<string, TDropdownButtonComponentRelativePositioning> = {
-  ...DropdownRelativePositioning
+  ...DropdownRelativePositioning,
 };
 /*
  * Dropdown button's preferred positions type
@@ -78,12 +84,11 @@ export type TDropdownButtonComponentRelativePositioning = TDropdownRelativePosit
  *
  */
 @Component({
-  selector:     'iqui-dropdown-button',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-dropdown-button',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class DropdownButtonComponent extends UsesFormElementDirectives {
-
   /**
    * [disabled] binding
    */
@@ -96,8 +101,13 @@ export class DropdownButtonComponent extends UsesFormElementDirectives {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -105,8 +115,13 @@ export class DropdownButtonComponent extends UsesFormElementDirectives {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
   /**
    * Bootstrap theme color to be used by the component
    */
@@ -165,10 +180,9 @@ export class DropdownButtonComponent extends UsesFormElementDirectives {
   /**
    * Toggle (if required) drop-down on button clicked
    */
-  public _onButtonClicked () {
+  public _onButtonClicked() {
     if (this.toggleOnButtonClick) {
       this._dropdownRef.toggle();
     }
   }
-
 }

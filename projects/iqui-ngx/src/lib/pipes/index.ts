@@ -18,20 +18,8 @@ export { SortPipe } from './Sort';
  * Implements commonly used pipes
  */
 @NgModule({
-  imports: [
-    CommonModule, OverlayModule
-  ],
-  declarations: [
-    FilterPipe,
-    PaginatePipe,
-    SlicePipe,
-    SortPipe
-  ],
-  exports: [
-    FilterPipe,
-    PaginatePipe,
-    SlicePipe,
-    SortPipe
-  ]
+  imports: [CommonModule, OverlayModule],
+  declarations: [FilterPipe, PaginatePipe, SlicePipe, SortPipe],
+  exports: [FilterPipe, PaginatePipe, SlicePipe, SortPipe],
 })
-export class PipesModule { }
+export class PipesModule {}
