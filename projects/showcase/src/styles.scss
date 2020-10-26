@@ -1,17 +1,16 @@
 // Bootstrap style imports
-@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 // Bootstrap theme import
 // FIXME: For now requires manual edit to ./node_modules/startbootstrap-sb-admin/scss/sb-admin.scss
 // ... commenting out line 5 `@import "../vendor/bootstrap/scss/bootstrap.scss";` to prevent from using local bootstrap
-@import "../../../node_modules/startbootstrap-sb-admin/scss/sb-admin";
+@import '../../../node_modules/startbootstrap-sb-admin/scss/sb-admin';
 // Import angular CDK structural styling
 @import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
-@import '../../../node_modules/@angular/cdk/text-field/text-field'; 
+@import '../../../node_modules/@angular/cdk/text-field/text-field';
 @include cdk-text-field();
 
 // Import highlight.js theme
 @import '../../../node_modules/highlight.js/styles/default.css';
-
 
 // ----------------------------------------------------------------
 
@@ -20,7 +19,6 @@
 @import './styles/iqui-ngx/components/styles.scss';
 
 // ----------------------------------------------------------------
-
 
 // Global styling
 * {
@@ -39,8 +37,6 @@
     color: green;
   }
 }
-
-
 
 // General cards hierarchy styling
 .card {

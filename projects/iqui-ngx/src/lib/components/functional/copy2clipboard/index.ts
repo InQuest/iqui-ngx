@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ClipboardService } from '../../../services';
 
 /**
@@ -19,23 +19,24 @@ import { ClipboardService } from '../../../services';
   selector: '[iquiCopy2Clipboard]',
 })
 export class Copy2ClipboardDirective {
-
   /**
    * Holds (optional) explicitly set value to copy
    */
   @Input('iquiCopy2Clipboard')
   public value = undefined as string;
 
-  constructor (
-    private _el: ElementRef,
-    private _clipboard: ClipboardService
-  ) {
+  /**
+   * Fires when a value is copied onto the clipboard
+   */
+  @Output()
+  public copied = new EventEmitter<any>();
 
+  constructor(private _el: ElementRef, private _clipboard: ClipboardService) {
     // Set element class
     this._el.nativeElement.classList.add('iqui-copy-2-clipboard');
 
     // Monitor element for click events
-    this._el.nativeElement.addEventListener('click', (e) => {
+    this._el.nativeElement.addEventListener('click', e => {
       // Check if has explicitly set value
       if (this.value) {
         // Copy explicitly set value
@@ -52,14 +53,14 @@ export class Copy2ClipboardDirective {
       }
       // Mark element as copied
       this._el.nativeElement.classList.add('iqui-copy-2-clipboard-copied');
+      // Fire event
+      this.copied.emit();
     });
 
     // Monitor element for click events
-    this._el.nativeElement.addEventListener('mouseout', (e) => {
+    this._el.nativeElement.addEventListener('mouseout', e => {
       // Un-mark element as copied
       this._el.nativeElement.classList.remove('iqui-copy-2-clipboard-copied');
     });
-
   }
-
 }

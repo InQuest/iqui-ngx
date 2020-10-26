@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Component, HostBinding, Input, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
-import { OptionDirective } from '../option'
+import { OptionDirective } from '../option';
 import { UsesFormElementDirectives } from '../../directives';
 
 /**
@@ -25,12 +25,11 @@ import { UsesFormElementDirectives } from '../../directives';
  *
  */
 @Component({
-  selector:     'iqui-radio',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-radio',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class RadioComponent extends UsesFormElementDirectives {
-
   /**
    * [disabled] binding
    */
@@ -43,8 +42,13 @@ export class RadioComponent extends UsesFormElementDirectives {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -52,9 +56,13 @@ export class RadioComponent extends UsesFormElementDirectives {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
-
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * [(value)] two-way binding
@@ -74,22 +82,21 @@ export class RadioComponent extends UsesFormElementDirectives {
    * Updates value when change detected
    * @param value Updated value
    */
-  public _updateValue (value) {
-    this.valueChange.emit(this.value = value);
+  public _updateValue(value) {
+    this.valueChange.emit((this.value = value));
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as radio container (.form-group)
       'form-group',
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }

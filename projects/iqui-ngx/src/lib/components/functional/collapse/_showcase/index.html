@@ -1,0 +1,65 @@
+<!-- Intro -->
+<h5>Collapse Directive</h5>
+Expands/Collapses a target element
+
+<!-- Demo -->
+<iqui-playground class="mt-5" [title]="'Demo'" [modules]="modules" [context]="context">
+  <textarea>
+
+    <iqui-button class="m-1" iquiCollapse
+      [toggleTarget]="one" [toggleOnEvent]="['click', 'keypress']">
+      Toggle #1 by element reference
+    </iqui-button>
+
+    <iqui-button class="m-1" iquiCollapse
+      [toggleTarget]="'.two'" [toggleOnEvent]="['click', 'keypress']">
+      Toggle #2 by CSS selector
+    </iqui-button>
+
+    <iqui-button class="m-1" iquiCollapse
+      [toggleTarget]="[one, two]" [showOnEvent]="['focusin']" [hideOnEvent]="['focusout']">
+      Show/Hide #1 & #2 on Focus
+    </iqui-button>
+
+    <iqui-button class="m-1" iquiCollapse
+      [toggleTarget]="[one, two]" [showOnEvent]="['mouseover']" [hideOnEvent]="['mouseout']">
+      Show/Hide #1 & #2 on Hover
+    </iqui-button>
+
+    <div #one class="m-1 card one">
+      <div class="card-body"> I am ONE! </div>
+    </div>
+    <div #two class="m-1 card two">
+      <div class="card-body"> I am TWO! </div>
+    </div>
+
+    <br /><br />
+
+    <iqui-button class="m-1" iquiCollapse
+      [showTarget]="first" [showOnEvent]="['click', 'keypress']"
+      [hideTarget]="'.accordion'" [hideOnEvent]="['click', 'keypress']">
+      First
+    </iqui-button>
+    <iqui-button class="m-1" iquiCollapse
+      [showTarget]="second" [showOnEvent]="['click', 'keypress']"
+      [hideTarget]="'.accordion'" [hideOnEvent]="['click', 'keypress']">
+      Second
+    </iqui-button>
+    <iqui-button class="m-1" iquiCollapse
+      [showTarget]="third" [showOnEvent]="['click', 'keypress']"
+      [hideTarget]="'.accordion'" [hideOnEvent]="['click', 'keypress']">
+      Third 
+    </iqui-button>
+
+    <div #first class="m-1 card accordion">
+      <div class="card-body"> I am FIRST! </div>
+    </div>
+    <div #second class="m-1 card accordion">
+      <div class="card-body"> I am SECOND! </div>
+    </div>
+    <div #third class="m-1 card accordion">
+      <div class="card-body"> I am THIRD! </div>
+    </div>
+
+  </textarea>
+</iqui-playground>

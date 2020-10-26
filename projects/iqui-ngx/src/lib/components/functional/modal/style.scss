@@ -1,7 +1,7 @@
 ::ng-deep {
   .modal-backdrop + .cdk-global-overlay-wrapper,
   .modal-backdrop + .cdk-global-overlay-wrapper > .iqui-modal-container {
-    z-index: unset !important;    
+    z-index: unset !important;
   }
 
   .modal-backdrop:not(.modal-visible) {
@@ -16,5 +16,4 @@
     display: block;
     opacity: 1;
   }
-
 }

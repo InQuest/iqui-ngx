@@ -19,19 +19,19 @@ import { ModelEventDispatcher, ModalCloseRequestedReason } from '../';
  */
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: `.modal-dialog`
+  selector: `.modal-dialog`,
 })
 export class ModalDialogDirective implements OnInit, OnDestroy {
-  constructor (private _element: ElementRef, private _dispatcher: ModelEventDispatcher) {}
+  constructor(private _element: ElementRef, private _dispatcher: ModelEventDispatcher) {}
 
-  public ngOnInit () {
+  public ngOnInit() {
     // Capture in-modal "keydown" event
     this._element.nativeElement.addEventListener('keydown', this.handleKeyDown.bind(this));
     // Capture body "keydown" event
     document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Unsubscribe body "keydown" event
     document.body.removeEventListener('keydown', this.handleKeyDown);
   }
@@ -39,10 +39,9 @@ export class ModalDialogDirective implements OnInit, OnDestroy {
   /**
    * Handles "keydown" event
    */
-  private handleKeyDown (e) {
+  private handleKeyDown(e) {
     if (e.keyCode === 27) {
       this._dispatcher.modalCloseRequested.emit(ModalCloseRequestedReason.EscapePressed);
     }
   }
-
 }

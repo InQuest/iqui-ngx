@@ -21,12 +21,11 @@ import { UsesFormElementDirectives } from '../../directives';
  *
  */
 @Component({
-  selector:     'iqui-checkbox',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-checkbox',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class CheckboxComponent extends UsesFormElementDirectives {
-
   /**
    * [disabled] binding
    */
@@ -39,8 +38,13 @@ export class CheckboxComponent extends UsesFormElementDirectives {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -48,8 +52,13 @@ export class CheckboxComponent extends UsesFormElementDirectives {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * [(value)] two-way binding
@@ -63,23 +72,22 @@ export class CheckboxComponent extends UsesFormElementDirectives {
    * Updates value when change detected
    * @param e Event descriptor
    */
-  public _updateValue (e) {
-    this.valueChange.emit(this.value = e.target.checked);
+  public _updateValue(e) {
+    this.valueChange.emit((this.value = e.target.checked));
   }
 
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as checkbox container (.form-check)
       'form-group',
       'form-check',
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }

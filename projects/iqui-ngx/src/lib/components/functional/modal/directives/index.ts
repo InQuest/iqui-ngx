@@ -9,7 +9,7 @@ import { Injectable, EventEmitter } from '@angular/core';
  */
 export enum ModalCloseRequestedReason {
   OverlayClicked,
-  EscapePressed
+  EscapePressed,
 }
 
 /**
@@ -24,10 +24,8 @@ export enum ModalCloseRequestedReason {
  */
 @Injectable()
 export class ModelEventDispatcher {
-
   /**
    * Modal close requested event
    */
   public modalCloseRequested = new EventEmitter();
-
 }

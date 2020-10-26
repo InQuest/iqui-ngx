@@ -20,7 +20,7 @@ import { FormElement, FormElementDirective } from '../';
              input[type="button"],
              input[type="submit"],
              input[type="reset"]`,
-  providers: [{ provide: FormElementDirective, useExisting: ButtonDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: ButtonDirective }],
 })
 @FormElement({ className: 'btn', bindDisabled: true, bindSize: true })
 export class ButtonDirective extends FormElementDirective {}

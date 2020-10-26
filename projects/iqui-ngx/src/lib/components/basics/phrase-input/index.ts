@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { interval  } from 'rxjs';
+import { interval } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
@@ -22,25 +22,23 @@ import { Phrase } from '../../../data';
  *
  */
 @Component({
-  selector:     'iqui-phrase-input',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-phrase-input',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class PhraseInputComponent implements OnChanges {
-
   /**
    * Internal, pre-debounced, change event
    */
-  private _phraseChange = (new EventEmitter<string|Phrase>());
+  private _phraseChange = new EventEmitter<string | Phrase>();
 
   /**
    * Two-way bound phrase being edited
    */
   @Input()
-  public phrase: string|Phrase = new Phrase();
+  public phrase: string | Phrase = new Phrase();
   @Output()
-  public phraseChange = this._phraseChange
-    .pipe(debounce(() => interval(this.debounce)));
+  public phraseChange = this._phraseChange.pipe(debounce(() => interval(this.debounce)));
 
   /**
    * Change event debounce interval (in [ms])
@@ -58,30 +56,32 @@ export class PhraseInputComponent implements OnChanges {
    * Array of pre-composed presets on offer
    */
   @Input()
-  public presets: string[]|Phrase[];
+  public presets: string[] | Phrase[];
 
   /**
    * Internal phrase being edited
    */
   public _phrase = new Phrase();
 
-  public ngOnChanges () {
+  public ngOnChanges() {
     // Ingest set phrase
     if (this.phrase && this.phrase instanceof Phrase) {
-      this._phrase = Phrase.clone(this.phrase);
+      // Check if phrases have different values
+      if (this._phrase.toString() !== this.phrase.toString()) {
+        // Update phrase
+        this._phrase = this.phrase;
+      }
     } else if (this.phrase && typeof this.phrase === 'string') {
+      // Update phrase
       this._phrase = Phrase.parse(this.phrase);
     }
-    // Trigger update
-    this._triggerUpdate();
   }
-
 
   /**
    * Updates a phrase after being edited
    * @param value Edited value
    */
-  public _valueChanged (value) {
+  public _valueChanged(value) {
     // Update value if value provided
     if (value !== undefined) {
       this._phrase.value = value;
@@ -92,7 +92,7 @@ export class PhraseInputComponent implements OnChanges {
   /**
    * Clears editing phrase
    */
-  public _clearPhrase () {
+  public _clearPhrase() {
     // Clear phrase
     this._phrase.value = '';
     // Trigger update
@@ -101,7 +101,7 @@ export class PhraseInputComponent implements OnChanges {
   /**
    * Toggles phrase's case sensitivity
    */
-  public _togglePhraseCaseSensitivity () {
+  public _togglePhraseCaseSensitivity() {
     // Toggle case sensitivity
     this._phrase.isCaseSensitive = !this._phrase.isCaseSensitive;
     // Trigger update
@@ -110,7 +110,7 @@ export class PhraseInputComponent implements OnChanges {
   /**
    * Toggles ig phrase is a reg-exp
    */
-  public _togglePhraseRegExp () {
+  public _togglePhraseRegExp() {
     // Toggle reg-exp
     this._phrase.isRegExp = !this._phrase.isRegExp;
     // Trigger update
@@ -120,13 +120,12 @@ export class PhraseInputComponent implements OnChanges {
   /**
    * Triggers phrase update event
    */
-  public _triggerUpdate () {
+  public _triggerUpdate() {
     // Trigger update event
     if (this.phrase && this.phrase instanceof Phrase) {
-      this._phraseChange.emit(Phrase.clone(this._phrase))
+      this._phraseChange.emit(Phrase.clone(this._phrase));
     } else if (this.phrase && typeof this.phrase === 'string') {
       this._phraseChange.emit(Phrase.stringify(this._phrase));
     }
   }
-
 }

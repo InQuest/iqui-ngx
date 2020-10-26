@@ -1,20 +1,15 @@
+// Import dependencies
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
+// Import showcase module
 import { IqUiNgxModule } from '../../../iqui-ngx/src/public-api';
-import { AppRoutingModule } from './app-routing.module';
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { GettingStartedPageModule } from './pages/howto/getting-started';
-import { DataShowcaseModule } from './pages/documentation/data';
-import { PipesShowcaseModule } from './pages/documentation/pipes';
-import { FunctionalShowcaseModule } from './pages/documentation/functional';
-import { BasicsShowcaseModule } from './pages/documentation/basics';
-import { FormShowcaseModule } from './pages/documentation/form';
-import { CodeShowcaseModule } from './pages/documentation/code';
-import { ShowcasingShowcaseModule } from './pages/documentation/showcase';
 
+// Import ašš and pages
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GettingStartedPageModule } from './getting-started';
 
 @NgModule({
   imports: [
@@ -22,24 +17,12 @@ import { AppComponent } from './app.component';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    // Menu modules
-    CdkTreeModule,
-    // IqUI Library module
-    IqUiNgxModule,
-    // Showcase modules
+    // IQUI module and pages
     GettingStartedPageModule,
-    DataShowcaseModule,
-    PipesShowcaseModule,
-    FunctionalShowcaseModule,
-    BasicsShowcaseModule,
-    FormShowcaseModule,
-    CodeShowcaseModule,
-    ShowcasingShowcaseModule
+    IqUiNgxModule,
   ],
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

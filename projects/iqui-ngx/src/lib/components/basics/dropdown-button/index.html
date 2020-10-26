@@ -1,16 +1,19 @@
 <!-- Button -->
-<iqui-button [iquiFormParent]="_iquiFormParent"
-             [disabled]="disabled"
-             [ngClass]="ngClass" [class]="class"
-             [theme]="theme" [size]="size"
-             #dropdown
-             iquiDropdown
-             [iquiDropdownPosition]="position"
-             [iquiDropdownShowOnFocus]="showOnFocus"
-             [iquiDropdownShowOnHover]="showOnHover"
-             [iquiDropdownStayInViewport]="stayInViewport"
-             (click)="_onButtonClicked()">
-
+<iqui-button
+  [iquiFormParent]="_iquiFormParent"
+  [disabled]="disabled"
+  [ngClass]="ngClass"
+  [class]="class"
+  [theme]="theme"
+  [size]="size"
+  #dropdown
+  iquiDropdown
+  [iquiDropdownPosition]="position"
+  [iquiDropdownShowOnFocus]="showOnFocus"
+  [iquiDropdownShowOnHover]="showOnHover"
+  [iquiDropdownStayInViewport]="stayInViewport"
+  (click)="_onButtonClicked()"
+>
   <!-- Button content -->
   <ng-content></ng-content>
 
@@ -24,5 +27,4 @@
   <ng-container *iquiDropdownFooter="let close">
     <ng-container *ngTemplateOutlet="footer?.template, context: { $implicit: close }"></ng-container>
   </ng-container>
-
 </iqui-button>

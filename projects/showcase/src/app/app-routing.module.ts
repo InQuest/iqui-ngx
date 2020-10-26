@@ -4,22 +4,24 @@
 // Import dependencies
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { Page, getShowcasePages } from '../../../iqui-ngx/src/public-api';
 
-import { GettingStartedPageComponent } from './pages/howto/getting-started/component';
-import { Page, pages } from './app-pages';
+// Import pages
+import { GettingStartedPageComponent } from './getting-started/component';
+export { GettingStartedPageComponent } from './getting-started/component';
 
 // Application routes
 const routes: Routes = [
   // Frontpage
-  { path: '',   component: GettingStartedPageComponent },
+  { path: '', component: GettingStartedPageComponent },
   // Component pages
-  ...Page.compileRoutes(pages),
+  ...Page.compileRoutes(getShowcasePages(), ['iqui-ngx']),
   // Default
   { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,56 @@
+<!-- Intro -->
+<h5>Basic Input Element</h5>
+Displays an input element.
+
+<!-- Styling -->
+<div class="card mt-3">
+  <div class="card-header">Styling</div>
+  <div class="p-3">
+    <iqui-highlightjs [languages]="['scss']">
+      <textarea>
+        // Resizable textarea width adjustment (needs to subtract left and right padding and border from 100% width)
+        textarea.iqui-resizable-textarea {
+          width: calc(100% - 24px - 2px);
+        }
+      </textarea>
+    </iqui-highlightjs>
+  </div>
+</div>
+
+<!-- Demo: Standalone -->
+<iqui-playground class="mt-5" [title]="'Demo: Standalone'" [modules]="modules" [context]="context">
+  <textarea ngNonBindable>
+
+    <iqui-input
+      [(value)]="  context.Value"
+      [disabled]=" context.Disabled"
+      [class]="    context.Class"
+      [ngClass]="  context.NgClass"
+      [type]="     context.Type"
+      [resize]="   context.Resize"
+      [resizeMin]="context.ResizeMin"
+      [resizeMax]="context.ResizeMax">
+
+      {{ context.Label }}
+
+    </iqui-input>
+
+  </textarea>
+</iqui-playground>
+
+<!-- Demo: for[iquiForm] -->
+<iqui-playground class="mt-5" [title]="'Demo: Plays nice with &lt;form [iquiForm] /&gt;'" [modules]="modules" [context]="contextForm">
+  <textarea ngNonBindable>
+
+    <form
+      iquiForm
+      [disabled]="context.FormDisabled"
+      [size]="    context.FormSize"
+      [valid]="   context.FormValid">
+
+      <iqui-input> Label text </iqui-input>
+
+    </form>
+
+  </textarea>
+</iqui-playground>

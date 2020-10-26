@@ -1,0 +1,19 @@
+::ng-deep {
+  .cdk-global-overlay-wrapper,
+  .cdk-global-overlay-wrapper > .iqui-toast-container {
+    z-index: unset !important;
+  }
+
+  .cdk-global-overlay-wrapper > .iqui-toast-container:not(.toast-visible) {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  .cdk-global-overlay-wrapper > .iqui-toast-container:not(.toast-visible) > * {
+    display: none;
+  }
+  .cdk-global-overlay-wrapper > .iqui-toast-container.toast-visible > * {
+    display: block;
+    opacity: 1;
+  }
+}

@@ -13,7 +13,7 @@ import { BootstrapTheme, TBootstrapTheme, BootstrapSize, TBootstrapSize } from '
 // tslint:disable-next-line: variable-name
 export const ButtonComponentTheme: Record<string, TButtonComponentTheme> = {
   ...BootstrapTheme,
-  LINK: 'link'
+  LINK: 'link',
 };
 /*
  * Button's bootstrap theme colors type
@@ -24,7 +24,7 @@ export type TButtonComponentTheme = TBootstrapTheme | 'link';
  */
 // tslint:disable-next-line: variable-name
 export const ButtonComponentSize: Record<string, TButtonComponentSize> = {
-  ...BootstrapSize
+  ...BootstrapSize,
 };
 /*
  * Button's bootstrap theme size type
@@ -50,12 +50,11 @@ export type TButtonComponentSize = TBootstrapSize;
  *
  */
 @Component({
-  selector:     'iqui-button',
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  selector: 'iqui-button',
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class ButtonComponent extends UsesFormElementDirectives {
-
   /**
    * [disabled] binding
    */
@@ -68,8 +67,13 @@ export class ButtonComponent extends UsesFormElementDirectives {
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -77,8 +81,13 @@ export class ButtonComponent extends UsesFormElementDirectives {
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
   /**
    * Bootstrap theme color to be used by the component
    */
@@ -103,19 +112,18 @@ export class ButtonComponent extends UsesFormElementDirectives {
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as button (.btn)
       'btn',
       // Mark size (.btn-sm)
-      (this.size ? 'btn-' + this.size : null),
+      this.size ? 'btn-' + this.size : null,
       // Mark theme color (.btn-primary, .btn-link, etc ...)
-      ('btn-' + (this.theme || (!this.href ? 'secondary' : 'link'))),
+      'btn-' + (this.theme || (!this.href ? 'secondary' : 'link')),
       // Mark as disabled, if disabled (.disabled)
-      (this.disabled ? 'disabled' : null),
+      this.disabled ? 'disabled' : null,
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }
