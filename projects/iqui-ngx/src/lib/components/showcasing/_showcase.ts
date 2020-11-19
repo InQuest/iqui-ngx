@@ -15,17 +15,14 @@ export { PlaygroundShowcaseComponent } from './playground/_showcase';
 
 // IQ UI NGX Elements' Showcasing module
 @NgModule({
-  imports: [
-    CommonModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    PlaygroundShowcaseComponent
-  ],
+  imports: [CommonModule, CodeModule, ShowcasingModule],
+  declarations: [PlaygroundShowcaseComponent],
   exports: [
     // Export dependency modules
-    CodeModule, ShowcasingModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
-    PlaygroundShowcaseComponent
-  ]
+    PlaygroundShowcaseComponent,
+  ],
 })
-export class ShowcasingShowcaseModule { }
+export class ShowcasingShowcaseModule {}

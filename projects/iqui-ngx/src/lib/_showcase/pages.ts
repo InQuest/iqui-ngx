@@ -11,13 +11,13 @@ import { TooltipShowcaseComponent } from '../components/functional/_showcase';
 import { DropdownDirective } from '../components/functional';
 import { DropdownShowcaseComponent } from '../components/functional/_showcase';
 import { ModalComponent } from '../components/functional';
-import { ModalShowcaseComponent	 } from '../components/functional/_showcase';
+import { ModalShowcaseComponent } from '../components/functional/_showcase';
 import { ToastComponent } from '../components/functional';
-import { ToastShowcaseComponent	 } from '../components/functional/_showcase';
+import { ToastShowcaseComponent } from '../components/functional/_showcase';
 import { BookmarkableDirective } from '../components/functional';
-import { BookmarkableShowcaseComponent	 } from '../components/functional/_showcase';
+import { BookmarkableShowcaseComponent } from '../components/functional/_showcase';
 import { CollapseDirective } from '../components/functional';
-import { CollapseShowcaseComponent	 } from '../components/functional/_showcase';
+import { CollapseShowcaseComponent } from '../components/functional/_showcase';
 import { ButtonComponent } from '../components/basics';
 import { ButtonShowcaseComponent } from '../components/basics/_showcase';
 import { DropdownButtonComponent } from '../components/basics';
@@ -61,10 +61,9 @@ export { Page };
 
 // Compose pages structure
 const pages = [
-  new Page ('controls', 'Controls', 'Components and Directives', null, [
-
-    new Page ('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components', null, [
-      new Page ('functional', 'Functional', 'Directives and Components providing basic, reusable functionality', null, [
+  new Page('controls', 'Controls', 'Components and Directives', null, [
+    new Page('primitives', 'Primitive controls', 'Primitive building blocks for building up other more complex components', null, [
+      new Page('functional', 'Functional', 'Directives and Components providing basic, reusable functionality', null, [
         Page.fromClass(DeclareDirective, DeclareShowcaseComponent),
         Page.fromClass(Copy2ClipboardDirective, Copy2ClipboardShowcaseComponent),
         Page.fromClass(TooltipDirective, TooltipShowcaseComponent),
@@ -72,53 +71,52 @@ const pages = [
         Page.fromClass(CollapseDirective, CollapseShowcaseComponent),
         Page.fromClass(ModalComponent, ModalShowcaseComponent),
         Page.fromClass(ToastComponent, ToastShowcaseComponent),
-        Page.fromClass(BookmarkableDirective, BookmarkableShowcaseComponent)
+        Page.fromClass(BookmarkableDirective, BookmarkableShowcaseComponent),
       ]),
-      new Page ('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements', null, [
+      new Page('form', 'Forms', 'Extension of HTML <form /> and related HTML child elements', null, [
         Page.fromClass(FormDirective, FormShowcaseComponent),
         Page.fromClass(InputComponent, InputShowcaseComponent),
         Page.fromClass(CheckboxComponent, CheckboxShowcaseComponent),
         Page.fromClass(RadioComponent, RadioShowcaseComponent),
-        Page.fromClass(SelectComponent, SelectShowcaseComponent)
+        Page.fromClass(SelectComponent, SelectShowcaseComponent),
       ]),
     ]),
 
-    new Page ('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality', null, [
-      new Page ('basics', 'Basic controls', 'Simpler composite controls', null, [
+    new Page('composite', 'Composite controls', 'Composite controls, built up from primitives, implement complex functionality', null, [
+      new Page('basics', 'Basic controls', 'Simpler composite controls', null, [
         Page.fromClass(ButtonComponent, ButtonShowcaseComponent),
         Page.fromClass(DropdownButtonComponent, DropdownButtonShowcaseComponent),
-        Page.fromClass(PhraseInputComponent, PhraseInputShowcaseComponent)
-      ])
+        Page.fromClass(PhraseInputComponent, PhraseInputShowcaseComponent),
+      ]),
     ]),
 
-    new Page ('code', 'Code', 'Components used for visualizing code and code syntax.', null, [
-      Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent)
+    new Page('code', 'Code', 'Components used for visualizing code and code syntax.', null, [
+      Page.fromClass(HighlightJsComponent, HighlightJsShowcaseComponent),
     ]),
 
-    new Page ('showcase', 'Showcasing', 'Components and services used for quickly building "showcase" apps.', null, [
-      Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent)
+    new Page('showcase', 'Showcasing', 'Components and services used for quickly building "showcase" apps.', null, [
+      Page.fromClass(PlaygroundComponent, PlaygroundShowcaseComponent),
     ]),
-
   ]),
 
-  new Page ('pipes', 'Pipes', 'Pipes', null, [
+  new Page('pipes', 'Pipes', 'Pipes', null, [
     Page.fromClass(FilterPipe, FilterShowcaseComponent),
     Page.fromClass(SortPipe, SortShowcaseComponent),
     Page.fromClass(PaginatePipe, PaginateShowcaseComponent),
-    Page.fromClass(SlicePipe, SliceShowcaseComponent)
+    Page.fromClass(SlicePipe, SliceShowcaseComponent),
   ]),
 
-  new Page ('data', 'Data Classes', 'Data classes', null, [
+  new Page('data', 'Data Classes', 'Data classes', null, [
     Page.fromClass(Page, PageServiceShowcaseComponent),
     Page.fromClass(Phrase, PhraseShowcaseComponent),
-    Page.fromClass(Pagination, PaginationShowcaseComponent)
+    Page.fromClass(Pagination, PaginationShowcaseComponent),
   ]),
 ];
 
 /**
  * Composes showcase pages structure and definitions
  */
-export function getShowcasePages (): Page[] {
+export function getShowcasePages(): Page[] {
   // Return pages structure
   return pages;
 }

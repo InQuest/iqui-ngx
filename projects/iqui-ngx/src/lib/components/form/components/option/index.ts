@@ -9,10 +9,9 @@ import { Directive, Input } from '@angular/core';
  */
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: 'iqui-option'
+  selector: 'iqui-option',
 })
 export class OptionDirective {
-
   /**
    * Option value
    */
@@ -24,5 +23,4 @@ export class OptionDirective {
    */
   @Input()
   public label: string;
-
 }

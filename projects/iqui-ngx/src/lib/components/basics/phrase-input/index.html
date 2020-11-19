@@ -1,27 +1,32 @@
 <div class="input-group actions">
   <!-- Input -->
-  <input type="text" [class]="'form-control' + (presets && presets.length ? ' has-dropdown' : '')"
-        [placeholder]="placeholder || ''"
-        [value]="_phrase.value || ''"
-        (input)="_valueChanged($event.target.value)" />
+  <input
+    type="text"
+    [class]="'form-control'"
+    [placeholder]="placeholder || ''"
+    [value]="_phrase.value || ''"
+    (input)="_valueChanged($event.target.value)"
+  />
+  
   <!-- Actions -->
-
-  <!--<span [class]="'actions d-flex align-items-center' + (presets && presets.length ? ' has-dropdown' : '')">-->
   <a *ngIf="_phrase.value"
     href="javascript:void(0)" class="btn border border-gray clear-filter" title="Clear"
     (click)="_clearPhrase()">
     <div #clearButtonContent><ng-content select="[iqui-phrase-input-button-clear]"></ng-content></div>
     <ng-container *ngIf="!clearButtonContent.childNodes.length">[x]</ng-container>
   </a>
-  <a href="javascript:void(0)" [class]="'btn border border-gray toggle-case' + (_phrase.isCaseSensitive ? ' selected' : '')" title="Match Case"
-    (click)="_togglePhraseCaseSensitivity()">
+  <a
+    href="javascript:void(0)" [class]="'btn border border-gray toggle-case' + (_phrase.isCaseSensitive ? ' selected' : '')" title="Match Case"
+    (click)="_togglePhraseCaseSensitivity()"
+  >
     <div #caseButtonContent><ng-content select="[iqui-phrase-input-button-case]"></ng-content></div>
     <ng-container *ngIf="!caseButtonContent.childNodes.length">[Aa]</ng-container>
   </a>
   <a href="javascript:void(0)" [class]="'btn border border-gray toggle-regexp' + (_phrase.isRegExp ? ' selected' : '')" title="Use Regular Expression"
-    (click)="_togglePhraseRegExp()">
+    (click)="_togglePhraseRegExp()"
+  >
     <div #regexpButtonContent><ng-content select="[iqui-phrase-input-button-regexp]"></ng-content></div>
     <ng-container *ngIf="!regexpButtonContent.childNodes.length">[.*]</ng-container>
   </a>
-
+    
 </div>

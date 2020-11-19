@@ -17,7 +17,7 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: 'label',
-  providers: [{ provide: FormElementDirective, useExisting: LabelDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: LabelDirective }],
 })
 @FormElement({ idAttributeName: 'for' })
 export class LabelDirective extends FormElementDirective {}

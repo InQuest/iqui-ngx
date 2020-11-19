@@ -72,7 +72,7 @@ const modules = [
   // Services modules
   RoutingShowcaseModule,
   // Showcase module
-  ShowcaseModule
+  ShowcaseModule,
 ];
 
 // Import and (re)export types
@@ -86,10 +86,7 @@ import { ClipboardService } from './services';
 export * from './services';
 
 // Compose and export all providers
-const providers = [
-  BookmarkableService,
-  ClipboardService
-];
+const providers = [BookmarkableService, ClipboardService];
 export { providers };
 
 /**
@@ -102,15 +99,13 @@ export { providers };
     CommonModule,
     BrowserModule,
     // Import individual modules
-    ...modules
+    ...modules,
   ],
   declarations: [],
-  providers: [
-    ...providers,
-  ],
+  providers: [...providers],
   exports: [
     // (Re)export individual modules, making them included into any app the root module is included in
     ...modules,
-  ]
+  ],
 })
-export class IqUiNgxModule { }
+export class IqUiNgxModule {}

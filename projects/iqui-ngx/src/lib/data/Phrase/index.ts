@@ -9,26 +9,22 @@ import { EnTT } from '@ofzza/entt';
  * Phrase class
  */
 export class Phrase extends EnTT {
-
   /**
    * Clones a phrase instance
    * @param phrase Phrase instance to clone
    */
-  public static clone (phrase) {
-    return new Phrase(
-      phrase.value,
-      {
-        isCaseSensitive: phrase.isCaseSensitive,
-        isRegExp: phrase.isRegExp
-      }
-    );
+  public static clone(phrase) {
+    return new Phrase(phrase.value, {
+      isCaseSensitive: phrase.isCaseSensitive,
+      isRegExp: phrase.isRegExp,
+    });
   }
 
   /**
    * Converts a Phrase instance into a string representation
    * @param phrase Phrase instance
    */
-  public static stringify (phrase) {
+  public static stringify(phrase) {
     if (phrase._isRegExp) {
       return `/${phrase.value}/${!phrase.isCaseSensitive ? 'i' : ''}`;
     } else {
@@ -40,18 +36,18 @@ export class Phrase extends EnTT {
    * Converts a string representation of a Phrase into a Phrase instance
    * @param value Phrase string representation
    */
-  public static parse (value) {
+  public static parse(value) {
     if (value && value.length && value[0] === '/') {
       // Parse regexp
-      const parsed          = value.split('/'),
-            content         = parsed.slice(1, -1).join('/'),
-            isCaseSensitive = (parsed[parsed.length - 1].indexOf('i') === -1);
+      const parsed = value.split('/'),
+        content = parsed.slice(1, -1).join('/'),
+        isCaseSensitive = parsed[parsed.length - 1].indexOf('i') === -1;
       return new Phrase(content, { isRegExp: true, isCaseSensitive });
     } else if (value && value.length && value[0] === '"') {
       // Parse string
-      const parsed          = value.split('"'),
-            content         = parsed.slice(1, -1).join('"'),
-            isCaseSensitive = (parsed[parsed.length - 1].indexOf('i') === -1);
+      const parsed = value.split('"'),
+        content = parsed.slice(1, -1).join('"'),
+        isCaseSensitive = parsed[parsed.length - 1].indexOf('i') === -1;
       return new Phrase(content, { isRegExp: false, isCaseSensitive });
     } else {
       throw new Error('Value not recognized as a string representation of a Phrase!');
@@ -74,16 +70,16 @@ export class Phrase extends EnTT {
   /**
    * Checks if phrase is empty (equal to newly created instance)
    */
-  public get isEmpty () {
-    return (!this.value && !this.isRegExp && !this.isCaseSensitive);
+  public get isEmpty() {
+    return !this.value && !this.isRegExp && !this.isCaseSensitive;
   }
 
-  constructor (value: string = '', { isRegExp = false, isCaseSensitive = false } = {}) {
+  constructor(value: string = '', { isRegExp = false, isCaseSensitive = false } = {}) {
     super();
     super.entt();
 
     // Set properties
-    this.value	= value;
+    this.value = value;
     this.isRegExp = isRegExp;
     this.isCaseSensitive = isCaseSensitive;
   }
@@ -92,27 +88,26 @@ export class Phrase extends EnTT {
    * Checks if haystack contains phrase
    * @param haystack String to check
    */
-  public match (haystack: string) {
+  public match(haystack: string) {
     if (!this.isRegExp) {
       // Match as plain string
       if (this.isCaseSensitive) {
         // Maths as case-sensitive
-        return (haystack.toLowerCase().indexOf(this.value.toLowerCase()) !== -1);
+        return haystack.toLowerCase().indexOf(this.value.toLowerCase()) !== -1;
       } else {
         // Maths as not case-sensitive
-        return (haystack.indexOf(this.value) !== -1);
+        return haystack.indexOf(this.value) !== -1;
       }
     } else {
       // Match as regexp
-      return !!haystack.match(new RegExp(this.value, (this.isCaseSensitive ? '' : 'i')));
+      return !!haystack.match(new RegExp(this.value, this.isCaseSensitive ? '' : 'i'));
     }
   }
 
   /**
    * Converts a phrase into a string representation
    */
-  public toString () {
+  public toString() {
     return Phrase.stringify(this);
   }
-
 }

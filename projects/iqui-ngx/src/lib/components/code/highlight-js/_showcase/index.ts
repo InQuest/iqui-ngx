@@ -24,35 +24,33 @@ highlightJsRegisterLanguage('scss', scss);
 
 // Showcase component
 @Component({
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class HighlightJsShowcaseComponent {
-
   // Expose modules needed to render syntax
   public modules = [BasicsModule, CodeModule];
 
   // Playground context
   private contextBase = {
-    Disabled:     [false, true],
-    Class:        '',
-    NgClass:      {},
-    Syntax:       '<div> Hello world! </div>\n<div> How you doin\'?!?! </div>',
-    Language:     ['xml', 'css', 'javascript', undefined],
-    Wrap:         [true, false],
-    Trim:         [true, false],
-    Highlight:    [true, false],
-    LineNumbers:  [true, false]
+    Disabled: [false, true],
+    Class: '',
+    NgClass: {},
+    Syntax: "<div> Hello world! </div>\n<div> How you doin'?!?! </div>",
+    Language: ['xml', 'css', 'javascript', undefined],
+    Wrap: [true, false],
+    Trim: [true, false],
+    Highlight: [true, false],
+    LineNumbers: [true, false],
   };
   // Playground context
   public context = {
     ...this.contextBase,
-    Filter:       ''
+    Filter: '',
   };
   // Playground context
   public contextWithPhrase = {
     ...this.contextBase,
-    FilterPhrase: new Phrase()
+    FilterPhrase: new Phrase(),
   };
-
 }

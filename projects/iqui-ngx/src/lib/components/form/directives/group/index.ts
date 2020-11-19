@@ -17,7 +17,7 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: '[iquiFormGroup], .form-row, .form-group, .form-check, .custom-control',
-  providers: [{ provide: FormElementDirective, useExisting: FormGroupDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: FormGroupDirective }],
 })
 @FormElement({ isolateId: true })
 export class FormGroupDirective extends FormElementDirective {}

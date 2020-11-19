@@ -31,7 +31,7 @@ import { FormElement, FormElementDirective } from '../';
              input[type="month"],
              input[type="color"],
              input[type="file"]`,
-  providers: [{ provide: FormElementDirective, useExisting: InputDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: InputDirective }],
 })
 @FormElement({ className: 'form-control', idAttributeName: 'id', bindDisabled: true, bindSize: true, bindValid: true })
 export class InputDirective extends FormElementDirective {}

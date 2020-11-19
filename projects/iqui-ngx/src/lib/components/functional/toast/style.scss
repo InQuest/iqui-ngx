@@ -1,7 +1,7 @@
 ::ng-deep {
   .cdk-global-overlay-wrapper,
   .cdk-global-overlay-wrapper > .iqui-toast-container {
-    z-index: unset !important;    
+    z-index: unset !important;
   }
 
   .cdk-global-overlay-wrapper > .iqui-toast-container:not(.toast-visible) {

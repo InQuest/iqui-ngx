@@ -5,32 +5,29 @@
  * Holds basic page information
  */
 export class Page {
-
   /**
    * Generates a page from a Directive, Component or service class
    * @param descriptor Directive, Component or service class to be described
    * @param component Page component implementing the described page
    * @returns Page representing and linking to the target
    */
-  public static fromClass (descriptor, component = null) {
-    const directiveDecorator = descriptor.decorators?.find(decorator => (decorator.type.prototype.ngMetadataName === 'Directive')),
-          componentDecorator = descriptor.decorators?.find(decorator => (decorator.type.prototype.ngMetadataName === 'Component'));
+  public static fromClass(descriptor, component = null) {
+    const directiveDecorator = descriptor.decorators?.find(decorator => decorator.type.prototype.ngMetadataName === 'Directive'),
+      componentDecorator = descriptor.decorators?.find(decorator => decorator.type.prototype.ngMetadataName === 'Component');
     if (directiveDecorator) {
       // Compose directive page
-      const name     = descriptor.name.toLowerCase().replace(/directive/g, ''),
-            selector = directiveDecorator.args.find(arg => arg.selector)?.selector || `[${name}]`;
-      return new Page(name, selector, null, (component || descriptor));
+      const name = descriptor.name.toLowerCase().replace(/directive/g, ''),
+        selector = directiveDecorator.args.find(arg => arg.selector)?.selector || `[${name}]`;
+      return new Page(name, selector, null, component || descriptor);
     } else if (componentDecorator) {
       // Compose component page
-      const name     = descriptor.name.toLowerCase().replace(/component/g, ''),
-            selector = `<${componentDecorator.args.find(arg => arg.selector)?.selector || `${name}`} />`;
-      return new Page(name, selector, null, (component || descriptor));
+      const name = descriptor.name.toLowerCase().replace(/component/g, ''),
+        selector = `<${componentDecorator.args.find(arg => arg.selector)?.selector || `${name}`} />`;
+      return new Page(name, selector, null, component || descriptor);
     } else {
       // Compose service page
-      const name = descriptor.name
-        .replace(/Service/g, '')
-        .replace(/Pipe/g, '');
-      return new Page(name, name, null, (component || descriptor));
+      const name = descriptor.name.replace(/Service/g, '').replace(/Pipe/g, '');
+      return new Page(name, name, null, component || descriptor);
     }
   }
 
@@ -41,7 +38,7 @@ export class Page {
    * @returns Composed routes
    */
   // tslint:disable-next-line: no-shadowed-variable
-  public static compileRoutes (pages, path = []) {
+  public static compileRoutes(pages, path = []) {
     // Update pages' route paths
     for (const page of pages) {
       page.setParentPath(path);
@@ -58,14 +55,14 @@ export class Page {
    * @returns Composed routes
    */
   // tslint:disable-next-line: no-shadowed-variable
-  private static _compileRoutes (pages, path = [], routes = []) {
+  private static _compileRoutes(pages, path = [], routes = []) {
     // Process pages
     for (const page of pages) {
       // If page has component, add to routes
       if (page.component) {
         routes.push({
-          path:       [...path, page.name].join('/'),
-          component:  page.component
+          path: [...path, page.name].join('/'),
+          component: page.component,
         });
       }
       // If page has children, process children
@@ -82,7 +79,7 @@ export class Page {
    * @param pages Pages array to flatten
    * @returns Flat page array
    */
-  public static toArray (pages: Page[]) {
+  public static toArray(pages: Page[]) {
     const arr = [];
     for (const page of pages) {
       arr.push(page, ...Page.toArray(page.children));
@@ -95,7 +92,7 @@ export class Page {
    * @param page Page to check
    * @returns If page has children
    */
-  public static hasChildren (page: Page) {
+  public static hasChildren(page: Page) {
     return page.children && page.children.length;
   }
 
@@ -107,7 +104,7 @@ export class Page {
    * @param component Page component
    * @param children Child pages
    */
-  constructor (name: string, title: string, description: string, component = null, children = [] as Page[]) {
+  constructor(name: string, title: string, description: string, component = null, children = [] as Page[]) {
     // Set page info
     this.name = name;
     this.title = title;
@@ -148,7 +145,7 @@ export class Page {
   /**
    * Get parent reference
    */
-  public get parent () {
+  public get parent() {
     return this._parent;
   }
 
@@ -157,14 +154,14 @@ export class Page {
   /**
    * Composes path from parent set path and name
    */
-  public get path () {
+  public get path() {
     return [...this._parentPath, this.name];
   }
   /**
    * Sets parent path
    * @param path Parent path
    */
-  public setParentPath (path: string[]) {
+  public setParentPath(path: string[]) {
     // Set parent path
     this._parentPath = path;
     // When path refreshed, propagate to children
@@ -174,7 +171,7 @@ export class Page {
   /**
    * Update child paths
    */
-  private refreshChildren () {
+  private refreshChildren() {
     this.children.forEach(child => {
       child._parent = this;
       child.setParentPath(this.path);

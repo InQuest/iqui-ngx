@@ -17,19 +17,17 @@ import { ModelEventDispatcher, ModalCloseRequestedReason } from '../';
  */
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: `.modal`
+  selector: `.modal`,
 })
 export class ModalDirective implements OnInit {
+  constructor(private _element: ElementRef, private _dispatcher: ModelEventDispatcher) {}
 
-  constructor (private _element: ElementRef, private _dispatcher: ModelEventDispatcher) {}
-
-  public ngOnInit () {
+  public ngOnInit() {
     // Capture overlay "click" event
-    this._element.nativeElement.addEventListener('click', (e) => {
+    this._element.nativeElement.addEventListener('click', e => {
       if (e.target === this._element.nativeElement) {
         this._dispatcher.modalCloseRequested.emit(ModalCloseRequestedReason.OverlayClicked);
       }
     });
   }
-
 }

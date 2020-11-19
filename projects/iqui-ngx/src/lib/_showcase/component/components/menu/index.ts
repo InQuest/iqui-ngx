@@ -11,10 +11,9 @@ import { Page } from '../../../../services';
 @Component({
   selector: 'iqui-showcase-menu',
   templateUrl: './index.html',
-  styleUrls: ['./style.scss']
+  styleUrls: ['./style.scss'],
 })
 export class ShowcaseMenuComponent {
-
   /**
    * Holds page group's pages structure and definitions
    */
@@ -34,30 +33,30 @@ export class ShowcaseMenuComponent {
   /**
    * Main menu links tree pages
    */
-  public get _treeDataSource () { return new ArrayDataSource(this.pages); }
+  public get _treeDataSource() {
+    return new ArrayDataSource(this.pages);
+  }
   /**
    * Checks if page has children
    */
   public _hasChildren = (_: number, page: Page) => Page.hasChildren(page);
 
-  constructor (private _router: Router) {
+  constructor(private _router: Router) {
     // On route change
-    this._router.events.subscribe((e) => {
+    this._router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-
         // Flatten all pages
         const flatPages = Page.toArray(this.pages);
 
         // (Un)mark all routes
-        flatPages.forEach(page => page.meta.active = false);
+        flatPages.forEach(page => (page.meta.active = false));
 
         // Expand and mark active route
-        let selected = flatPages.find(page => (`/${page.path.join('/')}` === e.url));
+        let selected = flatPages.find(page => `/${page.path.join('/')}` === e.url);
         while (selected?.parent) {
           selected.meta.active = selected.parent.meta.active = true;
           this._tree.expand((selected = selected.parent));
         }
-
       }
     });
   }

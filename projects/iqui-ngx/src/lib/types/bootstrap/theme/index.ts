@@ -7,14 +7,14 @@
  */
 // tslint:disable-next-line: variable-name
 export const BootstrapTheme: Record<string, TBootstrapTheme> = {
-  PRIMARY:    'primary',
-  SECONDARY:  'secondary',
-  SUCCESS:    'success',
-  WARNING:    'warning',
-  DANGER:     'danger',
-  INFO:       'info',
-  LIGHT:      'light',
-  DARK:       'dark'
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  SUCCESS: 'success',
+  WARNING: 'warning',
+  DANGER: 'danger',
+  INFO: 'info',
+  LIGHT: 'light',
+  DARK: 'dark',
 };
 /*
  * Bootstrap theme colors type
@@ -27,7 +27,7 @@ export type TBootstrapTheme = 'primary' | 'secondary' | 'success' | 'warning' | 
 // tslint:disable-next-line: variable-name
 export const BootstrapSize: Record<string, TBootstrapSize> = {
   LARGE: 'lg',
-  SMALL: 'sm'
+  SMALL: 'sm',
 };
 /*
  * Bootstrap theme sizes type

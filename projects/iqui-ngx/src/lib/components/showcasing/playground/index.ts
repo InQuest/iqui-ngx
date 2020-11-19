@@ -1,9 +1,24 @@
 import '@angular/compiler';
 import {
-  Compiler, Directive, NgModuleRef, NgModule,
-  Component, OnInit, OnChanges, SimpleChanges, AfterContentInit, OnDestroy,
-  HostBinding, Input, ElementRef, ComponentRef, ViewChild, ContentChild, ViewContainerRef,
-  ChangeDetectorRef, Injector
+  Compiler,
+  Directive,
+  NgModuleRef,
+  NgModule,
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  AfterContentInit,
+  OnDestroy,
+  HostBinding,
+  Input,
+  ElementRef,
+  ComponentRef,
+  ViewChild,
+  ContentChild,
+  ViewContainerRef,
+  ChangeDetectorRef,
+  Injector,
 } from '@angular/core';
 
 /**
@@ -18,10 +33,9 @@ import {
  * </iqui-playground>
  */
 @Directive({
-  selector: 'textarea'
+  selector: 'textarea',
 })
 export class PlaygroundTextareaDirective {}
-
 
 /**
  * Renders an interactive demo for a component/directive
@@ -37,16 +51,10 @@ export class PlaygroundTextareaDirective {}
 @Component({
   selector: 'iqui-playground',
   templateUrl: './index.html',
-  styleUrls: ['./style.scss']
+  styleUrls: ['./style.scss'],
 })
 export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
-
-  constructor (
-    private _compiler: Compiler,
-    private _injector: Injector,
-    private _module: NgModuleRef<any>,
-    private _cd: ChangeDetectorRef
-  ) {}
+  constructor(private _compiler: Compiler, private _injector: Injector, private _module: NgModuleRef<any>, private _cd: ChangeDetectorRef) {}
 
   /**
    * [ngClass] binding
@@ -55,8 +63,13 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
   @HostBinding('attr.ngClass')
   public _attrNgClass: any;
   @Input()
-  public get ngClass () { return this._ngClass; }
-  public set ngClass (value: string) { this._ngClass = value; this._attrNgClass = null; }
+  public get ngClass() {
+    return this._ngClass;
+  }
+  public set ngClass(value: string) {
+    this._ngClass = value;
+    this._attrNgClass = null;
+  }
   /**
    * [class] binding
    */
@@ -64,8 +77,13 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
   @HostBinding('attr.class')
   public _attrClass: any;
   @Input()
-  public get class () { return this._class; }
-  public set class (value: string) { this._class = value; this._attrClass = null; }
+  public get class() {
+    return this._class;
+  }
+  public set class(value: string) {
+    this._class = value;
+    this._attrClass = null;
+  }
 
   /**
    * Top title
@@ -134,17 +152,17 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
    */
   public _usageSyntax: string;
 
-  public ngOnInit () {
+  public ngOnInit() {
     // Process configuration
     this._processContext();
   }
 
-  public ngAfterContentInit () {
+  public ngAfterContentInit() {
     // Check if single <textarea /> child
     if (this.syntax) {
       // Load and process syntax
       this._processSyntax(this.syntax);
-    // tslint:disable-next-line: max-line-length
+      // tslint:disable-next-line: max-line-length
     } else if (this._syntaxEl) {
       // Load and process syntax
       this._processSyntax(this._syntaxEl.nativeElement.value);
@@ -155,7 +173,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
     }
   }
 
-  public ngOnChanges (changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     // Process configuration
     if (changes.context) {
       this._processContext();
@@ -166,7 +184,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
     }
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     if (this._exampleComponent) {
       // Destroy dynamically added components
       this._exampleComponent.destroy();
@@ -176,8 +194,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
   /**
    * Process provided context and example
    */
-  private _processContext () {
-
+  private _processContext() {
     // Reset context
     this._context = {};
     this._contextKeys = [];
@@ -188,29 +205,30 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
     // Recompose context
     for (const key in this.context) {
       if (this.context.hasOwnProperty(key)) {
-
         // Get context property
         this._contextKeys.push(key);
         const value = this.context[key];
 
         // Initialize breakdown
-        if (!this._context[key]) { this._context[key] = {}; }
+        if (!this._context[key]) {
+          this._context[key] = {};
+        }
 
         // Get context property type
         let type: string = (this._context[key].type = typeof value);
         if (type === 'object' && value instanceof Array) {
-          type = (this._context[key].type = 'array');
+          type = this._context[key].type = 'array';
         }
 
         // Generate selection syntax
         if (type === 'string') {
-          this._contextMultiline[key] = this._context[key].multiline = (value.split('\n').length > 1);
+          this._contextMultiline[key] = this._context[key].multiline = value.split('\n').length > 1;
         }
 
         // Generate selection syntax
         if (type === 'array') {
           const syntax = value.map(item => this._stringifyValue(item));
-          this._contextSyntax[key] = this._context[key].syntax = `${key}: (${ syntax.join(' | ') })`;
+          this._contextSyntax[key] = this._context[key].syntax = `${key}: (${syntax.join(' | ')})`;
         } else {
           this._contextSyntax[key] = this._context[key].syntax = `${key}: ${this._context[key].type}`;
         }
@@ -218,25 +236,22 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
         // (Pre)select value and options
         if (type === 'array') {
           this._context[key].options = value;
-          this._contextSelected[key] = this._context[key].selected = (value.length ? value[0] : null);
+          this._contextSelected[key] = this._context[key].selected = value.length ? value[0] : null;
         } else {
           this._contextSelected[key] = this._context[key].selected = value;
         }
-
       }
     }
 
     // Trigger change detection
     this._triggerDynamicComponentsChangeDetection();
-
   }
 
   /**
    * Processes playground component syntax into a code syntax TemplateRef and an Example TemplateRef
    * @param syntax Component syntax to process
    */
-  private _processSyntax (syntax) {
-
+  private _processSyntax(syntax) {
     // Set usage syntax
     this._usageSyntax = syntax || '';
     for (const key in this._context) {
@@ -245,45 +260,39 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
       }
     }
 
-
     // Create dynamic component
     const dynamicComponentClass = Component({
-      template: syntax
+      template: syntax,
     })(
       class {
-        constructor () {}
+        constructor() {}
         public context: any = {};
-      }
+      },
     );
 
     // Create dynamic module
     const dynamicModuleClass = NgModule({
       imports: [...this.modules],
-      declarations: [dynamicComponentClass]
-    })(
-      class {}
-    );
+      declarations: [dynamicComponentClass],
+    })(class {});
 
     // Create and inject dynamically created component
-    this._compiler.compileModuleAndAllComponentsAsync(dynamicModuleClass)
-      .then((moduleWithFactories) => {
+    this._compiler.compileModuleAndAllComponentsAsync(dynamicModuleClass).then(moduleWithFactories => {
+      // Destroy previously dynamically added components
+      if (this._exampleComponent) {
+        this._exampleComponent.destroy();
+      }
 
-        // Destroy previously dynamically added components
-        if (this._exampleComponent) {
-          this._exampleComponent.destroy();
-        }
+      // Inject component
+      const moduleRef = moduleWithFactories.ngModuleFactory.create(this._injector),
+        factory = moduleWithFactories.componentFactories[0];
+      this._exampleComponent = factory.create(moduleRef.injector, [], null, this._module);
+      this._exampleHostEl.clear();
+      this._exampleHostEl.insert(this._exampleComponent.hostView);
 
-        // Inject component
-        const moduleRef = moduleWithFactories.ngModuleFactory.create(this._injector),
-              factory = moduleWithFactories.componentFactories[0];
-        this._exampleComponent = factory.create(moduleRef.injector, [], null, this._module);
-        this._exampleHostEl.clear();
-        this._exampleHostEl.insert(this._exampleComponent.hostView);
-
-        // Trigger change detection
-        this._triggerDynamicComponentsChangeDetection();
-
-      });
+      // Trigger change detection
+      this._triggerDynamicComponentsChangeDetection();
+    });
 
     // Trigger change detection
     this._cd.detectChanges();
@@ -294,20 +303,18 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
    * @param key Key to update
    * @param value Updated value
    */
-  public _updateSelected (key, value) {
-
+  public _updateSelected(key, value) {
     // Update selected value
     this._contextSelected[key] = value;
 
     // Trigger change detection
     this._triggerDynamicComponentsChangeDetection();
-
   }
 
   /**
    * Triggers change detection on injected dynamic components
    */
-  private _triggerDynamicComponentsChangeDetection () {
+  private _triggerDynamicComponentsChangeDetection() {
     if (this._exampleComponent) {
       this._exampleComponent.instance.context = this._contextSelected;
       this._exampleComponent.hostView.detectChanges();
@@ -319,13 +326,13 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
    * @param value Value to stringify
    * @returns String representation of value
    */
-  public _stringifyValue (value) {
+  public _stringifyValue(value) {
     if (value === undefined) {
       // Stringify undefined
       return 'undefined';
-     } else if (value === null ) {
-       // Stringify null
-       return 'null';
+    } else if (value === null) {
+      // Stringify null
+      return 'null';
     } else if (typeof value === 'function' && value.decorators && value.decorators.length) {
       // Stringify decorated classes into class names
       return `[${value.decorators[0].type.prototype.ngMetadataName}]`;
@@ -334,7 +341,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
       return `[${value.constructor.name}]`;
     } else {
       // Stringify as JSON
-      return JSON.stringify(value).replace(/"/g, '\'');
+      return JSON.stringify(value).replace(/"/g, "'");
     }
   }
 
@@ -343,7 +350,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
    * @param json JSON to strinfigy
    * @returns Stringified value
    */
-  public _jsonToString (json) {
+  public _jsonToString(json) {
     return JSON.stringify(json, null, 2);
   }
 
@@ -352,7 +359,7 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
    * @param  str String to parse
    * @returns Parsed value
    */
-  public _stringToJson (str) {
+  public _stringToJson(str) {
     try {
       return JSON.parse(str);
     } catch {
@@ -363,13 +370,12 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
   /**
    * Composes class value based on property values
    */
-  public get _composedClassValue () {
+  public get _composedClassValue() {
     return [
       // Mark as card (.card)
       'card',
       // Pass-through host class
-      (this.class || null)
+      this.class || null,
     ].join(' ');
   }
-
 }

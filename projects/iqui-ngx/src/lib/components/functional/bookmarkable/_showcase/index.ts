@@ -9,11 +9,10 @@ import { FunctionalModule } from '../../../functional';
 
 // Showcase component
 @Component({
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class BookmarkableShowcaseComponent {
-
   // Expose modules needed to render syntax
   public modules = [FunctionalModule];
 
@@ -23,5 +22,4 @@ export class BookmarkableShowcaseComponent {
     BookmarkB: 'bookmark-b',
     BookmarkC: 'bookmark-c',
   };
-
 }

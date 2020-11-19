@@ -2,12 +2,10 @@
 <div [class]="_composedClassValue">
   <!-- <div class="arrow"></div> -->
   <div class="tooltip-inner" tabindex="-1">
-
     <!-- Show content if component created directly as <iqui-tooltip /> -->
-    <ng-content></ng-content>    
+    <ng-content></ng-content>
 
     <!-- Show content if component created via [iquiTooltip] directive -->
     {{content}}
-
   </div>
 </div>

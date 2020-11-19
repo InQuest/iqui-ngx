@@ -1,16 +1,7 @@
-<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent"
-  [ngClass]="ngClass"  
-  [class]="_composedClassValue">
-
-  <input type="checkbox" class="form-check-input"
-    [attr.disabled]="disabled || null"
-    [checked]="value" (change)="_updateValue($event)"
-  />
+<div iquiForm iquiFormGroup [iquiFormParent]="_iquiFormParent" [ngClass]="ngClass" [class]="_composedClassValue">
+  <input type="checkbox" class="form-check-input" [attr.disabled]="disabled || null" [checked]="value" (change)="_updateValue($event)" />
 
   <label class="form-check-label">
     <ng-content></ng-content>
   </label>
-
 </div>
-
-

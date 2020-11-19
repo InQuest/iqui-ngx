@@ -18,19 +18,14 @@ import { Directive, OnChanges, SimpleChanges, Input, TemplateRef, ViewContainerR
   selector: '[iquiDeclare]',
 })
 export class DeclareDirective implements OnChanges {
-
-  constructor (
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef) {
-  }
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
 
   @Input('iquiDeclare')
   public _syntax;
 
-  public ngOnChanges (c: SimpleChanges) {
+  public ngOnChanges(c: SimpleChanges) {
     // Promote value to view
     this.viewContainer.clear();
     this.viewContainer.createEmbeddedView(this.templateRef, { iquiDeclare: c._syntax.currentValue });
   }
-
 }

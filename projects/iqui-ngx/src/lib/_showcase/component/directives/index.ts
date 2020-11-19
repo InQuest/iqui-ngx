@@ -15,10 +15,9 @@ import { Page } from '../../../services';
  * </ng-container>
  */
 @Directive({
-  selector: '[iqui-showcase-pages]'
+  selector: '[iqui-showcase-pages]',
 })
 export class ShowcasePagesDirective {
-
   /**
    * Holds page group's page definitions
    */
@@ -30,5 +29,4 @@ export class ShowcasePagesDirective {
    */
   @Input()
   public title: string;
-
 }

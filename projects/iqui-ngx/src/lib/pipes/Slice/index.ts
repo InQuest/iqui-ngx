@@ -8,10 +8,10 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Slices array
  */
 @Pipe({
-  name: 'iquiSlice'
+  name: 'iquiSlice',
 })
 export class SlicePipe implements PipeTransform {
-  public transform (items: any[], start?: number, length?: number): any[] {
+  public transform(items: any[], start?: number, length?: number): any[] {
     return (items || []).slice(start, length);
   }
 }

@@ -15,17 +15,14 @@ export { HighlightJsShowcaseComponent } from './highlight-js/_showcase';
 
 // IQ UI NGX Elements' Code/Syntax module
 @NgModule({
-  imports: [
-    CommonModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    HighlightJsShowcaseComponent
-  ],
+  imports: [CommonModule, CodeModule, ShowcasingModule],
+  declarations: [HighlightJsShowcaseComponent],
   exports: [
     // Export dependency modules
-    CodeModule, ShowcasingModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
-    HighlightJsShowcaseComponent
-  ]
+    HighlightJsShowcaseComponent,
+  ],
 })
-export class CodeShowcaseModule { }
+export class CodeShowcaseModule {}

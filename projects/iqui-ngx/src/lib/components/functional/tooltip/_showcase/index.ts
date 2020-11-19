@@ -12,22 +12,20 @@ import { CodeModule } from '../../../code';
 
 // Showcase component
 @Component({
-  templateUrl:  `./index.html`,
-  styleUrls:    [`./style.scss`]
+  templateUrl: `./index.html`,
+  styleUrls: [`./style.scss`],
 })
 export class TooltipShowcaseComponent {
-
   // Expose modules needed to render syntax
   public modules = [FunctionalModule, BasicsModule, CodeModule];
 
   // Playground context
   public context = {
-    ContentText:    'Tooltip content',
-    Position:       Object.values(TooltipRelativePositioning),
-    ShowOnFocus:    [true, false],
-    ShowOnHover:    [true, false],
+    ContentText: 'Tooltip content',
+    Position: Object.values(TooltipRelativePositioning),
+    ShowOnFocus: [true, false],
+    ShowOnHover: [true, false],
     StayInViewport: [true, false],
-    CustomClass:    'custom-class'
+    CustomClass: 'custom-class',
   };
-
 }

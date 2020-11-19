@@ -17,11 +17,11 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: 'form[iquiForm]',
-  providers: [{ provide: FormElementDirective, useExisting: FormDirective }]
+  providers: [{ provide: FormElementDirective, useExisting: FormDirective }],
 })
 @FormElement({ isolateId: true })
 export class FormDirective extends FormElementDirective implements OnInit {
-  public ngOnInit () {
+  public ngOnInit() {
     super.ngOnInit();
 
     // Intercept and block submission
@@ -32,7 +32,7 @@ export class FormDirective extends FormElementDirective implements OnInit {
    * Form submit event handler
    * @param e Event description
    */
-  private onSubmit (e) {
+  private onSubmit(e) {
     e.preventDefault = true;
     return (e.returnValue = false);
   }

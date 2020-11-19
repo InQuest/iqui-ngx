@@ -4,31 +4,43 @@
 
   <!-- Component pages tree -->
   <cdk-tree [dataSource]="_treeDataSource" [treeControl]="_tree">
-    
     <!-- Page link -->
-    <cdk-nested-tree-node *cdkTreeNodeDef="let node" 
-      class="menu-tree-node">
-
+    <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="menu-tree-node">
       <!-- Link -->
-      <a class="nav-link" [class.active]="node.meta.active"
-          [iquiTooltip]="node.description" [iquiTooltipPosition]="'right'" [iquiTooltipShowOnHover]="!!node.description"
-          [iquiTooltipShowOnFocus]="false" [iquiTooltipStayInViewport]="true" [iquiTooltipClass]="'page-sidebar-link-tooltip'"
-          [routerLink]="node.path">
+      <a
+        class="nav-link"
+        [class.active]="node.meta.active"
+        [iquiTooltip]="node.description"
+        [iquiTooltipPosition]="'right'"
+        [iquiTooltipShowOnHover]="!!node.description"
+        [iquiTooltipShowOnFocus]="false"
+        [iquiTooltipStayInViewport]="true"
+        [iquiTooltipClass]="'page-sidebar-link-tooltip'"
+        [routerLink]="node.path"
+      >
         <span> {{ node.title }} </span>
       </a>
-
     </cdk-nested-tree-node>
-    
-    <!-- Page category group -->
-    <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: _hasChildren"
-      class="menu-tree-node menu-tree-node-group" [ngClass]="_tree.isExpanded(node) ? ['menu-tree-node-expanded'] : ['menu-tree-node-collapsed']">
 
+    <!-- Page category group -->
+    <cdk-nested-tree-node
+      *cdkTreeNodeDef="let node; when: _hasChildren"
+      class="menu-tree-node menu-tree-node-group"
+      [ngClass]="_tree.isExpanded(node) ? ['menu-tree-node-expanded'] : ['menu-tree-node-collapsed']"
+    >
       <!-- Link -->
-      <a cdkTreeNodeToggle
-          class="nav-link" [class.active]="node.meta.active"
-          [iquiTooltip]="node.description" [iquiTooltipPosition]="'right'" [iquiTooltipShowOnHover]="!!node.description"
-          [iquiTooltipShowOnFocus]="false" [iquiTooltipStayInViewport]="true" [iquiTooltipClass]="'page-sidebar-link-tooltip'"
-          [routerLink]="node.component ? node.path : null">
+      <a
+        cdkTreeNodeToggle
+        class="nav-link"
+        [class.active]="node.meta.active"
+        [iquiTooltip]="node.description"
+        [iquiTooltipPosition]="'right'"
+        [iquiTooltipShowOnHover]="!!node.description"
+        [iquiTooltipShowOnFocus]="false"
+        [iquiTooltipStayInViewport]="true"
+        [iquiTooltipClass]="'page-sidebar-link-tooltip'"
+        [routerLink]="node.component ? node.path : null"
+      >
         <span> {{ node.title }} </span>
       </a>
 
@@ -36,9 +48,6 @@
       <div [class.menu-tree-invisible]="!_tree.isExpanded(node)">
         <ng-container cdkTreeNodeOutlet></ng-container>
       </div>
-
     </cdk-nested-tree-node>
-
   </cdk-tree>
-
 </li>

@@ -1,14 +1,12 @@
 <!-- Playground -->
 <div [ngClass]="ngClass" [class]="_composedClassValue">
-  <div class="card-header"> {{ title || 'Demo' }} </div>
+  <div class="card-header">{{ title || 'Demo' }}</div>
   <div class="row p-3">
-
     <!-- Left column -->
     <div [ngClass]="(_contextKeys.length ? 'col-8' : 'col-12')">
-
       <!-- Live Example -->
       <div class="card">
-        <div class="card-header"> Example </div>
+        <div class="card-header">Example</div>
         <div class="card-body">
           <ng-container #example></ng-container>
         </div>
@@ -16,56 +14,62 @@
 
       <!-- Syntax -->
       <div class="card mt-3">
-        <div class="card-header"> Usage </div>
+        <div class="card-header">Usage</div>
         <div class="card-body">
           <iqui-highlightjs [syntax]="_usageSyntax" [languages]="['xml']"></iqui-highlightjs>
         </div>
       </div>
-
-    </div> 
+    </div>
 
     <!-- Right column -->
     <div *ngIf="_contextKeys.length" class="col-4">
-
       <!-- Live Parameters Playground -->
       <div class="card">
-        <div class="card-header"> Context </div>
+        <div class="card-header">Context</div>
         <form iquiForm [size]="'sm'" class="card-body">
           <ng-container *ngFor="let key of _contextKeys">
-
             <!-- Boolean values -->
-            <iqui-checkbox *ngIf="_context[key].type === 'boolean'"
-              [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)"> {{ key }} </iqui-checkbox>              
+            <iqui-checkbox *ngIf="_context[key].type === 'boolean'" [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)">
+              {{ key }}
+            </iqui-checkbox>
 
             <!-- String values -->
-            <iqui-input *ngIf="_context[key].type === 'string'"
-              [type]="_contextMultiline[key] ? 'textarea' : 'text'" [resize]="_contextMultiline[key]"
-              [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)"> {{ key }} </iqui-input>
+            <iqui-input
+              *ngIf="_context[key].type === 'string'"
+              [type]="_contextMultiline[key] ? 'textarea' : 'text'"
+              [resize]="_contextMultiline[key]"
+              [value]="_contextSelected[key]"
+              (valueChange)="_updateSelected(key, $event)"
+            >
+              {{ key }}
+            </iqui-input>
 
             <!-- Number values -->
-            <iqui-input *ngIf="_context[key].type === 'number'"
-              [type]="'number'"
-              [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)"> {{ key }} </iqui-input>
+            <iqui-input *ngIf="_context[key].type === 'number'" [type]="'number'" [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)">
+              {{ key }}
+            </iqui-input>
 
             <!-- Array values -->
-            <iqui-select *ngIf="_context[key].type === 'array'"
-              [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)">
+            <iqui-select *ngIf="_context[key].type === 'array'" [value]="_contextSelected[key]" (valueChange)="_updateSelected(key, $event)">
               {{ key }}
-              <iqui-option *ngFor="let value of _context[key].options; let i = index"
-                [value]="value" [label]="value">
+              <iqui-option *ngFor="let value of _context[key].options; let i = index" [value]="value" [label]="value">
                 {{ value }}
               </iqui-option>
             </iqui-select>
 
             <!-- Object values -->
-            <iqui-input *ngIf="_context[key].type === 'object'"
-              [type]="'textarea'" [resize]="true"
-              [value]="_jsonToString(_contextSelected[key])" (change)="_updateSelected(key, _stringToJson($event.target.value))"> {{ key }} </iqui-input>
-
+            <iqui-input
+              *ngIf="_context[key].type === 'object'"
+              [type]="'textarea'"
+              [resize]="true"
+              [value]="_jsonToString(_contextSelected[key])"
+              (change)="_updateSelected(key, _stringToJson($event.target.value))"
+            >
+              {{ key }}
+            </iqui-input>
           </ng-container>
         </form>
       </div>
     </div>
-
   </div>
 </div>

@@ -9,20 +9,26 @@ import { FormModule } from '../form';
 // Import components
 import { DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective } from '../functional/dropdown';
 // Import components and (re)export components
-import { ButtonComponent,
-         ButtonComponentTheme, TButtonComponentTheme,
-         ButtonComponentSize, TButtonComponentSize } from './button';
-export { ButtonComponent,
-         ButtonComponentTheme, TButtonComponentTheme,
-         ButtonComponentSize, TButtonComponentSize };
-import { DropdownButtonComponent,
-         DropdownButtonComponentTheme, TDropdownButtonComponentTheme,
-         DropdownButtonComponentSize, TDropdownButtonComponentSize,
-         DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning } from './dropdown-button';
-export { DropdownButtonComponent,
-         DropdownButtonComponentTheme, TDropdownButtonComponentTheme,
-         DropdownButtonComponentSize, TDropdownButtonComponentSize,
-         DropdownButtonComponentRelativePositioning, TDropdownButtonComponentRelativePositioning };
+import { ButtonComponent, ButtonComponentTheme, TButtonComponentTheme, ButtonComponentSize, TButtonComponentSize } from './button';
+export { ButtonComponent, ButtonComponentTheme, TButtonComponentTheme, ButtonComponentSize, TButtonComponentSize };
+import {
+  DropdownButtonComponent,
+  DropdownButtonComponentTheme,
+  TDropdownButtonComponentTheme,
+  DropdownButtonComponentSize,
+  TDropdownButtonComponentSize,
+  DropdownButtonComponentRelativePositioning,
+  TDropdownButtonComponentRelativePositioning,
+} from './dropdown-button';
+export {
+  DropdownButtonComponent,
+  DropdownButtonComponentTheme,
+  TDropdownButtonComponentTheme,
+  DropdownButtonComponentSize,
+  TDropdownButtonComponentSize,
+  DropdownButtonComponentRelativePositioning,
+  TDropdownButtonComponentRelativePositioning,
+};
 import { PhraseInputComponent } from './phrase-input';
 export { PhraseInputComponent };
 
@@ -31,21 +37,19 @@ export { PhraseInputComponent };
  * Implements components that are basic building blocks of any application or more-complex component
  */
 @NgModule({
-  imports: [
-    CommonModule, FunctionalModule, FormModule
-  ],
-  declarations: [
-    ButtonComponent,
-    DropdownButtonComponent,
-    PhraseInputComponent
-  ],
+  imports: [CommonModule, FunctionalModule, FormModule],
+  declarations: [ButtonComponent, DropdownButtonComponent, PhraseInputComponent],
   exports: [
     // Export dependency modules
-    FunctionalModule, FormModule,
+    FunctionalModule,
+    FormModule,
     // Export child components
     ButtonComponent,
-    DropdownButtonComponent, DropdownHeaderDirective, DropdownBodyDirective, DropdownFooterDirective,
-    PhraseInputComponent
-  ]
+    DropdownButtonComponent,
+    DropdownHeaderDirective,
+    DropdownBodyDirective,
+    DropdownFooterDirective,
+    PhraseInputComponent,
+  ],
 })
-export class BasicsModule { }
+export class BasicsModule {}

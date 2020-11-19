@@ -2,8 +2,19 @@
 // ----------------------------------------------------------------------------
 
 // Import dependencies
-import { Component, AfterViewInit, OnChanges, SimpleChanges, OnDestroy,
-         Input, Output, EventEmitter, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+  ViewContainerRef,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -25,13 +36,12 @@ export { ModalDialogDirective };
  * </iqui-modal>
  */
 @Component({
-  selector:    'iqui-modal',
+  selector: 'iqui-modal',
   templateUrl: 'index.html',
-  styleUrls:   ['style.scss'],
-  providers:   [{ provide: ModelEventDispatcher, useValue: new ModelEventDispatcher() }]
+  styleUrls: ['style.scss'],
+  providers: [{ provide: ModelEventDispatcher, useValue: new ModelEventDispatcher() }],
 })
 export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
-
   /**
    * If modal is displayed or not (two-way bound)
    */
@@ -72,13 +82,9 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
    */
   private _dispatcherSubscriptions = [];
 
-  constructor (
-    private _overlay: Overlay,
-    private _viewContainerRef: ViewContainerRef,
-    public _dispatcher: ModelEventDispatcher
-  ) {}
+  constructor(private _overlay: Overlay, private _viewContainerRef: ViewContainerRef, public _dispatcher: ModelEventDispatcher) {}
 
-  public ngAfterViewInit () {
+  public ngAfterViewInit() {
     // Configure
     const overlayConfig = new OverlayConfig();
     overlayConfig.hasBackdrop = true;
@@ -91,11 +97,7 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     // Update overlay position strategy
     if (this._overlayRef) {
-      const positionStrategy = this._overlay
-        .position()
-        .global()
-        .centerHorizontally()
-        .centerVertically();
+      const positionStrategy = this._overlay.position().global().centerHorizontally().centerVertically();
       this._overlayRef.updatePositionStrategy(positionStrategy);
     }
 
@@ -115,15 +117,13 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
         if (reason === ModalCloseRequestedReason.EscapePressed && this.closeOnEscape) {
           this.hide();
         }
-      })
+      }),
     );
-
   }
 
-  public ngOnChanges (changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     // Check if already initialized
     if (this._overlayRef) {
-
       // Process changes to modal shown
       if (changes.visible) {
         if (changes.visible.currentValue) {
@@ -134,16 +134,13 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
           this.hide();
         }
       }
-
     } else {
-
       // Queue changes for later processing
       this._queuedChanges.push(changes);
-
     }
   }
 
-  public ngOnDestroy () {
+  public ngOnDestroy() {
     // Close previous dialog, if shown
     this.hide();
     // Destroy overlay
@@ -157,7 +154,7 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Shows modal
    */
-  public show () {
+  public show() {
     if (!this._isShown && this._overlayRef) {
       // Set visible
       this._overlayRef.backdropElement.classList.add('modal-visible');
@@ -171,7 +168,7 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Hides modal
    */
-  public hide () {
+  public hide() {
     if (this._isShown && this._overlayRef) {
       // Set not visible
       this._overlayRef.backdropElement.classList.remove('modal-visible');
@@ -181,5 +178,4 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
       this.visibleChange.emit(false);
     }
   }
-
 }

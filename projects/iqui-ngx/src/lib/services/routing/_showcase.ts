@@ -15,17 +15,14 @@ export { PageServiceShowcaseComponent } from './page/_showcase';
 
 // IQ UI NGX Elements' Showcasing module
 @NgModule({
-  imports: [
-    CommonModule, CodeModule, ShowcasingModule
-  ],
-  declarations: [
-    PageServiceShowcaseComponent
-  ],
+  imports: [CommonModule, CodeModule, ShowcasingModule],
+  declarations: [PageServiceShowcaseComponent],
   exports: [
     // Export dependency modules
-    CodeModule, ShowcasingModule,
+    CodeModule,
+    ShowcasingModule,
     // Export child components
-    PageServiceShowcaseComponent
-  ]
+    PageServiceShowcaseComponent,
+  ],
 })
-export class RoutingShowcaseModule { }
+export class RoutingShowcaseModule {}
