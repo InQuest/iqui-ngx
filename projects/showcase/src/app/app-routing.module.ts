@@ -15,7 +15,7 @@ const routes: Routes = [
   // Frontpage
   { path: '', component: GettingStartedPageComponent },
   // Component pages
-  ...Page.compileRoutes(getShowcasePages(), ['iqui-ngx']),
+  ...Page.compileRoutes(getShowcasePages(), []),
   // Default
   { path: '**', redirectTo: '/' },
 ];

@@ -1,12 +1,20 @@
-# Inquest Angular UI Library
+# InQuest Angular UI Library
 
-IQUI Elements styling is based on [Bootstrap](https://getbootstrap.com/) but has it's functionality implemented via [Angular CDK](https://material.angular.io/cdk/categories). As a consequence, any project importing and using the IQUI Elements Library, needs to also include the following SCSS files:
+IQUI Elements is based on [Bootstrap](https://getbootstrap.com/) and has it's functionality implemented via [Angular CDK](https://material.angular.io/cdk/categories).
+
+See live documentation here: [GitHub Pages](https://inquest.github.io/iqui-ngx/)
+
+## Usage
+
+Since IQUI-NGX is built on top of [Bootstrap](https://getbootstrap.com/) and [Angular CDK](https://material.angular.io/cdk/categories), any project importing and using the IQUI Elements Library, needs to also include the following SCSS files:
 
 ```scss
 // Bootstrap style imports
 @import '~/node_modules/bootstrap/scss/bootstrap';
 // Import angular CDK structural styling
-@import '~/node_modules/@angular/cdk/overlay-prebuilt.css';
+@import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
+@import '../../../node_modules/@angular/cdk/text-field/text-field';
+@include cdk-text-field();
 ```
 
 ## Development server
