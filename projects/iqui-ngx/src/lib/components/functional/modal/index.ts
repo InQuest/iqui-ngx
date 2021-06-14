@@ -48,7 +48,7 @@ export class ModalComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input()
   public visible = false;
   @Output()
-  public visibleChange = new EventEmitter();
+  public visibleChange = new EventEmitter<boolean>();
 
   @Input()
   public closeOnOverlay = true;

@@ -13,11 +13,11 @@ export class Phrase extends EnTT {
    * Clones a phrase instance
    * @param phrase Phrase instance to clone
    */
-  public static clone(phrase) {
-    return new Phrase(phrase.value, {
-      isCaseSensitive: phrase.isCaseSensitive,
-      isRegExp: phrase.isRegExp,
-    });
+  public static clone<TThis, TInto>(instance: TThis, { target = undefined as TInto, validate = true } = {}): unknown extends TInto ? TThis : TInto {
+    return (new Phrase(((instance as unknown) as Phrase).value, {
+      isCaseSensitive: ((instance as unknown) as Phrase).isCaseSensitive,
+      isRegExp: ((instance as unknown) as Phrase).isRegExp,
+    }) as unknown) as unknown extends TInto ? TThis : TInto;
   }
 
   /**
