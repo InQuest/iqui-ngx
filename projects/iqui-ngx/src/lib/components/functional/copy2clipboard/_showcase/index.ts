@@ -20,6 +20,7 @@ export class Copy2ClipboardShowcaseComponent {
   public context = {
     ContentText: 'Some content to copy',
     ExplicitText: 'Explicit content to copy',
+    explicitTextFactory: () => 'Generated explicit content to copy',
     doSomething: () => {},
   };
 }

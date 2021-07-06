@@ -23,7 +23,7 @@ export class Copy2ClipboardDirective {
    * Holds (optional) explicitly set value to copy
    */
   @Input('iquiCopy2Clipboard')
-  public value = undefined as string;
+  public value: string | (() => string);
 
   /**
    * Fires when a value is copied onto the clipboard
@@ -40,7 +40,7 @@ export class Copy2ClipboardDirective {
       // Check if has explicitly set value
       if (this.value) {
         // Copy explicitly set value
-        this._clipboard.copy2Clipboard(this.value as string);
+        this._clipboard.copy2Clipboard((typeof this.value === 'function' ? this.value() : this.value) as string);
       } else {
         // Copy text from host element
         this._clipboard.copy2Clipboard(this._el.nativeElement as HTMLElement);
