@@ -178,31 +178,31 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     // (Updates drop-down visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the drop-down)
     let timeout = null,
       isFocused = false;
-    // this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
-    //   if (timeout) {
-    //     clearTimeout(timeout);
-    //   }
-    //   timeout = setTimeout(() => {
-    //     // Update drop-down focus (visibility)
-    //     this._overlayRef.updatePosition();
-    //     this._componentRef.instance.focused = !!origin;
-    //     // Allow toggle on click after a while
-    //     isFocused = false;
-    //     timeout = setTimeout(() => {
-    //       isFocused = !!origin;
-    //     }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
-    //   });
-    // });
-    // this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
-    //   if (timeout) {
-    //     clearTimeout(timeout);
-    //   }
-    //   timeout = setTimeout(() => {
-    //     // Update drop-down focus (visibility)
-    //     this._overlayRef.updatePosition();
-    //     this._componentRef.instance.focused = !!origin;
-    //   });
-    // });
+    this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        // Update drop-down focus (visibility)
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.focused = !!origin;
+        // Allow toggle on click after a while
+        isFocused = false;
+        timeout = setTimeout(() => {
+          isFocused = !!origin;
+        }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
+      });
+    });
+    this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        // Update drop-down focus (visibility)
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.focused = !!origin;
+      });
+    });
     this.toggle = (visible: boolean = null) => {
       if (isFocused) {
         // Toggle drop-down focus (visibility)
@@ -213,13 +213,13 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     };
 
     // SAFARI WORKAROUND: work around missing focus events
-    if (true || navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
       // Manage visibility (on focus emulated via click)
       this._element.nativeElement.addEventListener(
         'click',
         (this._eventListeners.click = () => {
           this._overlayRef.updatePosition();
-          this._componentRef.instance.focused = true;
+          this._componentRef.instance.focused = !this._componentRef.instance.focused;
         }),
       );
       // Manage visibility (on blur emulated via outside click)
@@ -314,7 +314,7 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     this._componentFocusMonitor.stopMonitoring(this._element);
     this._dropdownFocusMonitor.stopMonitoring(this._componentRef.instance.element);
     // Safari work around missing focus events
-    if (true || navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
       this._element.nativeElement.removeEventListener('click', this._eventListeners.click);
       document.body.removeEventListener('click', this._eventListeners.bodyClick);
     }
