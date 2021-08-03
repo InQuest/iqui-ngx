@@ -211,6 +211,14 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
         this._componentRef.instance.updateIfChangesDetected();
       }
     };
+    // Safari missing focus workaround
+    if (navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+      // Manage visibility (on hover)
+      this._element.nativeElement.addEventListener('click', () => {
+        this._overlayRef.updatePosition();
+        this._componentRef.instance.focused = !this._componentRef.instance.focused;
+      });
+    }
     // Manage visibility (on hover)
     this._element.nativeElement.addEventListener(
       'mouseenter',
