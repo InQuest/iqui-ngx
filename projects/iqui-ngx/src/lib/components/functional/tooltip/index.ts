@@ -125,6 +125,36 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         this._componentRef.instance.focused = !!origin;
       });
     });
+
+    // SAFARI WORKAROUND: work around missing focus events
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      // Manage visibility (on focus emulated via click)
+      this._element.nativeElement.addEventListener(
+        'click',
+        (this._eventListeners.click = () => {
+          this._overlayRef.updatePosition();
+          this._componentRef.instance.focused = !this._componentRef.instance.focused;
+        }),
+      );
+      // Manage visibility (on blur emulated via outside click)
+      document.body.addEventListener(
+        'click',
+        (this._eventListeners.bodyClick = e => {
+          // Check if click inside component
+          let el = e.target as HTMLElement;
+          while (el) {
+            if (el === this._element.nativeElement || el === this._componentRef.instance.element.nativeElement) {
+              return;
+            }
+            el = el.parentElement;
+          }
+          // Toggle focus off
+          this._overlayRef.updatePosition();
+          this._componentRef.instance.focused = false;
+        }),
+      );
+    }
+
     // Manage visibility (on hover)
     this._element.nativeElement.addEventListener(
       'mouseenter',
@@ -190,6 +220,11 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     // Stop managing visibility (on focus)
     this._componentFocusMonitor.stopMonitoring(this._element);
     this._tooltipFocusMonitor.stopMonitoring(this._componentRef.instance.element);
+    // Safari work around missing focus events
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      this._element.nativeElement.removeEventListener('click', this._eventListeners.click);
+      document.body.removeEventListener('click', this._eventListeners.bodyClick);
+    }
     // Stop managing visibility (on hover)
     this._element.nativeElement.removeEventListener('mouseenter', this._eventListeners.mouseenter);
     this._element.nativeElement.removeEventListener('mouseleave', this._eventListeners.mouseleave);
