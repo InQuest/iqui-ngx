@@ -133,7 +133,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         'click',
         (this._eventListeners.click = () => {
           this._overlayRef.updatePosition();
-          this._componentRef.instance.focused = !this._componentRef.instance.focused;
+          this._componentRef.instance.focused = true;
         }),
       );
       // Manage visibility (on blur emulated via outside click)
