@@ -178,31 +178,31 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     // (Updates drop-down visibility after a cancelable setTimeout to allow loss and (re)gain of focus on same tick without closing the drop-down)
     let timeout = null,
       isFocused = false;
-    this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => {
-        // Update drop-down focus (visibility)
-        this._overlayRef.updatePosition();
-        this._componentRef.instance.focused = !!origin;
-        // Allow toggle on click after a while
-        isFocused = false;
-        timeout = setTimeout(() => {
-          isFocused = !!origin;
-        }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
-      });
-    });
-    this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => {
-        // Update drop-down focus (visibility)
-        this._overlayRef.updatePosition();
-        this._componentRef.instance.focused = !!origin;
-      });
-    });
+    // this._componentFocusMonitor.monitor(this._element, true).subscribe(origin => {
+    //   if (timeout) {
+    //     clearTimeout(timeout);
+    //   }
+    //   timeout = setTimeout(() => {
+    //     // Update drop-down focus (visibility)
+    //     this._overlayRef.updatePosition();
+    //     this._componentRef.instance.focused = !!origin;
+    //     // Allow toggle on click after a while
+    //     isFocused = false;
+    //     timeout = setTimeout(() => {
+    //       isFocused = !!origin;
+    //     }, PROGRAMMATIC_TOGGLE_AFTER_FOCUS_TIMEOUT);
+    //   });
+    // });
+    // this._dropdownFocusMonitor.monitor(this._componentRef.instance.element, true).subscribe(origin => {
+    //   if (timeout) {
+    //     clearTimeout(timeout);
+    //   }
+    //   timeout = setTimeout(() => {
+    //     // Update drop-down focus (visibility)
+    //     this._overlayRef.updatePosition();
+    //     this._componentRef.instance.focused = !!origin;
+    //   });
+    // });
     this.toggle = (visible: boolean = null) => {
       if (isFocused) {
         // Toggle drop-down focus (visibility)
@@ -211,14 +211,36 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
         this._componentRef.instance.updateIfChangesDetected();
       }
     };
-    // Safari missing focus workaround
-    if (navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
-      // Manage visibility (on hover)
-      this._element.nativeElement.addEventListener('click', () => {
-        this._overlayRef.updatePosition();
-        this._componentRef.instance.focused = !this._componentRef.instance.focused;
-      });
+
+    // SAFARI WORKAROUND: work around missing focus events
+    if (true || navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+      // Manage visibility (on focus emulated via click)
+      this._element.nativeElement.addEventListener(
+        'click',
+        (this._eventListeners.click = () => {
+          this._overlayRef.updatePosition();
+          this._componentRef.instance.focused = true;
+        }),
+      );
+      // Manage visibility (on blur emulated via outside click)
+      document.body.addEventListener(
+        'click',
+        (this._eventListeners.bodyClick = e => {
+          // Check if click inside component
+          let el = e.target as HTMLElement;
+          while (el) {
+            if (el === this._element.nativeElement || el === this._componentRef.instance.element.nativeElement) {
+              return;
+            }
+            el = el.parentElement;
+          }
+          // Toggle focus off
+          this._overlayRef.updatePosition();
+          this._componentRef.instance.focused = false;
+        }),
+      );
     }
+
     // Manage visibility (on hover)
     this._element.nativeElement.addEventListener(
       'mouseenter',
@@ -291,6 +313,11 @@ export class DropdownDirective implements OnInit, AfterViewInit, OnChanges, OnDe
     // Stop managing visibility (on focus)
     this._componentFocusMonitor.stopMonitoring(this._element);
     this._dropdownFocusMonitor.stopMonitoring(this._componentRef.instance.element);
+    // Safari work around missing focus events
+    if (true || navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+      this._element.nativeElement.removeEventListener('click', this._eventListeners.click);
+      document.body.removeEventListener('click', this._eventListeners.bodyClick);
+    }
     // Stop managing visibility (on hover)
     this._element.nativeElement.removeEventListener('mouseenter', this._eventListeners.mouseenter);
     this._element.nativeElement.removeEventListener('mouseleave', this._eventListeners.mouseleave);
