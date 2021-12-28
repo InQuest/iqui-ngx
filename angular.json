@@ -33,13 +33,6 @@
             "tsConfig": "projects/iqui-ngx/tsconfig.spec.json",
             "karmaConfig": "projects/iqui-ngx/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["projects/iqui-ngx/tsconfig.lib.json", "projects/iqui-ngx/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -130,13 +123,6 @@
             "assets": ["projects/showcase/src/favicon.ico", "projects/showcase/src/assets"],
             "styles": ["projects/showcase/src/styles.scss"],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["projects/showcase/tsconfig.app.json", "projects/showcase/tsconfig.spec.json", "projects/showcase/e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
