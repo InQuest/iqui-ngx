@@ -63,6 +63,8 @@ export { SelectComponent } from './components/select';
     OptionDirective,
   ],
   exports: [
+    // Export angular dependencies
+    CommonModule,
     // Export dependency modules
     TextFieldModule,
     // Export child components

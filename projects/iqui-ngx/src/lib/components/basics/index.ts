@@ -1,6 +1,7 @@
 // Import dependencies
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Import dependency modules
 import { FunctionalModule } from '../functional';
@@ -37,9 +38,12 @@ export { PhraseInputComponent };
  * Implements components that are basic building blocks of any application or more-complex component
  */
 @NgModule({
-  imports: [CommonModule, FunctionalModule, FormModule],
+  imports: [CommonModule, RouterModule, FunctionalModule, FormModule],
   declarations: [ButtonComponent, DropdownButtonComponent, PhraseInputComponent],
   exports: [
+    // Export angular dependencies
+    CommonModule,
+    RouterModule,
     // Export dependency modules
     FunctionalModule,
     FormModule,

@@ -18,6 +18,8 @@ export { PlaygroundComponent, PlaygroundTextareaDirective };
   imports: [CommonModule, FormModule, CodeModule],
   declarations: [PlaygroundComponent, PlaygroundTextareaDirective],
   exports: [
+    // Export angular dependencies
+    CommonModule,
     // Export dependency modules
     FormModule,
     CodeModule,

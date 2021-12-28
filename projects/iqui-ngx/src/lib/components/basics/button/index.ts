@@ -37,13 +37,13 @@ export type TButtonComponentSize = TBootstrapSize;
  * Usage:
  *
  *  <iqui-button\
- *    [ disabled  = "true|false" ]\
- *    [ class     = "..." ]\
- *    [ ngClass   = "{...}" ]\
- *    [ size      = "sm|lg" ]\
- *    [ theme     = "primary|secondary|success|warning|danger|info|light|dark|link" ]\
- *    [ href      = "https://example.com" ]\
- *    [ target    = "_blank|_self" ]\
+ *    [ disabled    = "true|false" ]\
+ *    [ class       = "..." ]\
+ *    [ ngClass     = "{...}" ]\
+ *    [ size        = "sm|lg" ]\
+ *    [ theme       = "primary|secondary|success|warning|danger|info|light|dark|link" ]\
+ *    [ href        = "https://example.com" ]\
+ *    [ target      = "_blank|_self" ]\
  *  >\
  *    Button content\
  *  </iqui-button>
@@ -110,6 +110,19 @@ export class ButtonComponent extends UsesFormElementDirectives {
   public target: '_self' | '_blank' = '_self';
 
   /**
+   * Returns remote URL to link to if [href] property contains a remote URL as a value
+   */
+  public get _href() {
+    return this.href && this.href.includes('://') ? this.href : undefined;
+  }
+  /**
+   * Returns local URL to route to if [href] property contains a local URL as a value
+   */
+  public get _routerLink() {
+    return this.href && !this.href.includes('://') ? this.href : undefined;
+  }
+
+  /**
    * Composes class value based on property values
    */
   public get _composedClassValue() {
@@ -119,7 +132,7 @@ export class ButtonComponent extends UsesFormElementDirectives {
       // Mark size (.btn-sm)
       this.size ? 'btn-' + this.size : null,
       // Mark theme color (.btn-primary, .btn-link, etc ...)
-      'btn-' + (this.theme || (!this.href ? 'secondary' : 'link')),
+      'btn-' + (this.theme || (!this._href && !this._routerLink ? 'secondary' : 'link')),
       // Mark as disabled, if disabled (.disabled)
       this.disabled ? 'disabled' : null,
       // Pass-through host class

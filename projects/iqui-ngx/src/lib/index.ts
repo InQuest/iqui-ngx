@@ -104,6 +104,9 @@ export { providers };
   declarations: [],
   providers: [...providers],
   exports: [
+    // Export angular dependencies
+    CommonModule,
+    BrowserModule,
     // (Re)export individual modules, making them included into any app the root module is included in
     ...modules,
   ],

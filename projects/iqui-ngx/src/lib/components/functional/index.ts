@@ -61,6 +61,8 @@ export { BookmarkableDirective, BookmarkableService };
     BookmarkableDirective,
   ],
   exports: [
+    // Export angular dependencies
+    CommonModule,
     // Export dependency modules
     OverlayModule,
     // Export child components

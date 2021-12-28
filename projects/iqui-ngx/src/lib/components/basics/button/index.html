@@ -2,14 +2,21 @@
 <ng-template #content><ng-content></ng-content></ng-template>
 
 <!-- Button -->
-<button *ngIf="!href" [iquiFormParent]="_iquiFormParent" [attr.disabled]="disabled || null" [ngClass]="ngClass" [class]="_composedClassValue">
+<button *ngIf="!_href && !_routerLink" [iquiFormParent]="_iquiFormParent" [attr.disabled]="disabled || null" [ngClass]="ngClass" [class]="_composedClassValue">
   <span class="iqui-button-content d-flex align-items-center">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </span>
 </button>
 
-<!-- Anchor -->
-<a *ngIf="!!href" [attr.disabled]="disabled || null" [ngClass]="ngClass" [class]="_composedClassValue" [href]="href" [target]="target">
+<!-- Anchor (linking to URL) -->
+<a *ngIf="!!_href" [attr.disabled]="disabled || null" [ngClass]="ngClass" [class]="_composedClassValue" [href]="_href" [target]="target">
+  <span class="iqui-button-content d-flex align-items-center">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </span>
+</a>
+
+<!-- Anchor (routing to local URL) -->
+<a *ngIf="!!_routerLink" [attr.disabled]="disabled || null" [ngClass]="ngClass" [class]="_composedClassValue" [routerLink]="_routerLink">
   <span class="iqui-button-content d-flex align-items-center">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </span>

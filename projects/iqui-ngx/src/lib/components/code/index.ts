@@ -24,6 +24,8 @@ export { HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTo
   imports: [CommonModule, BasicsModule, FormModule],
   declarations: [HighlightJsComponent, HighlightJsTextareaDirective, HighlightJsInjectTopDirective, HighlightJsInjectBottomDirective],
   exports: [
+    // Export angular dependencies
+    CommonModule,
     // Export dependency modules
     CommonModule,
     BasicsModule,
