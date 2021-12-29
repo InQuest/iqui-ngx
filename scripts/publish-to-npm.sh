@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Get repo root directory
+REPO_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/../" &> /dev/null && pwd );
+
 cd "$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)";
 
 # Exit when any command fails
@@ -7,14 +11,14 @@ set -e
 # Build library version
 echo '> Building latest library version ...';
 ng build --prod
-cp -f ../README.md ../dist;
-cp -f ../LICENSE ../dist;
-cp -f ../package.json ../dist;
+cp -f $REPO_DIR/README.md $REPO_DIR/dist;
+cp -f $REPO_DIR/LICENSE $REPO_DIR/dist;
+cp -f $REPO_DIR/package.json $REPO_DIR/dist;
 
 # Running tests
 echo '';
 echo '> Running tests...';
-npx jasmine ../package.spec.ts
+npx jasmine $REPO_DIR/package.spec.ts
 
 # Check if main project package.json and library package.json are have same property values
 echo '';
@@ -53,5 +57,4 @@ if [ "${repDescription}" != "${libDescription}" ]; then
 fi
 
 # Publish via NPM
-cd ../dist/iqui-ngx
-# npm publish
+# (cd $REPO_DIR/dist/iqui-ngx; npm publish)
