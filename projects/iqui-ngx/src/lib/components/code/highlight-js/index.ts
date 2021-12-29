@@ -17,7 +17,7 @@ import {
   TemplateRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { default as hljs } from 'highlight.js/lib/highlight';
+import { default as hljs } from 'highlight.js';
 
 // Import data
 import { Phrase } from '../../../data';
