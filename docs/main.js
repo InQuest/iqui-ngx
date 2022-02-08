@@ -1080,7 +1080,7 @@ DropdownButtonComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MO
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵclassMap"](ctx.class);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("iquiFormParent", ctx._iquiFormParent)("disabled", ctx.disabled)("ngClass", ctx.ngClass)("theme", ctx.theme)("size", ctx.size)("iquiDropdownPosition", ctx.position)("iquiDropdownShowOnFocus", ctx.showOnFocus)("iquiDropdownShowOnHover", ctx.showOnHover)("iquiDropdownStayInViewport", ctx.stayInViewport);
-    } }, directives: [_button__WEBPACK_IMPORTED_MODULE_1__.ButtonComponent, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownDirective, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgClass, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownHeaderDirective, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownBodyDirective, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownFooterDirective, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgTemplateOutlet], styles: ["[_nghost-%COMP%] {\n  display: inline-block;\n}\n[_nghost-%COMP%]   iqui-button[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQkFBQTtBQUNGO0FBQ0U7RUFDRSxjQUFBO0FBQ0oiLCJmaWxlIjoic3R5bGUuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuXG4gIGlxdWktYnV0dG9uIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgfVxufVxuIl19 */"] });
+    } }, directives: [_button__WEBPACK_IMPORTED_MODULE_1__.ButtonComponent, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownDirective, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgClass, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownHeaderDirective, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgTemplateOutlet, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownBodyDirective, _functional_dropdown__WEBPACK_IMPORTED_MODULE_2__.DropdownFooterDirective], styles: ["[_nghost-%COMP%] {\n  display: inline-block;\n}\n[_nghost-%COMP%]   iqui-button[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQkFBQTtBQUNGO0FBQ0U7RUFDRSxjQUFBO0FBQ0oiLCJmaWxlIjoic3R5bGUuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuXG4gIGlxdWktYnV0dG9uIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgfVxufVxuIl19 */"] });
 
 
 /***/ }),
@@ -1572,16 +1572,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "HighlightJsInjectBottomDirective": () => (/* binding */ HighlightJsInjectBottomDirective),
 /* harmony export */   "HighlightJsComponent": () => (/* binding */ HighlightJsComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 3184);
-/* harmony import */ var highlight_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! highlight.js */ 7722);
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data */ 3813);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 6362);
-/* harmony import */ var _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../form/directives/textarea/index */ 485);
-/* harmony import */ var _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/text-field */ 1307);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var he__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! he */ 584);
+/* harmony import */ var he__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(he__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var highlight_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! highlight.js */ 7722);
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../data */ 3813);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 6362);
+/* harmony import */ var _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../form/directives/textarea/index */ 485);
 // Wrapper around highlight.js (https://highlightjs.org/)
 // TODO: Consider pushing highlighting into a web-worker
 // ----------------------------------------------------------------------------
 // Import dependencies
+
 
 
 // Import data
@@ -1589,57 +1591,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function HighlightJsComponent_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainer"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainer"](0);
 } }
 function HighlightJsComponent_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainerEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainerStart"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_1_ng_container_1_Template, 1, 0, "ng-container", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
     const injected_r4 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngTemplateOutlet", injected_r4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngTemplateOutlet", injected_r4);
 } }
 const _c0 = function (a0) { return [a0]; };
 function HighlightJsComponent_pre_2_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "pre");
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](1, "code", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "pre");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](1, "code", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵpureFunction1"](2, _c0, ctx_r1.wrap ? "wrapped" : ""))("innerHTML", ctx_r1._highlightedSyntax, _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsanitizeHtml"]);
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction1"](2, _c0, ctx_r1.wrap ? "wrapped" : ""))("innerHTML", ctx_r1._highlightedSyntax, _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsanitizeHtml"]);
 } }
 function HighlightJsComponent_pre_3_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "pre");
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "code", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](2, "ul");
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](3, "li");
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](4, "textarea", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "pre");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](1, "code", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](2, "ul");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](3, "li");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](4, "textarea", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵpureFunction1"](3, _c0, ctx_r2.wrap ? "wrapped" : ""));
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("readonly", true)("value", ctx_r2._highlightedSyntax);
+    const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction1"](3, _c0, ctx_r2.wrap ? "wrapped" : ""));
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("readonly", true)("value", ctx_r2._highlightedSyntax);
 } }
 function HighlightJsComponent_ng_container_4_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainer"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainer"](0);
 } }
 function HighlightJsComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_4_ng_container_1_Template, 1, 0, "ng-container", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementContainerEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainerStart"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_4_ng_container_1_Template, 1, 0, "ng-container", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
     const injected_r6 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngTemplateOutlet", injected_r6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngTemplateOutlet", injected_r6);
 } }
 /**
  * Registers additional highligh.js (https://highlightjs.org/) language syntaxes
@@ -1663,7 +1664,7 @@ function highlightJsRegisterLanguage(languageName, language) {
 class HighlightJsTextareaDirective {
 }
 HighlightJsTextareaDirective.ɵfac = function HighlightJsTextareaDirective_Factory(t) { return new (t || HighlightJsTextareaDirective)(); };
-HighlightJsTextareaDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineDirective"]({ type: HighlightJsTextareaDirective, selectors: [["textarea"]] });
+HighlightJsTextareaDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineDirective"]({ type: HighlightJsTextareaDirective, selectors: [["textarea"]] });
 /**
  * Used to include a filter component into a <iqui-highlightjs /> component
  *
@@ -1681,7 +1682,7 @@ HighlightJsTextareaDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORT
 class HighlightJsInjectTopDirective {
 }
 HighlightJsInjectTopDirective.ɵfac = function HighlightJsInjectTopDirective_Factory(t) { return new (t || HighlightJsInjectTopDirective)(); };
-HighlightJsInjectTopDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineDirective"]({ type: HighlightJsInjectTopDirective, selectors: [["", "iquiHighlightJsInjectedTop", ""]] });
+HighlightJsInjectTopDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineDirective"]({ type: HighlightJsInjectTopDirective, selectors: [["", "iquiHighlightJsInjectedTop", ""]] });
 /**
  * Used to include a filter component into a <iqui-highlightjs /> component
  *
@@ -1699,7 +1700,7 @@ HighlightJsInjectTopDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPOR
 class HighlightJsInjectBottomDirective {
 }
 HighlightJsInjectBottomDirective.ɵfac = function HighlightJsInjectBottomDirective_Factory(t) { return new (t || HighlightJsInjectBottomDirective)(); };
-HighlightJsInjectBottomDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineDirective"]({ type: HighlightJsInjectBottomDirective, selectors: [["", "iquiHighlightJsInjectedBottom", ""]] });
+HighlightJsInjectBottomDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineDirective"]({ type: HighlightJsInjectBottomDirective, selectors: [["", "iquiHighlightJsInjectedBottom", ""]] });
 /**
  * Highlight.js (https://highlightjs.org/) wrapper, displays colored syntax
  *
@@ -1757,7 +1758,7 @@ class HighlightJsComponent {
         /**
          * Row filter (will only show rows matching given string or regexp or Phrase instance)
          */
-        this.filter = new _data__WEBPACK_IMPORTED_MODULE_1__.Phrase();
+        this.filter = new _data__WEBPACK_IMPORTED_MODULE_2__.Phrase();
         /**
          * If rows should wrap
          */
@@ -1783,7 +1784,7 @@ class HighlightJsComponent {
      * @param language Language syntax definition (from "highlight.js/lib/languages/")
      */
     static registerLanguage(languageName, language) {
-        highlight_js__WEBPACK_IMPORTED_MODULE_0__["default"].registerLanguage(languageName, language);
+        highlight_js__WEBPACK_IMPORTED_MODULE_1__["default"].registerLanguage(languageName, language);
     }
     get ngClass() {
         return this._ngClass;
@@ -1798,6 +1799,12 @@ class HighlightJsComponent {
     set class(value) {
         this._class = value;
         this._attrClass = null;
+    }
+    /**
+     * If a simple textarea can be used to display syntax instead of a more complex method
+     */
+    get _canUseTextareaFallbackMethod() {
+        return !this.highlight && !this.lineNumbers;
     }
     ngAfterContentInit() {
         // If no syntax attribute set, try extracting value from <textarea /> child
@@ -1875,7 +1882,7 @@ class HighlightJsComponent {
         // HighlightSyntax
         try {
             if (this.highlight) {
-                syntax = !this.disabled ? highlight_js__WEBPACK_IMPORTED_MODULE_0__["default"].highlightAuto(syntax, this.languages).value : syntax;
+                syntax = !this.disabled ? highlight_js__WEBPACK_IMPORTED_MODULE_1__["default"].highlightAuto(syntax, this.languages).value : syntax;
             }
         }
         catch (err) {
@@ -1887,10 +1894,10 @@ class HighlightJsComponent {
         const rawSyntaxLines = syntax.split('\n'), highlightedSyntaxLines = syntax.split('\n'), lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
         let numberedSyntax = [];
         // Filter lines
-        const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(), hasRegExpFilter = this.filter instanceof RegExp, hasPhraseFilter = this.filter instanceof _data__WEBPACK_IMPORTED_MODULE_1__.Phrase && this.filter.value.trim();
-        if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
+        const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(), hasRegExpFilter = this.filter instanceof RegExp, hasPhraseFilter = this.filter instanceof _data__WEBPACK_IMPORTED_MODULE_2__.Phrase && this.filter.value.trim();
+        highlightedSyntaxLines.forEach((line, i) => {
             // Filter rows
-            highlightedSyntaxLines.forEach((line, i) => {
+            if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
                 // Check if filter is regexp or treat as string
                 if (hasStringFilter || (hasPhraseFilter && !this.filter.isRegExp)) {
                     try {
@@ -1913,16 +1920,14 @@ class HighlightJsComponent {
                     }
                     catch (err) { }
                 }
-            });
-        }
-        else {
-            // Allow all rows
-            highlightedSyntaxLines.forEach((line, i) => {
+            }
+            // Show unfiltered rows
+            else {
                 numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
-            });
-        }
+            }
+        });
         // Set syntax with added line numbers
-        if (this.highlight) {
+        if (!this._canUseTextareaFallbackMethod) {
             // Set syntax
             this._highlightedSyntax = `<ul class="${this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : ''}">${numberedSyntax.join('')}</ul>`;
         }
@@ -1939,8 +1944,11 @@ class HighlightJsComponent {
      */
     _renderLine(line, lineNumber = null, lineNumberPaddingLength = null) {
         // tslint:disable-next-line: max-line-length
-        if (this.highlight) {
-            return lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`;
+        if (!this._canUseTextareaFallbackMethod) {
+            const escapedLine = !this.highlight ? he__WEBPACK_IMPORTED_MODULE_0___default().encode(line, { useNamedReferences: true }) : line;
+            return lineNumber !== null
+                ? `<li><span class="hljs-line-num">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
+                : `<li>${escapedLine || '&nbsp;'}</li>`;
         }
         else {
             return lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`;
@@ -1956,41 +1964,41 @@ class HighlightJsComponent {
             // Pass-through host class
             this.class || null,
             // If highlighting on
-            this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted',
+            !this._canUseTextareaFallbackMethod ? 'syntax-display-explicitly' : 'syntax-display-textarea',
         ].join(' ');
     }
 }
-HighlightJsComponent.ɵfac = function HighlightJsComponent_Factory(t) { return new (t || HighlightJsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectorRef)); };
-HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: HighlightJsComponent, selectors: [["iqui-highlightjs"]], contentQueries: function HighlightJsComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵcontentQuery"](dirIndex, HighlightJsTextareaDirective, 5, _angular_core__WEBPACK_IMPORTED_MODULE_3__.ElementRef);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵcontentQuery"](dirIndex, HighlightJsInjectTopDirective, 4, _angular_core__WEBPACK_IMPORTED_MODULE_3__.TemplateRef);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵcontentQuery"](dirIndex, HighlightJsInjectBottomDirective, 4, _angular_core__WEBPACK_IMPORTED_MODULE_3__.TemplateRef);
+HighlightJsComponent.ɵfac = function HighlightJsComponent_Factory(t) { return new (t || HighlightJsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_4__.ChangeDetectorRef)); };
+HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({ type: HighlightJsComponent, selectors: [["iqui-highlightjs"]], contentQueries: function HighlightJsComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵcontentQuery"](dirIndex, HighlightJsTextareaDirective, 5, _angular_core__WEBPACK_IMPORTED_MODULE_4__.ElementRef);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵcontentQuery"](dirIndex, HighlightJsInjectTopDirective, 4, _angular_core__WEBPACK_IMPORTED_MODULE_4__.TemplateRef);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵcontentQuery"](dirIndex, HighlightJsInjectBottomDirective, 4, _angular_core__WEBPACK_IMPORTED_MODULE_4__.TemplateRef);
     } if (rf & 2) {
         let _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx._syntaxEl = _t.first);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx._injectedTop = _t);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx._injectedBottom = _t);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx._syntaxEl = _t.first);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx._injectedTop = _t);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx._injectedBottom = _t);
     } }, hostVars: 2, hostBindings: function HighlightJsComponent_HostBindings(rf, ctx) { if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵattribute"]("ngClass", ctx._attrNgClass)("class", ctx._attrClass);
-    } }, inputs: { disabled: "disabled", ngClass: "ngClass", class: "class", syntax: "syntax", languages: "languages", filter: "filter", wrap: "wrap", trim: "trim", highlight: "highlight", lineNumbers: "lineNumbers" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵNgOnChangesFeature"]], decls: 5, vars: 7, consts: [[3, "ngClass"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [4, "ngTemplateOutlet"], [3, "ngClass", "innerHTML"], ["cdkTextareaAutosize", "", 3, "readonly", "value"]], template: function HighlightJsComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_1_Template, 2, 1, "ng-container", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](2, HighlightJsComponent_pre_2_Template, 2, 4, "pre", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, HighlightJsComponent_pre_3_Template, 5, 5, "pre", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](4, HighlightJsComponent_ng_container_4_Template, 2, 1, "ng-container", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵattribute"]("ngClass", ctx._attrNgClass)("class", ctx._attrClass);
+    } }, inputs: { disabled: "disabled", ngClass: "ngClass", class: "class", syntax: "syntax", languages: "languages", filter: "filter", wrap: "wrap", trim: "trim", highlight: "highlight", lineNumbers: "lineNumbers" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵNgOnChangesFeature"]], decls: 5, vars: 7, consts: [[3, "ngClass"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [4, "ngTemplateOutlet"], [3, "ngClass", "innerHTML"], [3, "readonly", "value"]], template: function HighlightJsComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_1_Template, 2, 1, "ng-container", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](2, HighlightJsComponent_pre_2_Template, 2, 4, "pre", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](3, HighlightJsComponent_pre_3_Template, 5, 5, "pre", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](4, HighlightJsComponent_ng_container_4_Template, 2, 1, "ng-container", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵclassMap"](ctx._composedClassValue);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngClass", ctx.ngClass);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngForOf", ctx._injectedTop);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.highlight);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", !ctx.highlight);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngForOf", ctx._injectedBottom);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgTemplateOutlet, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_2__.TextareaDirective, HighlightJsTextareaDirective, _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_5__.CdkTextareaAutosize], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-not-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-not-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: auto;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-not-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-not-highlighted[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCViIsImZpbGUiOiJzdHlsZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuICAmID4gZGl2IHtcbiAgICBtYXJnaW4tYm90dG9tOiB1bnNldDtcblxuICAgICYgPiBwcmUge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgJiA+IGNvZGUge1xuICAgICAgICAmLndyYXBwZWQge1xuICAgICAgICAgIHdoaXRlLXNwYWNlOiBwcmUtd3JhcDtcbiAgICAgICAgfVxuXG4gICAgICAgICY6Om5nLWRlZXAgPiB1bCB7XG4gICAgICAgICAgbGlzdC1zdHlsZTogbm9uZTtcbiAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwO1xuICAgICAgICAgIHBhZGRpbmctaW5saW5lLXN0YXJ0OiB1bnNldDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC8vIEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtaGlnaGxpZ2h0ZWQgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwge1xuICAgICAgJiA+IGxpIHtcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICAmID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICBjb2xvcjogZ3JheTtcbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBOdW1iZXJzIGNvbHVtbiB3aWR0aCBkZXBlbmRlbnQgb24gbGluZSBjb3VudFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0wLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0xLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0yLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0zLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy00IHtcbiAgICAgICAgcGFkZGluZy1sZWZ0OiA0MHB4O1xuICAgICAgICAmID4gbGkgPiAuaGxqcy1saW5lLW51bSB7XG4gICAgICAgICAgd2lkdGg6IDQwcHg7XG4gICAgICAgICAgbGVmdDogLTQwcHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctOCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogODBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA4MHB4O1xuICAgICAgICAgIGxlZnQ6IC04MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gTm90IEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtbm90LWhpZ2hsaWdodGVkID4gcHJlID4gY29kZTo6bmctZGVlcCA+IHVsID4gbGkge1xuICAgICAgcG9zaXRpb246IGluaXRpYWw7XG4gICAgICAmID4gdGV4dGFyZWEge1xuICAgICAgICBkaXNwbGF5OiBibG9jaztcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgICAgIGhlaWdodDogYXV0bztcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgb3ZlcmZsb3cteTogYXV0bztcbiAgICAgICAgcmVzaXplOiBub25lO1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiBpbmhlcml0O1xuICAgICAgICBjb2xvcjogaW5oZXJpdDtcblxuICAgICAgICAmLFxuICAgICAgICAmOmZvY3VzIHtcbiAgICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICAgICAgb3V0bGluZTogbm9uZTtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵclassMap"](ctx._composedClassValue);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngClass", ctx.ngClass);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx._injectedTop);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx._canUseTextareaFallbackMethod);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx._canUseTextareaFallbackMethod);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx._injectedBottom);
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__.TextareaDirective, HighlightJsTextareaDirective], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: visible;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCViIsImZpbGUiOiJzdHlsZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuICAmID4gZGl2IHtcbiAgICBtYXJnaW4tYm90dG9tOiB1bnNldDtcblxuICAgICYgPiBwcmUge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgJiA+IGNvZGUge1xuICAgICAgICAmLndyYXBwZWQge1xuICAgICAgICAgIHdoaXRlLXNwYWNlOiBwcmUtd3JhcDtcbiAgICAgICAgfVxuXG4gICAgICAgICY6Om5nLWRlZXAgPiB1bCB7XG4gICAgICAgICAgbGlzdC1zdHlsZTogbm9uZTtcbiAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwO1xuICAgICAgICAgIHBhZGRpbmctaW5saW5lLXN0YXJ0OiB1bnNldDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC8vIEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtZGlzcGxheS1leHBsaWNpdGx5ID4gcHJlID4gY29kZTo6bmctZGVlcCA+IHVsIHtcbiAgICAgICYgPiBsaSB7XG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgICAgJiA+IC5obGpzLWxpbmUtbnVtIHtcbiAgICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgICAgICAgdXNlci1zZWxlY3Q6IG5vbmU7XG4gICAgICAgICAgY29sb3I6IGdyYXk7XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gTnVtYmVycyBjb2x1bW4gd2lkdGggZGVwZW5kZW50IG9uIGxpbmUgY291bnRcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMCxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogNDBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA0MHB4O1xuICAgICAgICAgIGxlZnQ6IC00MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgICAmLmhsanMtY291bnQtbG9nLTUsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTYsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTcsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTgge1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDgwcHg7XG4gICAgICAgICYgPiBsaSA+IC5obGpzLWxpbmUtbnVtIHtcbiAgICAgICAgICB3aWR0aDogODBweDtcbiAgICAgICAgICBsZWZ0OiAtODBweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC8vIE5vdCBIaWdobGlnaHRlZFxuICAgICYuc3ludGF4LWRpc3BsYXktdGV4dGFyZWEgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwgPiBsaSB7XG4gICAgICBwb3NpdGlvbjogaW5pdGlhbDtcbiAgICAgICYgPiB0ZXh0YXJlYSB7XG4gICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBvdmVyZmxvdy15OiB2aXNpYmxlO1xuICAgICAgICByZXNpemU6IG5vbmU7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6IGluaGVyaXQ7XG4gICAgICAgIGNvbG9yOiBpbmhlcml0O1xuXG4gICAgICAgICYsXG4gICAgICAgICY6Zm9jdXMge1xuICAgICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgICAgICBvdXRsaW5lOiBub25lO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICB9XG59XG4iXX0= */"] });
 
 
 /***/ }),
