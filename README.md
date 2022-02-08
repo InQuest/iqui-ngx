@@ -13,8 +13,6 @@ Since IQUI-NGX is built on top of [Bootstrap](https://getbootstrap.com/) and [An
 @import '~/node_modules/bootstrap/scss/bootstrap';
 // Import angular CDK structural styling
 @import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
-@import '../../../node_modules/@angular/cdk/text-field/text-field';
-@include cdk-text-field();
 ```
 
 ## Development server
