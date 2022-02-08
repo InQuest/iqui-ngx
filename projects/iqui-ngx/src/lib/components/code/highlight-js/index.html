@@ -4,12 +4,12 @@
   <ng-container *ngFor="let injected of _injectedTop">
     <ng-container *ngTemplateOutlet="injected"></ng-container>
   </ng-container>
-  <!-- Highlighted syntax -->
-  <pre *ngIf="highlight"><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
-  <!-- Not-highlighted sytax -->
+  <!-- Syntax displayed explicitly -->
+  <pre *ngIf="!_canUseTextareaFallbackMethod"><code [ngClass]="[(wrap ? 'wrapped' : '')]" [innerHTML]="_highlightedSyntax"></code></pre>
+  <!-- Sytax displayed via textarea -->
   <pre
-    *ngIf="!highlight"
-  ><code [ngClass]="[(wrap ? 'wrapped' : '')]"><ul><li><textarea cdkTextareaAutosize [readonly]="true" [value]="_highlightedSyntax"></textarea></li></ul></code></pre>
+    *ngIf="_canUseTextareaFallbackMethod"
+  ><code [ngClass]="[(wrap ? 'wrapped' : '')]"><ul><li><textarea [readonly]="true" [value]="_highlightedSyntax"></textarea></li></ul></code></pre>
   <!-- Injected bottom section -->
   <ng-container *ngFor="let injected of _injectedBottom">
     <ng-container *ngTemplateOutlet="injected"></ng-container>

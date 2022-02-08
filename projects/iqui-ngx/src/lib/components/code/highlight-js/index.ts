@@ -16,7 +16,9 @@ import {
   QueryList,
   TemplateRef,
   ChangeDetectorRef,
+  SecurityContext,
 } from '@angular/core';
+import { default as he } from 'he';
 import { default as hljs } from 'highlight.js';
 
 // Import data
@@ -230,6 +232,13 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   @ContentChildren(HighlightJsInjectBottomDirective, { read: TemplateRef })
   public _injectedBottom: QueryList<TemplateRef<any>>;
 
+  /**
+   * If a simple textarea can be used to display syntax instead of a more complex method
+   */
+  public get _canUseTextareaFallbackMethod() {
+    return !this.highlight && !this.lineNumbers;
+  }
+
   // Rendered, highlighted syntax HTML
   public _highlightedSyntax = '';
 
@@ -337,9 +346,9 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(),
       hasRegExpFilter = this.filter instanceof RegExp,
       hasPhraseFilter = this.filter instanceof Phrase && this.filter.value.trim();
-    if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
+    highlightedSyntaxLines.forEach((line, i) => {
       // Filter rows
-      highlightedSyntaxLines.forEach((line, i) => {
+      if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
         // Check if filter is regexp or treat as string
         if (hasStringFilter || (hasPhraseFilter && !(this.filter as Phrase).isRegExp)) {
           try {
@@ -362,16 +371,15 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
             }
           } catch (err) {}
         }
-      });
-    } else {
-      // Allow all rows
-      highlightedSyntaxLines.forEach((line, i) => {
+      }
+      // Show unfiltered rows
+      else {
         numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
-      });
-    }
+      }
+    });
 
     // Set syntax with added line numbers
-    if (this.highlight) {
+    if (!this._canUseTextareaFallbackMethod) {
       // Set syntax
       this._highlightedSyntax = `<ul class="${this.lineNumbers ? `hljs-count-log-${lineNumberPaddingLength}` : ''}">${numberedSyntax.join('')}</ul>`;
     } else {
@@ -386,10 +394,13 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    * @param lineNumber (Optional) Line number to render left of thr syntax line
    * @param lineNumberPaddingLength (Optional) Padding length target for line numbers
    */
-  private _renderLine(line, lineNumber = null, lineNumberPaddingLength = null) {
+  private _renderLine(line: string, lineNumber = null, lineNumberPaddingLength = null) {
     // tslint:disable-next-line: max-line-length
-    if (this.highlight) {
-      return lineNumber !== null ? `<li><span class="hljs-line-num">${lineNumber}</span>${line || '&nbsp;'}</li>` : `<li>${line || '&nbsp;'}</li>`;
+    if (!this._canUseTextareaFallbackMethod) {
+      const escapedLine = !this.highlight ? he.encode(line, { useNamedReferences: true }) : line;
+      return lineNumber !== null
+        ? `<li><span class="hljs-line-num">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
+        : `<li>${escapedLine || '&nbsp;'}</li>`;
     } else {
       return lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`;
     }
@@ -405,7 +416,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
       // Pass-through host class
       this.class || null,
       // If highlighting on
-      this.highlight ? 'syntax-highlighted' : 'syntax-not-highlighted',
+      !this._canUseTextareaFallbackMethod ? 'syntax-display-explicitly' : 'syntax-display-textarea',
     ].join(' ');
   }
 }

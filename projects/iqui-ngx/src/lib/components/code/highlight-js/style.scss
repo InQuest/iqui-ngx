@@ -18,7 +18,7 @@
     }
 
     // Highlighted
-    &.syntax-highlighted > pre > code::ng-deep > ul {
+    &.syntax-display-explicitly > pre > code::ng-deep > ul {
       & > li {
         position: relative;
         & > .hljs-line-num {
@@ -55,14 +55,14 @@
     }
 
     // Not Highlighted
-    &.syntax-not-highlighted > pre > code::ng-deep > ul > li {
+    &.syntax-display-textarea > pre > code::ng-deep > ul > li {
       position: initial;
       & > textarea {
         display: block;
         width: 100%;
         height: auto;
         padding: 0;
-        overflow-y: auto;
+        overflow-y: visible;
         resize: none;
         background-color: inherit;
         color: inherit;
