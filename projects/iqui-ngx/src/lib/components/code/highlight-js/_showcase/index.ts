@@ -42,6 +42,7 @@ export class HighlightJsShowcaseComponent {
     Trim: [true, false],
     Highlight: [true, false],
     LineNumbers: [true, false],
+    lineNumberGaps: [true, false],
   };
   // Playground context
   public context = {

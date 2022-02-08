@@ -1517,6 +1517,7 @@ class HighlightJsShowcaseComponent {
             Trim: [true, false],
             Highlight: [true, false],
             LineNumbers: [true, false],
+            lineNumberGaps: [true, false],
         };
         // Playground context
         this.context = Object.assign(Object.assign({}, this.contextBase), { Filter: '' });
@@ -1537,14 +1538,14 @@ HighlightJsShowcaseComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORT
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](6, "iqui-playground", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](7, "textarea");
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdisableBindings"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](8, "\n    <iqui-highlightjs\n      [disabled]=\"    context.Disabled\"\n      [class]=\"       context.Class\"\n      [ngClass]=\"     context.NgClass\"\n      [syntax]=\"      context.Syntax\"\n      [languages]=\"   [context.Language]\"\n      [highlight]=\"   context.Highlight\"\n      [filter]=\"      context.Filter\"\n      [wrap]=\"        context.Wrap\"\n      [trim]=\"        context.Trim\"\n      [lineNumbers]=\" context.LineNumbers\">\n\n      <ng-container *iquiHighlightJsInjectedTop> HEADER </ng-container>\n      <ng-container *iquiHighlightJsInjectedBottom> FOOTER </ng-container>\n\n    </iqui-highlightjs>\n\n  ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](8, "\n    <iqui-highlightjs\n      [disabled]=\"      context.Disabled\"\n      [class]=\"         context.Class\"\n      [ngClass]=\"       context.NgClass\"\n      [syntax]=\"        context.Syntax\"\n      [languages]=\"     [context.Language]\"\n      [highlight]=\"     context.Highlight\"\n      [filter]=\"        context.Filter\"\n      [wrap]=\"          context.Wrap\"\n      [trim]=\"          context.Trim\"\n      [lineNumbers]=\"   context.LineNumbers\"\n      [lineNumberGaps]=\"context.lineNumberGaps\">\n\n      <ng-container *iquiHighlightJsInjectedTop> HEADER </ng-container>\n      <ng-container *iquiHighlightJsInjectedBottom> FOOTER </ng-container>\n\n    </iqui-highlightjs>\n\n  ");
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵenableBindings"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](9, "iqui-playground", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](10, "textarea");
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdisableBindings"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](11, "\n    <iqui-highlightjs\n      [disabled]=\"    context.Disabled\"\n      [class]=\"       context.Class\"\n      [ngClass]=\"     context.NgClass\"\n      [syntax]=\"      context.Syntax\"\n      [languages]=\"   [context.Language]\"\n      [highlight]=\"   context.Highlight\"\n      [filter]=\"      context.FilterPhrase\"\n      [wrap]=\"        context.Wrap\"\n      [trim]=\"        context.Trim\"\n      [lineNumbers]=\" context.LineNumbers\">\n\n      <ng-container *iquiHighlightJsInjectedTop>\n        <iqui-phrase-input [(phrase)]=\"context.FilterPhrase\" [presets]=\"['/Aaa/', '/Bbb/i', '/Ccc/']\"></iqui-phrase-input>\n      </ng-container>\n      <ng-container *iquiHighlightJsInjectedBottom>\n        Filtering by: {{ (context.FilterPhrase).toString() }}\n      </ng-container>\n\n    </iqui-highlightjs>\n\n  ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](11, "\n    <iqui-highlightjs\n      [disabled]=\"      context.Disabled\"\n      [class]=\"         context.Class\"\n      [ngClass]=\"       context.NgClass\"\n      [syntax]=\"        context.Syntax\"\n      [languages]=\"     [context.Language]\"\n      [highlight]=\"     context.Highlight\"\n      [filter]=\"        context.FilterPhrase\"\n      [wrap]=\"          context.Wrap\"\n      [trim]=\"          context.Trim\"\n      [lineNumbers]=\"   context.LineNumbers\"\n      [lineNumberGaps]=\"context.lineNumberGaps\">\n\n      <ng-container *iquiHighlightJsInjectedTop>\n        <iqui-phrase-input [(phrase)]=\"context.FilterPhrase\" [presets]=\"['/Aaa/', '/Bbb/i', '/Ccc/']\"></iqui-phrase-input>\n      </ng-container>\n      <ng-container *iquiHighlightJsInjectedBottom>\n        Filtering by: {{ (context.FilterPhrase).toString() }}\n      </ng-container>\n\n    </iqui-highlightjs>\n\n  ");
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵenableBindings"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
@@ -1707,25 +1708,27 @@ HighlightJsInjectBottomDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IM
  * Usage:
  *
  *  <iqui-highlightjs\
- *    [syntax]      ="'<div> Hello world! </div>'"\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [syntax]          ="'<div> Hello world! </div>'"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *  </iqui-highlightjs>
  *
  * ... or with inlined syntax:
  *
  *  <iqui-highlightjs\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *    <textarea>\
  *      <div> Hello {{'world'}}! </div>\
@@ -1735,12 +1738,13 @@ HighlightJsInjectBottomDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IM
  * ... or with un-interpolated inlined syntax:
  *
  *  <iqui-highlightjs\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *    <textarea ngNonBindable>\
  *      <div> Hello {{'world'}}! </div>\
@@ -1775,6 +1779,10 @@ class HighlightJsComponent {
          * If line numbers should be shown left of all rows (Only works if [process] true)
          */
         this.lineNumbers = true;
+        /**
+         * If gaps in displayed line numbers (die to filtering) should be highlighted
+         */
+        this.lineNumberGaps = true;
         // Rendered, highlighted syntax HTML
         this._highlightedSyntax = '';
     }
@@ -1895,6 +1903,8 @@ class HighlightJsComponent {
         let numberedSyntax = [];
         // Filter lines
         const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(), hasRegExpFilter = this.filter instanceof RegExp, hasPhraseFilter = this.filter instanceof _data__WEBPACK_IMPORTED_MODULE_2__.Phrase && this.filter.value.trim();
+        // Remember previous line number to detect gaps
+        let previousFilteredLineNumber = undefined;
         highlightedSyntaxLines.forEach((line, i) => {
             // Filter rows
             if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
@@ -1903,19 +1913,22 @@ class HighlightJsComponent {
                     try {
                         const filterValue = hasStringFilter ? this.filter : this.filter.value, filterCaseSensitive = hasStringFilter ? true : this.filter.isCaseSensitive, haystack = filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase(), needle = filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase();
                         if (haystack.indexOf(needle) !== -1) {
-                            numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
+                            let detectedLineNumberGap = previousFilteredLineNumber !== undefined && i > previousFilteredLineNumber + 1;
+                            numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength, detectedLineNumberGap));
+                            previousFilteredLineNumber = i;
                         }
                     }
                     catch (err) { }
                 }
                 else if (hasRegExpFilter || (hasPhraseFilter && this.filter.isRegExp)) {
                     try {
-                        // tslint:disable-next-line: max-line-length
                         const filterValue = hasRegExpFilter
                             ? this.filter
                             : new RegExp(this.filter.value, this.filter.isCaseSensitive ? '' : 'i');
                         if (rawSyntaxLines[i].match(filterValue)) {
-                            numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
+                            let detectedLineNumberGap = previousFilteredLineNumber !== undefined && i > previousFilteredLineNumber + 1;
+                            numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength, detectedLineNumberGap));
+                            previousFilteredLineNumber = i;
                         }
                     }
                     catch (err) { }
@@ -1941,13 +1954,14 @@ class HighlightJsComponent {
      * @param line A line of already highlighted syntax
      * @param lineNumber (Optional) Line number to render left of thr syntax line
      * @param lineNumberPaddingLength (Optional) Padding length target for line numbers
+     * @param detectedLineNumberGap (Optional) If the line being rendered is not sequential to the one before it
      */
-    _renderLine(line, lineNumber = null, lineNumberPaddingLength = null) {
+    _renderLine(line, lineNumber = null, lineNumberPaddingLength = null, detectedLineNumberGap = false) {
         // tslint:disable-next-line: max-line-length
         if (!this._canUseTextareaFallbackMethod) {
             const escapedLine = !this.highlight ? he__WEBPACK_IMPORTED_MODULE_0___default().encode(line, { useNamedReferences: true }) : line;
             return lineNumber !== null
-                ? `<li><span class="hljs-line-num">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
+                ? `<li><span class="hljs-line-num ${detectedLineNumberGap ? 'hljs-line-num-gap' : ''}">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
                 : `<li>${escapedLine || '&nbsp;'}</li>`;
         }
         else {
@@ -1965,6 +1979,8 @@ class HighlightJsComponent {
             this.class || null,
             // If highlighting on
             !this._canUseTextareaFallbackMethod ? 'syntax-display-explicitly' : 'syntax-display-textarea',
+            // If showing line number gaps
+            this.lineNumberGaps ? 'showing-line-number-gaps' : '',
         ].join(' ');
     }
 }
@@ -1980,7 +1996,7 @@ HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx._injectedBottom = _t);
     } }, hostVars: 2, hostBindings: function HighlightJsComponent_HostBindings(rf, ctx) { if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵattribute"]("ngClass", ctx._attrNgClass)("class", ctx._attrClass);
-    } }, inputs: { disabled: "disabled", ngClass: "ngClass", class: "class", syntax: "syntax", languages: "languages", filter: "filter", wrap: "wrap", trim: "trim", highlight: "highlight", lineNumbers: "lineNumbers" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵNgOnChangesFeature"]], decls: 5, vars: 7, consts: [[3, "ngClass"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [4, "ngTemplateOutlet"], [3, "ngClass", "innerHTML"], [3, "readonly", "value"]], template: function HighlightJsComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { disabled: "disabled", ngClass: "ngClass", class: "class", syntax: "syntax", languages: "languages", filter: "filter", wrap: "wrap", trim: "trim", highlight: "highlight", lineNumbers: "lineNumbers", lineNumberGaps: "lineNumberGaps" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵNgOnChangesFeature"]], decls: 5, vars: 7, consts: [[3, "ngClass"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [4, "ngTemplateOutlet"], [3, "ngClass", "innerHTML"], [3, "readonly", "value"]], template: function HighlightJsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, HighlightJsComponent_ng_container_1_Template, 2, 1, "ng-container", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](2, HighlightJsComponent_pre_2_Template, 2, 4, "pre", 2);
@@ -1998,7 +2014,7 @@ HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx._canUseTextareaFallbackMethod);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx._injectedBottom);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__.TextareaDirective, HighlightJsTextareaDirective], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: visible;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCViIsImZpbGUiOiJzdHlsZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuICAmID4gZGl2IHtcbiAgICBtYXJnaW4tYm90dG9tOiB1bnNldDtcblxuICAgICYgPiBwcmUge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgJiA+IGNvZGUge1xuICAgICAgICAmLndyYXBwZWQge1xuICAgICAgICAgIHdoaXRlLXNwYWNlOiBwcmUtd3JhcDtcbiAgICAgICAgfVxuXG4gICAgICAgICY6Om5nLWRlZXAgPiB1bCB7XG4gICAgICAgICAgbGlzdC1zdHlsZTogbm9uZTtcbiAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwO1xuICAgICAgICAgIHBhZGRpbmctaW5saW5lLXN0YXJ0OiB1bnNldDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC8vIEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtZGlzcGxheS1leHBsaWNpdGx5ID4gcHJlID4gY29kZTo6bmctZGVlcCA+IHVsIHtcbiAgICAgICYgPiBsaSB7XG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgICAgJiA+IC5obGpzLWxpbmUtbnVtIHtcbiAgICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgICAgICAgdXNlci1zZWxlY3Q6IG5vbmU7XG4gICAgICAgICAgY29sb3I6IGdyYXk7XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gTnVtYmVycyBjb2x1bW4gd2lkdGggZGVwZW5kZW50IG9uIGxpbmUgY291bnRcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMCxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctMyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogNDBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA0MHB4O1xuICAgICAgICAgIGxlZnQ6IC00MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgICAmLmhsanMtY291bnQtbG9nLTUsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTYsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTcsXG4gICAgICAmLmhsanMtY291bnQtbG9nLTgge1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDgwcHg7XG4gICAgICAgICYgPiBsaSA+IC5obGpzLWxpbmUtbnVtIHtcbiAgICAgICAgICB3aWR0aDogODBweDtcbiAgICAgICAgICBsZWZ0OiAtODBweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC8vIE5vdCBIaWdobGlnaHRlZFxuICAgICYuc3ludGF4LWRpc3BsYXktdGV4dGFyZWEgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwgPiBsaSB7XG4gICAgICBwb3NpdGlvbjogaW5pdGlhbDtcbiAgICAgICYgPiB0ZXh0YXJlYSB7XG4gICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBvdmVyZmxvdy15OiB2aXNpYmxlO1xuICAgICAgICByZXNpemU6IG5vbmU7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6IGluaGVyaXQ7XG4gICAgICAgIGNvbG9yOiBpbmhlcml0O1xuXG4gICAgICAgICYsXG4gICAgICAgICY6Zm9jdXMge1xuICAgICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgICAgICBvdXRsaW5lOiBub25lO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICB9XG59XG4iXX0= */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__.TextareaDirective, HighlightJsTextareaDirective], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: visible;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n[_nghost-%COMP%]    > div.showing-line-number-gaps[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num.hljs-line-num-gap {\n  background: linear-gradient(135deg, lightgray 4px, transparent 4px);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCVjtBQXdCSTtFQUNFLG1FQUFBO0FBdEJOIiwiZmlsZSI6InN0eWxlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICYgPiBkaXYge1xuICAgIG1hcmdpbi1ib3R0b206IHVuc2V0O1xuXG4gICAgJiA+IHByZSB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICAmID4gY29kZSB7XG4gICAgICAgICYud3JhcHBlZCB7XG4gICAgICAgICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgICAgICB9XG5cbiAgICAgICAgJjo6bmctZGVlcCA+IHVsIHtcbiAgICAgICAgICBsaXN0LXN0eWxlOiBub25lO1xuICAgICAgICAgIG1hcmdpbi1ib3R0b206IDA7XG4gICAgICAgICAgcGFkZGluZy1pbmxpbmUtc3RhcnQ6IHVuc2V0O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGlnaGxpZ2h0ZWRcbiAgICAmLnN5bnRheC1kaXNwbGF5LWV4cGxpY2l0bHkgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwge1xuICAgICAgJiA+IGxpIHtcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICAmID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICBjb2xvcjogZ3JheTtcbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBOdW1iZXJzIGNvbHVtbiB3aWR0aCBkZXBlbmRlbnQgb24gbGluZSBjb3VudFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0wLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0xLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0yLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0zLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy00IHtcbiAgICAgICAgcGFkZGluZy1sZWZ0OiA0MHB4O1xuICAgICAgICAmID4gbGkgPiAuaGxqcy1saW5lLW51bSB7XG4gICAgICAgICAgd2lkdGg6IDQwcHg7XG4gICAgICAgICAgbGVmdDogLTQwcHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctOCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogODBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA4MHB4O1xuICAgICAgICAgIGxlZnQ6IC04MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gTm90IEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtZGlzcGxheS10ZXh0YXJlYSA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpIHtcbiAgICAgIHBvc2l0aW9uOiBpbml0aWFsO1xuICAgICAgJiA+IHRleHRhcmVhIHtcbiAgICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICAgIHBhZGRpbmc6IDA7XG4gICAgICAgIG92ZXJmbG93LXk6IHZpc2libGU7XG4gICAgICAgIHJlc2l6ZTogbm9uZTtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogaW5oZXJpdDtcbiAgICAgICAgY29sb3I6IGluaGVyaXQ7XG5cbiAgICAgICAgJixcbiAgICAgICAgJjpmb2N1cyB7XG4gICAgICAgICAgYm9yZGVyOiBub25lO1xuICAgICAgICAgIG91dGxpbmU6IG5vbmU7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBTaG93aW5nIGxpbmUgbnVtYmVyIGdhcHNcbiAgICAmLnNob3dpbmctbGluZS1udW1iZXItZ2FwcyA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpID4gLmhsanMtbGluZS1udW0uaGxqcy1saW5lLW51bS1nYXAge1xuICAgICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDEzNWRlZywgbGlnaHRncmF5IDRweCwgdHJhbnNwYXJlbnQgNHB4KTtcbiAgICB9XG4gIH1cbn1cbiJdfQ== */"] });
 
 
 /***/ }),
@@ -7634,9 +7650,6 @@ IqUiNgxModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_18__[
             // Import individual modules
             ...modules,
         ], 
-        // Export angular dependencies
-        _angular_common__WEBPACK_IMPORTED_MODULE_19__.CommonModule,
-        _angular_platform_browser__WEBPACK_IMPORTED_MODULE_20__.BrowserModule, 
         // Component modules
         _components_functional__WEBPACK_IMPORTED_MODULE_0__.FunctionalModule,
         _components_functional_showcase__WEBPACK_IMPORTED_MODULE_1__.FunctionalShowcaseModule,
@@ -7681,9 +7694,6 @@ IqUiNgxModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_18__[
         _services_routing_showcase__WEBPACK_IMPORTED_MODULE_13__.RoutingShowcaseModule,
         // Showcase module
         _showcase__WEBPACK_IMPORTED_MODULE_14__.ShowcaseModule], exports: [
-        // Export angular dependencies
-        _angular_common__WEBPACK_IMPORTED_MODULE_19__.CommonModule,
-        _angular_platform_browser__WEBPACK_IMPORTED_MODULE_20__.BrowserModule, 
         // Component modules
         _components_functional__WEBPACK_IMPORTED_MODULE_0__.FunctionalModule,
         _components_functional_showcase__WEBPACK_IMPORTED_MODULE_1__.FunctionalShowcaseModule,

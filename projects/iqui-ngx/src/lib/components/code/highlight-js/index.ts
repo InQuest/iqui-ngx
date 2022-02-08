@@ -93,25 +93,27 @@ export class HighlightJsInjectBottomDirective {}
  * Usage:
  *
  *  <iqui-highlightjs\
- *    [syntax]      ="'<div> Hello world! </div>'"\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [syntax]          ="'<div> Hello world! </div>'"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *  </iqui-highlightjs>
  *
  * ... or with inlined syntax:
  *
  *  <iqui-highlightjs\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *    <textarea>\
  *      <div> Hello {{'world'}}! </div>\
@@ -121,12 +123,13 @@ export class HighlightJsInjectBottomDirective {}
  * ... or with un-interpolated inlined syntax:
  *
  *  <iqui-highlightjs\
- *    [languages]   ="['xml', 'css', 'javascript']"\
- *    [filter]      ="..."\
- *    [highlight]   ="true|false"\
- *    [wrap]        ="true|false"\
- *    [trim]        ="true|false"\
- *    [lineNumbers] ="true|false"\
+ *    [languages]       ="['xml', 'css', 'javascript']"\
+ *    [filter]          ="..."\
+ *    [highlight]       ="true|false"\
+ *    [wrap]            ="true|false"\
+ *    [trim]            ="true|false"\
+ *    [lineNumbers]     ="true|false"\
+ *    [lineNumberGaps]  ="true|false"\
  *  >\
  *    <textarea ngNonBindable>\
  *      <div> Hello {{'world'}}! </div>\
@@ -218,6 +221,11 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    */
   @Input()
   public lineNumbers = true;
+  /**
+   * If gaps in displayed line numbers (die to filtering) should be highlighted
+   */
+  @Input()
+  public lineNumberGaps = true;
 
   // Reference to passed-through content container element
   @ContentChild(HighlightJsTextareaDirective, { read: ElementRef })
@@ -289,6 +297,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   private _renderHighlightedSyntax() {
     // Set initial syntax from [syntax] attribute
     let syntax = this.syntax || this._syntaxElInnerHTML;
+    let highlightedSyntax = syntax;
     if (!syntax) {
       return;
     }
@@ -328,7 +337,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     // HighlightSyntax
     try {
       if (this.highlight) {
-        syntax = !this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax;
+        highlightedSyntax = !this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax;
       }
     } catch (err) {
       // tslint:disable-next-line: no-unused-expression
@@ -338,7 +347,7 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
 
     // Add line numbers
     const rawSyntaxLines = syntax.split('\n'),
-      highlightedSyntaxLines = syntax.split('\n'),
+      highlightedSyntaxLines = highlightedSyntax.split('\n'),
       lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
     let numberedSyntax = [];
 
@@ -346,6 +355,8 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(),
       hasRegExpFilter = this.filter instanceof RegExp,
       hasPhraseFilter = this.filter instanceof Phrase && this.filter.value.trim();
+    // Remember previous line number to detect gaps
+    let previousFilteredLineNumber: number = undefined;
     highlightedSyntaxLines.forEach((line, i) => {
       // Filter rows
       if (hasStringFilter || hasRegExpFilter || hasPhraseFilter) {
@@ -357,17 +368,20 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
               haystack = filterCaseSensitive ? rawSyntaxLines[i] : rawSyntaxLines[i].toLowerCase(),
               needle = filterCaseSensitive ? filterValue.trim() : filterValue.trim().toLowerCase();
             if (haystack.indexOf(needle) !== -1) {
-              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
+              let detectedLineNumberGap = previousFilteredLineNumber !== undefined && i > previousFilteredLineNumber + 1;
+              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength, detectedLineNumberGap));
+              previousFilteredLineNumber = i;
             }
           } catch (err) {}
         } else if (hasRegExpFilter || (hasPhraseFilter && (this.filter as Phrase).isRegExp)) {
           try {
-            // tslint:disable-next-line: max-line-length
             const filterValue = hasRegExpFilter
               ? (this.filter as RegExp)
               : new RegExp((this.filter as Phrase).value, (this.filter as Phrase).isCaseSensitive ? '' : 'i');
             if (rawSyntaxLines[i].match(filterValue)) {
-              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength));
+              let detectedLineNumberGap = previousFilteredLineNumber !== undefined && i > previousFilteredLineNumber + 1;
+              numberedSyntax.push(this._renderLine(line, this.lineNumbers ? i + 1 : null, lineNumberPaddingLength, detectedLineNumberGap));
+              previousFilteredLineNumber = i;
             }
           } catch (err) {}
         }
@@ -393,13 +407,14 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
    * @param line A line of already highlighted syntax
    * @param lineNumber (Optional) Line number to render left of thr syntax line
    * @param lineNumberPaddingLength (Optional) Padding length target for line numbers
+   * @param detectedLineNumberGap (Optional) If the line being rendered is not sequential to the one before it
    */
-  private _renderLine(line: string, lineNumber = null, lineNumberPaddingLength = null) {
+  private _renderLine(line: string, lineNumber = null, lineNumberPaddingLength = null, detectedLineNumberGap = false) {
     // tslint:disable-next-line: max-line-length
     if (!this._canUseTextareaFallbackMethod) {
       const escapedLine = !this.highlight ? he.encode(line, { useNamedReferences: true }) : line;
       return lineNumber !== null
-        ? `<li><span class="hljs-line-num">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
+        ? `<li><span class="hljs-line-num ${detectedLineNumberGap ? 'hljs-line-num-gap' : ''}">${lineNumber}</span>${escapedLine || '&nbsp;'}</li>`
         : `<li>${escapedLine || '&nbsp;'}</li>`;
     } else {
       return lineNumber !== null ? `${lineNumber.toString().padEnd(lineNumberPaddingLength + 5, ' ')}${line}` : `${line}`;
@@ -417,6 +432,8 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
       this.class || null,
       // If highlighting on
       !this._canUseTextareaFallbackMethod ? 'syntax-display-explicitly' : 'syntax-display-textarea',
+      // If showing line number gaps
+      this.lineNumberGaps ? 'showing-line-number-gaps' : '',
     ].join(' ');
   }
 }

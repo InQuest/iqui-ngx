@@ -74,5 +74,10 @@
         }
       }
     }
+
+    // Showing line number gaps
+    &.showing-line-number-gaps > pre > code::ng-deep > ul > li > .hljs-line-num.hljs-line-num-gap {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px, rgba(0, 0, 0, 0.3) 3px, transparent 3px);
+    }
   }
 }

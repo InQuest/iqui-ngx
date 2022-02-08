@@ -7,16 +7,17 @@ Highlights language syntax using 3rd party <a href="https://highlightjs.org/" ta
   <textarea ngNonBindable>
 
     <iqui-highlightjs
-      [disabled]="    context.Disabled"
-      [class]="       context.Class"
-      [ngClass]="     context.NgClass"
-      [syntax]="      context.Syntax"
-      [languages]="   [context.Language]"
-      [highlight]="   context.Highlight"
-      [filter]="      context.Filter"
-      [wrap]="        context.Wrap"
-      [trim]="        context.Trim"
-      [lineNumbers]=" context.LineNumbers">
+      [disabled]="      context.Disabled"
+      [class]="         context.Class"
+      [ngClass]="       context.NgClass"
+      [syntax]="        context.Syntax"
+      [languages]="     [context.Language]"
+      [highlight]="     context.Highlight"
+      [filter]="        context.Filter"
+      [wrap]="          context.Wrap"
+      [trim]="          context.Trim"
+      [lineNumbers]="   context.LineNumbers"
+      [lineNumberGaps]="context.lineNumberGaps">
 
       <ng-container *iquiHighlightJsInjectedTop> HEADER </ng-container>
       <ng-container *iquiHighlightJsInjectedBottom> FOOTER </ng-container>
@@ -31,16 +32,17 @@ Highlights language syntax using 3rd party <a href="https://highlightjs.org/" ta
   <textarea ngNonBindable>
 
     <iqui-highlightjs
-      [disabled]="    context.Disabled"
-      [class]="       context.Class"
-      [ngClass]="     context.NgClass"
-      [syntax]="      context.Syntax"
-      [languages]="   [context.Language]"
-      [highlight]="   context.Highlight"
-      [filter]="      context.FilterPhrase"
-      [wrap]="        context.Wrap"
-      [trim]="        context.Trim"
-      [lineNumbers]=" context.LineNumbers">
+      [disabled]="      context.Disabled"
+      [class]="         context.Class"
+      [ngClass]="       context.NgClass"
+      [syntax]="        context.Syntax"
+      [languages]="     [context.Language]"
+      [highlight]="     context.Highlight"
+      [filter]="        context.FilterPhrase"
+      [wrap]="          context.Wrap"
+      [trim]="          context.Trim"
+      [lineNumbers]="   context.LineNumbers"
+      [lineNumberGaps]="context.lineNumberGaps">
 
       <ng-container *iquiHighlightJsInjectedTop>
         <iqui-phrase-input [(phrase)]="context.FilterPhrase" [presets]="['/Aaa/', '/Bbb/i', '/Ccc/']"></iqui-phrase-input>
