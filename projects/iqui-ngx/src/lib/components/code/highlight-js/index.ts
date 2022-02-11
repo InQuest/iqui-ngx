@@ -6,6 +6,8 @@
 import {
   Directive,
   Component,
+  OnInit,
+  OnDestroy,
   OnChanges,
   AfterContentInit,
   HostBinding,
@@ -16,7 +18,6 @@ import {
   QueryList,
   TemplateRef,
   ChangeDetectorRef,
-  SecurityContext,
 } from '@angular/core';
 import { default as he } from 'he';
 import { default as hljs } from 'highlight.js';
@@ -142,7 +143,7 @@ export class HighlightJsInjectBottomDirective {}
   templateUrl: './index.html',
   styleUrls: [`./style.scss`],
 })
-export class HighlightJsComponent implements OnChanges, AfterContentInit {
+export class HighlightJsComponent implements OnInit, OnDestroy, OnChanges, AfterContentInit {
   /**
    * Static method allowing registration of additional language syntaxes
    * @param languageName Name by which the language will be referenced
@@ -247,10 +248,28 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
     return !this.highlight && !this.lineNumbers;
   }
 
+  // Raw syntax HTML
+  public _rawSyntax = '';
   // Rendered, highlighted syntax HTML
   public _highlightedSyntax = '';
 
-  constructor(private _cd: ChangeDetectorRef) {}
+  /**
+   * Holds selected text within the component
+   */
+  private _selectedSyntax = '';
+  /**
+   * Gets selected syntax or if none selected falls back to full displayed (filtered) syntax
+   */
+  public get selectedSyntax() {
+    return this._selectedSyntax || this._rawSyntax;
+  }
+
+  constructor(private _el: ElementRef, private _cd: ChangeDetectorRef) {}
+
+  public ngOnInit() {
+    // Attach listener for selection changes
+    document.addEventListener('selectionchange', this._handleSelectionChange.bind(this));
+  }
 
   public ngAfterContentInit() {
     // If no syntax attribute set, try extracting value from <textarea /> child
@@ -266,6 +285,11 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
   public ngOnChanges() {
     // Trigger highlighting render
     this._renderHighlightedSyntax();
+  }
+
+  public ngOnDestroy() {
+    // Detach listener for selection changes
+    document.removeEventListener('selectionchange', this._handleSelectionChange);
   }
 
   /**
@@ -333,6 +357,9 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
         }, [])
         .join('\n');
     }
+
+    // Store raw syntax
+    this._rawSyntax = syntax;
 
     // HighlightSyntax
     try {
@@ -435,5 +462,20 @@ export class HighlightJsComponent implements OnChanges, AfterContentInit {
       // If showing line number gaps
       this.lineNumberGaps ? 'showing-line-number-gaps' : '',
     ].join(' ');
+  }
+
+  /**
+   * Handles selection change event and stores selected syntax
+   * @param e Selection changed event
+   */
+  public _handleSelectionChange(e: any) {
+    // Get selection
+    const selection = document.getSelection();
+    // Check if selection inside the host element
+    if (this._el.nativeElement.contains(selection.anchorNode)) {
+      this._selectedSyntax = selection.toString();
+    } else {
+      this._selectedSyntax = '';
+    }
   }
 }
