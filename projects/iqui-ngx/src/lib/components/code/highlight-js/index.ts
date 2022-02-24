@@ -258,10 +258,10 @@ export class HighlightJsComponent implements OnInit, OnDestroy, OnChanges, After
    */
   private _selectedSyntax = '';
   /**
-   * Gets selected syntax or if none selected falls back to full displayed (filtered) syntax
+   * Gets selected syntax
    */
   public get selectedSyntax() {
-    return this._selectedSyntax || this._rawSyntax;
+    return this._selectedSyntax || '';
   }
 
   constructor(private _el: ElementRef, private _cd: ChangeDetectorRef) {}
