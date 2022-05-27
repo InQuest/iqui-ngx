@@ -362,15 +362,12 @@ export class HighlightJsComponent implements OnInit, OnDestroy, OnChanges, After
     this._rawSyntax = syntax;
 
     // HighlightSyntax
+    highlightedSyntax = syntax;
     try {
       if (this.highlight) {
         highlightedSyntax = !this.disabled ? hljs.highlightAuto(syntax, this.languages).value : syntax;
       }
-    } catch (err) {
-      // tslint:disable-next-line: no-unused-expression
-      err;
-      return;
-    }
+    } catch (err) {}
 
     // Add line numbers
     const rawSyntaxLines = syntax.split('\n'),
