@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 // Import pipes and (re)export pipes
+import { CallbackPipe } from './Callback';
+export { CallbackPipe } from './Callback';
 import { FilterPipe } from './Filter';
 export { FilterPipe } from './Filter';
 import { PaginatePipe } from './Paginate';
@@ -19,7 +21,7 @@ export { SortPipe } from './Sort';
  */
 @NgModule({
   imports: [CommonModule, OverlayModule],
-  declarations: [FilterPipe, PaginatePipe, SlicePipe, SortPipe],
-  exports: [FilterPipe, PaginatePipe, SlicePipe, SortPipe],
+  declarations: [CallbackPipe, FilterPipe, PaginatePipe, SlicePipe, SortPipe],
+  exports: [CallbackPipe, FilterPipe, PaginatePipe, SlicePipe, SortPipe],
 })
 export class PipesModule {}

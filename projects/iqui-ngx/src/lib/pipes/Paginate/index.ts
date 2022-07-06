@@ -12,11 +12,7 @@ import { Pagination } from '../../data';
   name: 'iquiPaginate',
 })
 export class PaginatePipe implements PipeTransform {
-  public transform(items: any[], startIndex: number, pageLength: number, paginationInstanceToBeUpdatedWithNewItems?: Pagination): any[] {
-    // Update data being paginated (if pagination provided)
-    if (paginationInstanceToBeUpdatedWithNewItems) {
-      paginationInstanceToBeUpdatedWithNewItems.updateItems(items);
-    }
+  public transform(items: any[], startIndex: number, pageLength: number): any[] {
     // Return current page range of items
     return (items || []).slice(startIndex, startIndex + pageLength);
   }

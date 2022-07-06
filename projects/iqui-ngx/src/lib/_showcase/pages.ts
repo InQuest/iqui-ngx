@@ -47,6 +47,8 @@ import { PhraseShowcaseComponent } from '../data/_showcase';
 import { Pagination } from '../data';
 import { PaginationShowcaseComponent } from '../data/_showcase';
 // Import pipe dependencies
+import { CallbackPipe } from '../pipes';
+import { CallbackShowcaseComponent } from '../pipes/_showcase';
 import { FilterPipe } from '../pipes';
 import { FilterShowcaseComponent } from '../pipes/_showcase';
 import { SortPipe } from '../pipes';
@@ -100,6 +102,7 @@ const pages = [
   ]),
 
   new Page('pipes', 'Pipes', 'Pipes', null, [
+    Page.fromClass(CallbackPipe, CallbackShowcaseComponent),
     Page.fromClass(FilterPipe, FilterShowcaseComponent),
     Page.fromClass(SortPipe, SortShowcaseComponent),
     Page.fromClass(PaginatePipe, PaginateShowcaseComponent),
