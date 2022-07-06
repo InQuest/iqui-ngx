@@ -363,6 +363,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 // (Re)export Page class
 
 // Compose pages structure
@@ -402,6 +404,7 @@ const pages = [
         ]),
     ]),
     new _services_routing__WEBPACK_IMPORTED_MODULE_10__.Page('pipes', 'Pipes', 'Pipes', null, [
+        _services_routing__WEBPACK_IMPORTED_MODULE_10__.Page.fromClass(_pipes__WEBPACK_IMPORTED_MODULE_14__.CallbackPipe, _pipes_showcase__WEBPACK_IMPORTED_MODULE_15__.CallbackShowcaseComponent),
         _services_routing__WEBPACK_IMPORTED_MODULE_10__.Page.fromClass(_pipes__WEBPACK_IMPORTED_MODULE_14__.FilterPipe, _pipes_showcase__WEBPACK_IMPORTED_MODULE_15__.FilterShowcaseComponent),
         _services_routing__WEBPACK_IMPORTED_MODULE_10__.Page.fromClass(_pipes__WEBPACK_IMPORTED_MODULE_14__.SortPipe, _pipes_showcase__WEBPACK_IMPORTED_MODULE_15__.SortShowcaseComponent),
         _services_routing__WEBPACK_IMPORTED_MODULE_10__.Page.fromClass(_pipes__WEBPACK_IMPORTED_MODULE_14__.PaginatePipe, _pipes_showcase__WEBPACK_IMPORTED_MODULE_15__.PaginateShowcaseComponent),
@@ -1753,7 +1756,8 @@ HighlightJsInjectBottomDirective.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IM
  *
  */
 class HighlightJsComponent {
-    constructor(_cd) {
+    constructor(_el, _cd) {
+        this._el = _el;
         this._cd = _cd;
         /**
          * If highlighting is disabled. If not, non-highlighted syntax will be shown
@@ -1783,8 +1787,14 @@ class HighlightJsComponent {
          * If gaps in displayed line numbers (die to filtering) should be highlighted
          */
         this.lineNumberGaps = true;
+        // Raw syntax HTML
+        this._rawSyntax = '';
         // Rendered, highlighted syntax HTML
         this._highlightedSyntax = '';
+        /**
+         * Holds selected text within the component
+         */
+        this._selectedSyntax = '';
     }
     /**
      * Static method allowing registration of additional language syntaxes
@@ -1814,6 +1824,16 @@ class HighlightJsComponent {
     get _canUseTextareaFallbackMethod() {
         return !this.highlight && !this.lineNumbers;
     }
+    /**
+     * Gets selected syntax
+     */
+    get selectedSyntax() {
+        return this._selectedSyntax || '';
+    }
+    ngOnInit() {
+        // Attach listener for selection changes
+        document.addEventListener('selectionchange', this._handleSelectionChange.bind(this));
+    }
     ngAfterContentInit() {
         // If no syntax attribute set, try extracting value from <textarea /> child
         if (!this.syntax) {
@@ -1826,6 +1846,10 @@ class HighlightJsComponent {
     ngOnChanges() {
         // Trigger highlighting render
         this._renderHighlightedSyntax();
+    }
+    ngOnDestroy() {
+        // Detach listener for selection changes
+        document.removeEventListener('selectionchange', this._handleSelectionChange);
     }
     /**
      * Forces a refresh of the component and it's syntax
@@ -1854,6 +1878,7 @@ class HighlightJsComponent {
     _renderHighlightedSyntax() {
         // Set initial syntax from [syntax] attribute
         let syntax = this.syntax || this._syntaxElInnerHTML;
+        let highlightedSyntax = syntax;
         if (!syntax) {
             return;
         }
@@ -1887,19 +1912,18 @@ class HighlightJsComponent {
             }, [])
                 .join('\n');
         }
+        // Store raw syntax
+        this._rawSyntax = syntax;
         // HighlightSyntax
+        highlightedSyntax = syntax;
         try {
             if (this.highlight) {
-                syntax = !this.disabled ? highlight_js__WEBPACK_IMPORTED_MODULE_1__["default"].highlightAuto(syntax, this.languages).value : syntax;
+                highlightedSyntax = !this.disabled ? highlight_js__WEBPACK_IMPORTED_MODULE_1__["default"].highlightAuto(syntax, this.languages).value : syntax;
             }
         }
-        catch (err) {
-            // tslint:disable-next-line: no-unused-expression
-            err;
-            return;
-        }
+        catch (err) { }
         // Add line numbers
-        const rawSyntaxLines = syntax.split('\n'), highlightedSyntaxLines = syntax.split('\n'), lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
+        const rawSyntaxLines = syntax.split('\n'), highlightedSyntaxLines = highlightedSyntax.split('\n'), lineNumberPaddingLength = Math.ceil(Math.log10(highlightedSyntaxLines.length));
         let numberedSyntax = [];
         // Filter lines
         const hasStringFilter = typeof this.filter === 'string' && this.filter.trim(), hasRegExpFilter = this.filter instanceof RegExp, hasPhraseFilter = this.filter instanceof _data__WEBPACK_IMPORTED_MODULE_2__.Phrase && this.filter.value.trim();
@@ -1983,8 +2007,23 @@ class HighlightJsComponent {
             this.lineNumberGaps ? 'showing-line-number-gaps' : '',
         ].join(' ');
     }
+    /**
+     * Handles selection change event and stores selected syntax
+     * @param e Selection changed event
+     */
+    _handleSelectionChange(e) {
+        // Get selection
+        const selection = document.getSelection();
+        // Check if selection inside the host element
+        if (this._el.nativeElement.contains(selection.anchorNode)) {
+            this._selectedSyntax = selection.toString();
+        }
+        else {
+            this._selectedSyntax = '';
+        }
+    }
 }
-HighlightJsComponent.ɵfac = function HighlightJsComponent_Factory(t) { return new (t || HighlightJsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_4__.ChangeDetectorRef)); };
+HighlightJsComponent.ɵfac = function HighlightJsComponent_Factory(t) { return new (t || HighlightJsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_4__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_4__.ChangeDetectorRef)); };
 HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({ type: HighlightJsComponent, selectors: [["iqui-highlightjs"]], contentQueries: function HighlightJsComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵcontentQuery"](dirIndex, HighlightJsTextareaDirective, 5, _angular_core__WEBPACK_IMPORTED_MODULE_4__.ElementRef);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵcontentQuery"](dirIndex, HighlightJsInjectTopDirective, 4, _angular_core__WEBPACK_IMPORTED_MODULE_4__.TemplateRef);
@@ -2014,7 +2053,7 @@ HighlightJsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx._canUseTextareaFallbackMethod);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx._injectedBottom);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__.TextareaDirective, HighlightJsTextareaDirective], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: visible;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n[_nghost-%COMP%]    > div.showing-line-number-gaps[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num.hljs-line-num-gap {\n  background: linear-gradient(135deg, lightgray 4px, transparent 4px);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCVjtBQXdCSTtFQUNFLG1FQUFBO0FBdEJOIiwiZmlsZSI6InN0eWxlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICYgPiBkaXYge1xuICAgIG1hcmdpbi1ib3R0b206IHVuc2V0O1xuXG4gICAgJiA+IHByZSB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICAmID4gY29kZSB7XG4gICAgICAgICYud3JhcHBlZCB7XG4gICAgICAgICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgICAgICB9XG5cbiAgICAgICAgJjo6bmctZGVlcCA+IHVsIHtcbiAgICAgICAgICBsaXN0LXN0eWxlOiBub25lO1xuICAgICAgICAgIG1hcmdpbi1ib3R0b206IDA7XG4gICAgICAgICAgcGFkZGluZy1pbmxpbmUtc3RhcnQ6IHVuc2V0O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGlnaGxpZ2h0ZWRcbiAgICAmLnN5bnRheC1kaXNwbGF5LWV4cGxpY2l0bHkgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwge1xuICAgICAgJiA+IGxpIHtcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICAmID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICBjb2xvcjogZ3JheTtcbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBOdW1iZXJzIGNvbHVtbiB3aWR0aCBkZXBlbmRlbnQgb24gbGluZSBjb3VudFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0wLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0xLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0yLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0zLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy00IHtcbiAgICAgICAgcGFkZGluZy1sZWZ0OiA0MHB4O1xuICAgICAgICAmID4gbGkgPiAuaGxqcy1saW5lLW51bSB7XG4gICAgICAgICAgd2lkdGg6IDQwcHg7XG4gICAgICAgICAgbGVmdDogLTQwcHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctOCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogODBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA4MHB4O1xuICAgICAgICAgIGxlZnQ6IC04MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gTm90IEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtZGlzcGxheS10ZXh0YXJlYSA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpIHtcbiAgICAgIHBvc2l0aW9uOiBpbml0aWFsO1xuICAgICAgJiA+IHRleHRhcmVhIHtcbiAgICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICAgIHBhZGRpbmc6IDA7XG4gICAgICAgIG92ZXJmbG93LXk6IHZpc2libGU7XG4gICAgICAgIHJlc2l6ZTogbm9uZTtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogaW5oZXJpdDtcbiAgICAgICAgY29sb3I6IGluaGVyaXQ7XG5cbiAgICAgICAgJixcbiAgICAgICAgJjpmb2N1cyB7XG4gICAgICAgICAgYm9yZGVyOiBub25lO1xuICAgICAgICAgIG91dGxpbmU6IG5vbmU7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBTaG93aW5nIGxpbmUgbnVtYmVyIGdhcHNcbiAgICAmLnNob3dpbmctbGluZS1udW1iZXItZ2FwcyA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpID4gLmhsanMtbGluZS1udW0uaGxqcy1saW5lLW51bS1nYXAge1xuICAgICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDEzNWRlZywgbGlnaHRncmF5IDRweCwgdHJhbnNwYXJlbnQgNHB4KTtcbiAgICB9XG4gIH1cbn1cbiJdfQ== */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgTemplateOutlet, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, _form_directives_textarea_index__WEBPACK_IMPORTED_MODULE_3__.TextareaDirective, HighlightJsTextareaDirective], styles: ["[_nghost-%COMP%]    > div[_ngcontent-%COMP%] {\n  margin-bottom: unset;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%] {\n  position: relative;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code.wrapped[_ngcontent-%COMP%] {\n  white-space: pre-wrap;\n}\n[_nghost-%COMP%]    > div[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul {\n  list-style: none;\n  margin-bottom: 0;\n  -webkit-padding-start: unset;\n          padding-inline-start: unset;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: relative;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num {\n  position: absolute;\n  display: inline-block;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  color: gray;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 {\n  padding-left: 40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-0 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-1 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-2 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-3 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-4 > li > .hljs-line-num {\n  width: 40px;\n  left: -40px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 {\n  padding-left: 80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-5 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-6 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-7 > li > .hljs-line-num, [_nghost-%COMP%]    > div.syntax-display-explicitly[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul.hljs-count-log-8 > li > .hljs-line-num {\n  width: 80px;\n  left: -80px;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li {\n  position: static;\n  position: initial;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea {\n  display: block;\n  width: 100%;\n  height: auto;\n  padding: 0;\n  overflow-y: visible;\n  resize: none;\n  background-color: inherit;\n  color: inherit;\n}\n[_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea, [_nghost-%COMP%]    > div.syntax-display-textarea[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > textarea:focus {\n  border: none;\n  outline: none;\n}\n[_nghost-%COMP%]    > div.showing-line-number-gaps[_ngcontent-%COMP%]    > pre[_ngcontent-%COMP%]    > code[_ngcontent-%COMP%]  > ul > li > .hljs-line-num.hljs-line-num-gap {\n  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px, rgba(0, 0, 0, 0.3) 3px, transparent 3px);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0U7RUFDRSxvQkFBQTtBQUFKO0FBRUk7RUFDRSxrQkFBQTtBQUFOO0FBRVE7RUFDRSxxQkFBQTtBQUFWO0FBR1E7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7VUFBQSwyQkFBQTtBQURWO0FBUU07RUFDRSxrQkFBQTtBQU5SO0FBT1E7RUFDRSxrQkFBQTtFQUNBLHFCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtLQUFBLHNCQUFBO1VBQUEsaUJBQUE7RUFDQSxXQUFBO0FBTFY7QUFVTTtFQUtFLGtCQUFBO0FBWlI7QUFhUTtFQUNFLFdBQUE7RUFDQSxXQUFBO0FBWFY7QUFjTTtFQUlFLGtCQUFBO0FBZlI7QUFnQlE7RUFDRSxXQUFBO0VBQ0EsV0FBQTtBQWRWO0FBb0JJO0VBQ0UsZ0JBQUE7RUFBQSxpQkFBQTtBQWxCTjtBQW1CTTtFQUNFLGNBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGNBQUE7QUFqQlI7QUFtQlE7RUFFRSxZQUFBO0VBQ0EsYUFBQTtBQWxCVjtBQXdCSTtFQUNFLHFIQUFBO0FBdEJOIiwiZmlsZSI6InN0eWxlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICYgPiBkaXYge1xuICAgIG1hcmdpbi1ib3R0b206IHVuc2V0O1xuXG4gICAgJiA+IHByZSB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICAmID4gY29kZSB7XG4gICAgICAgICYud3JhcHBlZCB7XG4gICAgICAgICAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xuICAgICAgICB9XG5cbiAgICAgICAgJjo6bmctZGVlcCA+IHVsIHtcbiAgICAgICAgICBsaXN0LXN0eWxlOiBub25lO1xuICAgICAgICAgIG1hcmdpbi1ib3R0b206IDA7XG4gICAgICAgICAgcGFkZGluZy1pbmxpbmUtc3RhcnQ6IHVuc2V0O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGlnaGxpZ2h0ZWRcbiAgICAmLnN5bnRheC1kaXNwbGF5LWV4cGxpY2l0bHkgPiBwcmUgPiBjb2RlOjpuZy1kZWVwID4gdWwge1xuICAgICAgJiA+IGxpIHtcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICAmID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICBjb2xvcjogZ3JheTtcbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBOdW1iZXJzIGNvbHVtbiB3aWR0aCBkZXBlbmRlbnQgb24gbGluZSBjb3VudFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0wLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0xLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0yLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy0zLFxuICAgICAgJi5obGpzLWNvdW50LWxvZy00IHtcbiAgICAgICAgcGFkZGluZy1sZWZ0OiA0MHB4O1xuICAgICAgICAmID4gbGkgPiAuaGxqcy1saW5lLW51bSB7XG4gICAgICAgICAgd2lkdGg6IDQwcHg7XG4gICAgICAgICAgbGVmdDogLTQwcHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNSxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNixcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctNyxcbiAgICAgICYuaGxqcy1jb3VudC1sb2ctOCB7XG4gICAgICAgIHBhZGRpbmctbGVmdDogODBweDtcbiAgICAgICAgJiA+IGxpID4gLmhsanMtbGluZS1udW0ge1xuICAgICAgICAgIHdpZHRoOiA4MHB4O1xuICAgICAgICAgIGxlZnQ6IC04MHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gTm90IEhpZ2hsaWdodGVkXG4gICAgJi5zeW50YXgtZGlzcGxheS10ZXh0YXJlYSA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpIHtcbiAgICAgIHBvc2l0aW9uOiBpbml0aWFsO1xuICAgICAgJiA+IHRleHRhcmVhIHtcbiAgICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICAgIHBhZGRpbmc6IDA7XG4gICAgICAgIG92ZXJmbG93LXk6IHZpc2libGU7XG4gICAgICAgIHJlc2l6ZTogbm9uZTtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogaW5oZXJpdDtcbiAgICAgICAgY29sb3I6IGluaGVyaXQ7XG5cbiAgICAgICAgJixcbiAgICAgICAgJjpmb2N1cyB7XG4gICAgICAgICAgYm9yZGVyOiBub25lO1xuICAgICAgICAgIG91dGxpbmU6IG5vbmU7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG5cbiAgICAvLyBTaG93aW5nIGxpbmUgbnVtYmVyIGdhcHNcbiAgICAmLnNob3dpbmctbGluZS1udW1iZXItZ2FwcyA+IHByZSA+IGNvZGU6Om5nLWRlZXAgPiB1bCA+IGxpID4gLmhsanMtbGluZS1udW0uaGxqcy1saW5lLW51bS1nYXAge1xuICAgICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDE4MGRlZywgcmdiYSgwLCAwLCAwLCAwLjUpIDFweCwgdHJhbnNwYXJlbnQgMXB4LCByZ2JhKDAsIDAsIDAsIDAuMykgM3B4LCB0cmFuc3BhcmVudCAzcHgpO1xuICAgIH1cbiAgfVxufVxuIl19 */"] });
 
 
 /***/ }),
@@ -7096,14 +7135,26 @@ class Pagination {
          */
         this._currentPage = 0;
         // Set properties
-        this.items = items;
+        this._items = items;
         this._pageLength = pageLength;
+    }
+    /**
+     * Gets array of items to be paginated
+     */
+    get items() {
+        return this._items;
+    }
+    updateItems(items = []) {
+        // Update items
+        this._items = items;
+        // Trigger change event
+        this.changed.emit();
     }
     /**
      * Returns array of items on the current page
      */
     getCurrentPageRange() {
-        return this.items.slice(this._currentPage * this._pageLength, (this._currentPage + 1) * this._pageLength);
+        return this._items.slice(this._currentPage * this._pageLength, (this._currentPage + 1) * this._pageLength);
     }
     /**
      * Gets current page's first item index
@@ -7116,7 +7167,7 @@ class Pagination {
      */
     getCurrentPageLastIndex() {
         const lastIndex = (this._currentPage + 1) * this._pageLength - 1;
-        return lastIndex <= this.items.length - 1 ? lastIndex : this.items.length - 1;
+        return lastIndex <= this._items.length - 1 ? lastIndex : this._items.length - 1;
     }
     /**
      * Gets current page's length
@@ -7152,7 +7203,7 @@ class Pagination {
      * Checks if previous page exists
      */
     checkNextPage() {
-        return this._currentPage < Math.ceil(this.items.length / this._pageLength) - 1;
+        return this._currentPage < Math.ceil(this._items.length / this._pageLength) - 1;
     }
     /**
      * Selects the next page as the current page
@@ -7171,7 +7222,7 @@ class Pagination {
             currentFirstIndex: this.getCurrentPageFirstIndex(),
             currentLastIndex: this.getCurrentPageLastIndex(),
             pageLength: this.getCurrentPageLength(),
-            totalLength: this.items.length,
+            totalLength: this._items.length,
         };
     }
 }
@@ -7508,11 +7559,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PaginationShowcaseComponent": () => (/* reexport safe */ _data_showcase__WEBPACK_IMPORTED_MODULE_10__.PaginationShowcaseComponent),
 /* harmony export */   "PhraseShowcaseComponent": () => (/* reexport safe */ _data_showcase__WEBPACK_IMPORTED_MODULE_10__.PhraseShowcaseComponent),
 /* harmony export */   "PipesModule": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.PipesModule),
+/* harmony export */   "CallbackPipe": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.CallbackPipe),
 /* harmony export */   "FilterPipe": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.FilterPipe),
 /* harmony export */   "PaginatePipe": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.PaginatePipe),
 /* harmony export */   "SlicePipe": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.SlicePipe),
 /* harmony export */   "SortPipe": () => (/* reexport safe */ _pipes__WEBPACK_IMPORTED_MODULE_11__.SortPipe),
 /* harmony export */   "PipesShowcaseModule": () => (/* reexport safe */ _pipes_showcase__WEBPACK_IMPORTED_MODULE_12__.PipesShowcaseModule),
+/* harmony export */   "CallbackShowcaseComponent": () => (/* reexport safe */ _pipes_showcase__WEBPACK_IMPORTED_MODULE_12__.CallbackShowcaseComponent),
 /* harmony export */   "FilterShowcaseComponent": () => (/* reexport safe */ _pipes_showcase__WEBPACK_IMPORTED_MODULE_12__.FilterShowcaseComponent),
 /* harmony export */   "PaginateShowcaseComponent": () => (/* reexport safe */ _pipes_showcase__WEBPACK_IMPORTED_MODULE_12__.PaginateShowcaseComponent),
 /* harmony export */   "SliceShowcaseComponent": () => (/* reexport safe */ _pipes_showcase__WEBPACK_IMPORTED_MODULE_12__.SliceShowcaseComponent),
@@ -7718,6 +7771,58 @@ IqUiNgxModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_18__[
 
 /***/ }),
 
+/***/ 7139:
+/*!*********************************************************************!*\
+  !*** ./projects/iqui-ngx/src/lib/pipes/Callback/_showcase/index.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CallbackShowcaseComponent": () => (/* binding */ CallbackShowcaseComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
+
+// Showcase component
+class CallbackShowcaseComponent {
+}
+CallbackShowcaseComponent.ɵfac = function CallbackShowcaseComponent_Factory(t) { return new (t || CallbackShowcaseComponent)(); };
+CallbackShowcaseComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CallbackShowcaseComponent, selectors: [["ng-component"]], decls: 3, vars: 0, template: function CallbackShowcaseComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Callback Pipe class");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "\nPasses its input data to the function passed as its only argument when ever the input data changes\n");
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZS5zY3NzIn0= */"] });
+
+
+/***/ }),
+
+/***/ 9825:
+/*!***********************************************************!*\
+  !*** ./projects/iqui-ngx/src/lib/pipes/Callback/index.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CallbackPipe": () => (/* binding */ CallbackPipe)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
+
+/**
+ * Passes its input data to the function passed as its only argument when ever the input data changes
+ */
+class CallbackPipe {
+    transform(items, callbackFn) {
+        return callbackFn(items);
+    }
+}
+CallbackPipe.ɵfac = function CallbackPipe_Factory(t) { return new (t || CallbackPipe)(); };
+CallbackPipe.ɵpipe = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefinePipe"]({ name: "iquiCallback", type: CallbackPipe, pure: true });
+
+
+/***/ }),
+
 /***/ 7190:
 /*!*******************************************************************!*\
   !*** ./projects/iqui-ngx/src/lib/pipes/Filter/_showcase/index.ts ***!
@@ -7891,11 +7996,7 @@ __webpack_require__.r(__webpack_exports__);
  * Paginates an array of records
  */
 class PaginatePipe {
-    transform(items, startIndex, pageLength, pagination) {
-        // Update data being paginated (if pagination provided)
-        if (pagination) {
-            pagination.items = items;
-        }
+    transform(items, startIndex, pageLength) {
         // Return current page range of items
         return (items || []).slice(startIndex, startIndex + pageLength);
     }
@@ -8063,22 +8164,26 @@ function extractValueFromItem(item, path) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FilterShowcaseComponent": () => (/* reexport safe */ _Filter_showcase__WEBPACK_IMPORTED_MODULE_0__.FilterShowcaseComponent),
-/* harmony export */   "SortShowcaseComponent": () => (/* reexport safe */ _Sort_showcase__WEBPACK_IMPORTED_MODULE_1__.SortShowcaseComponent),
-/* harmony export */   "PaginateShowcaseComponent": () => (/* reexport safe */ _Paginate_showcase__WEBPACK_IMPORTED_MODULE_2__.PaginateShowcaseComponent),
-/* harmony export */   "SliceShowcaseComponent": () => (/* reexport safe */ _Slice_showcase__WEBPACK_IMPORTED_MODULE_3__.SliceShowcaseComponent),
+/* harmony export */   "CallbackShowcaseComponent": () => (/* reexport safe */ _Callback_showcase__WEBPACK_IMPORTED_MODULE_0__.CallbackShowcaseComponent),
+/* harmony export */   "FilterShowcaseComponent": () => (/* reexport safe */ _Filter_showcase__WEBPACK_IMPORTED_MODULE_1__.FilterShowcaseComponent),
+/* harmony export */   "SortShowcaseComponent": () => (/* reexport safe */ _Sort_showcase__WEBPACK_IMPORTED_MODULE_2__.SortShowcaseComponent),
+/* harmony export */   "PaginateShowcaseComponent": () => (/* reexport safe */ _Paginate_showcase__WEBPACK_IMPORTED_MODULE_3__.PaginateShowcaseComponent),
+/* harmony export */   "SliceShowcaseComponent": () => (/* reexport safe */ _Slice_showcase__WEBPACK_IMPORTED_MODULE_4__.SliceShowcaseComponent),
 /* harmony export */   "PipesShowcaseModule": () => (/* binding */ PipesShowcaseModule)
 /* harmony export */ });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 6362);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 2816);
-/* harmony import */ var _Filter_showcase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filter/_showcase */ 7190);
-/* harmony import */ var _Sort_showcase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sort/_showcase */ 6996);
-/* harmony import */ var _Paginate_showcase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Paginate/_showcase */ 7175);
-/* harmony import */ var _Slice_showcase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Slice/_showcase */ 4799);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 6362);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ 2816);
+/* harmony import */ var _Callback_showcase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Callback/_showcase */ 7139);
+/* harmony import */ var _Filter_showcase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter/_showcase */ 7190);
+/* harmony import */ var _Sort_showcase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Sort/_showcase */ 6996);
+/* harmony import */ var _Paginate_showcase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Paginate/_showcase */ 7175);
+/* harmony import */ var _Slice_showcase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Slice/_showcase */ 4799);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 3184);
 
 
 // Import showcase components
+
+
 
 
 
@@ -8092,19 +8197,21 @@ __webpack_require__.r(__webpack_exports__);
 class PipesShowcaseModule {
 }
 PipesShowcaseModule.ɵfac = function PipesShowcaseModule_Factory(t) { return new (t || PipesShowcaseModule)(); };
-PipesShowcaseModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: PipesShowcaseModule });
-PipesShowcaseModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](PipesShowcaseModule, { declarations: [
+PipesShowcaseModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: PipesShowcaseModule });
+PipesShowcaseModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_7__.RouterModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](PipesShowcaseModule, { declarations: [
         // Declare showcasing components
-        _Filter_showcase__WEBPACK_IMPORTED_MODULE_0__.FilterShowcaseComponent,
-        _Sort_showcase__WEBPACK_IMPORTED_MODULE_1__.SortShowcaseComponent,
-        _Paginate_showcase__WEBPACK_IMPORTED_MODULE_2__.PaginateShowcaseComponent,
-        _Slice_showcase__WEBPACK_IMPORTED_MODULE_3__.SliceShowcaseComponent], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule], exports: [
+        _Callback_showcase__WEBPACK_IMPORTED_MODULE_0__.CallbackShowcaseComponent,
+        _Filter_showcase__WEBPACK_IMPORTED_MODULE_1__.FilterShowcaseComponent,
+        _Sort_showcase__WEBPACK_IMPORTED_MODULE_2__.SortShowcaseComponent,
+        _Paginate_showcase__WEBPACK_IMPORTED_MODULE_3__.PaginateShowcaseComponent,
+        _Slice_showcase__WEBPACK_IMPORTED_MODULE_4__.SliceShowcaseComponent], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule, _angular_router__WEBPACK_IMPORTED_MODULE_7__.RouterModule], exports: [
         // Export child components
-        _Filter_showcase__WEBPACK_IMPORTED_MODULE_0__.FilterShowcaseComponent,
-        _Sort_showcase__WEBPACK_IMPORTED_MODULE_1__.SortShowcaseComponent,
-        _Paginate_showcase__WEBPACK_IMPORTED_MODULE_2__.PaginateShowcaseComponent,
-        _Slice_showcase__WEBPACK_IMPORTED_MODULE_3__.SliceShowcaseComponent] }); })();
+        _Callback_showcase__WEBPACK_IMPORTED_MODULE_0__.CallbackShowcaseComponent,
+        _Filter_showcase__WEBPACK_IMPORTED_MODULE_1__.FilterShowcaseComponent,
+        _Sort_showcase__WEBPACK_IMPORTED_MODULE_2__.SortShowcaseComponent,
+        _Paginate_showcase__WEBPACK_IMPORTED_MODULE_3__.PaginateShowcaseComponent,
+        _Slice_showcase__WEBPACK_IMPORTED_MODULE_4__.SliceShowcaseComponent] }); })();
 
 
 /***/ }),
@@ -8117,22 +8224,26 @@ PipesShowcaseModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FilterPipe": () => (/* reexport safe */ _Filter__WEBPACK_IMPORTED_MODULE_0__.FilterPipe),
-/* harmony export */   "PaginatePipe": () => (/* reexport safe */ _Paginate__WEBPACK_IMPORTED_MODULE_1__.PaginatePipe),
-/* harmony export */   "SlicePipe": () => (/* reexport safe */ _Slice__WEBPACK_IMPORTED_MODULE_2__.SlicePipe),
-/* harmony export */   "SortPipe": () => (/* reexport safe */ _Sort__WEBPACK_IMPORTED_MODULE_3__.SortPipe),
+/* harmony export */   "CallbackPipe": () => (/* reexport safe */ _Callback__WEBPACK_IMPORTED_MODULE_0__.CallbackPipe),
+/* harmony export */   "FilterPipe": () => (/* reexport safe */ _Filter__WEBPACK_IMPORTED_MODULE_1__.FilterPipe),
+/* harmony export */   "PaginatePipe": () => (/* reexport safe */ _Paginate__WEBPACK_IMPORTED_MODULE_2__.PaginatePipe),
+/* harmony export */   "SlicePipe": () => (/* reexport safe */ _Slice__WEBPACK_IMPORTED_MODULE_3__.SlicePipe),
+/* harmony export */   "SortPipe": () => (/* reexport safe */ _Sort__WEBPACK_IMPORTED_MODULE_4__.SortPipe),
 /* harmony export */   "PipesModule": () => (/* binding */ PipesModule)
 /* harmony export */ });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 6362);
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/overlay */ 4244);
-/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filter */ 8890);
-/* harmony import */ var _Paginate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Paginate */ 3260);
-/* harmony import */ var _Slice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Slice */ 9557);
-/* harmony import */ var _Sort__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Sort */ 6564);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 6362);
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/overlay */ 4244);
+/* harmony import */ var _Callback__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Callback */ 9825);
+/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter */ 8890);
+/* harmony import */ var _Paginate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Paginate */ 3260);
+/* harmony import */ var _Slice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Slice */ 9557);
+/* harmony import */ var _Sort__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Sort */ 6564);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 3184);
 
 
 // Import pipes and (re)export pipes
+
+
 
 
 
@@ -8149,9 +8260,9 @@ __webpack_require__.r(__webpack_exports__);
 class PipesModule {
 }
 PipesModule.ɵfac = function PipesModule_Factory(t) { return new (t || PipesModule)(); };
-PipesModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: PipesModule });
-PipesModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__.OverlayModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](PipesModule, { declarations: [_Filter__WEBPACK_IMPORTED_MODULE_0__.FilterPipe, _Paginate__WEBPACK_IMPORTED_MODULE_1__.PaginatePipe, _Slice__WEBPACK_IMPORTED_MODULE_2__.SlicePipe, _Sort__WEBPACK_IMPORTED_MODULE_3__.SortPipe], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__.OverlayModule], exports: [_Filter__WEBPACK_IMPORTED_MODULE_0__.FilterPipe, _Paginate__WEBPACK_IMPORTED_MODULE_1__.PaginatePipe, _Slice__WEBPACK_IMPORTED_MODULE_2__.SlicePipe, _Sort__WEBPACK_IMPORTED_MODULE_3__.SortPipe] }); })();
+PipesModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: PipesModule });
+PipesModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.OverlayModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](PipesModule, { declarations: [_Callback__WEBPACK_IMPORTED_MODULE_0__.CallbackPipe, _Filter__WEBPACK_IMPORTED_MODULE_1__.FilterPipe, _Paginate__WEBPACK_IMPORTED_MODULE_2__.PaginatePipe, _Slice__WEBPACK_IMPORTED_MODULE_3__.SlicePipe, _Sort__WEBPACK_IMPORTED_MODULE_4__.SortPipe], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.OverlayModule], exports: [_Callback__WEBPACK_IMPORTED_MODULE_0__.CallbackPipe, _Filter__WEBPACK_IMPORTED_MODULE_1__.FilterPipe, _Paginate__WEBPACK_IMPORTED_MODULE_2__.PaginatePipe, _Slice__WEBPACK_IMPORTED_MODULE_3__.SlicePipe, _Sort__WEBPACK_IMPORTED_MODULE_4__.SortPipe] }); })();
 
 
 /***/ }),
@@ -8773,6 +8884,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ButtonComponentTheme": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.ButtonComponentTheme),
 /* harmony export */   "ButtonDirective": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.ButtonDirective),
 /* harmony export */   "ButtonShowcaseComponent": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.ButtonShowcaseComponent),
+/* harmony export */   "CallbackPipe": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.CallbackPipe),
+/* harmony export */   "CallbackShowcaseComponent": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.CallbackShowcaseComponent),
 /* harmony export */   "CheckboxComponent": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.CheckboxComponent),
 /* harmony export */   "CheckboxDirective": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.CheckboxDirective),
 /* harmony export */   "CheckboxShowcaseComponent": () => (/* reexport safe */ _lib__WEBPACK_IMPORTED_MODULE_0__.CheckboxShowcaseComponent),
