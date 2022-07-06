@@ -12,12 +12,18 @@ export class Pagination {
   /**
    * Changed event triggers when pagination has changed
    */
-  public changed = new EventEmitter<any>();
+  public changed = new EventEmitter<void>();
 
   /**
    * Holds array of items to be paginated
    */
-  public items: any[];
+  private _items: any[];
+  /**
+   * Gets array of items to be paginated
+   */
+  public get items(): any[] {
+    return this._items;
+  }
 
   /**
    * Holds number of items displayed per page
@@ -31,15 +37,22 @@ export class Pagination {
 
   constructor({ items = [] as any[], pageLength = 10 } = {}) {
     // Set properties
-    this.items = items;
+    this._items = items;
     this._pageLength = pageLength;
+  }
+
+  public updateItems(items = [] as any[]) {
+    // Update items
+    this._items = items;
+    // Trigger change event
+    this.changed.emit();
   }
 
   /**
    * Returns array of items on the current page
    */
   public getCurrentPageRange() {
-    return this.items.slice(this._currentPage * this._pageLength, (this._currentPage + 1) * this._pageLength);
+    return this._items.slice(this._currentPage * this._pageLength, (this._currentPage + 1) * this._pageLength);
   }
 
   /**
@@ -53,7 +66,7 @@ export class Pagination {
    */
   public getCurrentPageLastIndex() {
     const lastIndex = (this._currentPage + 1) * this._pageLength - 1;
-    return lastIndex <= this.items.length - 1 ? lastIndex : this.items.length - 1;
+    return lastIndex <= this._items.length - 1 ? lastIndex : this._items.length - 1;
   }
   /**
    * Gets current page's length
@@ -90,7 +103,7 @@ export class Pagination {
    * Checks if previous page exists
    */
   public checkNextPage() {
-    return this._currentPage < Math.ceil(this.items.length / this._pageLength) - 1;
+    return this._currentPage < Math.ceil(this._items.length / this._pageLength) - 1;
   }
   /**
    * Selects the next page as the current page
@@ -110,7 +123,7 @@ export class Pagination {
       currentFirstIndex: this.getCurrentPageFirstIndex(),
       currentLastIndex: this.getCurrentPageLastIndex(),
       pageLength: this.getCurrentPageLength(),
-      totalLength: this.items.length,
+      totalLength: this._items.length,
     };
   }
 }
