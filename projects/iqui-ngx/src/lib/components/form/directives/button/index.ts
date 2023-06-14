@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Directive } from '@angular/core';
-import { FormElement, FormElementDirective } from '../';
+import { FormElement, FormElementDisablableDirective } from '../';
 
 /**
  * Button directive
@@ -20,7 +20,7 @@ import { FormElement, FormElementDirective } from '../';
              input[type="button"],
              input[type="submit"],
              input[type="reset"]`,
-  providers: [{ provide: FormElementDirective, useExisting: ButtonDirective }],
+  providers: [{ provide: FormElementDisablableDirective, useExisting: ButtonDirective }],
 })
 @FormElement({ className: 'btn', bindDisabled: true, bindSize: true })
-export class ButtonDirective extends FormElementDirective {}
+export class ButtonDirective extends FormElementDisablableDirective {}

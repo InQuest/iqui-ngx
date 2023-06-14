@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Directive } from '@angular/core';
-import { FormElement, FormElementDirective } from '../';
+import { FormElement, FormElementDisablableDirective } from '../';
 
 /**
  * Radio directive
@@ -17,10 +17,10 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: 'input[type="radio"]',
-  providers: [{ provide: FormElementDirective, useExisting: RadioDirective }],
+  providers: [{ provide: FormElementDisablableDirective, useExisting: RadioDirective }],
 })
 @FormElement({ idAttributeName: 'id', bindDisabled: true, bindValid: true })
-export class RadioDirective extends FormElementDirective {
+export class RadioDirective extends FormElementDisablableDirective {
   /**
    * Applies bindings and styling to element
    */

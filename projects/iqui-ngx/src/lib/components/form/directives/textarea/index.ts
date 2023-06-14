@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Directive } from '@angular/core';
-import { FormElement, FormElementDirective } from '../';
+import { FormElement, FormElementDisablableDirective } from '../';
 
 /**
  * Textarea directive
@@ -17,7 +17,7 @@ import { FormElement, FormElementDirective } from '../';
 @Directive({
   // tslint:disable-next-line: directive-selector
   selector: `textarea`,
-  providers: [{ provide: FormElementDirective, useExisting: TextareaDirective }],
+  providers: [{ provide: FormElementDisablableDirective, useExisting: TextareaDirective }],
 })
 @FormElement({ className: 'form-control', idAttributeName: 'id', bindDisabled: true, bindSize: true, bindValid: true })
-export class TextareaDirective extends FormElementDirective {}
+export class TextareaDirective extends FormElementDisablableDirective {}

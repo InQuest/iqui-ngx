@@ -54,6 +54,11 @@ export class PlaygroundTextareaDirective {}
   styleUrls: ['./style.scss'],
 })
 export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+  /**
+   * Unique ID used to generate a unique selectory for dynamically injected components
+   */
+  private static _id = 1;
+
   constructor(private _compiler: Compiler, private _injector: Injector, private _module: NgModuleRef<any>, private _cd: ChangeDetectorRef) {}
 
   /**
@@ -261,7 +266,9 @@ export class PlaygroundComponent implements OnInit, AfterContentInit, OnChanges,
     }
 
     // Create dynamic component
+    const randomId = PlaygroundComponent._id++;
     const dynamicComponentClass = Component({
+      selector: `.playground-component-${randomId}:not(.playground-component-${randomId})`,
       template: syntax,
     })(
       class {

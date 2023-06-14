@@ -3,7 +3,7 @@
 
 // Import dependencies
 import { Directive } from '@angular/core';
-import { FormElement, FormElementDirective } from '../';
+import { FormElement, FormElementDisablableDirective } from '../';
 
 /**
  * Input directive
@@ -31,7 +31,7 @@ import { FormElement, FormElementDirective } from '../';
              input[type="month"],
              input[type="color"],
              input[type="file"]`,
-  providers: [{ provide: FormElementDirective, useExisting: InputDirective }],
+  providers: [{ provide: FormElementDisablableDirective, useExisting: InputDirective }],
 })
 @FormElement({ className: 'form-control', idAttributeName: 'id', bindDisabled: true, bindSize: true, bindValid: true })
-export class InputDirective extends FormElementDirective {}
+export class InputDirective extends FormElementDisablableDirective {}

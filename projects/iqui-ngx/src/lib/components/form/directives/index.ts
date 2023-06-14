@@ -78,9 +78,7 @@ export function FormElement({
 /**
  * Extendable Form container class
  */
-@Directive({
-  selector: 'form[iquiForm]',
-})
+@Directive()
 @FormElement({})
 export class FormElementDirective implements IUsesFormElementDirectives, OnInit, OnChanges, OnDestroy {
   //#region Static
@@ -173,7 +171,6 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
    * [disabled] binding for all child components
    */
   @Input()
-  @HostBinding('disabled')
   public disabled: boolean = undefined;
   /**
    * Gets [disabled] binding, inherited from parent form containers
@@ -333,4 +330,18 @@ export class FormElementDirective implements IUsesFormElementDirectives, OnInit,
   }
 
   //#endregion
+}
+
+/**
+ * Extendable Form element class, binds to underlying element's [disabled] attribute
+ */
+@Directive()
+@FormElement({})
+export class FormElementDisablableDirective extends FormElementDirective {
+  /**
+   * [disabled] binding for all child components
+   */
+  @Input()
+  @HostBinding('disabled')
+  public override disabled: boolean = undefined;
 }

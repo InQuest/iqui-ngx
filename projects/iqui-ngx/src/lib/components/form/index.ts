@@ -46,7 +46,7 @@ export { SelectComponent } from './components/select';
 @NgModule({
   imports: [CommonModule, TextFieldModule],
   declarations: [
-    FormElementDirective,
+    // FormElementDirective,
     FormDirective,
     FormGroupDirective,
     ButtonDirective,
@@ -68,7 +68,7 @@ export { SelectComponent } from './components/select';
     // Export dependency modules
     TextFieldModule,
     // Export child components
-    FormElementDirective,
+    // FormElementDirective,
     FormDirective,
     FormGroupDirective,
     ButtonDirective,
