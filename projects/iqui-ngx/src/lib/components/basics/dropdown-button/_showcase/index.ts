@@ -13,6 +13,7 @@ import { CodeModule } from '../../../code';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-dropdown-button-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

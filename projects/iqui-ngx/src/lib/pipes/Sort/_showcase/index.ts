@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-sort-pipe',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

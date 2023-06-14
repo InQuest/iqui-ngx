@@ -10,6 +10,7 @@ import { BasicsModule } from '../../';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-phrase-input-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

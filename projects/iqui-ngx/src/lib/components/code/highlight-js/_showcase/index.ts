@@ -24,6 +24,7 @@ highlightJsRegisterLanguage('scss', scss);
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-highlightjs-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

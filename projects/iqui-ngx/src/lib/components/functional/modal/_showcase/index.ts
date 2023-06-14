@@ -11,6 +11,7 @@ import { CodeModule } from '../../../code';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-modal-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

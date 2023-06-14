@@ -12,6 +12,7 @@ import { CodeModule } from '../../../../code';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-checkbox-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

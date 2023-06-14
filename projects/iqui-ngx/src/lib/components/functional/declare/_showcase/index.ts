@@ -9,6 +9,7 @@ import { FunctionalModule } from '../../';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-declare-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

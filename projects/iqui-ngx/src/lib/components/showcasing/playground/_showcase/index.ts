@@ -13,6 +13,7 @@ import { ShowcasingModule } from '../../../showcasing';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-playground-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

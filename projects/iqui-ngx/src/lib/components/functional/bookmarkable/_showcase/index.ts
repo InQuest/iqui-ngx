@@ -9,6 +9,7 @@ import { FunctionalModule } from '../../../functional';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-bookmarkable-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

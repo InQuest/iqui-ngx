@@ -11,6 +11,7 @@ import { BasicsModule } from '../../../../basics';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-form-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })

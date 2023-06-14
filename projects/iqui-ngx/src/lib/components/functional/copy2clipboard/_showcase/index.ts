@@ -9,6 +9,7 @@ import { FunctionalModule } from '../../';
 
 // Showcase component
 @Component({
+  selector: 'iqui-showcase-copy2clipboard-component',
   templateUrl: `./index.html`,
   styleUrls: [`./style.scss`],
 })
